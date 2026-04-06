@@ -1,1 +1,1 @@
-See https://postpandemicchanges.substack.com/p/semi-truck-owner-operators-pay-5000 for information about using the Latest_Trucking_Assn_Letter_writer.html app
+See https://postpandemicchanges.substack.com/p/semi-truck-owner-operators-pay-5000 about this free letter writing app that enables users to write a letter to sheriffs to help enlist their help to challenge the unconstitutional laws against remanufacturing of patent-expired vehicles and machines.  This Readme is for executing the Latest_Trucking_Assn_Letter_Writer.html.
