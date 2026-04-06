@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governor &amp; AG Letter Generator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
+.fw{max-width:720px;margin:0 auto;padding:24px}
+h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;margin-bottom:4px}
+.fs{color:#6b7280;font-size:14px;text-align:center;margin-bottom:16px}
+.st{font-size:16px;font-weight:700;color:#1a3a5c;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 12px}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+.fld input,.fld select{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;font-family:inherit}
+.fld select{background:white}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.req{color:#dc2626}
+.ctr{text-align:center}
+.btn{padding:12px 28px;font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;display:inline-block;margin:4px}
+.bn{background:#1a3a5c;color:white}.bn:hover{background:#15304a}
+.bw{background:white;color:#1a3a5c;border:2px solid #1a3a5c}.bw:hover{background:#eef3f8}
+.bred{background:#c0392b;color:white}.bred:hover{background:#a93226}
+.bgrn{background:#27ae60;color:white}.bgrn:hover{background:#1e8449}
+.bora{background:#e67e22;color:white}.bora:hover{background:#d35400}
+.err{text-align:center;color:#dc2626;font-size:13px;margin-top:8px}
+.ok{text-align:center;color:#27ae60;font-size:13px;margin-top:8px}
+.note{font-size:12px;color:#888;margin-top:6px;font-style:italic}
+.qp{background:white;border:2px solid #1a3a5c;border-radius:8px;padding:14px;margin-top:16px}
+.qp h3{color:#1a3a5c;font-size:15px;margin-bottom:8px}
+.qi{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid #eee;font-size:14px}
+.qi:last-child{border-bottom:none}
+.qi .qr{color:#c0392b;cursor:pointer;font-size:12px;font-weight:600;padding:2px 8px;border:1px solid #c0392b;border-radius:4px;background:white}
+.qi .qr:hover{background:#fdecea}
+.toolbar{position:sticky;top:0;z-index:100;background:#1a3a5c;padding:10px 20px;display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap}
+.toolbar .btn{padding:8px 20px;font-size:14px}
+.th{color:white;font-size:13px;opacity:0.8}
+.page{width:8.5in;background:white;margin:12px auto;border:1px solid #ccc;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.cl{font-family:Calibri,Carlito,sans-serif;font-size:10.5pt;line-height:1.15;padding:0.75in;min-height:11in}
+.bp{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:9pt;padding:0.4in;min-height:11in}
+.nb{background:#1a3a5c;color:white;text-align:center;padding:6pt 8pt 5pt;font-size:13pt;font-weight:bold;letter-spacing:.5pt;font-family:Georgia,serif}
+.rb{background:#c0392b;color:white;text-align:center;padding:4pt 8pt;font-size:9pt;font-weight:bold}
+.nh{background:#1a3a5c;color:white;font-weight:bold;padding:4pt 6pt;font-size:9pt;margin-bottom:4pt;font-family:Georgia,serif}
+.SB{font-size:17pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center;margin:3pt 0}
+.SM{font-size:13pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center}
+.bs{font-size:9pt;line-height:1.3;margin-bottom:2pt}
+.bsm{font-size:7.5pt;line-height:1.25;margin-bottom:2pt}
+.sh{font-size:9pt;font-weight:bold;color:#1a3a5c;margin-bottom:2pt;margin-top:4pt}
+.sn2{font-weight:bold;color:#1a3a5c;font-size:9pt}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.ib{border:1px solid #ccc;padding:5pt 7pt;background:#f8f9fa;margin-bottom:5pt}
+.qb{background:#eef3f8;border-left:4pt solid #1a3a5c;padding:5pt 8pt;font-size:9pt;line-height:1.3}
+.afb{background:#eef3f8;border:1px solid #c5d4e6;padding:5pt 8pt;font-size:9pt;line-height:1.3}
+.bb{background:#eef3f8;border:1px solid #c5d4e6;padding:5pt;margin-top:4pt}
+.bbt{font-weight:bold;color:#1a3a5c;font-size:9pt;margin-bottom:2pt;font-family:Georgia,serif}
+.svb{background:#E8E8E8;border:1px solid #999;padding:8pt 12pt;margin-bottom:6pt}
+.svt{font-weight:bold;font-size:11pt;margin-bottom:2pt}
+.svd{font-size:10pt;text-align:left}
+.mss{font-size:9pt;line-height:1.3;margin-bottom:2pt}
+.otsel{display:flex;gap:12px;justify-content:center;margin:16px 0}
+.otsel label{display:flex;align-items:center;gap:6px;padding:14px 24px;border:2px solid #d1d5db;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;color:#374151;transition:all 0.15s}
+.otsel input[type=radio]{width:18px;height:18px;accent-color:#1a3a5c}
+.otsel label:has(input:checked){border-color:#1a3a5c;background:#eef3f8;color:#1a3a5c}
+.guide-panel{display:none;max-width:720px;margin:0 auto;padding:24px;background:white;border:2px solid #1a3a5c;border-radius:10px;margin-top:16px;max-height:70vh;overflow-y:auto;text-align:left;font-size:14px;line-height:1.6;color:#333}
+.guide-panel h2{color:#1a3a5c;font-family:Georgia,serif;font-size:18px;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 10px}
+.guide-panel h3{color:#1a3a5c;font-size:15px;margin:14px 0 6px}
+.guide-panel h4{color:#333;font-size:14px;font-weight:700;margin:10px 0 4px}
+.guide-panel ul,.guide-panel ol{margin-left:20px;margin-bottom:10px}
+.guide-panel li{margin-bottom:6px}
+.guide-panel p{margin-bottom:10px}
+.guide-panel .close-guide{position:sticky;top:0;background:white;padding:8px 0;text-align:right;border-bottom:1px solid #eee;margin-bottom:10px}
+.bguide{background:#4a6fa5;color:white;font-size:14px;padding:8px 20px;border-radius:6px}
+.cl[contenteditable]:focus{outline:2px dashed #2980b9;outline-offset:4px}
+.cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
+.bpurp{background:#6a0dad;color:white}.bpurp:hover{background:#580b91}
+.all50sec{background:#f0e8ff;border:2px solid #6a0dad;border-radius:10px;padding:16px 20px;margin-top:20px}
+.all50sec h3{color:#6a0dad;font-family:Georgia,serif;font-size:15px;margin-bottom:6px}
+.all50sec p{font-size:13px;color:#374151;margin-bottom:10px;line-height:1.5}
+.vfylink{display:inline-block;margin-top:6px;font-size:12px;color:#1a73e8;cursor:pointer;text-decoration:underline}
+.ziphelp{display:none;background:#fff8e1;border:2px solid #e6a817;border-radius:8px;padding:14px 18px;margin-top:12px;font-size:13px;line-height:1.6;color:#333;text-align:left}
+.ziphelp h4{color:#b8860b;font-size:14px;margin:0 0 8px;font-family:Georgia,serif}
+.ziphelp .zh-os{margin-bottom:10px}
+.ziphelp .zh-os b{color:#1a3a5c}
+.ziphelp ol{margin:4px 0 0 20px;padding:0}
+.ziphelp ol li{margin-bottom:3px}
+.vfylink:hover{color:#1558b0}
+.datacur{font-size:14px;color:#888;margin-top:4px;font-style:italic;line-height:1.5;text-align:center}
+@media print{
+  body{background:white}
+  .toolbar,#step1,#step2{display:none!important}
+  #preview{display:block!important}
+  .page{border:none;box-shadow:none;margin:0;page-break-after:always}
+  .bp{height:11in;max-height:11in;overflow:hidden}
+  @page{size:letter;margin:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+<!-- STEP 1 -->
+<div id="step1" class="fw">
+  <h1 class="ft">Governor &amp; Attorney General Letter Generator</h1>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 4.0</p>
+  <p class="fs">Generate personalized cover letters, State Procurement Savings Reports, and constitutional brochures for state governors and attorneys general. Works for one state or all fifty &mdash; in any browser, no account required.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
+
+  <!-- USER GUIDE PANEL -->
+  <div id="guidePanel" class="guide-panel">
+    <div class="close-guide"><button class="btn bw" onclick="toggleGuide()" style="padding:4px 14px;font-size:13px">&times; Close Guide</button></div>
+
+    <h2>Background: Why This Tool Was Created</h2>
+    <p>This tool is a companion to the Sheriff Mailing Package Generator. Reader feedback requested brochures aimed at governors and state attorneys general, who have even stronger standing than sheriffs to bring a constitutional challenge against post-1970 federal regulations that block remanufacturing of patent-expired designs.</p>
+    <p>The U.S. Constitution&rsquo;s Patent Clause (Article I, Section 8, Clause 8) grants patent protection for &ldquo;limited Times&rdquo; &mdash; meaning that after a patent expires, the design enters the public domain for the public to use freely. But energy and safety regulations enacted after 1970 make it categorically impossible to remanufacture any vehicle or machine whose patents have expired. The designs never enter a functional public domain. This is costing American households an estimated $2,420 per year.</p>
+    <p>Governors can direct their attorneys general to evaluate and file challenges, issue executive orders, and build multi-state coalitions. Attorneys general have three independent standing theories (parens patriae, proprietary/fiscal, sovereign) and access to the proven multi-state AG action model used in <em>Texas v. EPA</em> and ACA challenges.</p>
+    <p><strong>Key concept: competitive pressure on new items.</strong> A state saves even when buying only new equipment. When remanufactured alternatives exist, manufacturers must lower new-item prices to compete &mdash; exactly as brand-name drug prices fall 30&ndash;80% when generics enter the market.</p>
+
+    <h2>What This Tool Generates</h2>
+    <p>From a state selection and office type choice, the tool generates a 4-page mailing package:</p>
+    <ol>
+      <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info, the official&rsquo;s name and office address, and state-specific Floor and Ceiling savings figures. The Re: line uses the Floor (&ldquo;Minimally $X Million&rdquo;); the grey box shows both.</li>
+      <li><strong>State Procurement Savings Report</strong> (1 page) &mdash; Census Bureau data showing construction spending, equipment costs, and a dual Floor/Ceiling savings table. The Floor (15%, green) is savings from competitive pressure even buying new. The Ceiling (45%, navy) is savings from purchasing remanufactured directly.</li>
+      <li><strong>Constitutional Brochure</strong> (2 pages) &mdash; the full Patent Clause analysis, international evidence, standing theories, and call to action &mdash; customized for governors or attorneys general.</li>
+    </ol>
+
+    <h2>How to Use This Tool (v4.0)</h2>
+    <ol>
+      <li><strong>Open the HTML file</strong> by double-clicking it in any browser. No account or internet connection required for single-state use.</li>
+      <li><strong>Choose Governor or Attorney General</strong> as the target office.</li>
+      <li><strong>Enter your personal information</strong> and click &ldquo;Save My Info for Next Time.&rdquo;</li>
+      <li><strong>Click the generate button</strong> to proceed to state selection.</li>
+      <li><strong>Select a state</strong> &mdash; the official&rsquo;s name and address auto-fill instantly from embedded data (updated March 2026). Fields remain editable.</li>
+      <li><strong>Verify if needed</strong> &mdash; click the &ldquo;Verify with Google Search&rdquo; link to confirm the name and address are current.</li>
+    </ol>
+    <p><strong>Important:</strong> When editing the official&rsquo;s name, enter just the name (e.g., &ldquo;Andy Beshear&rdquo; not &ldquo;Governor Andy Beshear&rdquo;). The cover letter automatically adds the title.</p>
+
+    <h2>Batch Mode</h2>
+    <p>Generate packages for multiple states in one session:</p>
+    <ol>
+      <li>Select a state &mdash; name and address auto-fill.</li>
+      <li>Click <strong>&ldquo;Add to Batch&rdquo;</strong> to queue it.</li>
+      <li>Repeat for as many states as desired.</li>
+      <li>Click <strong>&ldquo;Preview &amp; Print Entire Batch&rdquo;</strong> &mdash; all states render in sequence, 4 pages each.</li>
+    </ol>
+    <p><strong>Note:</strong> All entries in a single batch must be the same office type (all governors or all AGs). To switch office types, return to the first page.</p>
+
+    <h2>Generating All 50 States at Once (v4.0)</h2>
+    <p>Version 4.0 generates all 50 packages instantly from embedded data &mdash; no AI lookups, no internet required, no waiting. Click the purple button, and the ZIP file downloads in seconds. Works in any browser.</p>
+    <h3>ZIP Contents</h3>
+    <p>The ZIP file is named <strong>All50-Governor-Packages.zip</strong> (or All50-AG-Packages.zip). It contains 50 files named <strong>ST-Governor-Package.html</strong>, sorted alphabetically. Each file contains all 4 pages.</p>
+    <p><strong>Tip:</strong> After downloading, spot-check a few states using the &ldquo;Verify with Google Search&rdquo; link to confirm names and addresses are current.</p>
+
+    <h2>Editing the Cover Letter</h2>
+    <p>The cover letter is <strong>fully editable</strong> in the preview. Click anywhere on the letter text to make changes before printing. The savings report and brochure pages are not editable in preview, but downloaded HTML files can be opened in a browser and the cover letter edited there.</p>
+
+    <h2>Saving Your Work</h2>
+    <p>Click &ldquo;Save &amp; Print Pages&rdquo; to download one .html file per state: <strong>ST-Governor-Package.html</strong> (or ST-AG-Package.html). Each file contains all 4 pages. For a batch of 5 states, 5 files download.</p>
+    <h3>Printing: Open the HTML File in Your Browser</h3>
+    <p>Double-click the downloaded .html file to open it in your browser, or drag it onto a browser window. Then press Ctrl+P. In the print dialog, set Margins to &ldquo;None,&rdquo; enable &ldquo;Background graphics,&rdquo; and use US Letter paper size. Do <strong>not</strong> open these files in Microsoft Word &mdash; Word does not support CSS grid and will collapse the brochure columns.</p>
+
+    <h2>Office Type Differences</h2>
+    <p><strong>Governor brochure</strong> emphasizes what a governor can do: direct the AG, issue executive orders, build coalitions, use the bully pulpit. The cover letter focuses on procurement savings and cost of living. Both the Staggering Scope and Remedy sections reinforce that states save even buying new, because competitive pressure lowers all prices.</p>
+    <p><strong>AG brochure</strong> emphasizes legal theory: belt-and-suspenders litigation strategy, favorable case law, filing roadmap, and why this has never been raised. The &ldquo;Why Never Raised&rdquo; section addresses the &ldquo;who would buy that?&rdquo; misconception &mdash; remanufactured alternatives lower new-item prices for everyone. The cover letter frames this as a question of first impression.</p>
+    <p>Both brochures share the same international evidence, standing theories, remedy sections, and About the Author box.</p>
+
+    <h2>Annual Data Update</h2>
+    <p>The embedded official names and addresses were last verified in <strong>March 2026</strong>. After a major election cycle, open this file in a Claude session and ask Claude to look up the latest officials and produce an updated OFFICIALS object. Paste it into the HTML, replacing the old one. Total time: ~15 minutes per year.</p>
+  </div>
+
+  <div class="st">Choose Target Office</div>
+  <div class="otsel">
+    <label><input type="radio" name="officeType" value="gov" checked> Governor</label>
+    <label><input type="radio" name="officeType" value="ag"> Attorney General</label>
+  </div>
+
+  <div class="st">Your Information</div>
+  <div class="row2">
+    <div class="fld"><label>Your Name <span class="req">*</span></label><input id="s1N"></div>
+    <div class="fld"><label>Your Email <span class="req">*</span></label><input id="s1E" type="email"></div>
+  </div>
+  <div class="fld"><label>Your Full Address (one line) <span class="req">*</span></label><input id="s1A" placeholder="123 Main St, City, ST 00000"></div>
+  <div class="fld"><label>Your Phone Number <span class="req">*</span></label><input id="s1P"></div>
+  <div class="ctr" style="margin-top:12px"><button class="btn bgrn" onclick="saveInfo()">Save My Info for Next Time</button></div>
+  <div id="s1m"></div>
+  <p class="note ctr" style="margin-top:4px">Stores your details in this browser so you never retype them.</p>
+  <div style="border-top:2px solid #1a3a5c;margin-top:24px;padding-top:20px" class="ctr">
+    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="goStep2()">Generate <span id="goLabel">Governor</span> Cover Letters &amp; Brochures &rarr;</button>
+  </div>
+  <div id="s1e"></div>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="fw" style="display:none">
+  <h1 class="ft" id="s2title">Governor Letter Generator</h1>
+  <p class="fs">Select a state. Name and address auto-fill from embedded data. Print one at a time, or build a batch.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bw" onclick="goStep1()" style="padding:6px 16px;font-size:13px">&larr; Edit My Info / Change Office Type</button></div>
+  <div class="st">Select a State</div>
+  <div class="fld"><label>State <span class="req">*</span></label><select id="s2S" onchange="onSt()"><option value="">&mdash; Select State &mdash;</option></select></div>
+  <div id="offPanel" style="display:none">
+    <div class="st" id="offTitle">Governor Contact Information</div>
+    <div id="autoFillMsg"></div>
+    <div class="fld"><label><span id="offNameLabel">Governor</span> Full Name <span class="req">*</span></label><input id="s2ON" placeholder="e.g. Andy Beshear"></div>
+    <div class="fld"><label>Office Address Line 1 <span class="req">*</span></label><input id="s2A1" placeholder="e.g. 700 Capitol Avenue, Suite 100"></div>
+    <div class="fld"><label>Office Address Line 2 (City, State ZIP) <span class="req">*</span></label><input id="s2A2" placeholder="e.g. Frankfort, KY 40601"></div>
+  </div>
+  <div class="ctr" style="margin-top:16px">
+    <button class="btn bn" onclick="printOne()">Preview &amp; Print This State (4 pages)</button>
+    <button class="btn bora" onclick="addToQueue()">Add to Batch &darr;</button>
+  </div>
+  <div id="s2m"></div>
+  <div id="queuePanel" class="qp" style="display:none">
+    <h3>Batch Queue <span id="qCount" style="font-weight:400;color:#6b7280"></span></h3>
+    <div id="qList"></div>
+    <div class="ctr" style="margin-top:12px">
+      <button class="btn bn" onclick="printBatch()">Preview &amp; Print Entire Batch</button>
+      <button class="btn bw" style="padding:8px 16px;font-size:13px" onclick="clearQueue()">Clear All</button>
+    </div>
+    <p class="note ctr">Each state generates 4 pages: cover letter + savings report + 2-page brochure.</p>
+  </div>
+
+  <!-- ALL 50 STATES ZIP SECTION -->
+  <div class="all50sec">
+    <h3>&#x1F5C2; Generate All 50 States &mdash; Download as ZIP</h3>
+    <p>Generates all 50 individual HTML package files from embedded data and bundles them into a single ZIP file. No internet connection required &mdash; downloads in seconds. Works in any browser.</p>
+    <div class="ctr">
+      <button class="btn bpurp" style="font-size:15px;padding:12px 32px" onclick="generateAll50()">&#x26A1; Generate All 50 <span class="all50OTlabel2">Governor</span> Packages &rarr; ZIP</button>
+    </div>
+    <p class="note ctr" style="margin-top:8px">Data embedded as of March 2026. After downloading, spot-check a few states with Google if desired.</p>
+    <p class="note ctr" style="margin-top:4px"><strong style="color:#b8860b">&#x26A0; Windows users:</strong> Windows may block the ZIP file from opening. See instructions below after downloading.</p>
+    <div id="zipHelp" class="ziphelp">
+      <h4>&#x2705; ZIP Downloaded Successfully</h4>
+      <div class="zh-os">
+        <b>&#x1F4BB; Windows (if you see &ldquo;These files can&rsquo;t be opened&rdquo;):</b>
+        <ol>
+          <li>Open <strong>File Explorer</strong> and navigate to your Downloads folder (or wherever the ZIP was saved).</li>
+          <li><strong>Right-click</strong> the ZIP file (e.g., All50-Governor-Packages.zip).</li>
+          <li>Click <strong>Properties</strong>.</li>
+          <li>At the bottom of the General tab, check the box next to <strong>&ldquo;Unblock&rdquo;</strong>.</li>
+          <li>Click <strong>Apply</strong>, then <strong>OK</strong>.</li>
+          <li>Now double-click the ZIP to open it with File Explorer or WinZip.</li>
+        </ol>
+      </div>
+      <div class="zh-os">
+        <b>&#x1F34E; Mac (if you see &ldquo;cannot be opened because it is from an unidentified developer&rdquo;):</b>
+        <ol>
+          <li><strong>Control-click</strong> (or right-click) the ZIP file and choose <strong>Open</strong>.</li>
+          <li>If that doesn&rsquo;t work: go to <strong>System Settings &rarr; Privacy &amp; Security</strong>, scroll down, and click <strong>&ldquo;Open Anyway&rdquo;</strong> next to the blocked file.</li>
+        </ol>
+      </div>
+      <p style="font-size:12px;color:#888;margin:6px 0 0">This is a standard security measure for files downloaded from the internet. It does not indicate any problem with the file.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div id="preview" style="display:none">
+  <div class="toolbar">
+    <button class="btn bw" onclick="backToS2()">&larr; Back &mdash; Generate More</button>
+    <button class="btn bred" onclick="doPrint()">Save &amp; Print Pages</button>
+    <span class="th" style="opacity:0.9;font-size:11px">(Downloads 1 file per state: ST-Package.html &mdash; open in browser, right-click &rarr; Print)</span>
+    <span class="th" id="pgInfo"></span>
+    <span class="th" style="opacity:1;font-style:italic">Letter is editable</span>
+  </div>
+  <div id="printArea"></div>
+</div>
+
+<script>
+var SN={"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"};
+
+// === EMBEDDED OFFICIALS DATA (Updated March 2026) ===
+var OFFICIALS = {
+  gov: {
+    "AL":{name:"Kay Ivey",a1:"600 Dexter Avenue",a2:"Montgomery, AL 36130"},
+    "AK":{name:"Mike Dunleavy",a1:"P.O. Box 110001",a2:"Juneau, AK 99811"},
+    "AZ":{name:"Katie Hobbs",a1:"1700 W. Washington Street",a2:"Phoenix, AZ 85007"},
+    "AR":{name:"Sarah Huckabee Sanders",a1:"State Capitol, Room 250",a2:"Little Rock, AR 72201"},
+    "CA":{name:"Gavin Newsom",a1:"State Capitol, Suite 1173",a2:"Sacramento, CA 95814"},
+    "CO":{name:"Jared Polis",a1:"136 State Capitol",a2:"Denver, CO 80203"},
+    "CT":{name:"Ned Lamont",a1:"210 Capitol Avenue",a2:"Hartford, CT 06106"},
+    "DE":{name:"Matt Meyer",a1:"Tatnall Building, 150 Martin Luther King Jr. Blvd South",a2:"Dover, DE 19901"},
+    "FL":{name:"Ron DeSantis",a1:"The Capitol, 400 S. Monroe Street",a2:"Tallahassee, FL 32399"},
+    "GA":{name:"Brian Kemp",a1:"206 Washington Street, Suite 203, State Capitol",a2:"Atlanta, GA 30334"},
+    "HI":{name:"Josh Green",a1:"State Capitol, 415 S. Beretania Street",a2:"Honolulu, HI 96813"},
+    "ID":{name:"Brad Little",a1:"State Capitol, 700 W. Jefferson Street",a2:"Boise, ID 83702"},
+    "IL":{name:"JB Pritzker",a1:"207 State House",a2:"Springfield, IL 62706"},
+    "IN":{name:"Mike Braun",a1:"State House, 200 W. Washington Street",a2:"Indianapolis, IN 46204"},
+    "IA":{name:"Kim Reynolds",a1:"State Capitol, 1007 E. Grand Avenue",a2:"Des Moines, IA 50319"},
+    "KS":{name:"Laura Kelly",a1:"State Capitol, 300 SW 10th Avenue, Suite 241S",a2:"Topeka, KS 66612"},
+    "KY":{name:"Andy Beshear",a1:"State Capitol, 700 Capitol Avenue, Suite 100",a2:"Frankfort, KY 40601"},
+    "LA":{name:"Jeff Landry",a1:"P.O. Box 94004",a2:"Baton Rouge, LA 70804"},
+    "ME":{name:"Janet Mills",a1:"1 State House Station",a2:"Augusta, ME 04333"},
+    "MD":{name:"Wes Moore",a1:"State House, 100 State Circle",a2:"Annapolis, MD 21401"},
+    "MA":{name:"Maura Healey",a1:"State House, Room 280",a2:"Boston, MA 02133"},
+    "MI":{name:"Gretchen Whitmer",a1:"P.O. Box 30013",a2:"Lansing, MI 48909"},
+    "MN":{name:"Tim Walz",a1:"130 State Capitol, 75 Rev. Dr. Martin Luther King Jr. Blvd",a2:"St. Paul, MN 55155"},
+    "MS":{name:"Tate Reeves",a1:"P.O. Box 139",a2:"Jackson, MS 39205"},
+    "MO":{name:"Mike Kehoe",a1:"State Capitol Building, Room 216",a2:"Jefferson City, MO 65101"},
+    "MT":{name:"Greg Gianforte",a1:"P.O. Box 200801",a2:"Helena, MT 59620"},
+    "NE":{name:"Jim Pillen",a1:"P.O. Box 94848",a2:"Lincoln, NE 68509"},
+    "NV":{name:"Joe Lombardo",a1:"State Capitol, 101 N. Carson Street",a2:"Carson City, NV 89701"},
+    "NH":{name:"Kelly Ayotte",a1:"State House, 25 Capitol Street",a2:"Concord, NH 03301"},
+    "NJ":{name:"Mikie Sherrill",a1:"P.O. Box 001",a2:"Trenton, NJ 08625"},
+    "NM":{name:"Michelle Lujan Grisham",a1:"State Capitol, Room 400",a2:"Santa Fe, NM 87501"},
+    "NY":{name:"Kathy Hochul",a1:"State Capitol",a2:"Albany, NY 12224"},
+    "NC":{name:"Josh Stein",a1:"20301 Mail Service Center",a2:"Raleigh, NC 27699"},
+    "ND":{name:"Kelly Armstrong",a1:"State Capitol, 600 E. Boulevard Avenue",a2:"Bismarck, ND 58505"},
+    "OH":{name:"Mike DeWine",a1:"Riffe Center, 30th Floor, 77 S. High Street",a2:"Columbus, OH 43215"},
+    "OK":{name:"Kevin Stitt",a1:"State Capitol Building, 2300 N. Lincoln Blvd., Room 212",a2:"Oklahoma City, OK 73105"},
+    "OR":{name:"Tina Kotek",a1:"State Capitol, 900 Court Street NE, Suite 254",a2:"Salem, OR 97301"},
+    "PA":{name:"Josh Shapiro",a1:"Main Capitol Building, Room 225",a2:"Harrisburg, PA 17120"},
+    "RI":{name:"Dan McKee",a1:"State House, Room 115",a2:"Providence, RI 02903"},
+    "SC":{name:"Henry McMaster",a1:"State House, 1100 Gervais Street",a2:"Columbia, SC 29201"},
+    "SD":{name:"Larry Rhoden",a1:"500 E. Capitol Avenue",a2:"Pierre, SD 57501"},
+    "TN":{name:"Bill Lee",a1:"State Capitol, 1st Floor",a2:"Nashville, TN 37243"},
+    "TX":{name:"Greg Abbott",a1:"P.O. Box 12428",a2:"Austin, TX 78711"},
+    "UT":{name:"Spencer Cox",a1:"State Capitol, Suite 200",a2:"Salt Lake City, UT 84114"},
+    "VT":{name:"Phil Scott",a1:"109 State Street, Pavilion",a2:"Montpelier, VT 05609"},
+    "VA":{name:"Abigail Spanberger",a1:"P.O. Box 1475",a2:"Richmond, VA 23218"},
+    "WA":{name:"Bob Ferguson",a1:"P.O. Box 40002",a2:"Olympia, WA 98504"},
+    "WV":{name:"Patrick Morrisey",a1:"State Capitol, 1900 Kanawha Blvd. East",a2:"Charleston, WV 25305"},
+    "WI":{name:"Tony Evers",a1:"P.O. Box 7863",a2:"Madison, WI 53707"},
+    "WY":{name:"Mark Gordon",a1:"State Capitol, 200 W. 24th Street",a2:"Cheyenne, WY 82002"}
+  },
+  ag: {
+    "AL":{name:"Steve Marshall",a1:"501 Washington Avenue",a2:"Montgomery, AL 36104"},
+    "AK":{name:"Stephen J. Cox",a1:"P.O. Box 110300",a2:"Juneau, AK 99811"},
+    "AZ":{name:"Kris Mayes",a1:"2005 N. Central Avenue",a2:"Phoenix, AZ 85004"},
+    "AR":{name:"Tim Griffin",a1:"323 Center Street, Suite 200",a2:"Little Rock, AR 72201"},
+    "CA":{name:"Rob Bonta",a1:"P.O. Box 944255",a2:"Sacramento, CA 94244"},
+    "CO":{name:"Phil Weiser",a1:"1300 Broadway, 10th Floor",a2:"Denver, CO 80203"},
+    "CT":{name:"William Tong",a1:"165 Capitol Avenue",a2:"Hartford, CT 06106"},
+    "DE":{name:"Kathy Jennings",a1:"820 N. French Street",a2:"Wilmington, DE 19801"},
+    "FL":{name:"James Uthmeier",a1:"The Capitol, PL-01",a2:"Tallahassee, FL 32399"},
+    "GA":{name:"Chris Carr",a1:"40 Capitol Square SW",a2:"Atlanta, GA 30334"},
+    "HI":{name:"Anne Lopez",a1:"425 Queen Street",a2:"Honolulu, HI 96813"},
+    "ID":{name:"Raul Labrador",a1:"700 W. Jefferson Street, Suite 210",a2:"Boise, ID 83702"},
+    "IL":{name:"Kwame Raoul",a1:"100 W. Randolph Street",a2:"Chicago, IL 60601"},
+    "IN":{name:"Todd Rokita",a1:"Indiana Government Center South, 302 W. Washington Street",a2:"Indianapolis, IN 46204"},
+    "IA":{name:"Brenna Bird",a1:"1305 E. Walnut Street",a2:"Des Moines, IA 50319"},
+    "KS":{name:"Kris Kobach",a1:"120 SW 10th Avenue, 2nd Floor",a2:"Topeka, KS 66612"},
+    "KY":{name:"Russell Coleman",a1:"State Capitol, Suite 118, 700 Capitol Avenue",a2:"Frankfort, KY 40601"},
+    "LA":{name:"Liz Murrill",a1:"P.O. Box 94005",a2:"Baton Rouge, LA 70804"},
+    "ME":{name:"Aaron Frey",a1:"6 State House Station",a2:"Augusta, ME 04333"},
+    "MD":{name:"Anthony Brown",a1:"200 St. Paul Place",a2:"Baltimore, MD 21202"},
+    "MA":{name:"Andrea Campbell",a1:"One Ashburton Place",a2:"Boston, MA 02108"},
+    "MI":{name:"Dana Nessel",a1:"P.O. Box 30212",a2:"Lansing, MI 48909"},
+    "MN":{name:"Keith Ellison",a1:"445 Minnesota Street, Suite 1400",a2:"St. Paul, MN 55101"},
+    "MS":{name:"Lynn Fitch",a1:"P.O. Box 220",a2:"Jackson, MS 39205"},
+    "MO":{name:"Andrew Bailey",a1:"P.O. Box 899",a2:"Jefferson City, MO 65102"},
+    "MT":{name:"Austin Knudsen",a1:"P.O. Box 201401",a2:"Helena, MT 59620"},
+    "NE":{name:"Mike Hilgers",a1:"2115 State Capitol",a2:"Lincoln, NE 68509"},
+    "NV":{name:"Aaron Ford",a1:"100 N. Carson Street",a2:"Carson City, NV 89701"},
+    "NH":{name:"John Formella",a1:"33 Capitol Street",a2:"Concord, NH 03301"},
+    "NJ":{name:"Jennifer Davenport",a1:"25 Market Street, P.O. Box 080",a2:"Trenton, NJ 08625"},
+    "NM":{name:"Raul Torrez",a1:"P.O. Drawer 1508",a2:"Santa Fe, NM 87504"},
+    "NY":{name:"Letitia James",a1:"The Capitol",a2:"Albany, NY 12224"},
+    "NC":{name:"Jeff Jackson",a1:"9001 Mail Service Center",a2:"Raleigh, NC 27699"},
+    "ND":{name:"Drew Wrigley",a1:"State Capitol, 600 E. Boulevard Avenue",a2:"Bismarck, ND 58505"},
+    "OH":{name:"Dave Yost",a1:"30 E. Broad Street, 14th Floor",a2:"Columbus, OH 43215"},
+    "OK":{name:"Gentner Drummond",a1:"313 NE 21st Street",a2:"Oklahoma City, OK 73105"},
+    "OR":{name:"Dan Rayfield",a1:"1162 Court Street NE",a2:"Salem, OR 97301"},
+    "PA":{name:"Dave Sunday",a1:"16th Floor, Strawberry Square",a2:"Harrisburg, PA 17120"},
+    "RI":{name:"Peter Neronha",a1:"150 South Main Street",a2:"Providence, RI 02903"},
+    "SC":{name:"Alan Wilson",a1:"P.O. Box 11549",a2:"Columbia, SC 29211"},
+    "SD":{name:"Marty Jackley",a1:"1302 E. Highway 14, Suite 1",a2:"Pierre, SD 57501"},
+    "TN":{name:"Jonathan Skrmetti",a1:"P.O. Box 20207",a2:"Nashville, TN 37202"},
+    "TX":{name:"Ken Paxton",a1:"P.O. Box 12548",a2:"Austin, TX 78711"},
+    "UT":{name:"Derek Brown",a1:"350 N. State Street, Suite 230",a2:"Salt Lake City, UT 84114"},
+    "VT":{name:"Charity Clark",a1:"109 State Street",a2:"Montpelier, VT 05609"},
+    "VA":{name:"Jay Jones",a1:"202 North 9th Street",a2:"Richmond, VA 23219"},
+    "WA":{name:"Nick Brown",a1:"P.O. Box 40100",a2:"Olympia, WA 98504"},
+    "WV":{name:"John B. McCuskey",a1:"State Capitol, 1900 Kanawha Blvd. East",a2:"Charleston, WV 25305"},
+    "WI":{name:"Josh Kaul",a1:"P.O. Box 7857",a2:"Madison, WI 53707"},
+    "WY":{name:"Bridget Hill",a1:"State Capitol, 200 W. 24th Street",a2:"Cheyenne, WY 82002"}
+  }
+};
+
+// === CENSUS DATA: U.S. Census Bureau, 2022 Census of Governments, Individual Unit File ===
+// All amounts in thousands of dollars
+var CENSUS_DATA={year:2022,source:"U.S. Census Bureau, 2022 Census of Governments, Individual Unit File",units:"thousands of dollars",states:{
+"AL":{name:"Alabama",hh:1907000,F44:1048982,F45:0,F04:32406,F36:107757,F62:5677,F32:42040,F59:10167,F61:4513,F01:3,F80:0,F85:7980,F87:71062,F89:14075,F91:0,F92:0,F93:0,F94:0,F50:71},
+"AK":{name:"Alaska",hh:260000,F44:779767,F45:1421,F04:5153,F36:62,F62:13293,F32:582,F59:25763,F61:720,F01:161963,F80:0,F85:0,F87:0,F89:3288,F91:0,F92:1533,F93:0,F94:0,F50:0},
+"AZ":{name:"Arizona",hh:2703000,F44:880795,F45:0,F04:60861,F36:41,F62:44815,F32:4895,F59:10893,F61:4640,F01:3238,F80:0,F85:4054,F87:0,F89:6331,F91:2,F92:0,F93:0,F94:0,F50:7},
+"AR":{name:"Arkansas",hh:1165000,F44:1152707,F45:0,F04:1867,F36:19407,F62:23,F32:0,F59:7960,F61:0,F01:0,F80:0,F85:0,F87:0,F89:0,F91:0,F92:0,F93:0,F94:0,F50:0},
+"CA":{name:"California",hh:13104000,F44:5962506,F45:0,F04:189936,F36:1344752,F62:157771,F32:0,F59:703950,F61:274155,F01:0,F80:0,F85:0,F87:0,F89:29594,F91:0,F92:0,F93:0,F94:531897,F50:0},
+"CO":{name:"Colorado",hh:2249000,F44:895917,F45:0,F04:36952,F36:4526,F62:21308,F32:243482,F59:55414,F61:13600,F01:394,F80:0,F85:220,F87:0,F89:48501,F91:0,F92:0,F93:0,F94:0,F50:0},
+"CT":{name:"Connecticut",hh:1407000,F44:930818,F45:0,F04:2210,F36:3804,F62:18311,F32:10083,F59:13776,F61:22671,F01:8122,F80:0,F85:269,F87:0,F89:5202,F91:0,F92:0,F93:0,F94:84457,F50:4157},
+"DE":{name:"Delaware",hh:389000,F44:363848,F45:67500,F04:7755,F36:527,F62:7378,F32:13882,F59:15036,F61:14929,F01:0,F80:0,F85:0,F87:0,F89:19567,F91:25,F92:0,F93:0,F94:31945,F50:573},
+"FL":{name:"Florida",hh:8422000,F44:5604475,F45:1483104,F04:20743,F36:62696,F62:18240,F32:26916,F59:172456,F61:38016,F01:0,F80:0,F85:568,F87:0,F89:29824,F91:0,F92:0,F93:0,F94:68499,F50:1},
+"GA":{name:"Georgia",hh:3930000,F44:2345416,F45:0,F04:52543,F36:7151,F62:86786,F32:12198,F59:50937,F61:44128,F01:0,F80:0,F85:7310,F87:319673,F89:101703,F91:0,F92:0,F93:0,F94:20533,F50:3075},
+"HI":{name:"Hawaii",hh:462000,F44:225589,F45:0,F04:3326,F36:16372,F62:3647,F32:7522,F59:17788,F61:15219,F01:183896,F80:0,F85:4359,F87:7880,F89:48209,F91:0,F92:0,F93:0,F94:0,F50:9112},
+"ID":{name:"Idaho",hh:699000,F44:545096,F45:0,F04:19379,F36:18100,F62:5413,F32:7030,F59:12464,F61:11389,F01:49,F80:0,F85:678,F87:0,F89:30301,F91:0,F92:0,F93:0,F94:0,F50:0},
+"IL":{name:"Illinois",hh:4886000,F44:2411851,F45:1087135,F04:14235,F36:42239,F62:22835,F32:11241,F59:24314,F61:21974,F01:3750,F80:407,F85:290,F87:0,F89:24384,F91:0,F92:25,F93:0,F94:0,F50:0},
+"IN":{name:"Indiana",hh:2613000,F44:2108224,F45:181957,F04:5232,F36:1065,F62:26810,F32:8938,F59:22617,F61:1345,F01:0,F80:0,F85:801,F87:27852,F89:22377,F91:0,F92:0,F93:0,F94:0,F50:0},
+"IA":{name:"Iowa",hh:1276000,F44:1270652,F45:0,F04:3454,F36:148705,F62:6867,F32:1145,F59:51893,F61:4859,F01:0,F80:0,F85:59,F87:0,F89:17999,F91:0,F92:0,F93:0,F94:196,F50:1},
+"KS":{name:"Kansas",hh:1134000,F44:861076,F45:27322,F04:9768,F36:109202,F62:4611,F32:3890,F59:15178,F61:17573,F01:2008,F80:0,F85:2502,F87:0,F89:15503,F91:0,F92:0,F93:0,F94:0,F50:0},
+"KY":{name:"Kentucky",hh:1774000,F44:1439082,F45:718,F04:6387,F36:71616,F62:11736,F32:3549,F59:28769,F61:797,F01:997,F80:0,F85:241,F87:0,F89:71205,F91:0,F92:0,F93:0,F94:0,F50:192},
+"LA":{name:"Louisiana",hh:1759000,F44:1187653,F45:3606,F04:5401,F36:9217,F62:7091,F32:23607,F59:443651,F61:57493,F01:22206,F80:0,F85:76,F87:133950,F89:287900,F91:0,F92:0,F93:0,F94:0,F50:15182},
+"ME":{name:"Maine",hh:591000,F44:380336,F45:68714,F04:868,F36:119,F62:1604,F32:896,F59:12281,F61:331,F01:0,F80:0,F85:0,F87:0,F89:5324,F91:0,F92:0,F93:0,F94:0,F50:0},
+"MD":{name:"Maryland",hh:2267000,F44:725697,F45:883284,F04:21043,F36:2332,F62:16946,F32:30003,F59:121465,F61:14849,F01:39539,F80:79,F85:5381,F87:35067,F89:70337,F91:0,F92:0,F93:0,F94:1023558,F50:924},
+"MA":{name:"Massachusetts",hh:2717000,F44:1237178,F45:21241,F04:35193,F36:22479,F62:81686,F32:59698,F59:79276,F61:2682,F01:455125,F80:176263,F85:62286,F87:16336,F89:50039,F91:82947,F92:0,F93:0,F94:2057674,F50:2572},
+"MI":{name:"Michigan",hh:3990000,F44:1476188,F45:6485,F04:8266,F36:510,F62:12116,F32:7463,F59:25524,F61:32300,F01:162,F80:0,F85:0,F87:0,F89:130758,F91:0,F92:0,F93:0,F94:147,F50:2},
+"MN":{name:"Minnesota",hh:2256000,F44:1174627,F45:20,F04:3811,F36:1236,F62:11502,F32:3380,F59:66362,F61:30662,F01:2873,F80:11844,F85:2481,F87:0,F89:30658,F91:0,F92:0,F93:0,F94:192,F50:38},
+"MS":{name:"Mississippi",hh:1091000,F44:706279,F45:0,F04:7336,F36:34074,F62:6128,F32:7213,F59:30411,F61:546,F01:0,F80:0,F85:144,F87:0,F89:19158,F91:0,F92:0,F93:0,F94:0,F50:0},
+"MO":{name:"Missouri",hh:2434000,F44:1004538,F45:0,F04:7334,F36:82575,F62:28442,F32:4560,F59:24590,F61:4525,F01:27,F80:0,F85:684,F87:0,F89:31200,F91:2,F92:0,F93:0,F94:0,F50:23},
+"MT":{name:"Montana",hh:449000,F44:362116,F45:0,F04:1603,F36:2745,F62:3393,F32:23737,F59:19209,F61:1032,F01:38,F80:0,F85:179,F87:0,F89:5857,F91:0,F92:0,F93:0,F94:100,F50:526},
+"NE":{name:"Nebraska",hh:766000,F44:628536,F45:0,F04:36048,F36:1061,F62:8882,F32:743,F59:10207,F61:10290,F01:115,F80:0,F85:160,F87:0,F89:3319,F91:0,F92:0,F93:0,F94:0,F50:0},
+"NV":{name:"Nevada",hh:1143000,F44:549444,F45:0,F04:25557,F36:698,F62:5485,F32:2127,F59:5300,F61:3796,F01:0,F80:0,F85:20,F87:0,F89:6824,F91:14,F92:0,F93:0,F94:0,F50:10},
+"NH":{name:"New Hampshire",hh:547000,F44:155660,F45:31626,F04:3814,F36:13365,F62:5385,F32:1723,F59:10383,F61:940,F01:10068,F80:2144,F85:32,F87:0,F89:16304,F91:6,F92:0,F93:0,F94:727,F50:21},
+"NJ":{name:"New Jersey",hh:3461000,F44:1562596,F45:1255503,F04:15621,F36:3207,F62:19421,F32:105236,F59:63462,F61:108911,F01:13343,F80:14,F85:0,F87:40967,F89:38127,F91:8216,F92:0,F93:0,F94:962488,F50:906},
+"NM":{name:"New Mexico",hh:792000,F44:598966,F45:0,F04:0,F36:405849,F62:0,F32:11,F59:665,F61:1549,F01:0,F80:0,F85:0,F87:0,F89:11314,F91:0,F92:0,F93:0,F94:0,F50:75},
+"NY":{name:"New York",hh:7430000,F44:2420946,F45:660395,F04:94019,F36:412012,F62:14138,F32:82274,F59:43020,F61:231454,F01:45710,F80:0,F85:0,F87:3555,F89:256465,F91:2221,F92:1527818,F93:0,F94:30318,F50:170654},
+"NC":{name:"North Carolina",hh:4055000,F44:3917299,F45:303538,F04:17872,F36:70470,F62:54268,F32:17274,F59:71199,F61:32840,F01:5151,F80:10,F85:11578,F87:27148,F89:59861,F91:7,F92:0,F93:0,F94:45134,F50:11},
+"ND":{name:"North Dakota",hh:325000,F44:363365,F45:0,F04:1819,F36:686,F62:4253,F32:2529,F59:10869,F61:556,F01:2,F80:0,F85:0,F87:0,F89:4803,F91:48699,F92:0,F93:0,F94:0,F50:0},
+"OH":{name:"Ohio",hh:4732000,F44:2079990,F45:243463,F04:93686,F36:368541,F62:19973,F32:21085,F59:46146,F61:16486,F01:0,F80:0,F85:701,F87:0,F89:7321,F91:0,F92:0,F93:0,F94:0,F50:0},
+"OK":{name:"Oklahoma",hh:1510000,F44:1350409,F45:646754,F04:10085,F36:3461,F62:10592,F32:12802,F59:26297,F61:14193,F01:1118,F80:0,F85:19913,F87:0,F89:129649,F91:0,F92:87708,F93:449,F94:0,F50:9308},
+"OR":{name:"Oregon",hh:1660000,F44:499298,F45:0,F04:37668,F36:269467,F62:9814,F32:1662,F59:18026,F61:3194,F01:147,F80:6,F85:0,F87:0,F89:24275,F91:0,F92:0,F93:0,F94:30,F50:0},
+"PA":{name:"Pennsylvania",hh:5178000,F44:5342458,F45:600497,F04:33035,F36:428,F62:41782,F32:8631,F59:62902,F61:68843,F01:19,F80:120,F85:0,F87:0,F89:58188,F91:0,F92:0,F93:0,F94:11775,F50:552},
+"RI":{name:"Rhode Island",hh:417000,F44:443382,F45:0,F04:4041,F36:258,F62:5686,F32:3482,F59:21470,F61:425,F01:28593,F80:0,F85:0,F87:20,F89:9201,F91:0,F92:0,F93:0,F94:4829,F50:0},
+"SC":{name:"South Carolina",hh:2039000,F44:1124147,F45:0,F04:19414,F36:14667,F62:1831,F32:1982,F59:45829,F61:3505,F01:0,F80:0,F85:69,F87:278414,F89:14034,F91:0,F92:333109,F93:0,F94:0,F50:249},
+"SD":{name:"South Dakota",hh:365000,F44:601909,F45:0,F04:4910,F36:1584,F62:3258,F32:11107,F59:14657,F61:23535,F01:58468,F80:1,F85:345,F87:0,F89:12637,F91:0,F92:0,F93:0,F94:0,F50:108},
+"TN":{name:"Tennessee",hh:2719000,F44:1224292,F45:0,F04:8261,F36:1850,F62:36031,F32:10092,F59:68141,F61:3640,F01:823,F80:0,F85:193,F87:0,F89:23065,F91:0,F92:0,F93:0,F94:0,F50:83},
+"TX":{name:"Texas",hh:10392000,F44:9163850,F45:5381,F04:68060,F36:399266,F62:95355,F32:18183,F59:56779,F61:85969,F01:26,F80:1370,F85:529622,F87:0,F89:361241,F91:0,F92:0,F93:0,F94:1,F50:1},
+"UT":{name:"Utah",hh:1064000,F44:1091951,F45:97,F04:47955,F36:277188,F62:10491,F32:51223,F59:36299,F61:14009,F01:14150,F80:0,F85:75,F87:0,F89:28260,F91:0,F92:0,F93:0,F94:0,F50:101},
+"VT":{name:"Vermont",hh:272000,F44:228338,F45:0,F04:181,F36:83,F62:4375,F32:5340,F59:2481,F61:5332,F01:4720,F80:14,F85:3,F87:0,F89:2744,F91:8,F92:0,F93:0,F94:30,F50:326},
+"VA":{name:"Virginia",hh:3234000,F44:3063868,F45:19223,F04:38713,F36:195284,F62:21811,F32:31095,F59:33677,F61:14382,F01:1007,F80:0,F85:44677,F87:59733,F89:28516,F91:0,F92:0,F93:0,F94:0,F50:153},
+"WA":{name:"Washington",hh:3000000,F44:1127819,F45:130253,F04:75133,F36:66684,F62:26195,F32:89840,F59:90413,F61:26100,F01:84,F80:0,F85:2789,F87:0,F89:33998,F91:0,F92:0,F93:0,F94:5356,F50:10},
+"WV":{name:"West Virginia",hh:714000,F44:935640,F45:18766,F04:11727,F36:412,F62:5821,F32:5814,F59:19382,F61:4048,F01:0,F80:14,F85:274,F87:0,F89:18629,F91:0,F92:0,F93:0,F94:5201,F50:3},
+"WI":{name:"Wisconsin",hh:2400000,F44:1879002,F45:0,F04:56871,F36:102253,F62:495,F32:33000,F59:42445,F61:4608,F01:202391,F80:0,F85:13782,F87:0,F89:50650,F91:0,F92:0,F93:0,F94:49268,F50:29689},
+"WY":{name:"Wyoming",hh:235000,F44:308130,F45:0,F04:111,F36:0,F62:531,F32:343,F59:7363,F61:2961,F01:0,F80:0,F85:15,F87:0,F89:7355,F91:2,F92:0,F93:0,F94:0,F50:83}
+}};
+
+// === SAVINGS CALCULATION ALGORITHM ===
+var REMFG_DISCOUNT=0.45, COMP_DISCOUNT=0.15, HC_EQUIP_SHARE=0.25, BLD_EQUIP_SHARE=0.10, HOUSEHOLD_SAVINGS=2420;
+var HEAVY_CIVIL=['F44','F45','F59','F61','F80','F87','F91','F92','F93'];
+var BUILDING=['F04','F36','F62','F32','F01','F85','F94','F50'];
+
+function calculateStateSavings(stateCode){
+  var s=CENSUS_DATA.states[stateCode];
+  if(!s)return null;
+  var heavyCivil=0;HEAVY_CIVIL.forEach(function(c){heavyCivil+=(s[c]||0)});
+  var building=0;BUILDING.forEach(function(c){building+=(s[c]||0)});
+  var equipTotal=heavyCivil*HC_EQUIP_SHARE+building*BLD_EQUIP_SHARE;
+  var floor=equipTotal*COMP_DISCOUNT;
+  var ceiling=equipTotal*REMFG_DISCOUNT;
+  var citizenImpact=s.hh*HOUSEHOLD_SAVINGS;
+  return{
+    stateName:s.name,households:s.hh,
+    heavyCivilConstruction:heavyCivil,buildingConstruction:building,
+    totalConstruction:heavyCivil+building,
+    equipmentTotal:equipTotal,
+    floorSavings:Math.round(floor),
+    floorSavingsM:fmtM(floor/1000),
+    ceilingSavings:Math.round(ceiling),
+    ceilingSavingsM:fmtM(ceiling/1000),
+    procurementSavings:Math.round(ceiling),
+    procurementSavingsM:fmtM(ceiling/1000),
+    citizenImpact:citizenImpact,
+    citizenImpactM:fmtM(citizenImpact/1000000),
+    highwayConstruction:s.F44+(s.F45||0)
+  };
+}
+
+function fmtD(n){
+  if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'B';
+  if(n>=1000) return '$'+(n/1000).toFixed(1)+'M';
+  return '$'+n.toFixed(0)+'K';
+}
+function fmtN(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function fmtM(n){var p=n.toFixed(1).split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');return p.join('.');}
+
+var ot='gov',cst='',queue=[],previewStates=[];
+
+function $(id){return document.getElementById(id)}
+function toggleGuide(){var g=$('guidePanel');g.style.display=g.style.display==='block'?'none':'block';if(g.style.display==='block')g.scrollTop=0}
+
+window.onload=function(){
+  try{var s=localStorage.getItem('gag1');if(s){var d=JSON.parse(s);if(d.n)$('s1N').value=d.n;if(d.e)$('s1E').value=d.e;if(d.a)$('s1A').value=d.a;if(d.p)$('s1P').value=d.p;if(d.ot){ot=d.ot;document.querySelector('input[name=officeType][value="'+ot+'"]').checked=true;updateOTLabel()}}}catch(e){}
+  var sel=$('s2S'),ks=Object.keys(SN).sort();
+  for(var i=0;i<ks.length;i++){var o=document.createElement('option');o.value=ks[i];o.textContent=ks[i]+' \u2013 '+SN[ks[i]];sel.appendChild(o)}
+  document.querySelectorAll('input[name=officeType]').forEach(function(r){r.addEventListener('change',function(){ot=this.value;updateOTLabel()})});
+  updateOTLabel();
+};
+
+function updateOTLabel(){
+  var lbl=ot==='gov'?'Governor':'Attorney General';
+  $('goLabel').textContent=lbl;
+  document.querySelectorAll('.all50OTlabel2').forEach(function(el){el.textContent=lbl});
+}
+
+function saveInfo(){
+  var d={n:$('s1N').value.trim(),e:$('s1E').value.trim(),a:$('s1A').value.trim(),p:$('s1P').value.trim(),ot:ot};
+  try{localStorage.setItem('gag1',JSON.stringify(d));$('s1m').innerHTML='<p class="ok">\u2713 Saved to this browser.</p>'}catch(e){$('s1m').innerHTML='<p class="err">Could not save.</p>'}
+}
+
+function goStep1(){$('step2').style.display='none';$('preview').style.display='none';$('step1').style.display='block';scrollTo(0,0)}
+var lastOT='';
+function goStep2(){
+  if(!$('s1N').value.trim()||!$('s1E').value.trim()||!$('s1A').value.trim()||!$('s1P').value.trim()){$('s1e').innerHTML='<p class="err">Please fill in all four fields.</p>';return}
+  $('s1e').innerHTML='';
+  var lbl=ot==='gov'?'Governor':'Attorney General';
+  $('s2title').textContent=lbl+' Letter Generator';
+  $('offTitle').textContent=lbl+' Contact Information';
+  $('offNameLabel').textContent=lbl;
+  // Clear official fields if office type changed
+  if(lastOT&&lastOT!==ot){$('s2ON').value='';$('s2A1').value='';$('s2A2').value='';$('autoFillMsg').innerHTML='';$('s2m').innerHTML=''}
+  lastOT=ot;
+  $('step1').style.display='none';$('step2').style.display='block';
+  // Clear queue if office type changed
+  if(queue.length>0&&queue[0].ot!==ot){queue=[];renderQueue()}
+  // Re-trigger auto-fill if state already selected
+  if(cst) onSt();
+  scrollTo(0,0);
+}
+function backToS2(){$('preview').style.display='none';$('step2').style.display='block';scrollTo(0,0)}
+
+function onSt(){
+  cst=$('s2S').value;
+  $('s2ON').value='';$('s2A1').value='';$('s2A2').value='';$('autoFillMsg').innerHTML='';
+  $('offPanel').style.display=cst?'block':'none';
+  $('s2m').innerHTML='';
+  // Auto-fill from embedded data
+  if(cst && OFFICIALS[ot] && OFFICIALS[ot][cst]){
+    var off=OFFICIALS[ot][cst];
+    $('s2ON').value=off.name;
+    $('s2A1').value=off.a1;
+    $('s2A2').value=off.a2;
+    var title=ot==='gov'?'governor':'attorney general';
+    var q=encodeURIComponent(SN[cst]+' '+title+' name office mailing address');
+    $('autoFillMsg').innerHTML='<div class="datacur">Data current as of March 2026. Fields are editable. <a class="vfylink" href="https://www.google.com/search?q='+q+'" target="_blank" onclick="event.stopPropagation();">\uD83D\uDD0D Verify with Google Search</a><br>(If \u201cMarch 2026\u201d is too old, download the latest .html from <a href="https://postpandemicchanges.substack.com/p/restore-patent-rights-and-cut-living" target="_blank" style="color:#1a73e8">the Substack article</a>; if none is newer, use the Google Search verification.)</div>';
+  }
+}
+
+function extractLastName(fullName){
+  var suffixes=['jr','jr.','sr','sr.','ii','iii','iv','v'];
+  var parts=fullName.trim().split(/\s+/);
+  if(parts.length<=1)return fullName;
+  var last=parts[parts.length-1];
+  if(suffixes.indexOf(last.toLowerCase())!==-1&&parts.length>2)return parts[parts.length-2];
+  return last;
+}
+
+function fD(){return new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'America/New_York'})}
+function getOffInfo(){return{on:$('s2ON').value.trim(),a1:$('s2A1').value.trim(),a2:$('s2A2').value.trim()}}
+function validateOff(){
+  var oi=getOffInfo();
+  if(!oi.on||!oi.a1||!oi.a2){$('s2m').innerHTML='<p class="err">Please fill in the name, address line 1, and address line 2.</p>';return null}
+  return oi;
+}
+function getMyInfo(){return{n:$('s1N').value.trim(),e:$('s1E').value.trim(),a:$('s1A').value.trim(),p:$('s1P').value.trim()}}
+
+function addToQueue(){
+  if(!cst){$('s2m').innerHTML='<p class="err">Select a state first.</p>';return}
+  var oi=validateOff();if(!oi)return;
+  for(var i=0;i<queue.length;i++){if(queue[i].st===cst){$('s2m').innerHTML='<p class="err">'+SN[cst]+' is already in the batch.</p>';return}}
+  var title=ot==='gov'?'Governor':'AG';
+  queue.push({st:cst,on:oi.on,a1:oi.a1,a2:oi.a2,ot:ot});renderQueue();
+  $('s2m').innerHTML='<p class="ok">\u2713 '+SN[cst]+' added ('+title+' '+oi.on+').</p>';
+}
+function removeFromQueue(i){queue.splice(i,1);renderQueue()}
+function clearQueue(){queue=[];renderQueue()}
+function renderQueue(){
+  if(queue.length===0){$('queuePanel').style.display='none';return}
+  $('queuePanel').style.display='block';
+  $('qCount').textContent='('+queue.length+' state'+(queue.length>1?'s':'')+' \u2014 '+queue.length*4+' pages)';
+  var h='',title=ot==='gov'?'Gov.':'AG';
+  for(var i=0;i<queue.length;i++){var q=queue[i];h+='<div class="qi"><span>'+(i+1)+'. '+SN[q.st]+' ('+title+' '+q.on+')</span><button class="qr" onclick="removeFromQueue('+i+')">Remove</button></div>'}
+  $('qList').innerHTML=h;
+}
+
+function printOne(){
+  if(!cst){$('s2m').innerHTML='<p class="err">Select a state first.</p>';return}
+  var oi=validateOff();if(!oi)return;
+  $('s2m').innerHTML='';var my=getMyInfo();
+  previewStates=[{st:cst,on:oi.on,a1:oi.a1,a2:oi.a2,ot:ot}];
+  var html=makeCL(my,cst,oi.on,oi.a1,oi.a2)+savingsReportHTML(cst)+brochureHTML();
+  $('printArea').innerHTML=html;
+  $('pgInfo').textContent='1 state \u2014 4 pages';
+  $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
+}
+
+function printBatch(){
+  if(queue.length===0)return;var my=getMyInfo(),h='';
+  previewStates=queue.slice();
+  for(var i=0;i<queue.length;i++){var q=queue[i];
+    h+=makeCL(my,q.st,q.on,q.a1,q.a2)+savingsReportHTML(q.st)+brochureHTML();
+  }
+  $('printArea').innerHTML=h;
+  $('pgInfo').textContent=queue.length+' state'+(queue.length>1?'s':'')+' \u2014 '+queue.length*4+' pages';
+  $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
+}
+
+function doPrint(){
+  var styles=document.querySelectorAll('style');
+  var css='';for(var i=0;i<styles.length;i++) css+=styles[i].outerHTML;
+  var printCSS='<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}.bp{height:11in;max-height:11in;overflow:hidden}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style>';
+  var my=getMyInfo();
+
+  function wrapHTML(title,content){
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+title+'</title>'+css+printCSS+'</head><body>'+content+'</body></html>';
+  }
+  function downloadFile(filename,htmlContent){
+    var blob=new Blob([htmlContent],{type:'text/html'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url)},2000);
+  }
+
+  var typeName=ot==='gov'?'Governor':'AG';
+  for(var i=0;i<previewStates.length;i++){
+    (function(ps,idx){
+      setTimeout(function(){
+        var allContent=makeCL(my,ps.st,ps.on,ps.a1,ps.a2)+savingsReportHTML(ps.st)+brochureHTML();
+        var file=wrapHTML(typeName+' Package - '+SN[ps.st],allContent);
+        downloadFile(ps.st+'-'+typeName+'-Package.html',file);
+      },idx*800);
+    })(previewStates[i],i);
+  }
+
+  var stList=previewStates.map(function(ps){return ps.st}).join(', ');
+  $('pgInfo').textContent='Downloading '+previewStates.length+' file'+(previewStates.length>1?'s':'')+' ('+stList+')\u2026 Open in browser, right-click \u2192 Print.';
+}
+
+// ==================== COVER LETTERS ====================
+
+function makeCL(my,st,on,a1,a2){
+  if(ot==='gov') return makeCL_gov(my,st,on,a1,a2);
+  return makeCL_ag(my,st,on,a1,a2);
+}
+
+function makeCL_gov(my,st,on,a1,a2){
+  var ln=extractLastName(on);
+  var sv=calculateStateSavings(st);
+  var floorStr=sv?'$'+sv.floorSavingsM+' Million':'Millions';
+  var ceilingStr=sv?'$'+sv.ceilingSavingsM+' Million':'Millions';
+  var citizenStr=sv?'$'+sv.citizenImpactM+' million':'billions';
+  var h='<div class="page cl" contenteditable="true">';
+  h+='<div style="margin-bottom:4pt;text-align:right"><div>'+my.n+'</div><div>'+my.a+'</div><div>'+my.p+' | '+my.e+'</div></div>';
+  h+='<div style="margin-bottom:6pt;text-align:center">'+fD()+'</div>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:6pt"><tr><td style="vertical-align:top;padding:0;width:55%"><div>Governor '+on+'</div><div>'+a1+'</div><div>'+a2+'</div></td><td style="vertical-align:top;padding:0 0 0 12pt"><strong>Re: Constitutional Challenge That Could Save '+SN[st]+' Minimally '+floorStr+' in Annual Procurement Costs and Lower the Cost of Living for Your Citizens</strong></td></tr></table>';
+  h+='<div style="margin-top:24pt;margin-bottom:5pt">Dear Governor '+ln+',</div>';
+  h+='<div style="margin-bottom:5pt">A constitutional issue directly increases your state\u2019s procurement costs and your citizens\u2019 cost of living. The enclosed brochure explains how post-1970 federal regulations block remanufacturing of vehicles and equipment whose patents expired 20+ years ago \u2014 creating permanent monopolies the Constitution\u2019s Patent Clause phrase, \u201climited Times,\u201d explicitly prohibits. The research quantifies this as a national $22 trillion regulatory taking over 55 years.</div>';
+  h+='<div style="margin-bottom:5pt">Every vehicle and piece of equipment your state purchases costs far more than it should. Federal regulations block the competition that would force manufacturers to lower prices \u2014 the same reason brand-name drugs cost more before generics enter the market. In countries that allow it, brand-new vehicles built on patents expired 20+ years ago sell for $6,000\u2013$18,000. Critically, your state saves even when buying only new equipment: remanufactured competition forces new-item prices down, exactly as generic drugs force brand-name prices down. The same pattern holds for bicycles (95.5% more affordable since 1910, zero federal safety regulation) and calculators (90% price drops after patent expiration). Child cyclist deaths fell 88% without any federal regulation \u2014 outperforming the regulated automobile\u2019s 62% improvement.</div>';
+  h+='<div class="svb"><div class="svt">'+SN[st]+' Wins on Multiple Bases:</div>';
+  h+='<div class="svd">(1) <strong>Domestic remanufacturing opportunity</strong> \u2014 patent-expired remanufacturing could be done entirely in your state, creating manufacturing jobs. Congress and the President retain full authority to block foreign imports. (2) <strong>Reduced cost of living for citizens</strong> \u2014 an estimated '+citizenStr+' per year across '+SN[st]+'\u2019s '+fmtN(sv?sv.households:0)+' households ($2,420 each) in vehicles, equipment, and appliances. (3) <strong>Reduced state procurement expenditures</strong> \u2014 an estimated '+floorStr+' per year even buying only new equipment (competitive pressure alone), rising to '+ceilingStr+' if purchasing remanufactured (see enclosed Savings Report).</div></div>';
+  h+='<div style="margin-bottom:5pt">Recent Supreme Court decisions have eliminated agency deference and expanded regulatory takings protections \u2014 the enclosed brochure details 38 supporting cases. As governor, you have three avenues: direct your Attorney General to evaluate and file a constitutional challenge, issue Executive Orders documenting state fleet overpayment, and build a multi-state coalition. The governor who files this challenge will be the leader who made America affordable again \u2014 and every media outlet in the country will cover it.</div>';
+  h+='<div style="margin-bottom:5pt">This is not left vs. right \u2014 it is populist with overwhelming support. Before these post-1970 laws, vehicle prices were becoming more affordable relative to income. In 1970, 34.4% of median income bought a pickup truck; by 2025, it takes 54.3%. The regulatory ratchet reversed 80 years of increasing affordability across vehicles, construction equipment, farm tractors, appliances, and nearly every durable good.</div>';
+  h+='<div style="margin-bottom:5pt">If this proposal interests you, contact me or contact the author of the article \u201c<em>The Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?</em>\u201d viewable at <strong><a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">x.com/RoleighMartin/articles</a></strong> (dated 2/15/2026) or contact me and I will direct you to it.</div>';
+  h+='<div style="margin-bottom:5pt">Email me for an electronic copy of this letter and attachments to share with your attorney general, legislative leaders, or staff. If my reply doesn\u2019t arrive within a day, please text me \u2014 email filters sometimes catch new contacts.</div>';
+  h+='<div style="margin-top:10pt">Respectfully,</div><div style="margin-top:14pt">'+my.n+'</div>';
+  h+='<div style="font-size:10pt">Enclosures: State Procurement Savings Report; Brochure \u2013 Constitutional Patent Clause Analysis</div></div>';
+  return h;
+}
+
+function makeCL_ag(my,st,on,a1,a2){
+  var ln=extractLastName(on);
+  var sv=calculateStateSavings(st);
+  var floorStr=sv?'$'+sv.floorSavingsM+' Million':'Millions';
+  var ceilingStr=sv?'$'+sv.ceilingSavingsM+' Million':'Millions';
+  var citizenStr=sv?'$'+sv.citizenImpactM+' million':'billions';
+  var h='<div class="page cl" contenteditable="true">';
+  h+='<div style="margin-bottom:4pt;text-align:right"><div>'+my.n+'</div><div>'+my.a+'</div><div>'+my.p+' | '+my.e+'</div></div>';
+  h+='<div style="margin-bottom:6pt;text-align:center">'+fD()+'</div>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:6pt"><tr><td style="vertical-align:top;padding:0;width:55%"><div>Attorney General '+on+'</div><div>'+a1+'</div><div>'+a2+'</div></td><td style="vertical-align:top;padding:0 0 0 12pt"><strong>Re: A $22 Trillion Constitutional Taking \u2014 A Question of First Impression Costing '+SN[st]+' Minimally '+floorStr+' per Year in Procurement Alone</strong></td></tr></table>';
+  h+='<div style="margin-top:24pt;margin-bottom:5pt">Dear Attorney General '+ln+',</div>';
+  h+='<div style="margin-bottom:5pt">A constitutional question of first impression awaits the attorney general willing to raise it: <em>Can federal agencies use regulations to nullify the Patent Clause\u2019s \u201climited Times\u201d provision?</em> The enclosed brochure presents a legal analysis arguing that post-1970 regulations from EPA, NHTSA, and DOE have done exactly that \u2014 blocking remanufacturing of designs whose patents expired 20+ years ago and creating permanent monopolies the Founders explicitly prohibited. The research, supported by 38 Supreme Court citations, quantifies this as a national $22 trillion regulatory taking over 55 years.</div>';
+  h+='<div style="margin-bottom:5pt">The violation is categorical, not economic. Meeting current-year emission, safety, and fuel-economy standards requires physically transforming a patent-expired design into a fundamentally different product. The expired-patent design never enters a functional public domain. In <em>Brulotte v. Thys Co.</em> (1964), the Court held that extending patent rights post-expiration is \u201cper se unlawful.\u201d In <em>Kimble v. Marvel</em> (2015), expired patents give the public \u201cunrestricted rights\u201d to manufacture. Yet in 90+ countries, brand-new vehicles built on patents expired 20+ years ago sell for $6,000\u2013$18,000. The only barrier is regulatory, not technological. And the benefit extends beyond remanufactured goods: when remanufactured alternatives exist, manufacturers must lower new-item prices to compete \u2014 exactly as brand-name drug prices fall when generics enter the market.</div>';
+  h+='<div class="svb"><div class="svt">'+SN[st]+' Wins on Multiple Bases:</div>';
+  h+='<div class="svd">(1) <strong>Domestic remanufacturing opportunity</strong> \u2014 creating manufacturing jobs in your state; Congress retains authority to block foreign imports. (2) <strong>Reduced cost of living for citizens</strong> \u2014 '+citizenStr+' per year across '+SN[st]+'\u2019s '+fmtN(sv?sv.households:0)+' households ($2,420 each). (3) <strong>Reduced state procurement expenditures</strong> \u2014 an estimated '+floorStr+' per year even buying only new equipment (competitive pressure alone), rising to '+ceilingStr+' if purchasing remanufactured (see enclosed Savings Report). Three independent standing theories: parens patriae (<em>Massachusetts v. EPA</em>), proprietary/fiscal, and sovereign interest. See brochure for full analysis.</div></div>';
+  h+='<div style="margin-bottom:5pt">The legal landscape is the most favorable in decades. <em>Loper Bright</em> (2024) killed Chevron deference. <em>Sheetz</em> (2024) expanded regulatory takings. <em>West Virginia v. EPA</em> (2022) requires clear congressional authorization for decisions of vast economic significance \u2014 and Congress never authorized these agencies to nullify the Patent Clause. The multi-state AG action model (<em>Texas v. EPA</em>, ACA challenges) is the natural vehicle. The SSRN paper (Abstract ID 6166206) provides the academic foundation.</div>';
+  h+='<div style="margin-bottom:5pt">No one has raised this argument because the victims are every consumer \u2014 diffuse harm with no natural plaintiff. State attorneys general are the constitutional solution to this collective action problem. The AG who files this challenge will receive national media coverage as the attorney general who took on a $22 trillion regulatory taking on behalf of every American family.</div>';
+  h+='<div style="margin-bottom:5pt">If this proposal interests you, contact me or contact the author of the article \u201c<em>The Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?</em>\u201d viewable at <strong><a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">x.com/RoleighMartin/articles</a></strong> (dated 2/15/2026) or contact me and I will direct you to it.</div>';
+  h+='<div style="margin-bottom:5pt">Email me for an electronic copy of this letter and attachments to share with your governor, legislative leaders, or staff. If my reply doesn\u2019t arrive within a day, please text me \u2014 email filters sometimes catch new contacts.</div>';
+  h+='<div style="margin-top:10pt">Respectfully,</div><div style="margin-top:14pt">'+my.n+'</div>';
+  h+='<div style="font-size:10pt">Enclosures: State Procurement Savings Report; Brochure \u2013 Constitutional Patent Clause Analysis</div></div>';
+  return h;
+}
+
+// ==================== STATE PROCUREMENT SAVINGS REPORT ====================
+
+function savingsReportHTML(st){
+  var sv=calculateStateSavings(st);
+  if(!sv) return '';
+  var title=ot==='gov'?'Governor':'Attorney General';
+  var hwM=fmtM(sv.highwayConstruction/1000);
+  var tcM=fmtM(sv.totalConstruction/1000);
+  var hcM=fmtM(sv.heavyCivilConstruction/1000);
+  var bldM=fmtM(sv.buildingConstruction/1000);
+  var eqHC=sv.heavyCivilConstruction*HC_EQUIP_SHARE/1000;
+  var eqBld=sv.buildingConstruction*BLD_EQUIP_SHARE/1000;
+  var eqTotal=eqHC+eqBld;
+  var floorHC=fmtM(eqHC*COMP_DISCOUNT);
+  var floorBld=fmtM(eqBld*COMP_DISCOUNT);
+  var floorTotal=fmtM(eqTotal*COMP_DISCOUNT);
+  var ceilHC=fmtM(eqHC*REMFG_DISCOUNT);
+  var ceilBld=fmtM(eqBld*REMFG_DISCOUNT);
+  var ceilTotal=fmtM(eqTotal*REMFG_DISCOUNT);
+
+  var h='<div class="page bp">';
+  h+='<div class="nb">STATE PROCUREMENT SAVINGS REPORT: '+sv.stateName.toUpperCase()+'</div>';
+  h+='<div class="rb" style="margin-bottom:7pt;font-size:8.5pt;line-height:1.3">ESTIMATED ANNUAL SAVINGS FROM RESTORING PATENT-EXPIRED COMPETITION</div>';
+  h+='<div class="ib" style="margin-bottom:7pt"><div class="bs">This report estimates how much '+sv.stateName+' could save annually on state procurement if federal regulations permitted competition from remanufactured equipment whose patents expired 20+ years ago. Two savings estimates are shown: a <strong>Floor</strong> (your state keeps buying only new equipment, but competitive pressure from remanufactured alternatives forces prices down) and a <strong>Ceiling</strong> (your state purchases remanufactured equipment directly). Most government agencies will continue buying new \u2014 the Floor is the number that matters for most procurement decisions.</div><div class="bs" style="margin-bottom:0"><strong>The generic drug parallel:</strong> When generics enter the market, brand-name drug prices fall 30\u201380% even for patients who never switch. The same competitive pressure would apply to vehicles and equipment. The Floor estimate uses a conservative 15% discount \u2014 well below what the generic drug market demonstrates.</div></div>';
+  h+='<div class="nh" style="margin-bottom:5pt">'+sv.stateName.toUpperCase()+' STATE CONSTRUCTION SPENDING &amp; ESTIMATED SAVINGS (FY 2022)</div>';
+  var cs='padding:4pt 6pt;border:1px solid #ddd;';
+  var ch='padding:5pt 6pt;border:1px solid #999;';
+  h+='<table style="width:100%;border-collapse:collapse;font-size:8.5pt;margin-bottom:7pt">';
+  h+='<tr style="background:#1a3a5c;color:white;font-weight:bold;font-size:8pt">';
+  h+='<td style="'+ch+'">Category</td>';
+  h+='<td style="'+ch+'text-align:right">Spending</td>';
+  h+='<td style="'+ch+'text-align:right">Equipment</td>';
+  h+='<td style="'+ch+'text-align:right;background:#2a5a3c">FLOOR: Still<br>Buying New</td>';
+  h+='<td style="'+ch+'text-align:right;background:#1a3a5c">CEILING: Buying<br>Remanufactured</td>';
+  h+='</tr>';
+  h+='<tr style="background:#f8f9fa"><td style="'+cs+'"><strong>Highway Construction</strong> (F44+F45)</td><td style="'+cs+'text-align:right">$'+hwM+'M</td><td style="'+cs+'text-align:right;color:#888">\u2014</td><td style="'+cs+'text-align:right;color:#888">\u2014</td><td style="'+cs+'text-align:right;color:#888">\u2014</td></tr>';
+  h+='<tr><td style="'+cs+'"><strong>Heavy Civil Construction</strong></td><td style="'+cs+'text-align:right">$'+hcM.toString()+'M</td><td style="'+cs+'text-align:right">$'+fmtM(eqHC)+'M<br><span style="font-size:7pt;color:#666">(25% equip.)</span></td><td style="'+cs+'text-align:right;color:#2a5a3c;font-weight:bold">$'+floorHC+'M</td><td style="'+cs+'text-align:right;color:#1a3a5c;font-weight:bold">$'+ceilHC+'M</td></tr>';
+  h+='<tr style="background:#f8f9fa"><td style="'+cs+'padding-left:14pt;font-size:7.5pt;color:#666" colspan="5"><em>Highways, toll roads, parks, sewerage, water, natural resources, utilities</em></td></tr>';
+  h+='<tr><td style="'+cs+'"><strong>Building Construction</strong></td><td style="'+cs+'text-align:right">$'+bldM.toString()+'M</td><td style="'+cs+'text-align:right">$'+fmtM(eqBld)+'M<br><span style="font-size:7pt;color:#666">(10% equip.)</span></td><td style="'+cs+'text-align:right;color:#2a5a3c;font-weight:bold">$'+floorBld+'M</td><td style="'+cs+'text-align:right;color:#1a3a5c;font-weight:bold">$'+ceilBld+'M</td></tr>';
+  h+='<tr style="background:#f8f9fa"><td style="'+cs+'padding-left:14pt;font-size:7.5pt;color:#666" colspan="5"><em>Corrections, hospitals, police, health, airports, solid waste, transit, housing</em></td></tr>';
+  h+='<tr style="background:#eef3f8;font-weight:bold"><td style="'+ch+'">TOTALS</td><td style="'+ch+'text-align:right">$'+tcM+'M</td><td style="'+ch+'text-align:right">$'+fmtM(eqTotal)+'M</td><td style="'+ch+'text-align:right;color:#2a5a3c">$'+floorTotal+'M</td><td style="'+ch+'text-align:right;color:#1a3a5c">$'+ceilTotal+'M</td></tr>';
+  h+='</table>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8pt;margin-bottom:7pt">';
+  h+='<div style="background:#2a5a3c;color:white;padding:8pt 12pt;border-radius:2pt">';
+  h+='<div style="font-size:8pt;opacity:0.9;margin-bottom:2pt">FLOOR: SAVINGS BUYING ONLY NEW EQUIPMENT</div>';
+  h+='<div style="font-size:20pt;font-weight:bold;font-family:Georgia,serif">$'+sv.floorSavingsM+'M</div>';
+  h+='<div style="font-size:7.5pt;opacity:0.85;margin-top:2pt">15% competitive-pressure discount \u2014 prices fall because remanufactured alternatives exist, same as brand-name drugs when generics enter</div>';
+  h+='</div>';
+  h+='<div style="background:#1a3a5c;color:white;padding:8pt 12pt;border-radius:2pt">';
+  h+='<div style="font-size:8pt;opacity:0.9;margin-bottom:2pt">CEILING: SAVINGS BUYING REMANUFACTURED</div>';
+  h+='<div style="font-size:20pt;font-weight:bold;font-family:Georgia,serif">$'+sv.ceilingSavingsM+'M</div>';
+  h+='<div style="font-size:7.5pt;opacity:0.85;margin-top:2pt">45% remanufacturing discount \u2014 based on international pricing in 90+ countries where patent-expired vehicles sell for $6K\u2013$18K</div>';
+  h+='</div>';
+  h+='</div>';
+  h+='<div style="background:#E8E8E8;border:1px solid #999;padding:6pt 12pt;margin-bottom:7pt;display:grid;grid-template-columns:auto 1fr;gap:12pt;align-items:center">';
+  h+='<div style="font-size:16pt;font-weight:bold;font-family:Georgia,serif;color:#1a3a5c">$'+sv.citizenImpactM+'M</div>';
+  h+='<div style="font-size:8.5pt"><strong>Citizen Impact</strong> \u2014 '+fmtN(sv.households)+' households \u00d7 $2,420 per year in overpayment on vehicles, equipment, and appliances. This is the parens patriae standing figure: the harm to your state\u2019s citizens from blocked competition.</div>';
+  h+='</div>';
+  h+='<div class="nh" style="margin-bottom:4pt">METHODOLOGY &amp; ASSUMPTIONS</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:7pt;margin-bottom:5pt">';
+  h+='<div class="bs" style="font-size:8pt"><strong>Equipment share:</strong> 25% of heavy civil (floor of 25\u201340% industry range); 10% of building construction. <strong>Floor discount (15%):</strong> Competitive pressure on new-item prices when remanufactured alternatives exist. Generic drugs show 30\u201380% brand-name price drops; 15% is conservative for equipment.</div>';
+  h+='<div class="bs" style="font-size:8pt"><strong>Ceiling discount (45%):</strong> Based on international pricing: patent-expired vehicles sell for 50\u201370% less in 90+ countries; equipment shows 40\u201360% reductions. <strong>This is a conservative estimate.</strong> It excludes direct equipment purchases (Tier 1), vehicle fleet, appliances, and operational equipment.</div>';
+  h+='</div>';
+  h+='<div class="afb" style="margin-top:3pt;font-size:8pt"><strong>Data Source:</strong> U.S. Census Bureau, 2022 Census of Governments. Item codes: F44, F45, F59, F61, F80, F87, F91, F92, F93 (heavy civil); F04, F36, F62, F32, F01, F85, F94, F50 (building). | <strong>Prepared for the Office of the '+title+' of '+sv.stateName+'</strong></div>';
+  h+='<div style="font-size:8pt;color:#999;margin-top:3pt">Report v4.0</div>';
+  h+='</div>';
+  return h;
+}
+
+// ==================== BROCHURES ====================
+
+function brochureHTML(){
+  if(ot==='gov') return brochure_gov();
+  return brochure_ag();
+}
+
+function brochure_gov(){
+  var h='<div class="page bp">';
+  h+='<div class="nb">A CONSTITUTIONAL CHALLENGE FOR AMERICA\u2019S 50 GOVERNORS</div>';
+  h+='<div class="rb" style="margin-bottom:5pt;font-size:8.5pt;line-height:1.3">YOUR STATE\u2019S CITIZENS ARE OVERCHARGED BY A NATIONAL $22 TRILLION REGULATORY TAKING OVER 55 YEARS</div>';
+  h+='<div class="ib"><div class="bs"><strong>What you\u2019re holding:</strong> This brochure summarizes a legal analysis arguing that post-1970 federal regulations violate the Constitution\u2019s Patent Clause by blocking remanufacturing of designs whose patents expired 20+ years ago. It covers the constitutional case, the international proof, the cost to your state, and what you can do.</div>';
+  h+='<div class="bs" style="margin-bottom:0"><strong>Why it matters:</strong> These regulations give manufacturers permanent monopolies the Founders explicitly prohibited. Expired patented vehicles and equipment never enter a public domain where they are allowed to be remanufactured, protecting the original patent holder from ever seeing competition from remanufactured items. This unconstitutionally removes the \u201climited Times\u201d period stated in the Constitution and replaces it with infinitely long protection. It is costing American households an estimated $2,420 per year. As governor, you have unique authority to challenge this \u2014 and brand-new vehicles built on expired-patent designs already sell for $6,000\u2013$18,000 in 90+ countries, proving the only barrier is regulatory, not technological.</div></div>';
+  h+='<div style="display:grid;grid-template-columns:39% 28% 33%;gap:8pt;margin-bottom:5pt">';
+  h+='<div><div class="nh">THE PATENT CLAUSE</div>';
+  h+='<div class="bs">The Constitution (Art. I, Sec. 8, Cl. 8) grants patents for \u201climited Times\u201d \u2014 meaning they must expire and designs enter the public domain. In <em>Kimble v. Marvel</em> (2015), the Court held that expired patents give the public \u201cunrestricted rights\u201d to manufacture. In <em>Bonito Boats v. Thunder Craft</em> (1989), patent-expired designs are \u201cfree for all to use.\u201d In <em>Brulotte v. Thys Co.</em> (1964), any attempt to extend patent rights post-expiration is \u201cper se unlawful.\u201d</div>';
+  h+='<div class="bs">Post-1970 regulations from EPA, NHTSA, and DOE require any \u201cnew\u201d vehicle \u2014 including an exact copy of a 20-year-old design \u2014 to meet current-year standards. <strong>This does not merely raise costs. It makes remanufacturing categorically impossible:</strong> meeting 2026 standards requires physically altering the design so fundamentally that the result is no longer the patent-expired product. The expired-patent design never enters a functional public domain.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE INTERNATIONAL PROOF</div>';
+  h+='<div class="SB">90+</div>';
+  h+='<div class="bs" style="text-align:center;font-weight:bold;margin-bottom:4pt">countries sell patent-expired vehicles that Americans cannot buy</div>';
+  h+='<div class="bs">Mahindra (India, $15.9B revenue) sells the Thar \u2014 a patent-expired Jeep CJ remake \u2014 for $12,000\u2013$18,000 in over 100 countries. ZX Auto (China) exports patent-expired Toyota-derived pickups to 90+ nations.</div>';
+  h+='<div class="bs">These are not unsafe vehicles. <strong>Mahindra\u2019s Thar ROXX earned a 5-star Bharat NCAP safety rating</strong>, scoring 31.09/32 for adult occupant protection. Safety features were added voluntarily to win customers, not to satisfy regulators.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE 35 BLOCKING NATIONS</div>';
+  h+='<div class="bs">Approximately 35 wealthy nations \u2014 the U.S., EU-27, UK, Japan, South Korea, Canada, Australia, New Zealand \u2014 all block patent-expired remanufacturing despite signing the same TRIPS treaty (166 nations) requiring patent expiration after 20 years.</div>';
+  h+='<div class="bs"><strong>The pattern:</strong> where lobbyists can capture regulators, the patent promise is broken. Where legislators live close to their constituents\u2019 economic reality, it is honored.</div>';
+  h+='<div class="bs">U.S. registered lobbyists exploded from ~200\u2013400 in the late 1960s to over 13,000 by 2024 \u2014 a 7,400% increase enabled by the 1970 Legislative Reorganization Act.</div>';
+  h+='<div class="SB">$2,420</div>';
+  h+='<div class="bs" style="text-align:center;font-weight:bold">stolen per household per year</div>';
+  h+='</div></div>';
+  h+='<div class="g2" style="margin-bottom:6pt">';
+  h+='<div><div class="nh">THE FULL SCOPE: BEYOND VEHICLES</div>';
+  h+='<div class="bs">The same regulatory ratchet \u2014 escalating standards, current-year compliance required, no grandfather exemptions \u2014 operates across your entire state economy:</div>';
+  h+='<div class="bs"><strong>Construction equipment:</strong> EPA Tier 4 nonroad standards block remanufactured excavators, bulldozers, loaders. Every road, bridge, and building project absorbs inflated costs.</div>';
+  h+='<div class="bs"><strong>Agricultural machinery:</strong> Farmers cannot buy remanufactured tractors at developing-world prices. Mahindra is the world\u2019s largest tractor manufacturer by volume, selling affordable models across 21+ African nations. The cost difference flows directly to food prices.</div>';
+  h+='<div class="bs"><strong>Appliances &amp; refrigeration:</strong> DOE efficiency standards and refrigerant mandates block expired-patent appliances. Every household pays more for refrigeration, heating, and cooling.</div>';
+  h+='<div class="bs"><strong>Aviation, buses &amp; rail:</strong> FAA certification costs hundreds of millions per aircraft type. Public transit agencies pay inflated bus prices. Railroad emissions standards follow the same ratchet.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE LEGAL LANDSCAPE</div>';
+  h+='<div class="bs"><strong>38 Supreme Court citations</strong> support this challenge across 6 legal grounds. This is the most favorable Court for challenging administrative power in decades:</div>';
+  h+='<div class="bs"><strong>Chevron is dead.</strong> <em>Loper Bright v. Raimondo</em> (2024) ended judicial deference to agency interpretations \u2014 the shield agencies used for 40 years.</div>';
+  h+='<div class="bs"><strong>Regulatory takings expanded.</strong> <em>Sheetz v. County of El Dorado</em> (2024) broadened when government action constitutes a taking.</div>';
+  h+='<div class="bs"><strong>Major Questions Doctrine.</strong> <em>West Virginia v. EPA</em> (2022) requires \u201cclear congressional authorization\u201d for decisions of vast economic significance. Congress never authorized EPA, NHTSA, or DOE to nullify the Patent Clause.</div>';
+  h+='<div class="bs"><strong>The Bootleggers &amp; Baptists dynamic</strong> (economist Bruce Yandle, 1983): industry protects monopoly pricing while environmental advocates provide moral cover \u2014 creating a political shield that has sustained this violation for 55 years.</div>';
+  h+='</div></div>';
+  h+='<div class="afb">A 2004 Ford F-150 cannot be remanufactured by anyone \u2014 not even Ford. Current-year regulatory standards require a fundamentally different product. The patent expired. The public domain <strong><u>use</u></strong> phase never starts.</div>';
+  h+='</div>';
+  // PAGE 2
+  h+='<div class="page bp">';
+  h+='<div class="nb" style="font-size:12pt;padding:6pt;margin-bottom:5pt">WHAT A GOVERNOR CAN DO &amp; THE CALL TO ACTION</div>';
+  h+='<div style="background:#eef3f8;border:1px solid #c5d4e6;padding:5pt 8pt;font-weight:bold;color:#1a3a5c;font-size:9pt;margin-bottom:5pt;text-align:center;font-family:Georgia,serif">YOUR STANDING TO CHALLENGE</div>';
+  h+='<div class="g3" style="margin-bottom:6pt">';
+  h+='<div><div class="sh">Parens Patriae Standing</div><div class="bsm"><em>Massachusetts v. EPA</em> (2007) established that states have \u201cspecial solicitude\u201d in standing analysis. As governor, you can direct a challenge on behalf of your state\u2019s citizens who are forced to overpay due to the regulatory ratchet. The Supreme Court has repeatedly recognized state standing to protect citizens from economic harm caused by federal regulatory overreach.</div></div>';
+  h+='<div><div class="sh">Proprietary/Fiscal Standing</div><div class="bsm">Your state operates a massive fleet: state police cruisers, DOT trucks and heavy equipment, university vehicles, parks department, corrections, state hospitals. Your state is a direct purchaser harmed by inflated prices. This is concrete, dollar-denominated Article III injury.</div></div>';
+  h+='<div><div class="sh">Sovereign Standing</div><div class="bsm">Your state has a sovereign interest in ensuring federal regulations do not nullify a constitutional provision \u2014 the Patent Clause\u2019s \u201climited Times\u201d limitation \u2014 designed to benefit your citizens and your state\u2019s economy. Federal agencies cannot use regulatory power to override a constitutional guarantee.</div></div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6pt;margin-bottom:6pt">';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">1</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">DIRECT YOUR AG</div><div class="bsm">Direct your Attorney General to evaluate and file a declaratory judgment under 28 U.S.C. \u00a72201, seeking a declaration that post-1970 regulations violate the Patent Clause as applied to patent-expired designs (20+ years).</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">2</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">EXECUTIVE ACTION</div><div class="bsm">Issue Executive Orders directing state agencies to document fleet overpayment and quantify the cost of regulatory barriers that block patent-expired competition for state procurement.</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">3</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">BUILD A COALITION</div><div class="bsm">Join with other governors to file multi-state challenges \u2014 the model used in <em>Texas v. EPA</em> and dozens of multi-state AG actions.</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">4</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">USE THE BULLY PULPIT</div><div class="bsm">When this challenge is filed, every media outlet in America will cover the governor who took on the $22 trillion regulatory taking. This is a populist issue with overwhelming bipartisan support.</div></div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:46% 54%;gap:8pt;margin-bottom:5pt">';
+  h+='<div><div class="nh">THE STAGGERING SCOPE</div>';
+  h+='<div class="bs">The regulatory ratchet blocks patent-expired remanufacturing across virtually every sector:</div>';
+  h+='<div class="bs"><strong>Transportation:</strong> passenger cars, pickup trucks, SUVs, 18-wheel semi-trucks, delivery vans, motorcycles, RVs, buses, commercial aircraft, general aviation, boats, rail locomotives, passenger rail cars.</div>';
+  h+='<div class="bs"><strong>Agriculture &amp; construction:</strong> farm tractors, combines, harvesters, irrigation equipment, excavators, bulldozers, wheel loaders, backhoes, road graders, skid steers, forklifts, cranes, portable generators.</div>';
+  h+='<div class="bs"><strong>Buildings &amp; homes:</strong> commercial and residential HVAC, refrigerators, water heaters, washers, dryers, furnaces, air conditioners, elevators, chillers.</div>';
+  h+='<div class="bs"><strong>Industry:</strong> CNC machines, industrial robots, presses, compressors, food service equipment, medical devices.</div>';
+  h+='<div class="bs">Two independent economic analyses estimate the cumulative direct overpayment at $15.7\u2013$28 trillion since 1970, or <strong>$2,420 per household per year in direct overpayment on vehicles, equipment, and appliances alone</strong>. When you add the indirect costs embedded in food prices (inflated farm equipment), construction (inflated heavy equipment), housing, and transportation services, the total economic impact approaches a doubling of the American cost of living. States save even when buying only new equipment \u2014 remanufactured competition forces new-item prices down, exactly as generics force brand-name drug prices down.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE REMEDY</div>';
+  h+='<div class="bs"><strong>Grandfather exemptions.</strong> Any product remanufactured from a design whose patents expired 20+ years ago should be permitted to meet the safety and emissions standards in effect when the original patent was filed \u2014 not current-year standards.</div>';
+  h+='<div class="bs">This preserves every regulation\u2019s original purpose while honoring the constitutional promise that patent monopolies are temporary. Consumers should receive clear labeling of the year of original certification for the vehicle\u2019s energy efficiency and safety standards, along with the name of the engineering agency that certified it as a faithful reproduction of the original design. Because trademarks protect the original manufacturer\u2019s brand, these items would be sold under different names \u2014 the engineering certification provides the consumer\u2019s assurance of quality.</div>';
+  h+='<div class="bs"><strong>Competitive pressure on new items.</strong> Your state saves even when buying only new equipment. When remanufactured alternatives exist, manufacturers must lower new-item prices to compete \u2014 exactly as brand-name drug prices fall 30\u201380% when generics enter the market. The savings flow to every purchaser, not just those who buy remanufactured.</div>';
+  h+='<div class="bs"><strong>Domestic Manufacturing Opportunity</strong></div>';
+  h+='<div class="bs">Patent-expired remanufacturing could be done entirely domestically \u2014 creating manufacturing jobs in your state. Congress and the President retain full constitutional authority to impose tariffs or block imports of foreign-made remanufactured goods, protecting domestic manufacturers from being undercut into bankruptcy. What the Constitution forbids is blocking domestic remanufacturing of patent-expired designs. The result: American workers building affordable vehicles and equipment for American consumers, with trade policy ensuring fair competition.</div>';
+  h+='<div class="bs" style="color:#c0392b;font-weight:bold">The Bicycle &amp; Calculator History Contrast</div>';
+  h+='<div class="bs">The bicycle industry has proven this model for over a century: 95.5% improvement in affordability and an 88% decline in child cyclist deaths, all under zero federal product regulation. The HP 12C calculator dropped from $530 (inflation-adjusted) to $49.99 when patents expired and no agency blocked competition. HP still makes it. That is the Founders\u2019 promise, delivered.</div>';
+  h+='</div></div>';
+  h+='<div class="bb"><div class="bbt">ABOUT THE AUTHOR \u2014 READ THE ARTICLES BEHIND THIS BROCHURE</div>';
+  h+='<div class="bsm">Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.2 million readers. The complete constitutional argument with 38 Supreme Court citations, five DOJ objections and responses, standing theory, filing roadmap, and international evidence across 90+ countries: <strong>x.com/RoleighMartin/articles</strong> | <strong>SSRN Abstract ID 6166206</strong></div>';
+  h+='<div class="bsm">Contact: roleigh@pobox.com | 952-905-0822 \u2014 Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase and GPT-5.2 Thinking.</div>';
+  h+='</div>';
+  h+='</div>';
+  return h;
+}
+
+function brochure_ag(){
+  var h='<div class="page bp">';
+  h+='<div class="nb">A CONSTITUTIONAL CHALLENGE FOR AMERICA\u2019S 50 ATTORNEYS GENERAL</div>';
+  h+='<div class="rb" style="margin-bottom:5pt;font-size:8.5pt;line-height:1.3">A NATIONAL $22 TRILLION REGULATORY TAKING OVER 55 YEARS \u2014 A QUESTION OF FIRST IMPRESSION</div>';
+  h+='<div class="ib"><div class="bs"><strong>What you\u2019re holding:</strong> This brochure summarizes a legal analysis arguing that post-1970 federal regulations violate the Constitution\u2019s Patent Clause by blocking remanufacturing of designs whose patents expired 20+ years ago. It presents the constitutional theory, the international evidentiary record, your standing basis, and a filing roadmap.</div>';
+  h+='<div class="bs" style="margin-bottom:0"><strong>Why it matters:</strong> These regulations give manufacturers permanent monopolies the Founders explicitly prohibited. Expired patented vehicles and equipment never enter a public domain where they are allowed to be remanufactured, protecting the original patent holder from ever seeing competition from remanufactured items. This unconstitutionally removes the \u201climited Times\u201d period stated in the Constitution and replaces it with infinitely long protection. It is costing American households an estimated $2,420 per year. No court has addressed this question. It is a question of first impression with 38 supporting Supreme Court citations, and the current Court is the most favorable for challenging administrative power in decades.</div></div>';
+  h+='<div style="display:grid;grid-template-columns:39% 28% 33%;gap:8pt;margin-bottom:5pt">';
+  h+='<div><div class="nh">THE CONSTITUTIONAL THEORY</div>';
+  h+='<div class="bs">The Patent Clause (Art. I, Sec. 8, Cl. 8) grants Congress power to secure exclusive rights \u201cfor limited Times.\u201d In <em>Kimble v. Marvel</em> (2015), the Court held that expired patents give the public \u201cunrestricted rights\u201d to manufacture. In <em>Bonito Boats v. Thunder Craft</em> (1989), patent-expired designs are \u201cfree for all to use.\u201d In <em>Brulotte v. Thys Co.</em> (1964), any attempt to extend patent rights post-expiration is \u201cper se unlawful.\u201d</div>';
+  h+='<div class="bs">Post-1970 regulations from EPA, NHTSA, and DOE require any \u201cnew\u201d vehicle \u2014 including an exact copy of a 20-year-old design \u2014 to meet current-year standards. <strong>This does not merely raise costs. It makes remanufacturing categorically impossible:</strong> meeting 2026 standards requires physically transforming the design into a fundamentally different product. A 2004 F-150 cannot be remanufactured by anyone \u2014 not even Ford. The expired-patent design never enters a functional public domain.</div>';
+  h+='<div class="bs">A belt-and-suspenders litigation strategy combines Patent Clause and Takings Clause theories, supported by <em>Cedar Point v. Hassid</em> (2021) and <em>Sheetz v. County of El Dorado</em> (2024).</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE INTERNATIONAL PROOF</div>';
+  h+='<div class="SB">90+</div>';
+  h+='<div class="bs" style="text-align:center;font-weight:bold;margin-bottom:4pt">countries sell patent-expired vehicles blocked from the U.S.</div>';
+  h+='<div class="bs"><strong>Mahindra &amp; Mahindra</strong> (India, $15.9B revenue, 155,000+ employees) sells the Thar \u2014 a patent-expired Jeep CJ remake \u2014 for $12,000\u2013$18,000 in 100+ countries. <strong>ZX Auto</strong> (China) exports patent-expired Toyota-derived pickups to 90+ nations.</div>';
+  h+='<div class="bs">These are not unsafe vehicles. <strong>Mahindra\u2019s Thar ROXX earned a 5-star Bharat NCAP safety rating</strong>, scoring 31.09/32 for adult occupant protection. Safety features were added voluntarily to win customers, not to satisfy regulators.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE PATTERN OF CAPTURE</div>';
+  h+='<div class="bs"><strong>35 wealthy nations</strong> block patent-expired remanufacturing: the U.S., EU-27, UK, Japan, South Korea, Canada, Australia, New Zealand. All signed the same TRIPS treaty (166 nations) requiring patent expiration after 20 years.</div>';
+  h+='<div class="bs">U.S. registered lobbyists: ~200\u2013400 (late 1960s) \u2192 13,000+ (2024) \u2014 a 7,400% increase enabled by the 1970 Legislative Reorganization Act. Ford alone: $47M+ in federal lobbying (2010\u20132018).</div>';
+  h+='<div class="bs"><strong>The Bootleggers &amp; Baptists dynamic</strong> (Yandle, 1983): industry protects monopoly pricing while environmental advocates provide moral cover. Both lobby for identical regulations for opposite reasons \u2014 creating a political shield that has sustained this violation for 55 years. The irony: automakers publicly fight against safety regulations, but once enacted, those regulations become a permanent moat against competition.</div>';
+  h+='<div class="bs"><strong>$22T</strong> \u2014 estimated cumulative wealth transfer since 1970.</div>';
+  h+='</div></div>';
+  h+='<div class="g2" style="margin-bottom:6pt">';
+  h+='<div><div class="nh">THE FULL SCOPE: BEYOND VEHICLES</div>';
+  h+='<div class="bs">The same three-part ratchet \u2014 escalating standards, current-year compliance, no grandfather exemptions \u2014 operates across your state\u2019s entire economy:</div>';
+  h+='<div class="bs"><strong>Construction equipment:</strong> EPA Tier 4 nonroad standards block remanufactured excavators, bulldozers, loaders. Every infrastructure project absorbs inflated costs.</div>';
+  h+='<div class="bs"><strong>Agricultural machinery:</strong> Same Tier 4 standards block remanufactured tractors. Mahindra sells affordable models across 21+ African nations. The cost difference flows to food prices.</div>';
+  h+='<div class="bs"><strong>Appliances:</strong> DOE efficiency standards and refrigerant mandates (Montreal Protocol, Kigali Amendment) block expired-patent appliances.</div>';
+  h+='<div class="bs"><strong>Aviation, buses, rail:</strong> FAA certification ($100M+ per type), FMVSS bus standards, and FRA rail standards follow the same pattern. Every transit authority and freight railroad absorbs these costs.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE FAVORABLE LEGAL LANDSCAPE</div>';
+  h+='<div class="bs"><strong>38 Supreme Court citations</strong> support this challenge across 6 legal grounds:</div>';
+  h+='<div class="bs"><strong><em>Loper Bright v. Raimondo</em></strong> (2024): Chevron deference is dead. Courts must now independently evaluate whether agency regulations exceed constitutional boundaries.</div>';
+  h+='<div class="bs"><strong><em>Sheetz v. County of El Dorado</em></strong> (2024): Expanded regulatory takings analysis. Requiring 20-year-old designs to meet 2026 standards bears no proportional relationship to any legitimate interest.</div>';
+  h+='<div class="bs"><strong><em>West Virginia v. EPA</em></strong> (2022): Major Questions Doctrine \u2014 agencies need \u201cclear congressional authorization\u201d for decisions of vast economic significance. Congress never authorized EPA, NHTSA, or DOE to nullify the Patent Clause.</div>';
+  h+='<div class="bs"><strong><em>Cedar Point v. Hassid</em></strong> (2021): Physical appropriation theory applies to regulatory invasion of property rights.</div>';
+  h+='<div class="bs"><strong><em>Bonito Boats v. Thunder Craft</em></strong> (1989): Patent-expired designs are \u201cfree for all to use.\u201d If states cannot extend patent-like protections, neither can agencies.</div>';
+  h+='</div></div>';
+  h+='<div class="afb">All 166 WTO nations are bound by TRIPS Article 33: patent protection expires after 20 years. In 90+ countries, the promise is honored. In the 35 wealthiest, lobbying ensures it is broken. The public domain <strong><u>use</u></strong> phase never starts.</div>';
+  h+='</div>';
+  // PAGE 2
+  h+='<div class="page bp">';
+  h+='<div class="nb" style="font-size:12pt;padding:6pt;margin-bottom:5pt">STANDING, FILING STRATEGY &amp; THE CALL TO ACTION</div>';
+  h+='<div style="background:#eef3f8;border:1px solid #c5d4e6;padding:5pt 8pt;font-weight:bold;color:#1a3a5c;font-size:9pt;margin-bottom:5pt;text-align:center;font-family:Georgia,serif">THREE INDEPENDENT STANDING THEORIES</div>';
+  h+='<div class="g3" style="margin-bottom:6pt">';
+  h+='<div><div class="sh">1. Parens Patriae</div><div class="bsm"><em>Massachusetts v. EPA</em> (2007) established \u201cspecial solicitude\u201d for state standing. Your state\u2019s citizens suffer concrete economic harm \u2014 an estimated $2,420 per household per year \u2014 from regulations that block the competition the Patent Clause promises. This is arguably the strongest theory, with the clearest Supreme Court precedent and the broadest scope of relief.</div></div>';
+  h+='<div><div class="sh">2. Proprietary/Fiscal</div><div class="bsm">Your state directly purchases vehicles and equipment at inflated prices: state police fleet, DOT vehicles and heavy equipment, university fleet, parks, corrections, state hospitals. This is concrete, dollar-denominated Article III injury. This theory provides the most straightforward injury-in-fact calculation and the clearest redressability.</div></div>';
+  h+='<div><div class="sh">3. Sovereign Interest</div><div class="bsm">Your state has a sovereign interest in ensuring federal regulations do not nullify a constitutional provision. The Patent Clause was designed to benefit citizens and state economies by ensuring competition follows patent expiration. This aligns with the Tenth Amendment framework of <em>Printz v. United States</em> (1997), in which two county sheriffs successfully challenged federal overreach at the Supreme Court.</div></div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6pt;margin-bottom:6pt">';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">1</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">EVALUATE THE THEORY</div><div class="bsm">Review the full constitutional analysis (38 Supreme Court citations, 5 anticipated DOJ objections with responses). The SSRN paper (Abstract ID 6166206) provides the academic foundation.</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">2</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">FILE DECLARATORY JUDGMENT</div><div class="bsm">Under 28 U.S.C. \u00a72201, file in federal district court seeking a declaration that post-1970 regulations violate the Patent Clause as applied to patent-expired designs (20+ years).</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">3</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">SEEK GRANDFATHER EXEMPTION</div><div class="bsm">Request courts require EPA, NHTSA, and DOE to create exemption pathways for patent-expired designs, permitting compliance with standards at original patent filing date.</div></div>';
+  h+='<div style="border:1px solid #ccc;padding:5pt"><div class="sn2" style="font-size:12pt;text-align:center">4</div><div class="sn2" style="font-size:9pt;text-align:center;margin-bottom:3pt">BUILD MULTI-STATE COALITION</div><div class="bsm">The multi-state AG action model (<em>Texas v. EPA</em>, ACA challenges) amplifies standing and political impact. This is a populist issue with bipartisan support across all 50 states.</div></div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:44% 56%;gap:8pt;margin-bottom:5pt">';
+  h+='<div><div class="nh">WHY THIS HAS NEVER BEEN RAISED</div>';
+  h+='<div class="bs"><strong>No natural plaintiff.</strong> The victims are every consumer \u2014 diffuse harm with no single entity bearing enough cost to justify litigation. State AGs are the natural solution to this collective action problem.</div>';
+  h+='<div class="bs"><strong>Constitutional silos.</strong> Patent lawyers don\u2019t practice regulatory takings law. Administrative law professors don\u2019t study patent expiration. The argument sits at an intersection no specialty naturally occupies. Zero law review articles, zero congressional hearings, zero academic scholarship connects these doctrines.</div>';
+  h+='<div class="bs"><strong>The \u201cBootleggers &amp; Baptists\u201d shield (Bruce Yandle, 1983).</strong> Industry and environmental advocates support the same regulations for opposite reasons, creating political invulnerability from both directions.</div>';
+  h+='<div class="bs"><strong>The \u201cwho would buy that?\u201d dismissal.</strong> People assume the remedy only benefits buyers of remanufactured goods, missing the competitive-pressure effect: remanufactured alternatives force new-item prices down for everyone \u2014 exactly as generics lower brand-name drug prices even for patients who never switch.</div>';
+  h+='<div class="bs"><strong>Historical parallel:</strong> Gregory Watson, a college sophomore, spent $6,000 writing letters and got the 27th Amendment ratified in 1992 \u2014 203 years after it was proposed. Constitutional violations can hide in plain sight for generations.</div>';
+  h+='<div class="bs" style="margin-top:4pt">The AG who files this challenge will receive national media coverage as the attorney general who took on a $22 trillion regulatory taking on behalf of every American family.</div>';
+  h+='</div>';
+  h+='<div><div class="nh">THE REMEDY</div>';
+  h+='<div class="bs"><strong>Grandfather exemptions.</strong> Any product remanufactured from a design whose patents expired 20+ years ago should be permitted to meet the safety and emissions standards in effect when the original patent was filed \u2014 not current-year standards.</div>';
+  h+='<div class="bs">This preserves every regulation\u2019s original purpose while honoring the constitutional promise that patent monopolies are temporary. Consumers should receive clear labeling of the year of original certification for the vehicle\u2019s energy efficiency and safety standards, along with the name of the engineering agency that certified it as a faithful reproduction of the original design. Because trademarks protect the original manufacturer\u2019s brand, these items would be sold under different names \u2014 the engineering certification provides the consumer\u2019s assurance of quality.</div>';
+  h+='<div class="bs"><strong>Competitive pressure on new items.</strong> States save even when buying only new equipment. When remanufactured alternatives exist, manufacturers must lower new-item prices to compete \u2014 exactly as brand-name drug prices fall 30\u201380% when generics enter the market. The savings flow to every purchaser, not just those who buy remanufactured.</div>';
+  h+='<div class="bs"><strong>Domestic Manufacturing Opportunity</strong></div>';
+  h+='<div class="bs">Patent-expired remanufacturing could be done entirely domestically. Congress and the President retain full constitutional authority to impose tariffs or block imports of foreign-made remanufactured goods, protecting domestic manufacturers. What the Constitution forbids is blocking domestic remanufacturing of patent-expired designs. The result: American workers building affordable vehicles and equipment for American consumers.</div>';
+  h+='<div class="bs" style="color:#c0392b;font-weight:bold">The Bicycle &amp; Calculator History Contrast</div>';
+  h+='<div class="bs">The bicycle industry has proven this model for over a century: 95.5% improvement in affordability and an 88% decline in child cyclist deaths, all under zero federal product regulation. The HP 12C calculator dropped from $530 (inflation-adjusted) to $49.99 when patents expired and no agency blocked competition. HP still makes it. That is the Founders\u2019 promise, delivered.</div>';
+  h+='</div></div>';
+  h+='<div class="bb"><div class="bbt">ABOUT THE AUTHOR \u2014 READ THE ARTICLES BEHIND THIS BROCHURE</div>';
+  h+='<div class="bsm">Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.2 million readers. The complete constitutional argument with 38 Supreme Court citations, five DOJ objections and responses, standing theory, filing roadmap, and international evidence across 90+ countries: <strong>x.com/RoleighMartin/articles</strong> | <strong>SSRN Abstract ID 6166206</strong> Contact: roleigh@pobox.com | 952-905-0822 \u2014 Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase and GPT-5.2 Thinking.</div>';
+  h+='</div>';
+  h+='</div>';
+  return h;
+}
+
+// ==================== ALL-50 ZIP GENERATOR (v4.0 - from embedded data, no API) ====================
+
+function generateAll50(){
+  var my=getMyInfo();
+  if(!my.n||!my.e||!my.a||!my.p){
+    alert('Please fill in your name, email, address, and phone in Step 1 before generating all 50 packages.');
+    return;
+  }
+  if(typeof JSZip==='undefined'){
+    alert('JSZip library not loaded. Please ensure you have an internet connection and reload the page.');
+    return;
+  }
+
+  var typeName=ot==='gov'?'Governor':'AG';
+  var stateKeys=Object.keys(SN).sort();
+
+  // Capture CSS once
+  var styles=document.querySelectorAll('style');
+  var css='';for(var i=0;i<styles.length;i++)css+=styles[i].outerHTML;
+  var printCSS='<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}.bp{height:11in;max-height:11in;overflow:hidden}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style>';
+
+  var zip=new JSZip();
+  var now=new Date();
+  var utcD=new Date(now.toLocaleString('en-US',{timeZone:'UTC'}));
+  var estD=new Date(now.toLocaleString('en-US',{timeZone:'America/New_York'}));
+  var estFileDate=new Date(now.getTime()-(utcD.getTime()-estD.getTime()));
+
+  for(var idx=0;idx<stateKeys.length;idx++){
+    var st=stateKeys[idx];
+    var off=OFFICIALS[ot][st];
+    var on=off?off.name:'[Name not found]';
+    var a1=off?off.a1:'[Address line 1]';
+    var a2=off?off.a2:'[City, State ZIP]';
+
+    var allContent=makeCL(my,st,on,a1,a2)+savingsReportHTML(st)+brochureHTML();
+    var fileTitle=typeName+' Package \u2014 '+SN[st];
+    var fileHTML='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+fileTitle+'</title>'+css+printCSS+'</head><body>'+allContent+'</body></html>';
+    var fileName=st+'-'+typeName+'-Package.html';
+    zip.file(fileName,fileHTML,{date:estFileDate});
+  }
+
+  // Build and download ZIP
+  zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}}).then(function(zipBlob){
+    var url=URL.createObjectURL(zipBlob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='All50-'+typeName+'-Packages.zip';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},3000);
+
+    alert('Downloaded: All50-'+typeName+'-Packages.zip\n50 files inside, 4 pages each.\n\nIf Windows blocks the ZIP from opening, see the instructions below the download button.');
+    var zh=document.getElementById('zipHelp');if(zh)zh.style.display='block';
+    zh.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+
+</script>
+</body>
+</html>

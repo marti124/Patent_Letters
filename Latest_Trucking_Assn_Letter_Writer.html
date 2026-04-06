@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trucking Assn — Letter &amp; Brochure Generator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
+.fw{max-width:720px;margin:0 auto;padding:24px}
+h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;margin-bottom:4px}
+.fs{color:#6b7280;font-size:14px;text-align:center;margin-bottom:16px}
+.st{font-size:16px;font-weight:700;color:#1a3a5c;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 12px}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+.fld input,.fld select{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;font-family:inherit}
+.fld select{background:white}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.req{color:#dc2626}
+.ctr{text-align:center}
+.btn{padding:12px 28px;font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;display:inline-block;margin:4px}
+.bn{background:#1a3a5c;color:white}.bn:hover{background:#15304a}
+.bw{background:white;color:#1a3a5c;border:2px solid #1a3a5c}.bw:hover{background:#eef3f8}
+.bred{background:#c0392b;color:white}.bred:hover{background:#a93226}
+.bgrn{background:#27ae60;color:white}.bgrn:hover{background:#1e8449}
+.bora{background:#e67e22;color:white}.bora:hover{background:#d35400}
+.err{text-align:center;color:#dc2626;font-size:13px;margin-top:8px}
+.ok{text-align:center;color:#27ae60;font-size:13px;margin-top:8px}
+.note{font-size:12px;color:#888;margin-top:6px;font-style:italic}
+.qp{background:white;border:2px solid #1a3a5c;border-radius:8px;padding:14px;margin-top:16px}
+.qp h3{color:#1a3a5c;font-size:15px;margin-bottom:8px}
+.qi{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid #eee;font-size:14px}
+.qi:last-child{border-bottom:none}
+.qi .qr{color:#c0392b;cursor:pointer;font-size:12px;font-weight:600;padding:2px 8px;border:1px solid #c0392b;border-radius:4px;background:white}
+.qi .qr:hover{background:#fdecea}
+.toolbar{position:sticky;top:0;z-index:100;background:#1a3a5c;padding:10px 20px;display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap}
+.toolbar .btn{padding:8px 20px;font-size:14px}
+.th{color:white;font-size:13px;opacity:0.8}
+.page{width:8.5in;background:white;margin:12px auto;border:1px solid #ccc;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.cl{font-family:Calibri,Carlito,sans-serif;font-size:10.5pt;line-height:1.15;padding:0.5in;min-height:11in}
+.bp{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:9pt;padding:0.4in;min-height:11in}
+.nb{background:#1a3a5c;color:white;text-align:center;padding:6pt 8pt 5pt;font-size:13pt;font-weight:bold;letter-spacing:.5pt;font-family:Georgia,serif}
+.rb{background:#c0392b;color:white;text-align:center;padding:4pt 8pt;font-size:9pt;font-weight:bold}
+.nh{background:#1a3a5c;color:white;font-weight:bold;padding:4pt 6pt;font-size:9pt;margin-bottom:4pt;font-family:Georgia,serif}
+.SB{font-size:17pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center;margin:3pt 0}
+.SM{font-size:13pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center}
+.bs{font-size:9pt;line-height:1.3;margin-bottom:2pt}
+.bsm{font-size:7.5pt;line-height:1.25;margin-bottom:2pt}
+.sh{font-size:9pt;font-weight:bold;color:#1a3a5c;margin-bottom:2pt;margin-top:4pt}
+.sn2{font-weight:bold;color:#1a3a5c;font-size:9pt}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.ib{border:1px solid #ccc;padding:5pt 7pt;background:#f8f9fa;margin-bottom:5pt}
+.qb{background:#eef3f8;border-left:4pt solid #1a3a5c;padding:5pt 8pt;font-size:9pt;line-height:1.3}
+.afb{background:#eef3f8;border:1px solid #c5d4e6;padding:5pt 8pt;font-size:9pt;line-height:1.3}
+.bb{background:#eef3f8;border:1px solid #c5d4e6;padding:5pt;margin-top:4pt}
+.bbt{font-weight:bold;color:#1a3a5c;font-size:9pt;margin-bottom:2pt;font-family:Georgia,serif}
+.svb{background:#E8E8E8;border:1px solid #999;padding:8pt 12pt;margin-bottom:6pt}
+.svt{font-weight:bold;font-size:11pt;margin-bottom:2pt}
+.svd{font-size:10pt;text-align:left}
+.mss{font-size:9pt;line-height:1.3;margin-bottom:2pt}
+.bt{width:100%;border-collapse:collapse;font-size:8.5pt;margin:4pt 0}
+.bt th{background:#1a3a5c;color:white;padding:4pt;text-align:center;font-size:8pt;border:1pt solid #999}
+.bt td{padding:3pt 4pt;border:1pt solid #999;font-size:8pt}
+.bt tr:nth-child(even) td{background:#EDF2F9}
+.guide-panel{display:none;max-width:720px;margin:0 auto;padding:24px;background:white;border:2px solid #1a3a5c;border-radius:10px;margin-top:16px;max-height:70vh;overflow-y:auto;text-align:left;font-size:14px;line-height:1.6;color:#333}
+.guide-panel h2{color:#1a3a5c;font-family:Georgia,serif;font-size:18px;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 10px}
+.guide-panel h3{color:#1a3a5c;font-size:15px;margin:14px 0 6px}
+.guide-panel p{margin-bottom:10px}
+.guide-panel ul,.guide-panel ol{margin-left:20px;margin-bottom:10px}
+.guide-panel li{margin-bottom:6px}
+.guide-panel .close-guide{position:sticky;top:0;background:white;padding:8px 0;text-align:right;border-bottom:1px solid #eee;margin-bottom:10px}
+.bguide{background:#4a6fa5;color:white;font-size:14px;padding:8px 20px;border-radius:6px}
+.vfylink{display:inline-block;margin-top:6px;font-size:12px;color:#1a73e8;cursor:pointer;text-decoration:underline}
+.vfylink:hover{color:#1558b0}
+.otsel{display:flex;gap:12px;justify-content:center;margin:16px 0}
+.otsel label{display:flex;align-items:center;gap:6px;padding:14px 24px;border:2px solid #d1d5db;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;color:#374151;transition:all 0.15s}
+.otsel input[type=radio]{width:18px;height:18px;accent-color:#1a3a5c}
+.otsel label:has(input:checked){border-color:#1a3a5c;background:#eef3f8;color:#1a3a5c}
+.addrwarn{background:#fff3cd;border:1px solid #e0c36a;border-radius:6px;padding:10px 14px;margin-top:8px;font-size:13px;line-height:1.5;color:#856404}
+.addrwarn strong{color:#7a5900}
+.cl[contenteditable]:focus{outline:2px dashed #2980b9;outline-offset:4px}
+.cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
+.chktog{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;font-size:14px;font-weight:600;color:#374151}
+.chktog input{width:18px;height:18px;accent-color:#1a3a5c}
+@media print{
+  body{background:white}
+  .toolbar,#step1,#step2{display:none!important}
+  #preview{display:block!important}
+  .page{border:none;box-shadow:none;margin:0;page-break-after:always}
+  .bp{height:11in;max-height:11in;overflow:hidden}
+  @page{size:letter;margin:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
+</head>
+<body>
+
+<!-- STEP 1 -->
+<div id="step1" class="fw">
+  <h1 class="ft">Semi-Truck Owner-Operator Letter &amp; Brochure Generator</h1>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2.0 &mdash; 50 State + 12 National Associations</p>
+  <p class="fs">Generate personalized cover letters and constitutional brochures for trucking associations advocating for owner-operators. Choose State or National level, pick one association or batch all &mdash; works in any browser, no account required.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
+
+  <!-- USER GUIDE PANEL -->
+  <div id="guidePanel" class="guide-panel">
+    <div class="close-guide"><button class="btn bw" onclick="toggleGuide()" style="padding:4px 14px;font-size:13px">&times; Close Guide</button></div>
+
+    <h2>Background</h2>
+    <p>This tool generates mailing packages for the sixth front in a constitutional campaign to restore the Patent Clause&rsquo;s promise. Owner-operators pay $5,000&ndash;$10,000 for DPF replacements on trucks that could be built without aftertreatment systems if patent-expired engine designs were permitted to enter the public domain as the Constitution requires.</p>
+    <p>The Trump administration&rsquo;s 2025&ndash;2026 actions (DEF sensor removal, Right to Repair guidance, GHG Endangerment Finding rescission) addressed part of the aftertreatment burden &mdash; but every action is guidance that a future EPA administrator can reverse. A Patent Clause court ruling is permanent.</p>
+
+    <h2>What This Tool Generates</h2>
+    <p>From an association selection, the tool generates:</p>
+    <ol>
+      <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info and the association&rsquo;s leadership name and address. Editable in preview.</li>
+      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; &ldquo;The Patent Clause Finishes What the EPA Started&rdquo; &mdash; the full argument, legal landscape, international evidence, and call to action. Toggle this on or off if you print brochures separately.</li>
+    </ol>
+
+    <h2>How to Use</h2>
+    <ol>
+      <li><strong>Open the HTML file</strong> by double-clicking it. Works in any browser. No internet required.</li>
+      <li><strong>Enter your information</strong> and click &ldquo;Save My Info.&rdquo;</li>
+      <li><strong>Click Generate</strong> to proceed to association selection.</li>
+      <li><strong>Select an association</strong> from the dropdown &mdash; name and address auto-fill.</li>
+      <li><strong>Preview &amp; Print</strong>, or add to a batch and print multiple at once.</li>
+    </ol>
+    <p><strong>Brochure toggle:</strong> If you print brochures professionally on color paper, uncheck &ldquo;Include brochure pages&rdquo; to generate cover letters only (1 page each instead of 4).</p>
+
+    <h2>Editing</h2>
+    <p>The cover letter is <strong>fully editable</strong> in preview. Click anywhere on the letter text to customize it before printing. The brochure pages are not editable in preview.</p>
+
+    <h2>Printing</h2>
+    <p>Click &ldquo;Save &amp; Print Pages&rdquo; to download an HTML file. Open it in your browser and press Ctrl+P. Set Margins to &ldquo;None,&rdquo; enable &ldquo;Background graphics,&rdquo; and use US Letter paper.</p>
+  </div>
+
+  <div class="st">Your Information</div>
+  <div class="row2">
+    <div class="fld"><label>Your Name <span class="req">*</span></label><input id="s1N"></div>
+    <div class="fld"><label>Your Email <span class="req">*</span></label><input id="s1E" type="email"></div>
+  </div>
+  <div class="fld"><label>Your Full Address (one line) <span class="req">*</span></label><input id="s1A" placeholder="123 Main St, City, ST 00000"></div>
+  <div class="fld"><label>Your Phone Number <span class="req">*</span></label><input id="s1P"></div>
+  <div class="ctr" style="margin-top:12px"><button class="btn bgrn" onclick="saveInfo()">Save My Info for Next Time</button></div>
+  <div id="s1m"></div>
+  <p class="note ctr" style="margin-top:4px">Stores your details in this browser so you never retype them.</p>
+  <div style="border-top:2px solid #1a3a5c;margin-top:24px;padding-top:20px" class="ctr">
+    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="goStep2()">Generate Cover Letters &amp; Brochures &rarr;</button>
+  </div>
+  <div id="s1e"></div>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="fw" style="display:none">
+  <h1 class="ft">Select a Trucking Association</h1>
+  <p class="fs">Choose State or National level, then pick an association. Name and address auto-fill. Print one at a time, or build a batch.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bw" onclick="goStep1()" style="padding:6px 16px;font-size:13px">&larr; Edit My Info</button></div>
+  <div class="otsel">
+    <label><input type="radio" name="orgLevel" value="state" checked> State Trucking Associations (50)</label>
+    <label><input type="radio" name="orgLevel" value="national"> National Trucking Associations (12)</label>
+  </div>
+  <div class="st">Association</div>
+  <div class="fld"><label>Select Association <span class="req">*</span></label><select id="s2O" onchange="onOrg()"><option value="">&mdash; Select Association &mdash;</option></select></div>
+  <div id="orgPanel" style="display:none">
+    <div class="st">Recipient</div>
+    <div id="autoFillMsg"></div>
+    <div class="row2">
+      <div class="fld"><label>Title <span class="req">*</span></label><input id="s2LT" placeholder="e.g. Executive Vice President"></div>
+      <div class="fld"><label>Full Name <span class="req">*</span></label><input id="s2LN" placeholder="e.g. Todd Spencer"></div>
+    </div>
+    <div class="fld"><label>Address Line 1 <span class="req">*</span></label><input id="s2A1"></div>
+    <div class="fld"><label>Address Line 2 (City, State ZIP) <span class="req">*</span></label><input id="s2A2"></div>
+    <div id="vfyBox" style="margin-top:4px"></div>
+  </div>
+  <div class="chktog">
+    <label><input type="checkbox" id="inclBroch" checked> Include brochure pages (3 pages per association)</label>
+  </div>
+  <div class="ctr" style="margin-top:16px">
+    <button class="btn bn" onclick="printOne()">Preview &amp; Print This Association</button>
+    <button class="btn bora" onclick="addToQueue()">Add to Batch &darr;</button>
+    <button class="btn bgrn" onclick="printAll()">Preview &amp; Print All <span id="allCountLabel">50 State</span> Associations</button>
+  </div>
+  <div id="s2m"></div>
+  <div id="queuePanel" class="qp" style="display:none">
+    <h3>Batch Queue <span id="qCount" style="font-weight:400;color:#6b7280"></span></h3>
+    <div id="qList"></div>
+    <div class="ctr" style="margin-top:12px">
+      <button class="btn bn" onclick="printBatch()">Preview &amp; Print Entire Batch</button>
+      <button class="btn bw" style="padding:8px 16px;font-size:13px" onclick="clearQueue()">Clear All</button>
+    </div>
+    <p class="note ctr">Each association generates 1 page (letter only) or 4 pages (letter + brochure).</p>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div id="preview" style="display:none">
+  <div class="toolbar">
+    <button class="btn bw" onclick="backToS2()">&larr; Back &mdash; Generate More</button>
+    <button class="btn bred" onclick="doPrint()">Save &amp; Print Pages</button>
+    <span class="th" style="opacity:0.9;font-size:11px">(Downloads an HTML file &mdash; open in your browser to print)</span>
+    <span class="th" id="pgInfo"></span>
+    <span class="th" style="opacity:1;font-style:italic">Letter is editable</span>
+  </div>
+  <div id="printArea"></div>
+</div>
+
+<script>
+// ==================== ORG DATA (50 State + 12 National) ====================
+var STATE_ORGS=[
+{st:'AL',name:'Alabama Trucking Association',title:'President & CEO',leader:'Frank Filgo',addr1:'7550 Halcyon Pointe Dr',addr2:'Montgomery, AL 36117-6921',phone:'(334) 834-3983',web:'alabamatrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Filgo'},
+{st:'AK',name:'Alaska Trucking Association',title:'CEO & President',leader:'Jamie Benson',addr1:'3443 Minnesota Dr',addr2:'Anchorage, AK 99503-3649',phone:'(907) 222-5480',web:'aktrucks.org',green:true,verified:'USPS-valid',salute:'Mr. Benson'},
+{st:'AZ',name:'Arizona Trucking Association',title:'President & CEO',leader:'Tony Bradley',addr1:'7500 W Madison St',addr2:'Tolleson, AZ 85353-3102',phone:'(602) 850-6000',web:'arizonatrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Bradley'},
+{st:'AR',name:'Arkansas Trucking Association',title:'President',leader:'Shannon Newton',addr1:'1401 W Capitol Ave Ste 185',addr2:'Little Rock, AR 72201-2927',phone:'(501) 372-3462',web:'arkansastrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Newton'},
+{st:'CA',name:'California Trucking Association',title:'CEO',leader:'Eric Sauer',addr1:'4148 E Commerce Way',addr2:'Sacramento, CA 95834-9679',phone:'(916) 373-3500',web:'caltrux.org',green:true,verified:'USPS-valid',salute:'Mr. Sauer'},
+{st:'CO',name:'Colorado Motor Carriers Association',title:'President',leader:'Greg Fulton',addr1:'4060 Elati St',addr2:'Denver, CO 80216-4814',phone:'(303) 433-3375',web:'cmca.com',green:true,verified:'USPS-valid',salute:'Mr. Fulton'},
+{st:'CT',name:'Motor Transport Association of Connecticut',title:'President',leader:'John Blair',addr1:'60 Forest St',addr2:'Hartford, CT 06105-3204',phone:'(860) 520-4455',web:'mtac.us',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Blair'},
+{st:'DE',name:'Delaware Motor Transport Association',title:'Executive Director',leader:'M. Lee Derrickson',addr1:'445 Pear St',addr2:'Dover, DE 19904-2926',phone:'(302) 672-7763',web:'delawaretrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Derrickson'},
+{st:'FL',name:'Florida Trucking Association',title:'President & CEO',leader:'Alix Miller',addr1:'350 E College Ave',addr2:'Tallahassee, FL 32301-1522',phone:'(850) 222-9900',web:'fltrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Miller'},
+{st:'GA',name:'Georgia Motor Trucking Association',title:'President & CEO',leader:'Seth Millican',addr1:'2060 Franklin Way SE Ste 200',addr2:'Marietta, GA 30067-8706',phone:'(770) 444-9771',web:'gmta.org',green:true,verified:'USPS-valid',salute:'Mr. Millican'},
+{st:'HI',name:'Hawaii Transportation Association',title:'Managing Director',leader:'Gareth Sakakida',addr1:'2850 Paa St Ste 204',addr2:'Honolulu, HI 96819-4431',phone:'(808) 833-6628',web:'htahawaii.org',green:true,verified:'USPS-valid',salute:'Mr. Sakakida'},
+{st:'ID',name:'Idaho Trucking Association',title:'President & CEO',leader:'Allen Hodges',addr1:'3405 E Overland Rd Ste 175',addr2:'Meridian, ID 83642-5112',phone:'(208) 342-3521',web:'idtrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Hodges'},
+{st:'IL',name:'Illinois Trucking Association',title:'Executive Director',leader:'Matt Hart',addr1:'7000 S Adams St Ste 130',addr2:'Willowbrook, IL 60527-7565',phone:'(217) 789-6017',web:'iltrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Hart'},
+{st:'IN',name:'Indiana Motor Truck Association',title:'President & CEO',leader:'Gary Langston',addr1:'1 N Capitol Ave Ste 580',addr2:'Indianapolis, IN 46204-2026',phone:'(317) 634-9235',web:'intrucking.org',green:false,verified:'USPS-valid (suite ignored)',salute:'Mr. Langston'},
+{st:'IA',name:'Iowa Motor Truck Association',title:'President & CEO',leader:'Brenda Neville',addr1:'717 E Court Ave Ste A',addr2:'Des Moines, IA 50309-4934',phone:'(515) 244-5193',web:'iowamotortruck.com',green:true,verified:'USPS-valid',salute:'Mr. Neville'},
+{st:'KS',name:'Kansas Motor Carriers Association',title:'Executive Director',leader:'Tom Whitaker',addr1:'2900 SW Topeka Blvd',addr2:'Topeka, KS 66611-2655',phone:'(785) 267-1641',web:'kmca.org',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Whitaker'},
+{st:'KY',name:'Kentucky Trucking Association',title:'President',leader:'Rick Taylor',addr1:'512 Capital Ave',addr2:'Frankfort, KY 40601-2839',phone:'(502) 227-0848',web:'kytrucking.net',green:true,verified:'USPS-valid',salute:'Mr. Taylor'},
+{st:'LA',name:'Louisiana Motor Transport Association',title:'Executive Director',leader:'Renee Amar',addr1:'4838 Bennington Ave',addr2:'Baton Rouge, LA 70808-3115',phone:'(225) 928-5682',web:'lmta.la',green:true,verified:'USPS-valid',salute:'Mr. Amar'},
+{st:'ME',name:'Maine Motor Transport Association',title:'President & CEO',leader:'Brian Parke',addr1:'142 Whitten Rd',addr2:'Augusta, ME 04330-6021',phone:'(207) 623-4128',web:'mmta.com',green:true,verified:'USPS-valid',salute:'Mr. Parke'},
+{st:'MD',name:'Maryland Motor Truck Association',title:'President & CEO',leader:'Louis Campion',addr1:'3000 Washington Blvd',addr2:'Baltimore, MD 21230-1026',phone:'(410) 644-4600',web:'mdtrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Campion'},
+{st:'MA',name:'Massachusetts Motor Transportation Association',title:'Executive Director',leader:'Anne Lynch',addr1:'10 Liberty Sq Ste 4',addr2:'Boston, MA 02109-5808',phone:'',web:'masstrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Lynch'},
+{st:'MI',name:'Michigan Trucking Association',title:'Executive Director',leader:'Mickey Blashfield',addr1:'1131 Centennial Way Ste 100',addr2:'Lansing, MI 48917-8250',phone:'(517) 321-1951',web:'mitrucking.org',green:false,verified:'USPS-valid (suite ignored)',salute:'Mr. Blashfield'},
+{st:'MN',name:'Minnesota Trucking Association',title:'President',leader:'John Hausladen',addr1:'2515 Wabash Ave Ste 100',addr2:'Saint Paul, MN 55114-1058',phone:'(651) 646-7351',web:'mntrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Hausladen'},
+{st:'MS',name:'Mississippi Trucking Association',title:'President',leader:'Hal Miller',addr1:'808 N President St',addr2:'Jackson, MS 39202-2560',phone:'(601) 354-0616',web:'mstrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Miller'},
+{st:'MO',name:'Missouri Trucking Association',title:'President & CEO',leader:'Tom Crawford',addr1:'102 E High St',addr2:'Jefferson City, MO 65101-2960',phone:'(573) 634-3388',web:'motrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Crawford'},
+{st:'MT',name:'Motor Carriers of Montana',title:'CEO',leader:'Duane Williams',addr1:'501 N Sanders St Ste 200',addr2:'Helena, MT 59601-4553',phone:'(406) 442-6600',web:'mttrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Williams'},
+{st:'NE',name:'Nebraska Trucking Association',title:'President & CEO',leader:'Kent Grisham',addr1:'1701 K St',addr2:'Lincoln, NE 68508-2662',phone:'(402) 476-8504',web:'nebtrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Grisham'},
+{st:'NV',name:'Nevada Trucking Association',title:'CEO',leader:'Paul Enos',addr1:'8745 Technology Way Ste E',addr2:'Reno, NV 89521-3852',phone:'(775) 673-6111',web:'nevadatrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Enos'},
+{st:'NH',name:'New Hampshire Motor Transport Association',title:'President',leader:'Joe Sculley',addr1:'19 Henniker St',addr2:'Concord, NH 03301-8528',phone:'(603) 224-0051',web:'nhmta.org',green:false,verified:'Web-corrected',salute:'Mr. Sculley'},
+{st:'NJ',name:'New Jersey Motor Truck Association',title:'President (Board)',leader:'Mike Ravallo',addr1:'160 Tices Ln',addr2:'East Brunswick, NJ 08816-2016',phone:'(732) 254-5000',web:'njtrucks.wildapricot.org',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Ravallo'},
+{st:'NM',name:'New Mexico Trucking Association',title:'Managing Director',leader:'Johnny Johnson',addr1:'P.O. Box 35609',addr2:'Albuquerque, NM 87176',phone:'(505) 884-5575',web:'nmtrucking.org',green:false,verified:'Smarty invalid - verify by phone',salute:'Mr. Johnson'},
+{st:'NY',name:'New York State Motor Truck Association',title:'President',leader:'Kendra Hems',addr1:'828 Washington Ave',addr2:'Albany, NY 12203-1622',phone:'(518) 458-9696',web:'nytrucks.org',green:false,verified:'USPS-valid (missing suite)',salute:'Ms. Hems'},
+{st:'NC',name:'North Carolina Trucking Association',title:'President & CEO',leader:'Ben Greenberg',addr1:'P.O. Box 2486',addr2:'Raleigh, NC 27602',phone:'(919) 834-0387',web:'nctrucking.com',green:false,verified:'Smarty invalid - verify by phone',salute:'Mr. Greenberg'},
+{st:'ND',name:'North Dakota Motor Carriers Association',title:'Administrator',leader:'Kacey Heidrich',addr1:'1937 E Capitol Ave',addr2:'Bismarck, ND 58501-2373',phone:'(701) 223-2700',web:'ndmca.org',green:false,verified:'USPS-valid (missing suite)',salute:'Ms. Heidrich'},
+{st:'OH',name:'Ohio Trucking Association',title:'President & CEO',leader:'Thomas Balzer',addr1:'50 W Broad St Ste 1133',addr2:'Columbus, OH 43215-5945',phone:'(614) 221-5375',web:'ohiotrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Balzer'},
+{st:'OK',name:'Oklahoma Trucking Association',title:'President & CEO',leader:'Jim Newport',addr1:'7201 N Classen Blvd',addr2:'Oklahoma City, OK 73116-7100',phone:'(405) 843-9488',web:'oktrucking.org',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Newport'},
+{st:'OR',name:'Oregon Trucking Associations',title:'President & CEO',leader:'Jana Jarvis',addr1:'4005 SE Naef Rd',addr2:'Portland, OR 97267-5617',phone:'(503) 666-1591',web:'ortrucking.org',green:true,verified:'USPS-valid',salute:'Ms. Jarvis'},
+{st:'PA',name:'Pennsylvania Motor Truck Association',title:'President & CEO',leader:'Rebecca Oyler',addr1:'910 Linda Ln',addr2:'Camp Hill, PA 17011-6401',phone:'(717) 761-7122',web:'pmta.org',green:true,verified:'USPS-valid',salute:'Ms. Oyler'},
+{st:'RI',name:'Rhode Island Trucking Association',title:'President & CEO',leader:'Chris Maxwell',addr1:'10 Orms St Ste 310',addr2:'Providence, RI 02904-7814',phone:'(401) 729-3600',web:'ritrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Maxwell'},
+{st:'SC',name:'South Carolina Trucking Association',title:'President & CEO',leader:'Rick Todd',addr1:'2425 Devine St',addr2:'Columbia, SC 29205-2405',phone:'(803) 799-4306',web:'sctrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Todd'},
+{st:'SD',name:'South Dakota Trucking Association',title:'President',leader:'Myron Rau',addr1:'PO Box 89008',addr2:'Sioux Falls, SD 57109-9008',phone:'(605) 334-8871',web:'southdakotatrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Rau'},
+{st:'TN',name:'Tennessee Trucking Association',title:'President',leader:'Dave Huneryager',addr1:'4531 Trousdale Dr',addr2:'Nashville, TN 37204-4513',phone:'(615) 777-2882',web:'tntrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Huneryager'},
+{st:'TX',name:'Texas Trucking Association',title:'President & CEO',leader:'John Esparza',addr1:'700 E 11th St',addr2:'Austin, TX 78701-2623',phone:'(512) 478-2541',web:'texastrucking.com',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Esparza'},
+{st:'UT',name:'Utah Trucking Association',title:'Executive Director',leader:'Rick Clasby',addr1:'1051 E 3900 South',addr2:'Salt Lake City, UT 84124',phone:'(801) 262-7555',web:'utahtrucking.com',green:false,verified:'Smarty invalid - verify by phone',salute:'Mr. Clasby'},
+{st:'VT',name:'Vermont Truck & Bus Association',title:'Executive Director',leader:'Joe Sculley',addr1:'192 S Main St',addr2:'Barre, VT 05641',phone:'(603) 224-0051',web:'vtba.org',green:false,verified:'Web-corrected',salute:'Mr. Sculley'},
+{st:'VA',name:'Virginia Trucking Association',title:'President',leader:'Dale Bennett',addr1:'4821 Bethlehem Rd Ste 101',addr2:'Richmond, VA 23230-2526',phone:'(804) 355-5371',web:'vatrucking.org',green:false,verified:'USPS-valid (suite ignored)',salute:'Mr. Bennett'},
+{st:'WA',name:'Washington Trucking Associations',title:'President & CEO',leader:'Sheri Call',addr1:'2323 W Valley Hwy N, Suite 101',addr2:'Auburn, WA 98001',phone:'(253) 838-1650',web:'watrucking.org',green:false,verified:'NEEDS PHONE VERIFY (moved Jan 2026)',salute:'Ms. Call'},
+{st:'WV',name:'West Virginia Trucking Association',title:'President',leader:'Jan Vineyard',addr1:'2001 Quarrier St',addr2:'Charleston, WV 25311-2212',phone:'(304) 345-4614',web:'wvtrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Vineyard'},
+{st:'WI',name:'Wisconsin Motor Carriers Association',title:'President',leader:'Neal Kedzie',addr1:'562 Grand Canyon Dr',addr2:'Madison, WI 53719-1033',phone:'(608) 833-8200',web:'witruck.org',green:true,verified:'USPS-valid',salute:'Mr. Kedzie'},
+{st:'WY',name:'Wyoming Trucking Association',title:'President',leader:'Sheila Foertsch',addr1:'P.O. Box 1909',addr2:'Casper, WY 82602',phone:'(307) 234-1579',web:'wytruck.org',green:false,verified:'Smarty invalid - verify by phone',salute:'Ms. Foertsch'}
+];
+
+var NATL_ORGS=[
+{st:'USA',name:'OOIDA',title:'Executive VP',leader:'Todd Spencer',addr1:'1 NW Ooida Dr',addr2:'Grain Valley, MO 64029-7903',phone:'(816) 229-5791',web:'',green:true,verified:'USPS-valid',salute:'Mr. Spencer'},
+{st:'USA',name:'NASTC',title:'Leadership',leader:'',addr1:'PO Box 121644',addr2:'Nashville, TN 37212-1644',phone:'(800) 264-8580',web:'',green:true,verified:'USPS-valid',salute:'NASTC Leadership'},
+{st:'USA',name:'NAIT',title:'Leadership',leader:'',addr1:'11020 N Ambassador Dr Ste 500',addr2:'Kansas City, MO 64153-1149',phone:'(800) 624-8104',web:'',green:false,verified:'USPS-valid (suite ignored)',salute:'NAIT Leadership'},
+{st:'USA',name:'AITA',title:'Leadership',leader:'',addr1:'PO Box 1250',addr2:'Clinton, MS 39060-1250',phone:'',web:'',green:true,verified:'USPS-valid',salute:'AITA Leadership'},
+{st:'USA',name:'Truckers Service Association',title:'Executive Director',leader:'Bill Webb',addr1:'PO Box 92777',addr2:'Southlake, TX 76092-0777',phone:'(214) 205-7495',web:'',green:true,verified:'USPS-valid',salute:'Mr. Webb'},
+{st:'USA',name:'WSTA',title:'Leadership',leader:'',addr1:'334 N Euclid Ave',addr2:'Upland, CA 91786-6031',phone:'(909) 982-9898',web:'',green:true,verified:'USPS-valid',salute:'WSTA Leadership'},
+{st:'USA',name:'Mid-West Truckers Association',title:'Leadership',leader:'',addr1:'2727 N Dirksen Pkwy',addr2:'Springfield, IL 62702-1407',phone:'(217) 525-0310',web:'',green:true,verified:'USPS-valid',salute:'Mid-West Truckers Association Leadership'},
+{st:'USA',name:'National Owner Operators Association (TNOOA)',title:'President & CEO',leader:'Michael Boston',addr1:'6143 186th St',addr2:'Fresh Meadows, NY 11365-2710',phone:'(646) 271-8288',web:'',green:true,verified:'USPS-valid',salute:'Mr. Boston'},
+{st:'USA',name:'American Association of Owner Operators',title:'CEO',leader:'David Huff',addr1:'1230 S Hurstbourne Pkwy Ste 220',addr2:'Louisville, KY 40222-5757',phone:'(888) 652-0590',web:'',green:true,verified:'USPS-valid',salute:'Mr. Huff'},
+{st:'USA',name:'NorthAmerican Transportation Association',title:'President & CEO',leader:'Wayne Schooling',addr1:'680 W Nye Ln Ste 201',addr2:'Carson City, NV 89703-1500',phone:'(800) 805-0040',web:'',green:true,verified:'USPS-valid',salute:'Mr. Schooling'},
+{st:'USA',name:'Small Business in Transportation Coalition',title:'Executive Director',leader:'James Lamb',addr1:'1775 I St NW Ste 1150',addr2:'Washington, DC 20006',phone:'(202) 587-2751',web:'',green:true,verified:'USPS-valid',salute:'Mr. Lamb'},
+{st:'USA',name:'United Truckers Association',title:'Leadership',leader:'',addr1:'1575 Heritage Dr Ste 103',addr2:'McKinney, TX 75069-3386',phone:'(704) 234-6005',web:'',green:true,verified:'USPS-valid',salute:'United Truckers Association Leadership'}
+];
+
+var queue=[];
+var lastPrintInfo={type:'single',name:'',incBr:true};
+var orgLevel='state'; // 'state' or 'national'
+
+function getActiveOrgs(){return orgLevel==='state'?STATE_ORGS:NATL_ORGS;}
+
+// ==================== INIT ====================
+
+window.onload=function(){
+  var n=localStorage.getItem('dpf_s1N');if(n)document.getElementById('s1N').value=n;
+  var e=localStorage.getItem('dpf_s1E');if(e)document.getElementById('s1E').value=e;
+  var a=localStorage.getItem('dpf_s1A');if(a)document.getElementById('s1A').value=a;
+  var p=localStorage.getItem('dpf_s1P');if(p)document.getElementById('s1P').value=p;
+  populateDropdown();
+  document.querySelectorAll('input[name=orgLevel]').forEach(function(r){
+    r.addEventListener('change',function(){orgLevel=this.value;populateDropdown();queue=[];renderQueue();document.getElementById('orgPanel').style.display='none';});
+  });
+};
+
+function populateDropdown(){
+  var sel=document.getElementById('s2O');
+  sel.innerHTML='<option value="">\u2014 Select Association \u2014</option>';
+  var orgs=getActiveOrgs();
+  for(var i=0;i<orgs.length;i++){
+    var o=document.createElement('option');o.value=i;
+    var label=orgLevel==='state'?orgs[i].st+' \u2014 '+orgs[i].name:orgs[i].name;
+    if(orgs[i].leader)label+=' \u2014 '+orgs[i].leader;
+    if(!orgs[i].green)label+=' \u26A0';
+    o.textContent=label;sel.appendChild(o);
+  }
+  var cnt=orgLevel==='state'?'50 State':'12 National';
+  document.getElementById('allCountLabel').textContent=cnt;
+}
+
+function toggleGuide(){var g=document.getElementById('guidePanel');g.style.display=g.style.display==='none'?'block':'none';}
+
+// ==================== STEP NAVIGATION ====================
+
+function saveInfo(){
+  var n=document.getElementById('s1N').value.trim(),e=document.getElementById('s1E').value.trim(),a=document.getElementById('s1A').value.trim(),p=document.getElementById('s1P').value.trim();
+  localStorage.setItem('dpf_s1N',n);localStorage.setItem('dpf_s1E',e);localStorage.setItem('dpf_s1A',a);localStorage.setItem('dpf_s1P',p);
+  document.getElementById('s1m').innerHTML='<div class="ok">Saved!</div>';
+}
+
+function getMyInfo(){return{n:document.getElementById('s1N').value.trim(),e:document.getElementById('s1E').value.trim(),a:document.getElementById('s1A').value.trim(),p:document.getElementById('s1P').value.trim()};}
+
+function goStep2(){
+  var my=getMyInfo();
+  if(!my.n||!my.e||!my.a||!my.p){document.getElementById('s1e').innerHTML='<div class="err">Please fill in all fields.</div>';return;}
+  document.getElementById('s1e').innerHTML='';
+  document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function goStep1(){document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block';window.scrollTo(0,0);}
+
+function backToS2(){document.getElementById('preview').style.display='none';document.getElementById('step2').style.display='block';window.scrollTo(0,0);}
+
+// ==================== ORG SELECTION ====================
+
+function onOrg(){
+  var idx=document.getElementById('s2O').value;
+  if(idx===''){document.getElementById('orgPanel').style.display='none';return;}
+  var orgs=getActiveOrgs();
+  var o=orgs[parseInt(idx)];
+  document.getElementById('s2LT').value=o.title;
+  document.getElementById('s2LN').value=o.leader;
+  document.getElementById('s2A1').value=o.addr1;
+  document.getElementById('s2A2').value=o.addr2;
+  document.getElementById('orgPanel').style.display='block';
+  var hasLeader=o.leader&&o.leader!=='';
+  document.getElementById('autoFillMsg').innerHTML=hasLeader?'<div class="ok">Auto-filled: '+o.leader+', '+o.title+'</div>':'<div style="color:#e67e22;font-size:13px;margin-bottom:6px">No specific leader on file. Enter the current leader\u2019s name, or leave as \u201cLeadership.\u201d</div>';
+  var vfy=document.getElementById('vfyBox');
+  var vhtml='<span class="vfylink" onclick="window.open(\'https://www.google.com/search?q='+encodeURIComponent(o.name+' address leadership')+'\',\'_blank\')">Verify with Google Search</span>';
+  if(!o.green){
+    vhtml='<div class="addrwarn">\u26A0 <strong>Address not fully verified.</strong> '+o.verified+'.';
+    if(o.phone)vhtml+='<br>Phone: <strong>'+o.phone+'</strong> \u2014 call to confirm the mailing address before sending.';
+    vhtml+='<br><span class="vfylink" onclick="window.open(\'https://www.google.com/search?q='+encodeURIComponent(o.name+' address')+'\',\'_blank\')">\uD83D\uDD0D Verify with Google Search</span></div>';
+  }
+  vfy.innerHTML=vhtml;
+  document.getElementById('s2m').innerHTML='';
+}
+
+// ==================== QUEUE ====================
+
+function addToQueue(){
+  var idx=document.getElementById('s2O').value;
+  if(idx===''){document.getElementById('s2m').innerHTML='<div class="err">Select an association first.</div>';return;}
+  var orgs=getActiveOrgs();
+  var o=orgs[parseInt(idx)];
+  var lt=document.getElementById('s2LT').value.trim();
+  var ln=document.getElementById('s2LN').value.trim();
+  var a1=document.getElementById('s2A1').value.trim();
+  var a2=document.getElementById('s2A2').value.trim();
+  if(!a1||!a2){document.getElementById('s2m').innerHTML='<div class="err">Please fill in address fields.</div>';return;}
+  var uid=o.st+'_'+o.name;
+  for(var i=0;i<queue.length;i++){if(queue[i].uid===uid){document.getElementById('s2m').innerHTML='<div class="err">'+o.name+' is already in the batch.</div>';return;}}
+  var sal=o.salute;if(ln&&ln!==o.leader)sal=guessSalute(ln,o.name);
+  queue.push({uid:uid,name:o.name,title:lt,leader:ln,addr1:a1,addr2:a2,salute:sal});
+  renderQueue();
+  document.getElementById('s2m').innerHTML='<div class="ok">Added '+o.name+' to batch.</div>';
+}
+
+function renderQueue(){
+  var qp=document.getElementById('queuePanel');
+  if(queue.length===0){qp.style.display='none';return;}
+  qp.style.display='block';
+  document.getElementById('qCount').textContent='('+queue.length+' association'+(queue.length>1?'s':'')+')';
+  var h='';
+  for(var i=0;i<queue.length;i++){
+    h+='<div class="qi"><span>'+queue[i].name+(queue[i].leader?' \u2014 '+queue[i].leader:'')+'</span><span class="qr" onclick="removeQ('+i+')">Remove</span></div>';
+  }
+  document.getElementById('qList').innerHTML=h;
+}
+
+function removeQ(i){queue.splice(i,1);renderQueue();}
+function clearQueue(){queue=[];renderQueue();}
+
+// ==================== PRINT ====================
+
+function printOne(){
+  var idx=document.getElementById('s2O').value;
+  if(idx===''){document.getElementById('s2m').innerHTML='<div class="err">Select an association first.</div>';return;}
+  var orgs=getActiveOrgs();
+  var o=orgs[parseInt(idx)];
+  var lt=document.getElementById('s2LT').value.trim();
+  var ln=document.getElementById('s2LN').value.trim();
+  var a1=document.getElementById('s2A1').value.trim();
+  var a2=document.getElementById('s2A2').value.trim();
+  if(!a1||!a2){document.getElementById('s2m').innerHTML='<div class="err">Please fill in address fields.</div>';return;}
+  var my=getMyInfo();
+  var sal=o.salute;if(ln&&ln!==o.leader)sal=guessSalute(ln,o.name);
+  var incBr=document.getElementById('inclBroch').checked;
+  var html=makeCL(my,o.name,o.name,lt,ln,a1,a2,sal);
+  if(incBr)html+=brochureHTML();
+  document.getElementById('printArea').innerHTML=html;
+  var pp=incBr?4:1;
+  document.getElementById('pgInfo').textContent=pp+' page'+(pp>1?'s':'')+' \u2014 '+o.name;
+  lastPrintInfo={type:'single',name:o.name,incBr:incBr};
+  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function printBatch(){
+  if(queue.length===0)return;
+  var my=getMyInfo();var incBr=document.getElementById('inclBroch').checked;
+  var html='';
+  for(var i=0;i<queue.length;i++){
+    var q=queue[i];
+    html+=makeCL(my,q.name,q.name,q.title,q.leader,q.addr1,q.addr2,q.salute);
+    if(incBr)html+=brochureHTML();
+  }
+  document.getElementById('printArea').innerHTML=html;
+  var pp=incBr?queue.length*4:queue.length;
+  document.getElementById('pgInfo').textContent=pp+' pages \u2014 '+queue.length+' associations';
+  lastPrintInfo={type:'batch',name:'',count:queue.length,incBr:incBr};
+  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function printAll(){
+  var orgs=getActiveOrgs();
+  var levelLabel=orgLevel==='state'?'50 state':'12 national';
+  var idx=document.getElementById('s2O').value;
+  if(idx!==''){
+    var choice=confirm('You have an association selected. Click OK to print ALL '+levelLabel+' associations, or Cancel to print only the selected one.');
+    if(!choice){printOne();return;}
+  }
+  var my=getMyInfo();
+  if(!my.n||!my.e||!my.a||!my.p){document.getElementById('s2m').innerHTML='<div class="err">Please fill in your info in Step 1.</div>';return;}
+  var incBr=document.getElementById('inclBroch').checked;
+  var html='';
+  for(var i=0;i<orgs.length;i++){
+    var o=orgs[i];
+    html+=makeCL(my,o.name,o.name,o.title,o.leader,o.addr1,o.addr2,o.salute);
+    if(incBr)html+=brochureHTML();
+  }
+  document.getElementById('printArea').innerHTML=html;
+  var pp=incBr?orgs.length*4:orgs.length;
+  document.getElementById('pgInfo').textContent=pp+' pages \u2014 all '+orgs.length+' '+orgLevel+' associations';
+  lastPrintInfo={type:'all',name:'',incBr:incBr,level:orgLevel};
+  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function doPrint(){
+  var content=document.getElementById('printArea').innerHTML;
+  if(!content)return;
+  // Build dynamic filename
+  var suffix=lastPrintInfo.incBr?' - Letter & Brochure':' - Letter Only';
+  var fileName;
+  if(lastPrintInfo.type==='single'){
+    fileName='DPF '+lastPrintInfo.name+suffix+'.html';
+  }else if(lastPrintInfo.type==='batch'){
+    fileName='DPF Batch ('+lastPrintInfo.count+' Associations)'+suffix+'.html';
+  }else{
+    fileName='DPF All '+getActiveOrgs().length+' '+(lastPrintInfo.level==='state'?'State':'National')+' Associations'+suffix+'.html';
+  }
+  if(window.location.protocol==='file:'){
+    var styles=document.querySelectorAll('style');var css='';for(var i=0;i<styles.length;i++)css+=styles[i].outerHTML;
+    var printCSS='<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}.bp{height:11in;max-height:11in;overflow:hidden}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style>';
+    var blob=new Blob(['<!DOCTYPE html><html><head><meta charset="UTF-8"><title>DPF Letter Package</title>'+css+printCSS+'</head><body>'+content+'</body></html>'],{type:'text/html'});
+    var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=fileName;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},3000);
+    alert('Downloaded: '+fileName+'\n\nOpen it in your browser and press Ctrl+P.\nSet Margins to "None" and enable "Background graphics."');
+  }else{
+    var dlDiv=document.createElement('div');
+    dlDiv.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #1a3a5c;border-radius:12px;padding:24px 32px;z-index:9999;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:440px';
+    dlDiv.innerHTML='<div style="font-size:16px;font-weight:bold;color:#1a3a5c;margin-bottom:12px">Save &amp; Print</div><div style="font-size:13px;color:#333;margin-bottom:12px;line-height:1.5">Downloads are not available inside Claude\u2019s interface. To save and print:</div><div style="text-align:left;font-size:13px;color:#333;line-height:1.7;margin-bottom:16px"><strong>1.</strong> Click the <strong>Copy</strong> button at the top-right of this panel to copy the app\u2019s HTML.<br><strong>2.</strong> Paste into a text editor and save as an <strong>.html</strong> file.<br><strong>3.</strong> Open that file in your browser (double-click it).<br><strong>4.</strong> Generate your package there \u2014 Save &amp; Print will work normally.</div><button onclick="this.parentElement.remove()" style="padding:8px 20px;font-size:14px;border:1px solid #ccc;border-radius:6px;cursor:pointer;background:white">Got It</button>';
+    document.body.appendChild(dlDiv);
+  }
+}
+
+// ==================== UTILITIES ====================
+
+function extractLastName(fullName){
+  var suffixes=['jr','jr.','sr','sr.','ii','iii','iv','v'];
+  var parts=fullName.trim().split(/\s+/);
+  if(parts.length<=1)return fullName;
+  var last=parts[parts.length-1];
+  if(suffixes.indexOf(last.toLowerCase())!==-1&&parts.length>2)return parts[parts.length-2];
+  return last;
+}
+
+function guessSalute(ln,orgName){
+  if(!ln||ln.trim()==='')return orgName+' Leadership';
+  return 'Mr. '+extractLastName(ln);
+}
+
+function fD(){
+  var now=new Date();
+  var est=new Date(now.toLocaleString('en-US',{timeZone:'America/New_York'}));
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return months[est.getMonth()]+' '+est.getDate()+', '+est.getFullYear();
+}
+
+// ==================== COVER LETTER ====================
+
+function makeCL(my,orgName,orgAbbrev,lt,ln,a1,a2,salute){
+  var h='<div class="page cl" contenteditable="true">';
+  // Sender block
+  h+='<div style="margin-bottom:4pt;text-align:right"><div>'+my.n+'</div><div>'+my.a+'</div><div>'+my.p+' | '+my.e+'</div></div>';
+  h+='<div style="margin-bottom:6pt;text-align:center">'+fD()+'</div>';
+  h+='<div style="height:1em">&nbsp;</div>';
+  // Addressee
+  var addrName=ln?lt+' '+ln:orgAbbrev+' Leadership';
+  h+='<div>'+addrName+'</div>';
+  h+='<div>'+orgName+'</div>';
+  h+='<div>'+a1+'</div>';
+  h+='<div>'+a2+'</div>';
+  h+='<div style="height:1em">&nbsp;</div>';
+  // Salutation
+  h+='<div style="margin-bottom:8pt">Dear '+salute+',</div>';
+  // P1 — Credit + gap + brochure handoff
+  h+='<div style="margin-bottom:8pt">'+orgName+' advocates for owner-operators and independent truckers who bear the daily burden of diesel aftertreatment compliance. The administration\u2019s 2025\u20132026 regulatory actions \u2014 the DEF sensor removal, the Right to Repair guidance, the GHG Endangerment Finding rescission \u2014 addressed part of that burden. But every one of those actions is guidance that a future EPA administrator can reverse with a stroke of a pen. Everything gained can be lost in 2029. The enclosed three-page brochure presents a constitutional argument that provides a permanent remedy \u2014 one no future administration can undo.</div>';
+  // P2 — CARB + constitutional permanence
+  h+='<div style="margin-bottom:8pt">Right now, no one can manufacture a truck using a patent-expired pre-2007 engine design \u2014 the Caterpillar C15, the Cummins N14, the Detroit Diesel Series 60 \u2014 without adding a diesel particulate filter and the full aftertreatment stack those engines were never designed to carry. DPF deletion remains a Clean Air Act violation at $45,268 per incident. In the 18 states that adopted CARB standards, CARB-certified parts cost 15\u201325% more than federal equivalents. The Patent Clause challenge addresses the entire aftertreatment stack \u2014 DPF, SCR, DEF, sensors, when the truck involved was designed and sold without one \u2014 at both federal and state level simultaneously. A court ruling under the Supremacy Clause binds CARB and every state that follows it. Unlike guidance or legislation, a constitutional ruling cannot be reversed by the next EPA administrator or repealed by the next Congress.</div>';
+  // P3 — Bold ask
+  h+='<div style="margin-bottom:8pt"><strong>What I am asking:</strong> I am asking '+orgName+' to review the enclosed brochure and evaluate the Patent Clause argument as a potential litigation strategy on behalf of your members. Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), your association has standing to bring this challenge when the interests at stake are germane to your organization\u2019s purpose. The aftertreatment burden your members face daily is precisely that. Public interest law firms \u2014 Pacific Legal Foundation, Institute for Justice \u2014 provide free representation. The cost to your association: zero.</div>';
+  // P4 — Close
+  var isAuthor=/^roleigh\s*(h\.?\s+)?martin$/i.test(my.n.trim());
+  if(isAuthor){
+    h+='<div style="margin-bottom:8pt">If this proposal interests you, contact me, the author of the constitutional analysis behind the brochure. The full argument with 38 Supreme Court citations is at <strong><a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">x.com/RoleighMartin/articles</a></strong>. Email me for electronic copies to share with your board or legal counsel. If my reply doesn\u2019t arrive within a day, please text me \u2014 email filters sometimes catch new contacts.</div>';
+  }else{
+    h+='<div style="margin-bottom:8pt">The enclosed brochure documents the full constitutional argument, the legal landscape, the international evidence, and the remedy. One association\u2019s decision to act could make American trucking affordable again. Email me for electronic copies to share with your board or legal counsel, or contact the constitutional researcher behind the brochure at the contact information listed in the brochure. If my reply doesn\u2019t arrive within a day, please text me \u2014 email filters sometimes catch new contacts.</div>';
+  }
+  // Signature
+  h+='<div style="margin-top:16pt">Respectfully,</div>';
+  h+='<div style="margin-top:14pt">'+my.n+'</div>';
+  h+='<div style="font-size:10pt;margin-top:10pt">Enclosure: <em>The Patent Clause Finishes What the EPA Started</em> (3-page brochure)</div>';
+  h+='</div>';
+  return h;
+}
+
+// ==================== BROCHURE (3 pages, recreated from PDF) ====================
+
+function brochureHTML(){
+  var h='';
+
+  // ===== PAGE 1 (larger print to fill the page, matching the printed brochure PDF) =====
+  h+='<div class="page bp" style="font-size:10pt">';
+  h+='<div class="nb" style="font-size:13pt;padding:7pt 8pt">THE PATENT CLAUSE FINISHES WHAT THE EPA STARTED</div>';
+  h+='<div class="rb" style="font-size:9pt;line-height:1.35;margin-bottom:6pt;padding:5pt 8pt">THE TRUMP ADMINISTRATION FIXED 10% OF DIESEL AFTERTREATMENT. THE CONSTITUTION ELIMINATES THE $5,000 DPF ON PATENT-EXPIRED TRUCKS \u2014 PERMANENTLY.</div>';
+  // Core violation box
+  h+='<div class="ib" style="padding:7pt 9pt">';
+  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt"><strong>The core constitutional violation:</strong> Expired patented vehicles and equipment never enter a public domain where they are allowed to be remanufactured, protecting the original patent holder from ever seeing competition from remanufactured items. This unconstitutionally removes the \u201climited Times\u201d period stated in the Constitution and replaces it with infinitely long protection.</div>';
+  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt"><strong>What you\u2019re holding:</strong> This brochure shows how the Patent Clause provides a permanent remedy for the diesel aftertreatment crisis \u2014 one that no future administration can reverse \u2014 and why your association\u2019s members have constitutional standing to bring the case.</div>';
+  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:0"><strong>Why it matters now:</strong> On March 27, 2026, the EPA removed the DEF urea quality sensor requirement, saving Americans $13.79 billion/year. But the DPF \u2014 the $5,000 filter that actually strands drivers \u2014 remains required. DPF deletion is a Clean Air Act violation at $45,268/incident. The Patent Clause challenge addresses every aftertreatment component, permanently.</div>';
+  h+='</div>';
+  // Two columns: Done vs Undone
+  h+='<div class="g2" style="margin-bottom:5pt">';
+  h+='<div><div class="nh" style="font-size:10pt;padding:5pt 6pt">WHAT THE ADMINISTRATION HAS DONE \u2714</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Aug 2025:</strong> EPA guidance reversing DEF deratements \u2014 changed derate trigger from \u201c5 mph within hours\u201d to \u201cwarning light for 650 miles.\u201d</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Jan 21, 2026:</strong> DOJ stopped criminal charges for delete kit tampering. Civil enforcement continues.</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Feb 2026:</strong> Right to Repair guidance \u2014 farmers/truckers can self-repair DEF systems. EPA demanded warranty data from 14 manufacturers; 11 responded.</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Feb 12, 2026:</strong> Rescission of 2009 GHG Endangerment Finding \u2014 largest deregulatory action in U.S. history ($1.3T savings). EPA confirmed: \u201cDoes not affect regulations on traditional air pollutants.\u201d</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Mar 27, 2026:</strong> DEF urea quality sensor removed. SBA: $4.4B/yr farmers, $13.79B/yr total. John Deere applauded.</div>';
+  h+='</div>';
+  h+='<div><div class="nh" style="background:#c0392b;font-size:10pt;padding:5pt 6pt">WHAT REMAINS UNTOUCHED \u2718</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>DPF ($5,000\u2013$10,000):</strong> Still required on every new diesel truck. Causes 1 AM strandings, 2.5-hour forced regenerations, highway-speed derates. 13% of total maintenance costs (ATA).</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>SCR/DEF system:</strong> Still required. Only the quality sensor was removed \u2014 the fluid injection system remains.</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Clean Air Act:</strong> Still in force. DPF deletion = up to $45,268/violation. Civil enforcement fully operational.</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Criteria pollutant regulations:</strong> Explicitly excluded from Feb 12 GHG rollback. Particulate matter standards (basis for DPF) untouched.</div>';
+  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Result:</strong> $15,000\u2013$25,000 in aftertreatment on every new truck. Pre-2007 engines (Cat C15, Cummins N14, Detroit Series 60) \u2014 patents expired \u2014 still cannot be remanufactured.</div>';
+  h+='</div></div>';
+  h+='<div style="background:#fff3cd;border:1px solid #e0c36a;padding:6pt 8pt;font-size:9.5pt;font-weight:bold;text-align:center;margin-bottom:6pt">Every action taken in 2025\u20132026 is guidance. A future EPA administrator can reverse it all with a stroke of a pen. Everything gained can be lost in 2029.</div>';
+  // Patent Clause section
+  h+='<div class="nh" style="font-size:10pt;padding:5pt 6pt">THE PATENT CLAUSE: THE CONSTITUTIONAL REMEDY</div>';
+  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt">Article I, \u00a78, Cl. 8 grants patents for \u201climited Times.\u201d After 20 years, the design enters the public domain \u2014 \u201cfree for all to use\u201d (<em>Bonito Boats</em>, 1989). In <em>Kimble v. Marvel</em> (2015), expired patents give the public \u201cunrestricted rights\u201d to manufacture. In <em>Brulotte v. Thys Co.</em> (1964), extending patent rights post-expiration is \u201cper se unlawful.\u201d</div>';
+  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:5pt">Post-1970 regulations require any \u201cnew\u201d truck to meet current-year standards \u2014 standards requiring patented aftertreatment (DPF, SCR, DEF, sensors) the original design never included. A 2004-era Cummins ISX cannot be newly manufactured because the regulations demand equipment the patent-expired engine was never designed to carry. The patent expired. The monopoly continues. The Constitution says that is not allowed.</div>';
+  // Comparison table
+  h+='<div class="nh" style="font-size:10pt;padding:5pt 6pt">WHY A COURT RULING SUCCEEDS WHERE GUIDANCE AND LEGISLATION CANNOT</div>';
+  h+='<table class="bt" style="font-size:9.5pt"><tr><th style="font-size:9pt">EPA GUIDANCE</th><th style="font-size:9pt">LEGISLATION (S.3007)</th><th style="font-size:9pt">PATENT CLAUSE RULING</th></tr>';
+  h+='<tr><td>Reversed by next EPA administrator</td><td>Repealed by next Congress</td><td>Binds every future administration, Congress, and agency</td></tr>';
+  h+='<tr><td>Covers only what EPA can reach administratively</td><td>Covers only what the bill specifies</td><td>Covers every patent-expired design across all agencies</td></tr>';
+  h+='<tr><td>No constitutional authority</td><td>Statutory authority only</td><td>Supreme law of the land</td></tr>';
+  h+='<tr><td>Already done \u2014 fixed ~10%</td><td>Stalled in committee since Oct 2025</td><td>Question of first impression \u2014 never raised</td></tr>';
+  h+='</table>';
+  h+='</div>';
+
+  // ===== PAGE 2 =====
+  h+='<div class="page bp">';
+  h+='<div class="nb" style="font-size:10pt;padding:5pt 8pt;margin-bottom:5pt">THE $13.79 BILLION VALIDATION &amp; THE SIX-FRONT CAMPAIGN</div>';
+  // $13.79B section
+  h+='<div class="bs">The SBA\u2019s own $13.79 billion/year figure validates the premise of this constitutional challenge. That number represents the economic damage from <em>one sensor</em> in the aftertreatment stack. The DPF, SCR catalyst, diesel oxidation catalyst, and remaining sensor arrays collectively add $15,000\u2013$25,000 to every new truck and consume 13% of lifetime maintenance costs. Across all patent-expired products \u2014 vehicles, farm equipment, HVAC, appliances \u2014 the total regulatory taking is approximately $2,420 per American household per year, or $22 trillion cumulative since 1970.</div>';
+  // Five-front table
+  h+='<div class="nh" style="margin-top:4pt">THE SIX-FRONT CAMPAIGN ALREADY UNDERWAY</div>';
+  h+='<table class="bt"><tr><th style="text-align:left;width:18%">Plaintiff Class</th><th style="text-align:left;width:28%">Standing Theory</th><th style="text-align:left;width:54%">Read title at https://x.com/RoleighMartin/articles</th></tr>';
+  h+='<tr><td>County Sheriffs</td><td><em>Printz v. United States</em> (1997)</td><td>\u201cRestore Patent Rights & Cut Living Costs: Free App, Your Sheriff, One Letter\u201d</td></tr>';
+  h+='<tr><td>Governors & AGs</td><td>Sovereign standing</td><td>\u201cRestore Patent Rights & Cut Living Costs: Free App, Your Governor or State AG, One Letter\u201d</td></tr>';
+  h+='<tr><td>Tribal Nations</td><td>345 independent sovereigns</td><td>\u201cTribal Nations Open a Fourth Front in the Lawfare War Against Expired Patents\u201d</td></tr>';
+  h+='<tr><td>Farm Associations</td><td><em>Hunt v. Wash. State Apple Adv. Comm\u2019n</em> (1977)</td><td>\u201cFarm Associations Open a Fifth Front Against the Lawfare War Against Expired Patents\u201d</td></tr>';
+  h+='<tr><td>Semi-Truck Owner-Operators</td><td><em>Hunt</em> via OOIDA (150K members)</td><td>\u201cSemi-Truck Owner-Operators Pay $5,000 for a Filter the Constitution Says Should Not Be Required\u201d</td></tr>';
+  h+='<tr><td>Healthy Lighting Advocates</td><td>Associational standing</td><td>\u201cHealthy Sunlight to Blue-Light Tyranny: 1970 Reforms Killed Grandfather\u2019s Bulbs & Patent Clause\u201d</td></tr>';
+  h+='</table>';
+  // Mid-term case
+  h+='<div class="nh" style="margin-top:4pt">THE MID-TERM CASE</div>';
+  h+='<div class="bs">No executive order, tariff reduction, or tax cut can deliver $2,420/year to every American household. The administration that restores patent-expired manufacturing owns the most powerful affordability message in modern political history. Patent-expired remanufacturing creates domestic manufacturing jobs \u2014 Congress retains full authority over tariffs and imports. What the Constitution forbids is blocking domestic remanufacturing of designs the public already owns.</div>';
+  h+='<div class="bs">The Diesel Truck Liberation Act (S.3007) faces the Profiteers and Environmentalists coalition head-on: incumbent manufacturers (Paccar, Daimler, Volvo/Mack, Navistar) profit from blocking competition, while environmental groups provide political cover. A Patent Clause court ruling bypasses that coalition entirely \u2014 no congressional vote required, no filibuster to overcome.</div>';
+  // International proof
+  h+='<div class="nh" style="margin-top:4pt">THE INTERNATIONAL PROOF</div>';
+  h+='<div class="bs">Right now, in 2026, you can buy a brand-new vehicle built on a patent-expired design for $6,000\u2013$18,000 in over 90 countries. ZX Auto exports Toyota-derived pickups to 90+ nations. Mahindra ($15.9B) sells Jeep derivatives in 100+ countries with 5-star safety ratings. These vehicles cannot be purchased in the United States at any price. The wealthiest nation on Earth blocks what developing nations freely permit.</div>';
+  // CARB
+  h+='<div class="nh" style="margin-top:4pt">THE CARB PROBLEM YOUR MEMBERS ALREADY KNOW</div>';
+  h+='<div class="bs">Trump signed 3 CRA resolutions on June 12, 2025, revoking CARB\u2019s Advanced Clean Cars II, Advanced Clean Trucks, and Omnibus Low NOx waivers. California and 10 states sued immediately. But those revocations only touched EV mandates and GHG waivers. CARB\u2019s criteria pollutant authority \u2014 the regulatory basis for the DPF \u2014 was never touched. CARB-certified DPF parts still cost 15\u201325% more in 18 states. A Patent Clause ruling binds state governments through the Supremacy Clause, eliminating the DPF mandate at both federal AND state level simultaneously.</div>';
+  // What we are asking
+  h+='<div class="nh" style="margin-top:4pt">WHAT WE ARE ASKING YOUR ASSOCIATION</div>';
+  h+='<div class="bs">We are asking your association to evaluate the Patent Clause argument on behalf of your members and consider joining the constitutional challenge as an associational plaintiff. Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), a trade association has standing to sue on behalf of its members when: (1) members would have standing to sue individually; (2) the interests at stake are germane to the organization\u2019s purpose; and (3) neither the claim nor the relief requires individual member participation. Your association meets all three prongs.</div>';
+  h+='<div class="bs">Five AI legal research platforms \u2014 including OpenCase (trained on Cornell Law Institute\u2019s case law database), Claude Opus 4.6 (Anthropic), GPT-5.2 Thinking (OpenAI), SuperGrok (xAI), and Google Gemini 2.5 Pro \u2014 have independently confirmed the argument has constitutional merit across 38 Supreme Court citations.</div>';
+  h+='</div>';
+
+  // ===== PAGE 3 =====
+  h+='<div class="page bp">';
+  h+='<div class="nb" style="font-size:10pt;padding:5pt 8pt;margin-bottom:5pt">THE LEGAL LANDSCAPE, REMEDY &amp; RESOURCES</div>';
+  h+='<div class="g2" style="margin-bottom:5pt">';
+  // Left column: Legal landscape
+  h+='<div><div class="nh">THE LEGAL LANDSCAPE: MOST FAVORABLE COURT IN DECADES</div>';
+  h+='<div class="bs"><strong>Chevron is dead.</strong> <em>Loper Bright v. Raimondo</em> (2024) ended agency deference. Courts now apply statutory text, not agency interpretation.</div>';
+  h+='<div class="bs"><strong>Takings expanded.</strong> <em>Sheetz v. County of El Dorado</em> (2024) expanded regulatory takings doctrine.</div>';
+  h+='<div class="bs"><strong>Major Questions.</strong> <em>West Virginia v. EPA</em> (2022): Congress never authorized agencies to make decisions of vast economic significance without clear statutory authorization.</div>';
+  h+='<div class="bs"><strong>Patent rights affirmed.</strong> <em>Bonito Boats</em> (1989), <em>Kimble</em> (2015), <em>Brulotte</em> (1964): expired patents enter free public use. Extension is per se unlawful.</div>';
+  h+='<div class="bs"><strong>Sheriff standing.</strong> <em>Printz v. United States</em> (1997): individual county sheriffs have standing to challenge federal overreach.</div>';
+  h+='<div class="bs"><strong>Associational standing.</strong> <em>Hunt v. Wash. State Apple</em> (1977): trade associations can sue on behalf of members. OOIDA (150K truckers), farm associations, tribal nations all qualify.</div>';
+  h+='</div>';
+  // Right column: Remedy
+  h+='<div><div class="nh">THE REMEDY: GRANDFATHER EXEMPTIONS, NOT DEREGULATION</div>';
+  h+='<div class="bs">Any product remanufactured from a design whose patents expired 20+ years ago meets the standards in effect when the original patent was filed \u2014 not current-year standards. This preserves every regulation\u2019s purpose for new designs while honoring the constitutional promise for expired ones. Independent engineering certification verifies authenticity. Consumers receive clear labeling: \u201cThis vehicle meets 2004 emission standards.\u201d Modern designs continue under current regulations.</div>';
+  h+='<div class="bs" style="margin-top:4pt"><strong>The Bicycle Proof:</strong> Patent expiration without regulatory blockage produced a 95.5% improvement in affordability since 1910. Child cyclist deaths fell 88% over 48 years \u2014 under zero federal regulation. When Washington stays out of expired-patent markets, prices collapse and safety improves through competition.</div>';
+  h+='</div></div>';
+  // Articles table
+  h+='<div class="nh">ADDITIONAL KEY ARTICLES AND RESOURCES</div>';
+  h+='<div class="bs" style="margin-bottom:2pt">Available at <strong><a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">https://x.com/RoleighMartin/articles</a></strong></div>';
+  h+='<table class="bt"><tr><th style="text-align:left;width:42%">Topic</th><th style="text-align:left">Article Title</th></tr>';
+  h+='<tr><td>Full Patent Clause Analysis</td><td>\u201cThe Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?\u201d</td></tr>';
+  h+='<tr><td>The International Pattern</td><td>\u201cWhy Wealthy Nations Break the Patent Promise That Poor Nations Honor\u201d</td></tr>';
+  h+='<tr><td>How the Patent Clause Should Work</td><td>\u201cHow Expired Bicycle Patents Made Two Wheels Affordable & Why Cars Became Less Affordable\u201d</td></tr>';
+  h+='<tr><td>The Economic Cost</td><td>\u201cThe $22 Trillion Constitutional Theft\u2014How Energy & Safety Laws Created Perpetual Patents\u201d</td></tr>';
+  h+='<tr><td>Amplifying MAGA to the Maximum</td><td>\u201cMAGA needs to be amplified enough to Make American Living Affordable (MALA)\u201d</td></tr>';
+  h+='<tr><td>An Executive Order for a Filibuster-Proof Senate</td><td>\u201cThe 2026 mid-terms where Trump wins a filibuster-proof Senate \u2014 the EO behind it \u2014 a lookback\u201d</td></tr>';
+  h+='</table>';
+  // About the author
+  h+='<div class="bb"><div class="bbt">ABOUT THE AUTHOR</div>';
+  h+='<div class="bsm">Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.3 million readers. He leads the 114,000+ member DOGE/MAGA/MAHA Amplified! community on X and has mailed over 500 personalized letters to sheriffs, governors, attorneys general, tribal leaders, and farm associations across 37+ states.</div>';
+  h+='<div class="bsm">B.S., Northeast Missouri State College | M.A. Sociology, University of Northern Iowa</div>';
+  h+='<div class="bsm">Contact: roleigh@pobox.com | x.com/RoleighMartin | 952-905-0822 | SSRN Abstract ID: 6166206</div>';
+  h+='<div class="bsm">Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase, and SuperGrok (xAI).</div>';
+  h+='</div>';
+  h+='</div>';
+
+  return h;
+}
+
+</script>
+</body>
+</html>
