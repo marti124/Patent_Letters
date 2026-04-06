@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheriff Mailing Package Generator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
+.fw{max-width:720px;margin:0 auto;padding:24px}
+h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;margin-bottom:4px}
+.fs{color:#6b7280;font-size:14px;text-align:center;margin-bottom:16px}
+.st{font-size:16px;font-weight:700;color:#1a3a5c;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 12px}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+.fld input,.fld select{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;font-family:inherit}
+.fld select{background:white}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.req{color:#dc2626}
+.ctr{text-align:center}
+.btn{padding:12px 28px;font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;display:inline-block;margin:4px}
+.bn{background:#1a3a5c;color:white}.bn:hover{background:#15304a}
+.bw{background:white;color:#1a3a5c;border:2px solid #1a3a5c}.bw:hover{background:#eef3f8}
+.bred{background:#c0392b;color:white}.bred:hover{background:#a93226}
+.bgrn{background:#27ae60;color:white}.bgrn:hover{background:#1e8449}
+.bora{background:#e67e22;color:white}.bora:hover{background:#d35400}
+.err{text-align:center;color:#dc2626;font-size:13px;margin-top:8px}
+.ok{text-align:center;color:#27ae60;font-size:13px;margin-top:8px}
+.sp{background:#eef3f8;border:1px solid #c5d4e6;border-radius:8px;padding:14px;margin-top:12px}
+.sp h3{color:#1a3a5c;font-size:15px;margin-bottom:6px}
+.sp .big{font-size:20px;font-weight:bold;color:#1a3a5c;text-align:center;margin:6px 0}
+.sp table{width:100%;font-size:13px;border-collapse:collapse;margin-top:6px}
+.sp td{padding:3px 6px;border-bottom:1px solid #ddd}
+.sp td:last-child{text-align:right;font-weight:600}
+.note{font-size:12px;color:#888;margin-top:6px;font-style:italic}
+.qp{background:white;border:2px solid #1a3a5c;border-radius:8px;padding:14px;margin-top:16px}
+.qp h3{color:#1a3a5c;font-size:15px;margin-bottom:8px}
+.qi{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid #eee;font-size:14px}
+.qi:last-child{border-bottom:none}
+.qi .qr{color:#c0392b;cursor:pointer;font-size:12px;font-weight:600;padding:2px 8px;border:1px solid #c0392b;border-radius:4px;background:white}
+.qi .qr:hover{background:#fdecea}
+.toolbar{position:sticky;top:0;z-index:100;background:#1a3a5c;padding:10px 20px;display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap}
+.toolbar .btn{padding:8px 20px;font-size:14px}
+.th{color:white;font-size:13px;opacity:0.8}
+.page{width:8.5in;background:white;margin:12px auto;border:1px solid #ccc;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.cl{font-family:Calibri,Carlito,sans-serif;font-size:11pt;line-height:1.25;padding:0.4in 0.5in;min-height:11in}
+.bp{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:11pt;padding:0.35in 0.4in;min-height:11in}
+.apx{font-family:Arial,sans-serif;padding:0.5in;min-height:11in}
+.nb{background:#1a3a5c;color:white;text-align:center;padding:10pt 8pt 6pt;font-size:16pt;font-weight:bold;letter-spacing:.5pt;font-family:Georgia,serif}
+.rb{background:#c0392b;color:white;text-align:center;padding:5pt 8pt;font-size:11pt;font-weight:bold}
+.nh{background:#1a3a5c;color:white;font-weight:bold;padding:6pt 8pt;font-size:11pt;margin-bottom:6pt;font-family:Georgia,serif}
+.SB{font-size:28pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center;margin:6pt 0}
+.SM{font-size:16pt;font-weight:bold;color:#1a3a5c;line-height:1.1;font-family:Georgia,serif;text-align:center}
+.bs{font-size:11pt;line-height:1.35;margin-bottom:4pt}
+.sh{font-size:11.5pt;font-weight:bold;color:#1a3a5c;margin-bottom:2pt;margin-top:6pt}
+.sn2{font-weight:bold;color:#1a3a5c;font-size:11.5pt}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10pt}
+.svb{background:#E8E8E8;border:1px solid #999;padding:8pt 12pt;margin-bottom:6pt;text-align:center}
+.svt{font-weight:bold;font-size:12pt;margin-bottom:2pt}
+.svd{font-size:10pt;text-align:left}
+.qb{background:#eef3f8;border-left:4pt solid #1a3a5c;padding:6pt 10pt;font-style:italic;font-size:11.5pt}
+.afb{background:#fff3cd;border:1px solid #e0c36a;padding:6pt 10pt;font-size:11pt;line-height:1.35}
+.bb{background:#eef3f8;border:1px solid #c5d4e6;padding:8pt;margin-top:8pt}
+.bbt{font-weight:bold;color:#1a3a5c;font-size:11pt;margin-bottom:4pt;font-family:Georgia,serif}
+.rf{background:#1a3a5c;color:white;padding:8pt 12pt;margin-bottom:8pt}
+.rft{font-weight:bold;font-size:10pt;margin-bottom:3pt;font-family:Georgia,serif}
+.br2{background:#c0392b;color:white;padding:6pt 12pt;font-size:11pt;font-weight:bold;text-align:center;line-height:1.35}
+.ib{border:1px solid #ccc;padding:6pt 8pt;background:#f8f9fa;margin-bottom:6pt}
+.mss{font-size:10pt;line-height:1.3;margin-bottom:3pt}
+.at{width:100%;border-collapse:collapse;font-size:9.5pt;margin:8pt 0}
+.at th{background:#1F4E79;color:white;padding:5pt 4pt;text-align:center;font-size:9pt;border:1pt solid #999}
+.at td{padding:4pt;border:1pt solid #999;text-align:center}
+.at tr:nth-child(even) td{background:#EDF2F9}
+.at .tr{background:#1F4E79!important;color:white;font-weight:bold}
+.at .tr td{background:#1F4E79!important;color:white;border-color:#666}
+.cl[contenteditable]:focus{outline:2px dashed #2980b9;outline-offset:4px}
+.cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
+.edit-hint{background:#fff3cd;color:#856404;text-align:center;padding:6px 12px;font-size:13px;border-bottom:1px solid #e0c36a}
+.guide-panel{display:none;max-width:720px;margin:0 auto;padding:24px;background:white;border:2px solid #1a3a5c;border-radius:10px;margin-top:16px;max-height:70vh;overflow-y:auto;text-align:left;font-size:14px;line-height:1.6;color:#333}
+.guide-panel h2{color:#1a3a5c;font-family:Georgia,serif;font-size:18px;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 10px}
+.guide-panel h3{color:#1a3a5c;font-size:15px;margin:14px 0 6px}
+.guide-panel h4{color:#333;font-size:14px;font-weight:700;margin:10px 0 4px}
+.guide-panel ul,.guide-panel ol{margin-left:20px;margin-bottom:10px}
+.guide-panel li{margin-bottom:6px}
+.guide-panel p{margin-bottom:10px}
+.guide-panel .gt{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+.guide-panel .gt th{background:#1a3a5c;color:white;padding:6px 8px;text-align:left;font-size:12px}
+.guide-panel .gt td{padding:5px 8px;border:1px solid #ddd}
+.guide-panel .gt tr:nth-child(even) td{background:#f5f7fa}
+.guide-panel .close-guide{position:sticky;top:0;background:white;padding:8px 0;text-align:right;border-bottom:1px solid #eee;margin-bottom:10px}
+.bguide{background:#4a6fa5;color:white;font-size:14px;padding:8px 20px;border-radius:6px}
+.vbox{background:#fff8e1;border:2px solid #e0a800;border-radius:8px;padding:10px 14px;margin-top:8px;text-align:center}
+.vbox .vtxt{color:#856404;font-size:13px;font-weight:600;margin-bottom:6px}
+.vbox .vbtn{display:inline-block;padding:7px 18px;font-size:13px;font-weight:600;border:none;border-radius:6px;cursor:pointer;background:#1a73e8;color:white;text-decoration:none;margin-top:2px}
+.vbox .vbtn:hover{background:#1558b0}
+@media print{
+  .edit-hint{display:none!important}
+  .cl[contenteditable]{outline:none!important}
+  body{background:white}
+  .toolbar,#step1,#step2{display:none!important}
+  #preview{display:block!important}
+  .page{border:none;box-shadow:none;margin:0;page-break-after:always}
+  @page{size:letter;margin:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
+</head>
+<body>
+
+<!-- STEP 1 -->
+<div id="step1" class="fw">
+  <h1 class="ft">Sheriff Mailing Package Generator</h1>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 22</p>
+  <p class="fs">Generate personalized cover letters, county savings reports, and brochures for any U.S. county sheriff. Works for one county or hundreds.</p>
+  <p class="note ctr" style="margin-bottom:12px">Covers counties across 46 states with elected county sheriffs. Connecticut, Alaska, Hawaii, and Rhode Island are excluded because they do not have sheriffs or sheriff-equivalent positions with standing to bring a constitutional court challenge.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
+
+  <!-- USER GUIDE PANEL -->
+  <div id="guidePanel" class="guide-panel">
+    <div class="close-guide"><button class="btn bw" onclick="toggleGuide()" style="padding:4px 14px;font-size:13px">&times; Close Guide</button></div>
+
+    <h2>Background: Why This Tool Was Created</h2>
+    <p>The article &ldquo;Should a Sheriff Sue Over the $22T Taking? The Standing Gamble and Publicity Strategy&rdquo; &mdash; accessible at <a href="https://x.com/RoleighMartin/status/2025357352619110578" target="_blank">x.com/RoleighMartin (X Articles)</a> or <a href="https://postpandemicchanges.substack.com/p/should-a-sheriff-sue-over-the-22t" target="_blank">Substack</a> &mdash; presents a constitutional argument that has never been raised in court.</p>
+    <p>The U.S. Constitution&rsquo;s Patent Clause (Article I, Section 8, Clause 8) grants patent protection for &ldquo;limited Times&rdquo; &mdash; meaning that after a patent expires, the design enters the public domain for the public to use freely. But energy and safety regulations enacted after 1970 make it impossible to remanufacture any vehicle or machine whose patents have expired. The designs never enter a functional public domain. The original patent holders never face competition from remanufactured alternatives. The &ldquo;limited Times&rdquo; protection becomes, de facto, infinite &mdash; a permanent monopoly the Founders explicitly prohibited.</p>
+    <p>The economic consequence is staggering. American households overpay an estimated $2,420 per year on vehicles, equipment, and appliances because the competition the Patent Clause promises has been regulatory-blocked for over fifty years. Counties overpay for every patrol vehicle, fire truck, and piece of road equipment they purchase.</p>
+    <p>Any of the nation&rsquo;s 3,081 elected county sheriffs has standing to challenge this in federal court. Each sheriff&rsquo;s county is directly harmed &mdash; paying inflated prices for fleet vehicles and equipment in a market where remanufacturing options are blocked and manufacturers face no competitive pressure to discount. Public interest law firms such as Pacific Legal Foundation provide free legal representation, so the challenge costs the county nothing.</p>
+    <p>This tool was created so that any reader who wants to see the Patent Clause promise restored &mdash; and their cost of living reduced &mdash; can communicate directly with a sheriff about this issue. The goal: get one or more sheriffs to file this constitutional challenge.</p>
+
+    <h2>What This Tool Generates</h2>
+    <p>From just two inputs &mdash; a state and a county &mdash; the tool auto-generates a 5-page mailing package:</p>
+    <ol>
+      <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info, the sheriff&rsquo;s name and mailing address, and auto-calculated savings figures</li>
+      <li><strong>Appendix C County Savings Report</strong> (1 page) &mdash; a detailed 6-category cost savings breakdown with a professional table</li>
+      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; the full Patent Clause analysis, evidence, precedent, and call to action</li>
+    </ol>
+
+    <h2>Two Ways to Run This Tool</h2>
+    <p>This tool works in any web browser, but it becomes <strong>more powerful</strong> when run inside a Claude AI interface because Claude can automatically look up sheriff names and addresses via web search.</p>
+
+    <h3>Option A: Any Web Browser (No Account Required)</h3>
+    <p><strong>Best for:</strong> Quick use, anyone with a browser, no sign-up needed.</p>
+    <ol>
+      <li><strong>Open the HTML file</strong> by double-clicking it. It opens in your default browser.</li>
+      <li><strong>Enter your personal information</strong> and click &ldquo;Save My Info for Next Time&rdquo; to store your details for future sessions.</li>
+      <li><strong>Click &ldquo;Generate Sheriff Cover Letters & County Savings Reports&rdquo;</strong> to proceed.</li>
+      <li><strong>Select a state and county</strong> from the dropdowns.</li>
+      <li><strong>Click &ldquo;Look Up Sheriff Name & Address&rdquo;</strong> &mdash; this opens a Google search in a new browser tab.</li>
+    </ol>
+    <p><strong>Important tips for the Google search tab:</strong></p>
+    <ul>
+      <li>Search results typically show the sheriff&rsquo;s office <strong>address</strong> more readily than the sheriff&rsquo;s <strong>name</strong>. Start by copying the address.</li>
+      <li>The Google search opens in a <strong>separate tab</strong>. Navigate back to the original tab (where the generator is running) to paste the information.</li>
+      <li>Fill in the <strong>address first</strong>, then go back to the Google tab to find the sheriff&rsquo;s name.</li>
+      <li>When copying the sheriff&rsquo;s name, <strong>do not paste the word &ldquo;Sheriff&rdquo;</strong> &mdash; just paste the name itself (e.g., &ldquo;John Smith&rdquo; not &ldquo;Sheriff John Smith&rdquo;). The cover letter automatically adds the title.</li>
+    </ul>
+
+    <h3>Option B: Inside a Claude AI Interface (AI-Powered Lookup)</h3>
+    <p><strong>Best for:</strong> Faster workflow, automatic sheriff name and address lookup.</p>
+    <p>When run inside Claude, the lookup button calls Claude&rsquo;s AI with web search to automatically find and fill in the sheriff&rsquo;s name and office address.</p>
+    <h4>Using Claude.ai directly:</h4>
+    <ol>
+      <li>Go to <strong>claude.ai</strong> and sign in (or sign up).</li>
+      <li>Start a new conversation and upload the HTML file.</li>
+      <li>Type <strong>&ldquo;Run&rdquo;</strong> or <strong>&ldquo;Run without displaying a Playground&rdquo;</strong>. Claude renders the tool as an interactive artifact.</li>
+      <li>When you click the lookup button, Claude searches the web and auto-fills the sheriff fields. <strong>Always verify the results:</strong> click the &ldquo;Verify with Google Search&rdquo; button that appears after lookup &mdash; it opens a Google search in a new tab so you can confirm the name and address are correct and current.</li>
+    </ol>
+    <h4>Using Claude through Abacus.AI or other platforms:</h4>
+    <ol>
+      <li>Upload the HTML file to the chat interface.</li>
+      <li>Type <strong>&ldquo;Run without displaying a Playground&rdquo;</strong> to render immediately. Without this instruction, some platforms slowly display each HTML line, taking many minutes.</li>
+      <li>The AI lookup may or may not work depending on the platform. If it fails, it falls back to a Google search tab automatically.</li>
+    </ol>
+
+    <h3>Browser Storage Note</h3>
+    <p>Some browsers (such as Dissenter) block local storage and will not save your information between sessions. Chrome, Edge, Firefox, and Safari all support the &ldquo;Save My Info&rdquo; feature. If your browser does not save, you will need to re-enter your information each time.</p>
+
+    <h2>Batch Mode</h2>
+    <p>Generate packages for multiple counties in one session:</p>
+    <ol>
+      <li>Select a state and county, enter the sheriff&rsquo;s info.</li>
+      <li>Click <strong>&ldquo;Add to Batch&rdquo;</strong> to queue it.</li>
+      <li>Repeat for as many counties as desired (you can mix states).</li>
+      <li>Click <strong>&ldquo;Preview & Print Entire Batch&rdquo;</strong> &mdash; all counties print in sequence, 5 pages each.</li>
+    </ol>
+
+    <h2>Editing the Cover Letter</h2>
+    <p>The cover letter is <strong>fully editable</strong> in the preview. The toolbar displays &ldquo;Letter is editable&rdquo; as a reminder. Click anywhere on the letter text to make changes before printing. The Appendix C and brochure pages are not editable. Edits are not saved between sessions &mdash; save as PDF to preserve them.</p>
+
+    <h2>Saving Your Work</h2>
+    <p>When you click &ldquo;Save &amp; Print Pages,&rdquo; the app downloads a self-contained HTML file (<code>Sheriff_Mailing_Package.html</code>) to your Downloads folder. Open that file in your browser and the print dialog will appear automatically. You can then print or select <strong>&ldquo;Save as PDF&rdquo;</strong>:</p>
+    <ul>
+      <li><strong>Chrome / Edge / Brave:</strong> Select &ldquo;Save as PDF&rdquo; from the Destination dropdown.</li>
+      <li><strong>Firefox:</strong> Select &ldquo;Save to PDF&rdquo; in the print dialog.</li>
+      <li><strong>Safari:</strong> Click the PDF dropdown in the lower-left, then &ldquo;Save as PDF.&rdquo;</li>
+    </ul>
+    <p><strong>Print settings:</strong> Set Margins to &ldquo;None&rdquo; and enable &ldquo;Background graphics&rdquo; for best results. Paper size: US Letter (8.5&rdquo; &times; 11&rdquo;).</p>
+    <p><strong>Note:</strong> If the print dialog does not appear automatically, press Ctrl+P (Windows) or Cmd+P (Mac) after opening the file.</p>
+
+    <h2>Excluded States</h2>
+    <p>Four states are excluded because they do not have sheriffs or sheriff-equivalent positions that could have standing in a constitutional court challenge:</p>
+    <ul>
+      <li><strong>Connecticut</strong> &mdash; abolished the office of sheriff in 2000; replaced with state marshals</li>
+      <li><strong>Alaska</strong> &mdash; the office of sheriff does not exist; law enforcement is handled by state troopers</li>
+      <li><strong>Hawaii</strong> &mdash; sheriffs are appointed state employees serving at the pleasure of the Director</li>
+      <li><strong>Rhode Island</strong> &mdash; sheriffs are appointed by the governor</li>
+    </ul>
+    <p>The standing that made <em>Printz v. United States</em> (1997) possible depends on the sheriff holding an independent, elected, constitutionally sovereign county office. Appointed sheriffs lack the political independence to sustain a constitutional challenge.</p>
+
+    <h2>How the County Savings Report Works</h2>
+    <p>Every number is calculated from a single input: the county&rsquo;s estimated population (U.S. Census Bureau Vintage 2024). No actual fleet data was obtained. All figures are modeled estimates scaled from a reference county (Boone County, KY, pop. 136,000), validated against Boone County&rsquo;s actual FY2024 budget data.</p>
+
+    <h3>Step 1 &mdash; Estimate Annual Procurement</h3>
+    <p>The model estimates what the county currently spends annually buying new vehicles and equipment across six categories. Fleet sizes are population-based with adjustment factors; equipment categories use conservative per-capita procurement rates.</p>
+
+    <h3>Step 2 &mdash; Apply Floor and Ceiling Discounts</h3>
+    <p><strong>Floor (15%):</strong> Total procurement &times; 15%. This is the savings if the county keeps buying only new equipment, but remanufactured competition forces prices down &mdash; exactly as generic drugs force brand-name drug prices down. The 15% is conservative: the generic drug market shows 30&ndash;80% brand-name price drops when generics enter.</p>
+    <p><strong>Ceiling (45%):</strong> Total procurement &times; 45%. This is the savings if the county purchases remanufactured equipment directly. Based on international pricing: patent-expired vehicles sell for 50&ndash;70% less in 90+ countries; 45% is the conservative end of that range.</p>
+
+    <h3>The Six Categories</h3>
+    <p><strong>Category 1 &mdash; Sheriff&rsquo;s Fleet:</strong> Pop. &times; 0.0006 &times; adjustment factor (min 12 vehicles). New cost: $55,000 per vehicle. Replacement rate: 19.5%/year. Annual procurement = replacements &times; $55,000.</p>
+    <p><strong>Category 2 &mdash; Other County Vehicles:</strong> Pop. &times; 0.00032 &times; adjustment factor (min 6). New cost: $45,000 per vehicle. Replacement rate: 25%/year. Annual procurement = replacements &times; $45,000.</p>
+    <p><strong>Categories 3&ndash;6 (per-capita procurement rates, no adjustment factor):</strong></p>
+    <table class="gt">
+      <tr><th>Category</th><th>Per-Capita Rate</th><th>Boone County Baseline</th></tr>
+      <tr><td>Fire/EMS Apparatus</td><td>$2.50/person/yr</td><td>$340,000/yr</td></tr>
+      <tr><td>Road &amp; Winter Equipment</td><td>$2.00/person/yr</td><td>$272,000/yr</td></tr>
+      <tr><td>Heavy Construction</td><td>$1.25/person/yr</td><td>$170,000/yr</td></tr>
+      <tr><td>General Procurement</td><td>$1.50/person/yr</td><td>$204,000/yr</td></tr>
+    </table>
+    <p><em>Texas only: Road &amp; Winter reduced by 20%.</em></p>
+
+    <h3>Population Adjustment Factor (fleet categories only)</h3>
+    <table class="gt">
+      <tr><th>Population Range</th><th>Factor</th><th>Meaning</th></tr>
+      <tr><td>Under 20,000</td><td>1.30&times;</td><td>30% more vehicles per person</td></tr>
+      <tr><td>20,000&ndash;39,999</td><td>1.15&times;</td><td>15% more</td></tr>
+      <tr><td>40,000&ndash;199,999</td><td>1.00&times;</td><td>Baseline</td></tr>
+      <tr><td>200,000&ndash;499,999</td><td>0.85&times;</td><td>15% fewer</td></tr>
+      <tr><td>500,000+</td><td>0.65&times;</td><td>35% fewer</td></tr>
+    </table>
+
+    <h3>Small County Minimums (under 20,000 pop.)</h3>
+    <table class="gt">
+      <tr><th>Category</th><th>Minimum Annual Procurement</th></tr>
+      <tr><td>Fire/EMS</td><td>$50,000</td></tr>
+      <tr><td>Road &amp; Winter</td><td>$30,000</td></tr>
+      <tr><td>Heavy Construction</td><td>$20,000</td></tr>
+      <tr><td>General Procurement</td><td>$25,000</td></tr>
+    </table>
+
+    <h3>Verification: Boone County, KY (pop. 136,000)</h3>
+    <p>Total procurement: $2,361,000 | Floor (15%): $354,000 | Ceiling (45%): $1,062,000. Actual FY2024 vehicle spend: $2.9M (heavy year), FY2025: $300K (light year). Model&rsquo;s vehicle estimate of $1,375,000/yr falls within the multi-year average.</p>
+
+    <h3>Verification: Jefferson County, KY (pop. 789,000)</h3>
+    <p>Total procurement: $10,865,000 | Floor (15%): $1,630,000 | Ceiling (45%): $4,889,000</p>
+
+  </div>
+
+  <div class="st">Your Information</div>
+  <div class="row2">
+    <div class="fld"><label>Your Name <span class="req">*</span></label><input id="s1N"></div>
+    <div class="fld"><label>Your Email <span class="req">*</span></label><input id="s1E" type="email"></div>
+  </div>
+  <div class="fld"><label>Your Full Address (one line) <span class="req">*</span></label><input id="s1A" placeholder="123 Main St, City, ST 00000"></div>
+  <div class="fld"><label>Your Phone Number <span class="req">*</span></label><input id="s1P"></div>
+  <div class="ctr" style="margin-top:12px"><button class="btn bgrn" onclick="saveInfo()">Save My Info for Next Time</button></div>
+  <div id="s1m"></div>
+  <p class="note ctr" style="margin-top:4px">Stores your details in this browser so you never retype them.</p>
+  <div style="border-top:2px solid #1a3a5c;margin-top:24px;padding-top:20px" class="ctr">
+    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="goStep2()">Generate Sheriff Cover Letters &amp; County Savings Reports &rarr;</button>
+  </div>
+  <div id="s1e"></div>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="fw" style="display:none">
+  <h1 class="ft">Sheriff Mailing Package Generator</h1>
+  <p class="fs">Select state &amp; county. Print one at a time, or build a batch and print them all at once.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bw" onclick="goStep1()" style="padding:6px 16px;font-size:13px">&larr; Edit My Info</button></div>
+  <div class="st">Select a County</div>
+  <div class="row2">
+    <div class="fld"><label>State <span class="req">*</span></label><select id="s2S" onchange="onSt()"><option value="">&mdash; Select State &mdash;</option></select></div>
+    <div class="fld"><label>County <span class="req">*</span></label><select id="s2C" onchange="onCo()"><option value="">&mdash; Select state first &mdash;</option></select></div>
+  </div>
+  <div id="popD" style="color:#1a3a5c;font-weight:600;font-size:14px;margin-bottom:4px"></div>
+  <div id="sheriffPanel" style="display:none">
+    <div class="st">Sheriff Contact Information</div>
+    <div class="ctr" style="margin-bottom:10px">
+      <button class="btn bgrn" onclick="lookupSheriff()" id="lookupBtn">Look Up Sheriff Name &amp; Address</button>
+      <div id="lookupMsg" class="note ctr" style="margin-top:4px"></div>
+    </div>
+    <div class="fld"><label>Sheriff Name <span class="req">*</span></label><input id="s2SN" placeholder="e.g. John Smith"></div>
+    <div class="fld"><label>Sheriff Office Address Line 1 <span class="req">*</span></label><input id="s2A1" placeholder="e.g. 3020 Conrad Lane"></div>
+    <div class="fld"><label>Sheriff Office Address Line 2 (City, State ZIP) <span class="req">*</span></label><input id="s2A2" placeholder="e.g. Burlington, KY 41005"></div>
+  </div>
+  <div id="spnl" class="sp" style="display:none">
+    <h3>Auto-Calculated Procurement &amp; Savings</h3>
+    <div style="font-size:13px;color:#555;margin-bottom:6px">Total Annual Procurement: <strong id="sTP" style="color:#1a3a5c"></strong></div>
+    <div class="big" id="sR"></div>
+    <div style="font-size:12px;color:#666;text-align:center;margin-bottom:6px">Floor (15% &mdash; buying new) &ndash; Ceiling (45% &mdash; buying remanufactured)</div>
+    <table><tr><td>Sheriff&rsquo;s Fleet Vehicles</td><td id="t1"></td></tr><tr><td>Other County Vehicles</td><td id="t2"></td></tr><tr><td>Fire/EMS Apparatus</td><td id="t3"></td></tr><tr><td>Road &amp; Winter Equipment</td><td id="t4"></td></tr><tr><td>Heavy Construction Equipment</td><td id="t5"></td></tr><tr><td>General Procurement</td><td id="t6"></td></tr></table>
+  </div>
+  <div class="ctr" style="margin-top:16px">
+    <button class="btn bn" onclick="printOne()">Preview &amp; Print This County (5 pages)</button>
+    <button class="btn bora" onclick="addToQueue()">Add to Batch &darr;</button>
+  </div>
+  <div id="s2m"></div>
+  <div id="queuePanel" class="qp" style="display:none">
+    <h3>Batch Queue <span id="qCount" style="font-weight:400;color:#6b7280"></span></h3>
+    <div id="qList"></div>
+    <div class="ctr" style="margin-top:12px">
+      <button class="btn bn" onclick="printBatch()">Preview &amp; Print Entire Batch</button>
+      <button class="btn bw" style="padding:8px 16px;font-size:13px" onclick="clearQueue()">Clear All</button>
+    </div>
+    <p class="note ctr">Each county generates 5 pages: cover letter + Appendix C savings report + 3-page brochure.</p>
+  </div>
+</div>
+
+<!-- PREVIEW -->
+<div id="preview" style="display:none">
+  <div class="toolbar">
+    <button class="btn bw" onclick="backToS2()">&larr; Back &mdash; Generate More</button>
+    <button class="btn bred" onclick="doPrint()">Save &amp; Print Pages</button>
+    <span class="th" style="opacity:0.9;font-size:11px">(Downloads an HTML file &mdash; open it in your browser to print)</span>
+    <span class="th" id="pgInfo"></span>
+    <span class="th" style="opacity:1;font-style:italic">Letter is editable</span>
+  </div>
+  <div id="printArea"></div>
+</div>
+
+<script>
+var P={"AL":{"Autauga":59000,"Baldwin":239000,"Barbour":25000,"Bibb":22500,"Blount":58000,"Bullock":10000,"Butler":19500,"Calhoun":113000,"Chambers":33000,"Cherokee":26000,"Chilton":45000,"Choctaw":12000,"Clarke":23000,"Clay":13000,"Cleburne":15000,"Coffee":53000,"Colbert":56000,"Conecuh":12000,"Coosa":10500,"Covington":37000,"Crenshaw":13500,"Cullman":87000,"Dale":49000,"Dallas":38000,"DeKalb":72000,"Elmore":87000,"Escambia":37000,"Etowah":103000,"Fayette":16000,"Franklin":32000,"Geneva":26500,"Greene":7800,"Hale":14000,"Henry":17500,"Houston":107000,"Jackson":52000,"Jefferson":674000,"Lamar":13500,"Lauderdale":93000,"Lawrence":33000,"Lee":174000,"Limestone":104000,"Lowndes":9500,"Macon":18000,"Madison":389000,"Marengo":19000,"Marion":29000,"Marshall":97000,"Mobile":420000,"Monroe":20000,"Montgomery":229000,"Morgan":123000,"Perry":8700,"Pickens":20000,"Pike":33000,"Randolph":22000,"Russell":58000,"Shelby":225000,"St. Clair":91000,"Sumter":12000,"Talladega":80000,"Tallapoosa":41000,"Tuscaloosa":227000,"Walker":64000,"Washington":16000,"Wilcox":10000,"Winston":24000},"AZ":{"Apache":66000,"Cochise":126000,"Coconino":145000,"Gila":54000,"Graham":39000,"Greenlee":9500,"La Paz":21000,"Maricopa":4550000,"Mohave":218000,"Navajo":108000,"Pima":1050000,"Pinal":480000,"Santa Cruz":47000,"Yavapai":242000,"Yuma":215000},"AR":{"Arkansas":17500,"Ashley":19000,"Baxter":42000,"Benton":296000,"Boone":38000,"Bradley":10500,"Calhoun":5000,"Carroll":28000,"Chicot":10000,"Clark":22000,"Clay":14500,"Cleburne":26000,"Cleveland":8000,"Columbia":23000,"Conway":20500,"Craighead":114000,"Crawford":63000,"Crittenden":48000,"Cross":16000,"Dallas":7000,"Desha":11000,"Drew":18500,"Faulkner":130000,"Franklin":17500,"Fulton":12500,"Garland":100000,"Grant":18500,"Greene":46000,"Hempstead":21000,"Hot Spring":34000,"Howard":13000,"Independence":38000,"Izard":13500,"Jackson":16500,"Jefferson":67000,"Johnson":26000,"Lafayette":6500,"Lawrence":16000,"Lee":8500,"Lincoln":13500,"Little River":12000,"Logan":21000,"Lonoke":74000,"Madison":16500,"Marion":16500,"Miller":43000,"Mississippi":40000,"Monroe":6500,"Montgomery":9000,"Nevada":8000,"Newton":7800,"Ouachita":23000,"Perry":10500,"Phillips":17000,"Pike":10500,"Poinsett":23000,"Polk":19500,"Pope":65000,"Prairie":8200,"Pulaski":399000,"Randolph":18000,"Saline":126000,"Scott":10500,"Searcy":7800,"Sebastian":128000,"Sevier":17000,"Sharp":17500,"St. Francis":25000,"Stone":12500,"Union":38000,"Van Buren":17000,"Washington":245000,"White":80000,"Woodruff":6200,"Yell":21500},"CA":{"Alameda":1680000,"Alpine":1100,"Amador":40000,"Butte":211000,"Calaveras":46000,"Colusa":22000,"Contra Costa":1160000,"Del Norte":27000,"El Dorado":193000,"Fresno":1010000,"Glenn":28500,"Humboldt":136000,"Imperial":180000,"Inyo":19000,"Kern":910000,"Kings":152000,"Lake":68000,"Lassen":30000,"Los Angeles":9830000,"Madera":159000,"Marin":262000,"Mariposa":17500,"Mendocino":91000,"Merced":286000,"Modoc":8800,"Mono":14000,"Monterey":439000,"Napa":138000,"Nevada":102000,"Orange":3170000,"Placer":415000,"Plumas":19500,"Riverside":2470000,"Sacramento":1590000,"San Benito":66000,"San Bernardino":2190000,"San Diego":3290000,"San Francisco":874000,"San Joaquin":790000,"San Luis Obispo":283000,"San Mateo":764000,"Santa Barbara":450000,"Santa Clara":1930000,"Santa Cruz":267000,"Shasta":182000,"Sierra":3000,"Siskiyou":44000,"Solano":453000,"Sonoma":488000,"Stanislaus":557000,"Sutter":99000,"Tehama":65000,"Trinity":16000,"Tulare":477000,"Tuolumne":55000,"Ventura":843000,"Yolo":222000,"Yuba":82000},"CO":{"Adams":520000,"Alamosa":16500,"Arapahoe":660000,"Archuleta":14500,"Baca":3500,"Bent":5500,"Boulder":330000,"Broomfield":74000,"Chaffee":20500,"Cheyenne":1700,"Clear Creek":9500,"Conejos":8000,"Costilla":3600,"Crowley":6000,"Custer":5000,"Delta":31000,"Denver":715000,"Dolores":2000,"Douglas":370000,"Eagle":56000,"El Paso":740000,"Elbert":27000,"Fremont":48000,"Garfield":62000,"Gilpin":6200,"Grand":15500,"Gunnison":17500,"Hinsdale":800,"Huerfano":6500,"Jackson":1300,"Jefferson":580000,"Kiowa":1400,"Kit Carson":7200,"La Plata":57000,"Lake":8000,"Larimer":370000,"Las Animas":14000,"Lincoln":5500,"Logan":22000,"Mesa":158000,"Mineral":800,"Moffat":13000,"Montezuma":26500,"Montrose":47000,"Morgan":29000,"Otero":18500,"Ouray":5000,"Park":18000,"Phillips":4200,"Pitkin":18000,"Prowers":12000,"Pueblo":170000,"Rio Blanco":6500,"Rio Grande":11000,"Routt":26000,"Saguache":6500,"San Juan":700,"San Miguel":8000,"Sedgwick":2300,"Summit":31000,"Teller":25000,"Washington":4800,"Weld":335000,"Yuma":10000},"DE":{"Kent":183000,"New Castle":570000,"Sussex":240000},"FL":{"Alachua":284000,"Baker":29000,"Bay":185000,"Bradford":28000,"Brevard":617000,"Broward":1950000,"Calhoun":14500,"Charlotte":197000,"Citrus":157000,"Clay":225000,"Collier":400000,"Columbia":72000,"DeSoto":38000,"Dixie":17000,"Duval":1010000,"Escambia":325000,"Flagler":125000,"Franklin":12500,"Gadsden":44000,"Gilchrist":18500,"Glades":14000,"Gulf":16000,"Hamilton":14500,"Hardee":27000,"Hendry":43000,"Hernando":200000,"Highlands":107000,"Hillsborough":1510000,"Holmes":19500,"Indian River":165000,"Jackson":49000,"Jefferson":14500,"Lafayette":8500,"Lake":400000,"Lee":820000,"Leon":295000,"Levy":43000,"Liberty":8500,"Madison":18500,"Manatee":420000,"Marion":385000,"Martin":163000,"Miami-Dade":2750000,"Monroe":82000,"Nassau":95000,"Okaloosa":215000,"Okeechobee":42000,"Orange":1440000,"Osceola":420000,"Palm Beach":1530000,"Pasco":570000,"Pinellas":980000,"Polk":775000,"Putnam":74000,"Santa Rosa":195000,"Sarasota":450000,"Seminole":480000,"St. Johns":300000,"St. Lucie":350000,"Sumter":140000,"Suwannee":46000,"Taylor":22000,"Union":16000,"Volusia":570000,"Wakulla":36000,"Walton":82000,"Washington":25000},"GA":{"Appling":18500,"Atkinson":8200,"Bacon":11500,"Baker":3000,"Baldwin":44000,"Banks":19500,"Barrow":84000,"Bartow":109000,"Ben Hill":16500,"Berrien":19000,"Bibb":153000,"Bleckley":12800,"Brantley":19500,"Brooks":15500,"Bryan":42000,"Bulloch":81000,"Burke":22000,"Butts":26000,"Calhoun":6000,"Camden":55000,"Candler":10500,"Carroll":119000,"Catoosa":68000,"Charlton":13500,"Chatham":295000,"Chattahoochee":10500,"Chattooga":24500,"Cherokee":270000,"Clarke":130000,"Clay":2800,"Clayton":297000,"Clinch":6500,"Cobb":770000,"Coffee":43000,"Colquitt":46000,"Columbia":162000,"Cook":17500,"Coweta":152000,"Crawford":12500,"Crisp":22000,"Dade":16500,"Dawson":26000,"Decatur":26500,"DeKalb":765000,"Dodge":20000,"Dooly":13500,"Dougherty":87000,"Douglas":147000,"Early":10000,"Echols":4000,"Effingham":65000,"Elbert":19000,"Emanuel":22500,"Evans":10500,"Fannin":26500,"Fayette":117000,"Floyd":98000,"Forsyth":265000,"Franklin":23000,"Fulton":1070000,"Gilmer":31000,"Glascock":3000,"Glynn":86000,"Gordon":58000,"Grady":25000,"Greene":18000,"Gwinnett":960000,"Habersham":46000,"Hall":210000,"Hancock":8200,"Haralson":30500,"Harris":36000,"Hart":26500,"Heard":12000,"Henry":240000,"Houston":162000,"Irwin":9500,"Jackson":76000,"Jasper":14500,"Jeff Davis":15000,"Jefferson":15500,"Jenkins":8500,"Johnson":9500,"Jones":29500,"Lamar":19500,"Lanier":11000,"Laurens":47000,"Lee":30000,"Liberty":61000,"Lincoln":7800,"Long":19500,"Lowndes":117000,"Lumpkin":34000,"Macon":13000,"Madison":30000,"Marion":8500,"McDuffie":21000,"McIntosh":14500,"Meriwether":20500,"Miller":5800,"Mitchell":22000,"Monroe":27500,"Montgomery":9000,"Morgan":19500,"Murray":40000,"Muscogee":195000,"Newton":113000,"Oconee":42000,"Oglethorpe":15500,"Paulding":175000,"Peach":27500,"Pickens":33000,"Pierce":19500,"Pike":19500,"Polk":43000,"Pulaski":11000,"Putnam":22000,"Quitman":2300,"Rabun":17000,"Randolph":6500,"Richmond":206000,"Rockdale":93000,"Schley":5300,"Screven":13500,"Seminole":8200,"Spalding":67000,"Stephens":25500,"Stewart":6000,"Sumter":29000,"Talbot":6200,"Taliaferro":1500,"Tattnall":25500,"Taylor":8000,"Telfair":15500,"Terrell":8500,"Thomas":45000,"Tift":41000,"Toombs":27000,"Towns":12500,"Treutlen":6500,"Troup":73000,"Turner":7800,"Twiggs":8000,"Union":25000,"Upson":26000,"Walker":70000,"Walton":97000,"Ware":35000,"Warren":5200,"Washington":20000,"Wayne":29500,"Webster":2500,"Wheeler":8000,"White":31000,"Whitfield":105000,"Wilcox":8500,"Wilkes":9800,"Wilkinson":9000,"Worth":20500},"ID":{"Ada":520000,"Adams":4300,"Bannock":88000,"Bear Lake":6000,"Benewah":9500,"Bingham":48000,"Blaine":24000,"Boise":8000,"Bonner":48000,"Bonneville":123000,"Boundary":13000,"Butte":2600,"Camas":1100,"Canyon":240000,"Caribou":7000,"Cassia":24000,"Clark":800,"Clearwater":8500,"Custer":4200,"Elmore":27000,"Franklin":14000,"Fremont":13000,"Gem":19000,"Gooding":15500,"Idaho":17000,"Jefferson":30000,"Jerome":24500,"Kootenai":175000,"Latah":40000,"Lemhi":8000,"Lewis":3700,"Lincoln":5500,"Madison":53000,"Minidoka":21000,"Nez Perce":41000,"Oneida":4500,"Owyhee":12000,"Payette":25000,"Power":7500,"Shoshone":13000,"Teton":12500,"Twin Falls":88000,"Valley":12000,"Washington":10000},"IL":{"Adams":65000,"Alexander":5800,"Bond":16500,"Boone":53000,"Brown":6500,"Bureau":33000,"Calhoun":4700,"Carroll":14500,"Cass":12500,"Champaign":210000,"Christian":33000,"Clark":15500,"Clay":13000,"Clinton":37500,"Coles":51000,"Cook":5150000,"Crawford":18500,"Cumberland":10500,"DeKalb":105000,"DeWitt":16000,"Douglas":19500,"DuPage":930000,"Edgar":17000,"Edwards":6500,"Effingham":34500,"Fayette":21500,"Ford":13000,"Franklin":38000,"Fulton":34000,"Gallatin":5000,"Greene":12500,"Grundy":52000,"Hamilton":8000,"Hancock":17500,"Hardin":3800,"Henderson":6500,"Henry":49000,"Iroquois":27000,"Jackson":57000,"Jasper":9500,"Jefferson":37500,"Jersey":22000,"Jo Daviess":21500,"Johnson":12500,"Kane":520000,"Kankakee":110000,"Kendall":140000,"Knox":49000,"La Salle":110000,"Lake":700000,"Lawrence":15500,"Lee":34000,"Livingston":35500,"Logan":28500,"Macon":104000,"Macoupin":45000,"Madison":265000,"Marion":38000,"Marshall":11500,"Mason":13500,"Massac":14000,"McDonough":30000,"McHenry":310000,"McLean":175000,"Menard":12500,"Mercer":15500,"Monroe":35000,"Montgomery":28500,"Morgan":34000,"Moultrie":14800,"Ogle":51000,"Peoria":182000,"Perry":21000,"Piatt":16500,"Pike":15000,"Pope":4000,"Pulaski":5200,"Putnam":5800,"Randolph":32000,"Richland":15500,"Rock Island":144000,"Saline":23500,"Sangamon":197000,"Schuyler":6800,"Scott":5000,"Shelby":21500,"St. Clair":260000,"Stark":5500,"Stephenson":45000,"Tazewell":133000,"Union":17000,"Vermilion":75000,"Wabash":11500,"Warren":16500,"Washington":14500,"Wayne":16000,"White":14000,"Whiteside":56000,"Will":690000,"Williamson":67000,"Winnebago":285000,"Woodford":39000},"IN":{"Adams":36000,"Allen":385000,"Bartholomew":84000,"Benton":8500,"Blackford":11500,"Boone":72000,"Brown":15000,"Carroll":20000,"Cass":37500,"Clark":120000,"Clay":26000,"Clinton":32500,"Crawford":10500,"Daviess":34000,"Dearborn":50000,"Decatur":27000,"DeKalb":44000,"Delaware":114000,"Dubois":44000,"Elkhart":206000,"Fayette":23000,"Floyd":79000,"Fountain":16000,"Franklin":23000,"Fulton":20000,"Gibson":34000,"Grant":65000,"Greene":32000,"Hamilton":350000,"Hancock":80000,"Harrison":41000,"Hendricks":175000,"Henry":48000,"Howard":83000,"Huntington":36500,"Jackson":45000,"Jasper":34000,"Jay":20500,"Jefferson":33000,"Jennings":28000,"Johnson":160000,"Knox":36500,"Kosciusko":80000,"LaGrange":40000,"Lake":498000,"LaPorte":110000,"Lawrence":45000,"Madison":130000,"Marion":990000,"Marshall":46000,"Martin":10000,"Miami":35500,"Monroe":149000,"Montgomery":38500,"Morgan":73000,"Newton":14000,"Noble":48000,"Ohio":6000,"Orange":19500,"Owen":21000,"Parke":17000,"Perry":19000,"Pike":12500,"Porter":173000,"Posey":25000,"Pulaski":12500,"Putnam":38000,"Randolph":24500,"Ripley":29000,"Rush":16500,"Scott":24000,"Shelby":45000,"Spencer":20000,"St. Joseph":272000,"Starke":23000,"Steuben":35000,"Sullivan":20500,"Switzerland":11000,"Tippecanoe":200000,"Tipton":15000,"Union":7200,"Vanderburgh":182000,"Vermillion":15500,"Vigo":107000,"Wabash":31000,"Warren":8200,"Warrick":63000,"Washington":28000,"Wayne":65000,"Wells":28500,"White":24000,"Whitley":34000},"IA":{"Adair":7000,"Adams":3600,"Allamakee":13500,"Appanoose":12500,"Audubon":5500,"Benton":25500,"Black Hawk":133000,"Boone":26000,"Bremer":25000,"Buchanan":21000,"Buena Vista":20000,"Butler":14500,"Calhoun":9500,"Carroll":20000,"Cass":13000,"Cedar":18500,"Cerro Gordo":43000,"Cherokee":11500,"Chickasaw":12000,"Clarke":9500,"Clay":16000,"Clayton":17000,"Clinton":46000,"Crawford":17000,"Dallas":105000,"Davis":9000,"Decatur":7800,"Delaware":17500,"Des Moines":39000,"Dickinson":17500,"Dubuque":99000,"Emmet":9500,"Fayette":19500,"Floyd":15500,"Franklin":10000,"Fremont":6800,"Greene":8800,"Grundy":12500,"Guthrie":10500,"Hamilton":15000,"Hancock":10500,"Hardin":17000,"Harrison":14000,"Henry":19500,"Howard":9200,"Humboldt":9500,"Ida":6800,"Iowa":16500,"Jackson":19500,"Jasper":37500,"Jefferson":18000,"Johnson":155000,"Jones":21000,"Keokuk":10000,"Kossuth":14500,"Lee":33500,"Linn":230000,"Louisa":11000,"Lucas":8500,"Lyon":12000,"Madison":16500,"Mahaska":22500,"Marion":34000,"Marshall":40000,"Mills":15000,"Mitchell":10500,"Monona":8500,"Monroe":7800,"Montgomery":10000,"Muscatine":43000,"O'Brien":13500,"Osceola":6000,"Page":15000,"Palo Alto":8800,"Plymouth":25500,"Pocahontas":6500,"Polk":502000,"Pottawattamie":94000,"Poweshiek":18500,"Ringgold":4800,"Sac":9800,"Scott":173000,"Shelby":11500,"Sioux":35000,"Story":99000,"Tama":17000,"Taylor":6000,"Union":12500,"Van Buren":7000,"Wapello":35000,"Warren":53000,"Washington":22000,"Wayne":6200,"Webster":36000,"Winnebago":10500,"Winneshiek":20000,"Woodbury":103000,"Worth":7500,"Wright":12500},"KS":{"Allen":12500,"Anderson":7500,"Atchison":16000,"Barber":4500,"Barton":26000,"Bourbon":14500,"Brown":9500,"Butler":67000,"Chase":2600,"Chautauqua":3300,"Cherokee":20000,"Cheyenne":2600,"Clark":2000,"Clay":8000,"Cloud":8800,"Coffey":8200,"Comanche":1700,"Cowley":35000,"Crawford":39000,"Decatur":2800,"Dickinson":19000,"Doniphan":7500,"Douglas":120000,"Edwards":2800,"Elk":2500,"Ellis":29000,"Ellsworth":6200,"Finney":37000,"Ford":35000,"Franklin":25500,"Geary":37000,"Gove":2600,"Graham":2400,"Grant":7500,"Gray":6000,"Greeley":1200,"Greenwood":5800,"Hamilton":2600,"Harper":5500,"Harvey":35000,"Haskell":4200,"Hodgeman":1800,"Jackson":13000,"Jefferson":19000,"Jewell":2900,"Johnson":615000,"Kearny":4000,"Kingman":7200,"Kiowa":2500,"Labette":20000,"Lane":1600,"Leavenworth":82000,"Lincoln":3000,"Linn":9800,"Logan":2700,"Lyon":33500,"Marion":12000,"Marshall":9800,"McPherson":30000,"Meade":4200,"Miami":34000,"Mitchell":6000,"Montgomery":32000,"Morris":5500,"Morton":2800,"Nemaha":10000,"Neosho":16000,"Ness":2800,"Norton":5400,"Osage":16000,"Osborne":3500,"Ottawa":5800,"Pawnee":6500,"Phillips":5200,"Pottawatomie":25000,"Pratt":9500,"Rawlins":2500,"Reno":63000,"Republic":4600,"Rice":9500,"Riley":74000,"Rooks":4900,"Rush":3000,"Russell":6500,"Saline":55000,"Scott":5000,"Sedgwick":523000,"Seward":22500,"Shawnee":178000,"Sheridan":2500,"Sherman":5800,"Smith":3600,"Stafford":4200,"Stanton":2200,"Stevens":5500,"Sumner":23000,"Thomas":7800,"Trego":2800,"Wabaunsee":7000,"Wallace":1500,"Washington":5400,"Wichita":2100,"Wilson":8500,"Woodson":3200,"Wyandotte":167000},"KY":{"Adair":19500,"Allen":21600,"Anderson":23500,"Ballard":7800,"Barren":44600,"Bath":13000,"Bell":25500,"Boone":136000,"Bourbon":20400,"Boyd":47800,"Boyle":30600,"Bracken":8200,"Breathitt":12800,"Breckinridge":21000,"Bullitt":83000,"Butler":12600,"Caldwell":12700,"Calloway":39300,"Campbell":94500,"Carlisle":4800,"Carroll":10700,"Carter":26800,"Casey":16200,"Christian":71000,"Clark":36800,"Clay":19500,"Clinton":10200,"Crittenden":8800,"Cumberland":6600,"Daviess":103000,"Edmonson":12500,"Elliott":7400,"Estill":14100,"Fayette":323000,"Fleming":14800,"Floyd":35400,"Franklin":51500,"Fulton":5700,"Gallatin":8900,"Garrard":17800,"Grant":25400,"Graves":37200,"Grayson":26900,"Green":10900,"Greenup":35000,"Hancock":8900,"Hardin":110000,"Harlan":26000,"Harrison":18900,"Hart":19200,"Henderson":45200,"Henry":16300,"Hickman":4500,"Hopkins":44800,"Jackson":13100,"Jefferson":789000,"Jessamine":56000,"Johnson":22200,"Kenton":167000,"Knott":14400,"Knox":30800,"Larue":14500,"Laurel":62000,"Lawrence":15200,"Lee":6600,"Leslie":9700,"Letcher":21000,"Lewis":13200,"Lincoln":24700,"Livingston":9300,"Logan":27100,"Lyon":8200,"Madison":93000,"Magoffin":12200,"Marion":19800,"Marshall":31600,"Martin":11200,"Mason":17000,"McCracken":66000,"McCreary":17200,"McLean":9200,"Meade":28800,"Menifee":6300,"Mercer":22200,"Metcalfe":10200,"Monroe":10500,"Montgomery":28200,"Morgan":13200,"Muhlenberg":30200,"Nelson":47000,"Nicholas":7200,"Ohio":24000,"Oldham":68000,"Owen":10900,"Owsley":4300,"Pendleton":14500,"Perry":25500,"Pike":56000,"Powell":12300,"Pulaski":65000,"Robertson":2100,"Rockcastle":16800,"Rowan":24500,"Russell":18000,"Scott":57000,"Shelby":50500,"Simpson":19200,"Spencer":19800,"Taylor":26200,"Todd":12200,"Trigg":14800,"Trimble":8600,"Union":14400,"Warren":138000,"Washington":12400,"Wayne":20200,"Webster":12800,"Whitley":36400,"Wolfe":6800,"Woodford":27200},"LA":{"Acadia":63000,"Allen":26000,"Ascension":130000,"Assumption":22000,"Avoyelles":41000,"Beauregard":37000,"Bienville":13000,"Bossier":130000,"Caddo":240000,"Calcasieu":207000,"Caldwell":9800,"Cameron":6500,"Catahoula":9500,"Claiborne":15000,"Concordia":19000,"De Soto":27500,"East Baton Rouge":457000,"East Carroll":6800,"East Feliciana":19000,"Evangeline":33500,"Franklin":20000,"Grant":22000,"Iberia":72000,"Iberville":32000,"Jackson":15000,"Jefferson":440000,"Jefferson Davis":31000,"La Salle":15000,"Lafayette":244000,"Lafourche":98000,"Lincoln":48000,"Livingston":145000,"Madison":11000,"Morehouse":25000,"Natchitoches":39000,"Orleans":383000,"Ouachita":160000,"Plaquemines":24000,"Pointe Coupee":21500,"Rapides":131000,"Red River":8500,"Richland":20000,"Sabine":24000,"St. Bernard":48000,"St. Charles":53000,"St. Helena":10500,"St. James":21000,"St. John the Baptist":43000,"St. Landry":83000,"St. Martin":54000,"St. Mary":50000,"St. Tammany":270000,"Tangipahoa":140000,"Tensas":4200,"Terrebonne":112000,"Union":22000,"Vermilion":59000,"Vernon":49000,"Washington":46000,"Webster":38000,"West Baton Rouge":27000,"West Carroll":10500,"West Feliciana":15500,"Winn":14000},"ME":{"Androscoggin":110000,"Aroostook":67000,"Cumberland":303000,"Franklin":30000,"Hancock":55000,"Kennebec":124000,"Knox":40000,"Lincoln":35500,"Oxford":58000,"Penobscot":153000,"Piscataquis":17000,"Sagadahoc":36000,"Somerset":50000,"Waldo":40000,"Washington":31000,"York":210000},"MD":{"Allegany":68000,"Anne Arundel":590000,"Baltimore":850000,"Baltimore City":585000,"Calvert":93000,"Caroline":33000,"Carroll":172000,"Cecil":104000,"Charles":167000,"Dorchester":32000,"Frederick":275000,"Garrett":29000,"Harford":260000,"Howard":335000,"Kent":19500,"Montgomery":1060000,"Prince George's":970000,"Queen Anne's":50000,"Somerset":25000,"St. Mary's":114000,"Talbot":37500,"Washington":155000,"Wicomico":104000,"Worcester":52000},"MA":{"Barnstable":230000,"Berkshire":129000,"Bristol":570000,"Dukes":20000,"Essex":810000,"Franklin":71000,"Hampden":470000,"Hampshire":163000,"Middlesex":1630000,"Nantucket":14000,"Norfolk":720000,"Plymouth":530000,"Suffolk":820000,"Worcester":860000},"MI":{"Alcona":10500,"Alger":9000,"Allegan":120000,"Alpena":28500,"Antrim":24000,"Arenac":14500,"Baraga":8500,"Barry":62000,"Bay":103000,"Benzie":18000,"Berrien":154000,"Branch":44000,"Calhoun":135000,"Cass":52000,"Charlevoix":27000,"Cheboygan":25500,"Chippewa":37000,"Clare":31000,"Clinton":79000,"Crawford":14500,"Delta":36000,"Dickinson":25000,"Eaton":112000,"Emmet":34000,"Genesee":407000,"Gladwin":25000,"Gogebic":14500,"Grand Traverse":97000,"Gratiot":41000,"Hillsdale":45500,"Houghton":36000,"Huron":31000,"Ingham":285000,"Ionia":66000,"Iosco":25000,"Iron":11000,"Isabella":71000,"Jackson":160000,"Kalamazoo":265000,"Kalkaska":18000,"Kent":670000,"Keweenaw":2100,"Lake":12000,"Lapeer":89000,"Leelanau":22000,"Lenawee":99000,"Livingston":195000,"Luce":6500,"Mackinac":10500,"Macomb":880000,"Manistee":25000,"Marquette":67000,"Mason":30000,"Mecosta":44000,"Menominee":23000,"Midland":83000,"Missaukee":15500,"Monroe":152000,"Montcalm":64000,"Montmorency":9500,"Muskegon":175000,"Newaygo":50000,"Oakland":1280000,"Oceana":27000,"Ogemaw":21000,"Ontonagon":5800,"Osceola":24000,"Oscoda":8500,"Otsego":25500,"Ottawa":300000,"Presque Isle":12500,"Roscommon":24000,"Saginaw":191000,"Sanilac":41000,"Schoolcraft":8000,"Shiawassee":68000,"St. Clair":160000,"St. Joseph":60000,"Tuscola":53000,"Van Buren":75000,"Washtenaw":372000,"Wayne":1770000,"Wexford":34000},"MN":{"Aitkin":16000,"Anoka":365000,"Becker":35000,"Beltrami":47000,"Benton":41000,"Big Stone":5000,"Blue Earth":68000,"Brown":25000,"Carlton":36000,"Carver":107000,"Cass":30000,"Chippewa":12000,"Chisago":58000,"Clay":65000,"Clearwater":9000,"Cook":5500,"Cottonwood":11000,"Crow Wing":66000,"Dakota":440000,"Dodge":21000,"Douglas":39000,"Faribault":13500,"Fillmore":21000,"Freeborn":30000,"Goodhue":47000,"Grant":6000,"Hennepin":1290000,"Houston":18500,"Hubbard":22000,"Isanti":42000,"Itasca":45500,"Jackson":9800,"Kanabec":16500,"Kandiyohi":43000,"Kittson":4200,"Koochiching":12500,"Lac qui Parle":6500,"Lake":11000,"Lake of the Woods":3800,"Le Sueur":29000,"Lincoln":5600,"Lyon":26000,"Mahnomen":5800,"Marshall":9000,"Martin":19500,"McLeod":36000,"Meeker":24000,"Mille Lacs":27000,"Morrison":34000,"Mower":40000,"Murray":8200,"Nicollet":34000,"Nobles":22000,"Norman":6500,"Olmsted":165000,"Otter Tail":60000,"Pennington":14500,"Pine":30000,"Pipestone":9000,"Polk":31000,"Pope":11500,"Ramsey":550000,"Red Lake":4000,"Redwood":15000,"Renville":14500,"Rice":67000,"Rock":9500,"Roseau":15500,"Scott":153000,"Sherburne":101000,"Sibley":15000,"St. Louis":202000,"Stearns":163000,"Steele":37000,"Stevens":9800,"Swift":9500,"Todd":25000,"Traverse":3300,"Wabasha":21500,"Wadena":14000,"Waseca":18500,"Washington":270000,"Watonwan":11000,"Wilkin":6200,"Winona":50000,"Wright":145000,"Yellow Medicine":9800},"MS":{"Adams":30000,"Alcorn":37000,"Amite":12500,"Attala":18500,"Benton":8200,"Bolivar":30500,"Calhoun":14500,"Carroll":10000,"Chickasaw":17000,"Choctaw":8200,"Claiborne":8800,"Clarke":15500,"Clay":19500,"Coahoma":22500,"Copiah":28000,"Covington":19000,"DeSoto":190000,"Forrest":75000,"Franklin":7500,"George":25000,"Greene":14000,"Grenada":21000,"Hancock":48000,"Harrison":210000,"Hinds":232000,"Holmes":16500,"Humphreys":8000,"Issaquena":1200,"Itawamba":24000,"Jackson":145000,"Jasper":16500,"Jefferson":7000,"Jefferson Davis":11000,"Jones":68000,"Kemper":9800,"Lafayette":55000,"Lamar":65000,"Lauderdale":77000,"Lawrence":12500,"Leake":23000,"Lee":86000,"Leflore":28000,"Lincoln":35000,"Lowndes":59000,"Madison":112000,"Marion":25000,"Marshall":35000,"Monroe":35500,"Montgomery":10000,"Neshoba":30000,"Newton":22000,"Noxubee":10500,"Oktibbeha":50000,"Panola":34000,"Pearl River":56000,"Perry":12000,"Pike":39000,"Pontotoc":32000,"Prentiss":25500,"Quitman":7000,"Rankin":160000,"Scott":28500,"Sharkey":4200,"Simpson":27000,"Smith":16000,"Stone":18500,"Sunflower":25000,"Tallahatchie":14000,"Tate":28500,"Tippah":22000,"Tishomingo":19500,"Tunica":10000,"Union":28500,"Walthall":14500,"Warren":46000,"Washington":44000,"Wayne":20000,"Webster":9800,"Wilkinson":8500,"Winston":18000,"Yalobusha":12500,"Yazoo":27500},"MO":{"Adair":25500,"Andrew":18000,"Atchison":5200,"Audrain":25500,"Barry":36000,"Barton":12000,"Bates":16000,"Benton":20000,"Bollinger":12500,"Boone":185000,"Buchanan":87000,"Butler":43000,"Caldwell":9200,"Callaway":45000,"Camden":47000,"Cape Girardeau":80000,"Carroll":8800,"Carter":6000,"Cass":110000,"Cedar":14500,"Chariton":7500,"Christian":89000,"Clark":6800,"Clay":250000,"Clinton":21000,"Cole":77000,"Cooper":18000,"Crawford":24000,"Dade":7800,"Dallas":17000,"Daviess":8500,"DeKalb":12500,"Dent":15500,"Douglas":13500,"Dunklin":29000,"Franklin":105000,"Gasconade":15000,"Gentry":6500,"Greene":295000,"Grundy":10000,"Harrison":8500,"Henry":22000,"Hickory":9800,"Holt":4300,"Howard":10000,"Howell":40500,"Iron":10000,"Jackson":717000,"Jasper":123000,"Jefferson":225000,"Johnson":54000,"Knox":3800,"Laclede":37000,"Lafayette":33000,"Lawrence":38000,"Lewis":9800,"Lincoln":60000,"Linn":12000,"Livingston":15000,"Macon":15500,"Madison":13000,"Maries":9000,"Marion":28500,"McDonald":22500,"Mercer":3500,"Miller":25500,"Mississippi":13000,"Moniteau":16000,"Monroe":8800,"Montgomery":11500,"Morgan":20500,"New Madrid":17500,"Newton":58000,"Nodaway":22000,"Oregon":10500,"Osage":14000,"Ozark":9200,"Pemiscot":16500,"Perry":19500,"Pettis":42500,"Phelps":45000,"Pike":18500,"Platte":104000,"Polk":32000,"Pulaski":53000,"Putnam":4800,"Ralls":10500,"Randolph":25000,"Ray":23000,"Reynolds":6200,"Ripley":14000,"Saline":23000,"Schuyler":4500,"Scotland":4900,"Scott":39000,"Shannon":8200,"Shelby":6000,"St. Charles":410000,"St. Clair":9500,"St. Francois":68000,"St. Louis":1000000,"St. Louis City":295000,"Ste. Genevieve":18000,"Stoddard":29000,"Stone":32500,"Sullivan":6200,"Taney":57000,"Texas":25500,"Vernon":21000,"Warren":36000,"Washington":25000,"Wayne":13000,"Webster":40000,"Worth":2000,"Wright":18500},"MT":{"Beaverhead":9500,"Big Horn":13500,"Blaine":6500,"Broadwater":6500,"Carbon":10500,"Carter":1200,"Cascade":82000,"Chouteau":5500,"Custer":12000,"Daniels":1700,"Dawson":9000,"Deer Lodge":9000,"Fallon":2900,"Fergus":11000,"Flathead":106000,"Gallatin":120000,"Garfield":1100,"Glacier":14000,"Golden Valley":800,"Granite":3400,"Hill":16500,"Jefferson":12500,"Judith Basin":2000,"Lake":31000,"Lewis and Clark":72000,"Liberty":2200,"Lincoln":20000,"Madison":9000,"McCone":1600,"Meagher":1900,"Mineral":4500,"Missoula":120000,"Musselshell":4700,"Park":17000,"Petroleum":500,"Phillips":4000,"Pondera":5800,"Powder River":1700,"Powell":7000,"Prairie":1100,"Ravalli":44000,"Richland":11500,"Roosevelt":11000,"Rosebud":9000,"Sanders":12000,"Sheridan":3400,"Silver Bow":35000,"Stillwater":9500,"Sweet Grass":3800,"Teton":6200,"Toole":4800,"Treasure":700,"Valley":7500,"Wheatland":2100,"Wibaux":1000,"Yellowstone":165000},"NE":{"Adams":32000,"Antelope":6200,"Arthur":500,"Banner":700,"Blaine":400,"Boone":5200,"Box Butte":10500,"Boyd":1900,"Brown":2900,"Buffalo":50000,"Burt":6500,"Butler":8000,"Cass":26500,"Cedar":8200,"Chase":3800,"Cherry":5600,"Cheyenne":9500,"Clay":6200,"Colfax":11000,"Cuming":8800,"Custer":10500,"Dakota":20500,"Dawes":8800,"Dawson":24000,"Deuel":1800,"Dixon":5500,"Dodge":37000,"Douglas":580000,"Dundy":1900,"Fillmore":5500,"Franklin":2900,"Frontier":2500,"Furnas":4700,"Gage":21000,"Garden":1800,"Garfield":1900,"Gosper":2000,"Grant":600,"Greeley":2400,"Hall":62000,"Hamilton":9500,"Harlan":3400,"Hayes":900,"Hitchcock":2700,"Holt":10000,"Hooker":700,"Howard":6500,"Jefferson":7200,"Johnson":5200,"Kearney":6800,"Keith":8000,"Keya Paha":800,"Kimball":3500,"Knox":8200,"Lancaster":322000,"Lincoln":36000,"Logan":700,"Loup":600,"Madison":36000,"McPherson":500,"Merrick":7800,"Morrill":4800,"Nance":3500,"Nemaha":7000,"Nuckolls":4200,"Otoe":16000,"Pawnee":2600,"Perkins":2900,"Phelps":9000,"Pierce":7200,"Platte":34000,"Polk":5200,"Red Willow":10800,"Richardson":7800,"Rock":1300,"Saline":14500,"Sarpy":195000,"Saunders":22000,"Scotts Bluff":36000,"Seward":17500,"Sheridan":5200,"Sherman":3000,"Sioux":1200,"Stanton":6000,"Thayer":5000,"Thomas":700,"Thurston":7200,"Valley":4100,"Washington":21000,"Wayne":9500,"Webster":3500,"Wheeler":800,"York":14000},"NV":{"Carson City":59000,"Churchill":25000,"Clark":2300000,"Douglas":49000,"Elko":54000,"Esmeralda":900,"Eureka":2100,"Humboldt":17000,"Lander":5500,"Lincoln":5200,"Lyon":62000,"Mineral":4500,"Nye":53000,"Pershing":6500,"Storey":4200,"Washoe":490000,"White Pine":9500},"NH":{"Belknap":63000,"Carroll":49000,"Cheshire":76000,"Coos":31000,"Grafton":91000,"Hillsborough":420000,"Merrimack":153000,"Rockingham":315000,"Strafford":133000,"Sullivan":43000},"NJ":{"Atlantic":275000,"Bergen":955000,"Burlington":465000,"Camden":510000,"Cape May":95000,"Cumberland":150000,"Essex":800000,"Gloucester":305000,"Hudson":720000,"Hunterdon":130000,"Mercer":385000,"Middlesex":840000,"Monmouth":640000,"Morris":510000,"Ocean":645000,"Passaic":510000,"Salem":62000,"Somerset":350000,"Sussex":145000,"Union":575000,"Warren":110000},"NM":{"Bernalillo":680000,"Catron":3600,"Chaves":65000,"Cibola":27000,"Colfax":12000,"Curry":51000,"De Baca":1700,"Dona Ana":220000,"Eddy":62000,"Grant":27000,"Guadalupe":4200,"Harding":600,"Hidalgo":4200,"Lea":75000,"Lincoln":20000,"Los Alamos":19500,"Luna":24000,"McKinley":72000,"Mora":4400,"Otero":67000,"Quay":8000,"Rio Arriba":39000,"Roosevelt":19000,"San Juan":125000,"San Miguel":27000,"Sandoval":150000,"Santa Fe":157000,"Sierra":11000,"Socorro":16500,"Taos":34000,"Torrance":15500,"Union":4000,"Valencia":77000},"NY":{"Albany":310000,"Allegany":46000,"Bronx":1430000,"Broome":192000,"Cattaraugus":77000,"Cayuga":77000,"Chautauqua":128000,"Chemung":85000,"Chenango":47500,"Clinton":81000,"Columbia":61000,"Cortland":48000,"Delaware":44000,"Dutchess":300000,"Erie":950000,"Essex":38000,"Franklin":50000,"Fulton":53000,"Genesee":58000,"Greene":48000,"Hamilton":4500,"Herkimer":61000,"Jefferson":116000,"Kings":2560000,"Lewis":27000,"Livingston":63000,"Madison":70000,"Monroe":750000,"Montgomery":49000,"Nassau":1390000,"New York":1630000,"Niagara":210000,"Oneida":230000,"Onondaga":470000,"Ontario":112000,"Orange":401000,"Orleans":41000,"Oswego":118000,"Otsego":60000,"Putnam":99000,"Queens":2270000,"Rensselaer":161000,"Richmond":495000,"Rockland":330000,"Saratoga":235000,"Schenectady":158000,"Schoharie":31000,"Schuyler":18000,"Seneca":34000,"St. Lawrence":108000,"Steuben":95000,"Suffolk":1530000,"Sullivan":78000,"Tioga":49000,"Tompkins":105000,"Ulster":182000,"Warren":65000,"Washington":62000,"Wayne":90000,"Westchester":1000000,"Wyoming":40000,"Yates":25000},"NC":{"Alamance":165000,"Alexander":38000,"Alleghany":11000,"Anson":24500,"Ashe":27000,"Avery":17500,"Beaufort":47000,"Bertie":19000,"Bladen":33000,"Brunswick":150000,"Buncombe":270000,"Burke":90000,"Cabarrus":230000,"Caldwell":82000,"Camden":10500,"Carteret":70000,"Caswell":22500,"Catawba":162000,"Chatham":77000,"Cherokee":29000,"Chowan":14000,"Clay":11500,"Cleveland":98000,"Columbus":55000,"Craven":103000,"Cumberland":335000,"Currituck":28000,"Dare":37000,"Davidson":170000,"Davie":43000,"Duplin":59000,"Durham":330000,"Edgecombe":51000,"Forsyth":385000,"Franklin":70000,"Gaston":230000,"Gates":11500,"Graham":8500,"Granville":61000,"Greene":21000,"Guilford":540000,"Halifax":50000,"Harnett":140000,"Haywood":62000,"Henderson":118000,"Hertford":24000,"Hoke":56000,"Hyde":5000,"Iredell":190000,"Jackson":44000,"Johnston":215000,"Jones":9500,"Lee":63000,"Lenoir":55000,"Lincoln":88000,"Macon":37000,"Madison":22000,"Martin":22500,"McDowell":46000,"Mecklenburg":1140000,"Mitchell":15000,"Montgomery":27500,"Moore":105000,"Nash":94000,"New Hanover":235000,"Northampton":19500,"Onslow":200000,"Orange":150000,"Pamlico":12500,"Pasquotank":40000,"Pender":65000,"Perquimans":13500,"Person":39000,"Pitt":185000,"Polk":20500,"Randolph":145000,"Richmond":44000,"Robeson":130000,"Rockingham":91000,"Rowan":145000,"Rutherford":67000,"Sampson":64000,"Scotland":35000,"Stanly":63000,"Stokes":46000,"Surry":72000,"Swain":15000,"Transylvania":34000,"Tyrrell":4000,"Union":245000,"Vance":44000,"Wake":1150000,"Warren":19500,"Washington":12000,"Watauga":57000,"Wayne":123000,"Wilkes":68000,"Wilson":81000,"Yadkin":37500,"Yancey":18000},"ND":{"Adams":2300,"Barnes":10500,"Benson":7000,"Billings":950,"Bottineau":6500,"Bowman":3200,"Burke":2300,"Burleigh":98000,"Cass":185000,"Cavalier":3700,"Dickey":5000,"Divide":2500,"Dunn":4500,"Eddy":2300,"Emmons":3200,"Foster":3300,"Golden Valley":1800,"Grand Forks":72000,"Grant":2300,"Griggs":2300,"Hettinger":2500,"Kidder":2400,"LaMoure":4000,"Logan":1800,"McHenry":5800,"McIntosh":2600,"McKenzie":15500,"McLean":10000,"Mercer":8800,"Morton":32000,"Mountrail":10500,"Nelson":3000,"Oliver":1900,"Pembina":7000,"Pierce":4000,"Ramsey":11500,"Ransom":5500,"Renville":2500,"Richland":16000,"Rolette":14500,"Sargent":3800,"Sheridan":1300,"Sioux":4400,"Slope":700,"Stark":32000,"Steele":2000,"Stutsman":21000,"Towner":2200,"Traill":8000,"Walsh":10500,"Ward":69000,"Wells":4000,"Williams":40000},"OH":{"Adams":27500,"Allen":103000,"Ashland":53000,"Ashtabula":98000,"Athens":66000,"Auglaize":46000,"Belmont":67000,"Brown":44000,"Butler":390000,"Carroll":27000,"Champaign":39000,"Clark":136000,"Clermont":210000,"Clinton":42000,"Columbiana":103000,"Coshocton":36000,"Crawford":42000,"Cuyahoga":1250000,"Darke":51000,"Defiance":38000,"Delaware":220000,"Erie":75000,"Fairfield":160000,"Fayette":29000,"Franklin":1330000,"Fulton":42500,"Gallia":30000,"Geauga":95000,"Greene":170000,"Guernsey":39000,"Hamilton":830000,"Hancock":76000,"Hardin":31000,"Harrison":15000,"Henry":27500,"Highland":43000,"Hocking":28500,"Holmes":44000,"Huron":58000,"Jackson":32500,"Jefferson":65000,"Knox":62000,"Lake":232000,"Lawrence":60000,"Licking":178000,"Logan":45000,"Lorain":312000,"Lucas":432000,"Madison":44000,"Mahoning":230000,"Marion":65000,"Medina":185000,"Meigs":23000,"Mercer":42000,"Miami":106000,"Monroe":14000,"Montgomery":540000,"Morgan":14500,"Morrow":35500,"Muskingum":86000,"Noble":14500,"Ottawa":41000,"Paulding":19000,"Perry":36000,"Pickaway":59000,"Pike":28000,"Portage":162000,"Preble":41000,"Putnam":34500,"Richland":124000,"Ross":77000,"Sandusky":60000,"Scioto":75000,"Seneca":55000,"Shelby":48000,"Stark":375000,"Summit":540000,"Trumbull":200000,"Tuscarawas":93000,"Union":60000,"Van Wert":28000,"Vinton":13000,"Warren":240000,"Washington":60000,"Wayne":116000,"Williams":37000,"Wood":132000,"Wyandot":22000},"OK":{"Adair":22000,"Alfalfa":5800,"Atoka":14000,"Beaver":5200,"Beckham":22000,"Blaine":11000,"Bryan":48000,"Caddo":29000,"Canadian":155000,"Carter":48000,"Cherokee":49000,"Choctaw":14500,"Cimarron":2200,"Cleveland":296000,"Coal":5500,"Comanche":122000,"Cotton":5800,"Craig":14500,"Creek":73000,"Custer":29500,"Delaware":43000,"Dewey":5000,"Ellis":3900,"Garfield":62000,"Garvin":28000,"Grady":56000,"Grant":4200,"Greer":5800,"Harmon":2700,"Harper":3800,"Haskell":13000,"Hughes":13500,"Jackson":24500,"Jefferson":6000,"Johnston":11200,"Kay":44000,"Kingfisher":16000,"Kiowa":9000,"Latimer":10500,"Le Flore":50000,"Lincoln":37000,"Logan":48000,"Love":10000,"Major":8000,"Marshall":17000,"Mayes":41000,"McClain":42000,"McCurtain":33000,"McIntosh":19500,"Murray":14000,"Muskogee":69000,"Noble":11500,"Nowata":10500,"Okfuskee":12000,"Oklahoma":810000,"Okmulgee":38000,"Osage":47000,"Ottawa":31000,"Pawnee":16500,"Payne":82000,"Pittsburg":44000,"Pontotoc":39000,"Pottawatomie":73000,"Pushmataha":11000,"Roger Mills":3600,"Rogers":93000,"Seminole":25000,"Sequoyah":42000,"Stephens":44000,"Texas":21000,"Tillman":7200,"Tulsa":660000,"Wagoner":82000,"Washington":52000,"Washita":11000,"Woods":8800,"Woodward":21000},"OR":{"Baker":16500,"Benton":95000,"Clackamas":425000,"Clatsop":41000,"Columbia":52000,"Coos":64000,"Crook":25000,"Curry":23000,"Deschutes":210000,"Douglas":112000,"Gilliam":1900,"Grant":7200,"Harney":7400,"Hood River":24000,"Jackson":225000,"Jefferson":25000,"Josephine":89000,"Klamath":69000,"Lake":8000,"Lane":385000,"Lincoln":50000,"Linn":130000,"Malheur":31000,"Marion":350000,"Morrow":12000,"Multnomah":810000,"Polk":88000,"Sherman":1700,"Tillamook":27000,"Umatilla":80000,"Union":27000,"Wallowa":7200,"Wasco":27000,"Washington":610000,"Wheeler":1400,"Yamhill":108000},"PA":{"Adams":104000,"Allegheny":1230000,"Armstrong":65000,"Beaver":168000,"Bedford":48000,"Berks":425000,"Blair":123000,"Bradford":61000,"Bucks":640000,"Butler":195000,"Cambria":132000,"Cameron":4700,"Carbon":65000,"Centre":163000,"Chester":535000,"Clarion":37000,"Clearfield":80000,"Clinton":39000,"Columbia":65000,"Crawford":86000,"Cumberland":265000,"Dauphin":286000,"Delaware":575000,"Elk":30000,"Erie":270000,"Fayette":130000,"Forest":7000,"Franklin":155000,"Fulton":14500,"Greene":36000,"Huntingdon":45000,"Indiana":86000,"Jefferson":44000,"Juniata":24500,"Lackawanna":215000,"Lancaster":560000,"Lawrence":88000,"Lebanon":143000,"Lehigh":375000,"Luzerne":325000,"Lycoming":115000,"McKean":41000,"Mercer":112000,"Mifflin":46000,"Monroe":170000,"Montgomery":850000,"Montour":18500,"Northampton":315000,"Northumberland":93000,"Perry":46000,"Philadelphia":1600000,"Pike":58000,"Potter":16500,"Schuylkill":145000,"Snyder":41000,"Somerset":74000,"Sullivan":6000,"Susquehanna":40000,"Tioga":41000,"Union":45000,"Venango":52000,"Warren":39000,"Washington":210000,"Wayne":52000,"Westmoreland":355000,"Wyoming":27000,"York":455000},"SC":{"Abbeville":24500,"Aiken":175000,"Allendale":8500,"Anderson":205000,"Bamberg":14000,"Barnwell":21000,"Beaufort":200000,"Berkeley":235000,"Calhoun":15000,"Charleston":425000,"Cherokee":57000,"Chester":32000,"Chesterfield":46000,"Clarendon":33000,"Colleton":38000,"Darlington":67000,"Dillon":30000,"Dorchester":170000,"Edgefield":27000,"Fairfield":22000,"Florence":140000,"Georgetown":63000,"Greenville":535000,"Greenwood":72000,"Hampton":19000,"Horry":370000,"Jasper":30000,"Kershaw":68000,"Lancaster":100000,"Laurens":67000,"Lee":17500,"Lexington":310000,"Marion":31000,"Marlboro":26000,"McCormick":9800,"Newberry":38500,"Oconee":80000,"Orangeburg":87000,"Pickens":128000,"Richland":420000,"Saluda":20500,"Spartanburg":340000,"Sumter":107000,"Union":27000,"Williamsburg":30000,"York":290000},"SD":{"Aurora":2800,"Beadle":18500,"Bennett":3500,"Bon Homme":7000,"Brookings":35000,"Brown":39000,"Brule":5200,"Buffalo":2200,"Butte":10500,"Campbell":1400,"Charles Mix":9200,"Clark":3600,"Clay":14000,"Codington":28500,"Corson":4200,"Custer":9000,"Davison":20000,"Day":5500,"Deuel":4200,"Dewey":5800,"Douglas":3000,"Edmunds":4000,"Fall River":7000,"Faulk":2300,"Grant":7500,"Gregory":4200,"Haakon":1800,"Hamlin":6200,"Hand":3300,"Hanson":3500,"Harding":1200,"Hughes":17500,"Hutchinson":7200,"Hyde":1400,"Jackson":3500,"Jerauld":2000,"Jones":900,"Kingsbury":5000,"Lake":12500,"Lawrence":26000,"Lincoln":67000,"Lyman":3800,"Marshall":4800,"McCook":5600,"McPherson":2400,"Meade":29000,"Mellette":2100,"Miner":2200,"Minnehaha":200000,"Moody":6800,"Oglala Lakota":14500,"Pennington":115000,"Perkins":3000,"Potter":2200,"Roberts":10500,"Sanborn":2400,"Spink":6500,"Stanley":3000,"Sully":1300,"Todd":10000,"Tripp":5500,"Turner":8500,"Union":16500,"Walworth":5500,"Yankton":23000,"Ziebach":2800},"TN":{"Anderson":77000,"Bedford":51000,"Benton":16500,"Bledsoe":15000,"Blount":135000,"Bradley":109000,"Campbell":40000,"Cannon":14500,"Carroll":28000,"Carter":56000,"Cheatham":42000,"Chester":17500,"Claiborne":32000,"Clay":7800,"Cocke":36000,"Coffee":57000,"Crockett":14500,"Cumberland":62000,"Davidson":700000,"Decatur":12000,"DeKalb":21000,"Dickson":55000,"Dyer":37000,"Fayette":43000,"Fentress":18500,"Franklin":42000,"Gibson":49000,"Giles":29000,"Grainger":23500,"Greene":70000,"Grundy":13500,"Hamblen":64000,"Hamilton":370000,"Hancock":6500,"Hardeman":25000,"Hardin":26000,"Hawkins":57000,"Haywood":17000,"Henderson":28000,"Henry":32500,"Hickman":25000,"Houston":8500,"Humphreys":18500,"Jackson":12000,"Jefferson":55000,"Johnson":18000,"Knox":488000,"Lake":7000,"Lauderdale":26000,"Lawrence":44000,"Lewis":12500,"Lincoln":35000,"Loudon":55000,"Macon":25000,"Madison":98000,"Marion":29500,"Marshall":35000,"Maury":100000,"McMinn":53000,"McNairy":26000,"Meigs":13000,"Monroe":47000,"Montgomery":220000,"Moore":6500,"Morgan":22000,"Obion":30000,"Overton":22500,"Perry":8200,"Pickett":5200,"Polk":17500,"Putnam":82000,"Rhea":34000,"Roane":53000,"Robertson":73000,"Rutherford":345000,"Scott":22000,"Sequatchie":16000,"Sevier":103000,"Shelby":930000,"Smith":20500,"Stewart":13500,"Sullivan":158000,"Sumner":200000,"Tipton":62000,"Trousdale":11500,"Unicoi":18000,"Union":20000,"Van Buren":6200,"Warren":42000,"Washington":133000,"Wayne":16500,"Weakley":33000,"White":28000,"Williamson":260000,"Wilson":155000},"UT":{"Beaver":7000,"Box Elder":59000,"Cache":133000,"Carbon":20000,"Daggett":900,"Davis":365000,"Duchesne":20000,"Emery":10000,"Garfield":5500,"Grand":10000,"Iron":58000,"Juab":12500,"Kane":8000,"Millard":13500,"Morgan":12500,"Piute":2000,"Rich":2500,"Salt Lake":1190000,"San Juan":15500,"Sanpete":34000,"Sevier":22000,"Summit":42000,"Tooele":78000,"Uintah":36000,"Utah":680000,"Wasatch":37000,"Washington":195000,"Wayne":2700,"Weber":265000},"VT":{"Addison":37000,"Bennington":37000,"Caledonia":30000,"Chittenden":168000,"Essex":6000,"Franklin":50000,"Grand Isle":7200,"Lamoille":26000,"Orange":29000,"Orleans":27000,"Rutland":59000,"Washington":59000,"Windham":44000,"Windsor":57000},"VA":{"Accomack":33000,"Albemarle":113000,"Alleghany":15000,"Amelia":13000,"Amherst":31500,"Appomattox":16000,"Arlington":240000,"Augusta":76000,"Bath":4200,"Bedford":79000,"Bland":6200,"Botetourt":34000,"Brunswick":16000,"Buchanan":21000,"Buckingham":17000,"Campbell":56000,"Caroline":31000,"Carroll":29000,"Charles City":7000,"Charlotte":12000,"Chesterfield":370000,"Clarke":14500,"Craig":5000,"Culpeper":55000,"Cumberland":10000,"Dickenson":14500,"Dinwiddie":28000,"Essex":11000,"Fairfax":1150000,"Fauquier":73000,"Floyd":16000,"Fluvanna":28000,"Franklin":56000,"Frederick":92000,"Giles":17000,"Gloucester":38000,"Goochland":24000,"Grayson":15500,"Greene":21000,"Greensville":11500,"Halifax":34000,"Hanover":110000,"Henrico":335000,"Henry":51000,"Highland":2200,"Isle of Wight":38000,"James City":78000,"King and Queen":7000,"King George":27000,"King William":17500,"Lancaster":11000,"Lee":23000,"Loudoun":430000,"Louisa":38000,"Lunenburg":12000,"Madison":13500,"Mathews":8800,"Mecklenburg":30000,"Middlesex":11000,"Montgomery":99000,"Nelson":15000,"New Kent":24000,"Northampton":12000,"Northumberland":12500,"Nottoway":15500,"Orange":38000,"Page":24000,"Patrick":17500,"Pittsylvania":60000,"Powhatan":30000,"Prince Edward":22000,"Prince George":38000,"Prince William":485000,"Pulaski":34000,"Rappahannock":7200,"Richmond":9000,"Roanoke":95000,"Rockbridge":23000,"Rockingham":83000,"Russell":27000,"Scott":22000,"Shenandoah":44000,"Smyth":30000,"Southampton":18000,"Spotsylvania":140000,"Stafford":155000,"Surry":6500,"Sussex":11000,"Tazewell":41000,"Warren":41000,"Washington":54000,"Westmoreland":18000,"Wise":38000,"Wythe":29000,"York":68000,"Alexandria City":160000,"Bristol City":17000,"Buena Vista City":6700,"Charlottesville City":49000,"Chesapeake City":250000,"Colonial Heights City":18000,"Covington City":5500,"Danville City":41000,"Emporia City":5500,"Fairfax City":24000,"Falls Church City":15000,"Fredericksburg City":29000,"Galax City":6800,"Hampton City":137000,"Harrisonburg City":54000,"Hopewell City":22500,"Lexington City":7500,"Lynchburg City":83000,"Manassas City":42000,"Manassas Park City":17500,"Martinsville City":13000,"Newport News City":186000,"Norfolk City":245000,"Norton City":3800,"Petersburg City":33000,"Poquoson City":12500,"Portsmouth City":98000,"Radford City":18000,"Richmond City":227000,"Roanoke City":100000,"Salem City":26000,"Staunton City":25500,"Suffolk City":95000,"Virginia Beach City":460000,"Waynesboro City":23000,"Williamsburg City":15500,"Winchester City":28500},"WA":{"Adams":20000,"Asotin":22500,"Benton":210000,"Chelan":80000,"Clallam":77000,"Clark":510000,"Columbia":4000,"Cowlitz":110000,"Douglas":44000,"Ferry":7500,"Franklin":98000,"Garfield":2200,"Grant":100000,"Grays Harbor":75000,"Island":86000,"Jefferson":32000,"King":2270000,"Kitsap":275000,"Kittitas":48000,"Klickitat":22500,"Lewis":82000,"Lincoln":11000,"Mason":67000,"Okanogan":42000,"Pacific":22500,"Pend Oreille":14000,"Pierce":930000,"San Juan":18000,"Skagit":132000,"Skamania":12500,"Snohomish":840000,"Spokane":540000,"Stevens":46000,"Thurston":300000,"Wahkiakum":4500,"Walla Walla":62000,"Whatcom":230000,"Whitman":50000,"Yakima":260000},"WV":{"Barbour":16500,"Berkeley":123000,"Boone":22000,"Braxton":14000,"Brooke":22000,"Cabell":96000,"Calhoun":7000,"Clay":8500,"Doddridge":8500,"Fayette":43000,"Gilmer":8500,"Grant":12000,"Greenbrier":35000,"Hampshire":24000,"Hancock":29500,"Hardy":14500,"Harrison":68000,"Jackson":29000,"Jefferson":58000,"Kanawha":183000,"Lewis":16000,"Lincoln":21000,"Logan":33000,"Marion":56000,"Marshall":31000,"Mason":26500,"McDowell":18500,"Mercer":60000,"Mineral":27000,"Mingo":24000,"Monongalia":106000,"Monroe":13500,"Morgan":18000,"Nicholas":25000,"Ohio":42000,"Pendleton":7000,"Pleasants":7500,"Pocahontas":8500,"Preston":34000,"Putnam":58000,"Raleigh":76000,"Randolph":29000,"Ritchie":9800,"Roane":14000,"Summers":13000,"Taylor":17500,"Tucker":7000,"Tyler":8500,"Upshur":25500,"Wayne":40000,"Webster":8500,"Wetzel":15000,"Wirt":5800,"Wood":85000,"Wyoming":21000},"WI":{"Adams":21000,"Ashland":15500,"Barron":46000,"Bayfield":15500,"Brown":270000,"Buffalo":13000,"Burnett":16000,"Calumet":57000,"Chippewa":66000,"Clark":34500,"Columbia":58000,"Crawford":16000,"Dane":570000,"Dodge":88000,"Door":28000,"Douglas":44000,"Dunn":45000,"Eau Claire":105000,"Florence":4200,"Fond du Lac":104000,"Forest":9000,"Grant":52000,"Green":37000,"Green Lake":19000,"Iowa":23500,"Iron":5500,"Jackson":21000,"Jefferson":85000,"Juneau":27000,"Kenosha":170000,"Kewaunee":20500,"La Crosse":120000,"Lafayette":17000,"Langlade":19500,"Lincoln":28500,"Manitowoc":80000,"Marathon":136000,"Marinette":41000,"Marquette":16000,"Menominee":4800,"Milwaukee":950000,"Monroe":46000,"Oconto":38000,"Oneida":36000,"Outagamie":190000,"Ozaukee":90000,"Pepin":7200,"Pierce":42000,"Polk":45000,"Portage":70000,"Price":13500,"Racine":198000,"Richland":17500,"Rock":163000,"Rusk":14000,"Sauk":65000,"Sawyer":17000,"Shawano":41000,"Sheboygan":118000,"St. Croix":94000,"Taylor":20500,"Trempealeau":30000,"Vernon":31000,"Vilas":22000,"Walworth":105000,"Washburn":16000,"Washington":137000,"Waukesha":410000,"Waupaca":52000,"Waushara":24500,"Winnebago":172000,"Wood":74000},"TX":{"Anderson":57900,"Andrews":18500,"Angelina":86900,"Aransas":23800,"Archer":8500,"Armstrong":1900,"Atascosa":51800,"Austin":30800,"Bailey":7000,"Bandera":23500,"Bastrop":97000,"Baylor":3500,"Bee":32800,"Bell":370000,"Bexar":2010000,"Blanco":12500,"Borden":700,"Bosque":18500,"Bowie":93500,"Brazoria":381000,"Brazos":233000,"Brewster":9800,"Briscoe":1500,"Brooks":7000,"Brown":37700,"Burleson":18300,"Burnet":51000,"Caldwell":45500,"Calhoun":21300,"Callahan":14000,"Cameron":425000,"Camp":13000,"Carson":5900,"Cass":29700,"Castro":7500,"Chambers":46000,"Cherokee":51500,"Childress":7000,"Clay":10200,"Cochran":2800,"Coke":3300,"Coleman":8200,"Collin":1140000,"Collingsworth":2900,"Colorado":21200,"Comal":170000,"Comanche":13300,"Concho":2700,"Cooke":41600,"Coryell":75300,"Cottle":1400,"Crane":4900,"Crockett":3400,"Crosby":5700,"Culberson":2200,"Dallam":7300,"Dallas":2610000,"Dawson":12600,"DeWitt":20400,"Deaf Smith":18600,"Delta":5200,"Denton":1000000,"Dickens":2100,"Dimmit":10500,"Donley":3300,"Duval":11000,"Eastland":18100,"Ector":165000,"Edwards":1900,"El Paso":865000,"Ellis":194000,"Erath":42500,"Falls":17000,"Fannin":35400,"Fayette":25500,"Fisher":3700,"Floyd":5700,"Foard":1200,"Fort Bend":850000,"Franklin":10600,"Freestone":19400,"Frio":20100,"Gaines":21500,"Galveston":353000,"Garza":6200,"Gillespie":27500,"Glasscock":1400,"Goliad":7700,"Gonzales":20900,"Gray":21800,"Grayson":139000,"Gregg":123000,"Grimes":29000,"Guadalupe":174000,"Hale":33500,"Hall":3000,"Hamilton":8200,"Hansford":5400,"Hardeman":3800,"Hardin":58000,"Harris":4730000,"Harrison":66500,"Hartley":6200,"Haskell":5600,"Hays":250000,"Hemphill":3800,"Henderson":82000,"Hidalgo":880000,"Hill":36200,"Hockley":23000,"Hood":63000,"Hopkins":37000,"Houston":22600,"Howard":36500,"Hudspeth":4900,"Hunt":100000,"Hutchinson":20800,"Irion":1600,"Jack":8700,"Jackson":14600,"Jasper":35000,"Jeff Davis":2200,"Jefferson":256000,"Jim Hogg":5200,"Jim Wells":39000,"Johnson":179000,"Jones":19800,"Karnes":15700,"Kaufman":145000,"Kendall":47000,"Kenedy":400,"Kent":800,"Kerr":53000,"Kimble":4400,"King":300,"Kinney":3600,"Kleberg":30500,"Knox":3600,"La Salle":7500,"Lamar":49700,"Lamb":13000,"Lampasas":22200,"Lavaca":20200,"Lee":17500,"Leon":17200,"Liberty":88000,"Limestone":23000,"Lipscomb":3400,"Live Oak":12500,"Llano":21900,"Loving":100,"Lubbock":310000,"Lynn":5700,"Madison":14200,"Marion":9800,"Martin":5700,"Mason":4200,"Matagorda":36500,"Maverick":58500,"McCulloch":8000,"McLennan":260000,"McMullen":700,"Medina":52000,"Menard":2100,"Midland":176000,"Milam":24700,"Mills":4900,"Mitchell":8500,"Montague":20000,"Montgomery":620000,"Moore":21000,"Morris":12200,"Motley":1100,"Nacogdoches":65000,"Navarro":50500,"Newton":13800,"Nolan":14800,"Nueces":362000,"Ochiltree":10200,"Oldham":2000,"Orange":83500,"Palo Pinto":29000,"Panola":23300,"Parker":152000,"Parmer":9400,"Pecos":15500,"Polk":51000,"Potter":117000,"Presidio":6800,"Rains":12200,"Randall":138000,"Reagan":3800,"Real":3500,"Red River":12000,"Reeves":15500,"Refugio":7000,"Roberts":800,"Robertson":16700,"Rockwall":110000,"Runnels":10200,"Rusk":53000,"Sabine":10200,"San Augustine":8200,"San Jacinto":29000,"San Patricio":67000,"San Saba":6000,"Schleicher":2800,"Scurry":17500,"Shackelford":3200,"Shelby":25200,"Sherman":3000,"Smith":232000,"Somervell":9200,"Starr":65000,"Stephens":9300,"Sterling":1200,"Stonewall":1300,"Sutton":3800,"Swisher":7300,"Tarrant":2110000,"Taylor":143000,"Terrell":800,"Terry":12300,"Throckmorton":1500,"Titus":33000,"Tom Green":120000,"Travis":1310000,"Trinity":14500,"Tyler":21000,"Upshur":41000,"Upton":3600,"Uvalde":26600,"Val Verde":48500,"Van Zandt":56000,"Victoria":91000,"Walker":76000,"Waller":58000,"Ward":12000,"Washington":36000,"Webb":267000,"Wharton":41000,"Wheeler":5200,"Wichita":131000,"Wilbarger":12700,"Willacy":21500,"Williamson":643000,"Wilson":52000,"Winkler":7800,"Wise":72000,"Wood":45000,"Yoakum":8500,"Young":17500,"Zapata":14000,"Zavala":11800},"WY":{"Albany":38800,"Big Horn":11700,"Campbell":46500,"Carbon":14800,"Converse":13800,"Crook":7500,"Fremont":39000,"Goshen":13200,"Hot Springs":4500,"Johnson":8600,"Laramie":100000,"Lincoln":19800,"Natrona":79900,"Niobrara":2400,"Park":29500,"Platte":8600,"Sheridan":30500,"Sublette":9600,"Sweetwater":42400,"Teton":23200,"Uinta":20200,"Washakie":7700,"Weston":6800}};
+var SN={"AL":"Alabama","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","DE":"Delaware","FL":"Florida","GA":"Georgia","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"};
+var VA_CITIES=["Alexandria City", "Bristol City", "Buena Vista City", "Charlottesville City", "Chesapeake City", "Colonial Heights City", "Covington City", "Danville City", "Emporia City", "Fairfax City", "Falls Church City", "Fredericksburg City", "Galax City", "Hampton City", "Harrisonburg City", "Hopewell City", "Lexington City", "Lynchburg City", "Manassas City", "Manassas Park City", "Martinsville City", "Newport News City", "Norfolk City", "Norton City", "Petersburg City", "Poquoson City", "Portsmouth City", "Radford City", "Richmond City", "Roanoke City", "Salem City", "Staunton City", "Suffolk City", "Virginia Beach City", "Waynesboro City", "Williamsburg City", "Winchester City"];
+
+var cs=null,cp=0,cst='',ccn='',queue=[];
+
+// Jurisdiction label: Parish for LA, City for VA independent cities, County for everything else
+function jlbl(st,cn){
+  if(st==='LA') return 'Parish';
+  if(st==='VA' && VA_CITIES.indexOf(cn)!==-1) return 'City';
+  return 'County';
+}
+// For dropdown display
+function ddlbl(st,cn){
+  var j=jlbl(st,cn);
+  if(j==='City') return cn; // already says "City" in the name
+  return cn+' '+j;
+}
+// For formal addressing: "The Sheriff of X County" vs "The Sheriff of the City of Norfolk"
+function formalAddr(st,cn){
+  var j=jlbl(st,cn);
+  if(j==='City'){
+    var base=cn.replace(' City','');
+    return {line1:'The Sheriff of the City of '+base, line2:'City of '+base+' Sheriff\u2019s Office', line3:base+', Virginia'};
+  }
+  return {line1:'The Sheriff of '+cn+' '+j, line2:cn+' '+j+' Sheriff\u2019s Office', line3:cn+', '+SN[st]};
+}
+// For savings box and Re: line
+function jfull(st,cn){
+  var j=jlbl(st,cn);
+  if(j==='City'){var base=cn.replace(' City','');return 'City of '+base}
+  return cn+' '+j;
+}
+
+window.onload=function(){
+  try{var s=localStorage.getItem('smg3');if(s){var d=JSON.parse(s);if(d.n)$('s1N').value=d.n;if(d.e)$('s1E').value=d.e;if(d.a)$('s1A').value=d.a;if(d.p)$('s1P').value=d.p}}catch(e){}
+  var sel=$('s2S'),ks=Object.keys(SN).sort();
+  for(var i=0;i<ks.length;i++){var o=document.createElement('option');o.value=ks[i];o.textContent=ks[i]+' \u2013 '+SN[ks[i]];sel.appendChild(o)}
+};
+function $(id){return document.getElementById(id)}
+function toggleGuide(){var g=$('guidePanel');g.style.display=g.style.display==='block'?'none':'block';if(g.style.display==='block')g.scrollTop=0}
+function saveInfo(){
+  var d={n:$('s1N').value.trim(),e:$('s1E').value.trim(),a:$('s1A').value.trim(),p:$('s1P').value.trim()};
+  try{localStorage.setItem('smg3',JSON.stringify(d));$('s1m').innerHTML='<p class="ok">\u2713 Saved to this browser.</p>'}catch(e){$('s1m').innerHTML='<p class="err">Could not save.</p>'}
+}
+function goStep1(){$('step2').style.display='none';$('preview').style.display='none';$('step1').style.display='block';scrollTo(0,0)}
+function goStep2(){
+  if(!$('s1N').value.trim()||!$('s1E').value.trim()||!$('s1A').value.trim()||!$('s1P').value.trim()){$('s1e').innerHTML='<p class="err">Please fill in all four fields.</p>';return}
+  $('s1e').innerHTML='';$('step1').style.display='none';$('step2').style.display='block';scrollTo(0,0)
+}
+function backToS2(){$('preview').style.display='none';$('step2').style.display='block';scrollTo(0,0)}
+
+function onSt(){
+  cst=$('s2S').value;var sel=$('s2C');sel.innerHTML='<option value="">\u2014 Select \u2014</option>';
+  $('popD').textContent='';$('spnl').style.display='none';$('sheriffPanel').style.display='none';cs=null;
+  $('s2SN').value='';$('s2A1').value='';$('s2A2').value='';$('lookupMsg').innerHTML='';
+  if(!cst||!P[cst])return;
+  var ns=Object.keys(P[cst]).sort();
+  for(var i=0;i<ns.length;i++){var o=document.createElement('option');o.value=ns[i];o.textContent=ddlbl(cst,ns[i]);sel.appendChild(o)}
+}
+function onCo(){
+  ccn=$('s2C').value;
+  if(!cst||!ccn||!P[cst]||!P[cst][ccn]){$('popD').textContent='';$('spnl').style.display='none';$('sheriffPanel').style.display='none';cs=null;return}
+  cp=P[cst][ccn]; cs=calc(cp,cst);
+  $('popD').textContent=jfull(cst,ccn)+', '+cst+' \u2014 Pop. '+cp.toLocaleString('en-US');
+  // Show sheriff fields, clear previous values
+  $('s2SN').value='';$('s2A1').value='';$('s2A2').value='';$('lookupMsg').innerHTML='';
+  $('sheriffPanel').style.display='block';
+  // Show savings
+  $('sTP').textContent=f$(cs.total);
+  $('sR').textContent=fK(cs.floor)+' \u2013 '+fK(cs.ceiling);
+  $('t1').textContent=f$(cs.cat1);$('t2').textContent=f$(cs.cat2);$('t3').textContent=f$(Math.round(cs.cat3));
+  $('t4').textContent=f$(Math.round(cs.cat4));$('t5').textContent=f$(Math.round(cs.cat5));$('t6').textContent=f$(Math.round(cs.cat6));
+  $('spnl').style.display='block';$('s2m').innerHTML='';
+}
+
+function calc(pop,st){
+  var f;if(pop<20000)f=1.30;else if(pop<40000)f=1.15;else if(pop<200000)f=1.00;else if(pop<500000)f=0.85;else f=0.65;
+  var sf=Math.max(12,Math.round(pop*0.0006*f)),of2=Math.max(6,Math.round(pop*0.00032*f));
+  var sr=Math.max(2,Math.round(sf*0.195)),or2=Math.max(2,Math.round(of2*0.25));
+  var cat1=sr*55000,cat2=or2*45000;
+  var cat3=2.50*pop,cat4=2.00*pop,cat5=1.25*pop,cat6=1.50*pop;
+  if(st==='TX')cat4*=0.80;
+  if(pop<20000){cat3=Math.max(cat3,50000);cat4=Math.max(cat4,30000);cat5=Math.max(cat5,20000);cat6=Math.max(cat6,25000)}
+  var total=cat1+cat2+cat3+cat4+cat5+cat6;
+  var hh=Math.round(pop/2.53);
+  return{sf:sf,of:of2,sr:sr,or2:or2,cat1:cat1,cat2:cat2,cat3:cat3,cat4:cat4,cat5:cat5,cat6:cat6,total:total,floor:Math.round(total*0.15/1000)*1000,ceiling:Math.round(total*0.45/1000)*1000,hh:hh,ci:hh*2420}
+}
+function f$(n){return '$'+Math.round(n).toLocaleString('en-US')}
+function fK(n){return '$'+(Math.round(n/1000)*1).toLocaleString('en-US')+',000'}
+function fD(){return new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
+
+// Sheriff lookup - tries Anthropic API first (works in Claude artifacts), falls back to Google search
+async function lookupSheriff(){
+  if(!cst||!ccn){$('lookupMsg').innerHTML='<span style="color:#dc2626">Select a state and county first.</span>';return}
+  var jf=jfull(cst,ccn);
+  $('lookupBtn').disabled=true;$('lookupBtn').textContent='Searching\u2026';
+  $('lookupMsg').innerHTML='';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:'Find the current sheriff of '+jf+', '+SN[cst]+' and their office mailing address. Return ONLY a JSON object with keys: sheriff_name (full name, no title), address_line1 (street address), address_line2 (city, state ZIP). No other text, no markdown, no backticks.'}]
+      })
+    });
+    if(!resp.ok) throw new Error('API error');
+    var data=await resp.json();
+    // Extract text from response
+    var txt='';
+    for(var i=0;i<data.content.length;i++){if(data.content[i].type==='text')txt+=data.content[i].text}
+    txt=txt.replace(/```json|```/g,'').trim();
+    var info=JSON.parse(txt);
+    if(info.sheriff_name)$('s2SN').value=info.sheriff_name;
+    if(info.address_line1)$('s2A1').value=info.address_line1;
+    if(info.address_line2)$('s2A2').value=info.address_line2;
+    $('lookupMsg').innerHTML='<div class="vbox"><div class="vtxt">\u26A0 AI filled in the fields below. Please verify the sheriff\u2019s name and address are correct and current.</div><button class="vbtn" onclick="verifyGoogle()">\uD83D\uDD0D Verify with Google Search</button> <span style="font-size:12px;color:#666;font-weight:400">(opens search results in a new tab)</span></div>';
+  }catch(e){
+    // Fallback: open Google search
+    var q=encodeURIComponent(jfull(cst,ccn)+' '+SN[cst]+' sheriff office mailing address');
+    window.open('https://www.google.com/search?q='+q,'_blank');
+    $('lookupMsg').innerHTML='<span style="color:#e67e22">AI lookup unavailable \u2014 Google search opened in a new tab. Please enter the sheriff\u2019s name and address from the search results.</span>';
+  }
+  $('lookupBtn').disabled=false;$('lookupBtn').textContent='Look Up Sheriff Name & Address';
+}
+
+function getSheriffInfo(){return{sn:$('s2SN').value.trim(),a1:$('s2A1').value.trim(),a2:$('s2A2').value.trim()}}
+
+function verifyGoogle(){
+  if(!cst||!ccn)return;
+  var q=encodeURIComponent(jfull(cst,ccn)+' '+SN[cst]+' sheriff name office address');
+  window.open('https://www.google.com/search?q='+q,'_blank');
+}
+function validateSheriff(){
+  var si=getSheriffInfo();
+  if(!si.sn||!si.a1||!si.a2){$('s2m').innerHTML='<p class="err">Please fill in the sheriff\u2019s name, address line 1, and address line 2.</p>';return null}
+  return si;
+}
+
+function addToQueue(){
+  if(!cst||!ccn||!cs){$('s2m').innerHTML='<p class="err">Select a state and county first.</p>';return}
+  var si=validateSheriff();if(!si)return;
+  for(var i=0;i<queue.length;i++){if(queue[i].st===cst&&queue[i].cn===ccn){$('s2m').innerHTML='<p class="err">'+jfull(cst,ccn)+' is already in the batch.</p>';return}}
+  queue.push({st:cst,cn:ccn,pop:cp,s:cs,sn:si.sn,a1:si.a1,a2:si.a2});renderQueue();
+  $('s2m').innerHTML='<p class="ok">\u2713 '+jfull(cst,ccn)+', '+cst+' added (Sheriff '+si.sn+').</p>';
+}
+function removeFromQueue(i){queue.splice(i,1);renderQueue()}
+function clearQueue(){queue=[];renderQueue()}
+function renderQueue(){
+  if(queue.length===0){$('queuePanel').style.display='none';return}
+  $('queuePanel').style.display='block';
+  var w=queue.length>1?'ies':'y';
+  $('qCount').textContent='('+queue.length+' count'+w+' \u2014 '+queue.length*5+' pages)';
+  var h='';
+  for(var i=0;i<queue.length;i++){var q=queue[i];h+='<div class="qi"><span>'+(i+1)+'. '+jfull(q.st,q.cn)+', '+q.st+' (Sheriff '+q.sn+') \u2014 '+fK(q.s.floor)+'\u2013'+fK(q.s.ceiling)+'</span><button class="qr" onclick="removeFromQueue('+i+')">Remove</button></div>'}
+  $('qList').innerHTML=h;
+}
+
+function getMyInfo(){return{n:$('s1N').value.trim(),e:$('s1E').value.trim(),a:$('s1A').value.trim(),p:$('s1P').value.trim()}}
+
+function makeCL(my,st,cn,pop,s,sn,a1,a2){
+  var jf=jfull(st,cn);
+  var h='<div class="page cl" contenteditable="true">';
+  h+='<div style="margin-bottom:4pt;text-align:right"><div>'+my.n+'</div><div>'+my.a+'</div><div>'+my.p+' | '+my.e+'</div></div>';
+  h+='<div style="margin-bottom:8pt;text-align:center">'+fD()+'</div>';
+  h+='<div style="margin-bottom:4pt"><div>Sheriff '+sn+', '+jf+'</div><div>'+a1+'</div><div>'+a2+'</div></div>';
+  h+='<div style="margin-bottom:8pt"><strong>Re: Constitutional Challenge That Could Save '+jf+' Minimally '+fK(s.floor)+' in Annual Procurement Costs and Lower the Cost of Living for Your Citizens</strong></div>';
+  h+='<div style="margin-bottom:6pt">Dear Sheriff '+sn+',</div>';
+  h+='<div style="margin-bottom:6pt">A constitutional issue directly increases your department\u2019s procurement costs. The enclosed brochure and your specific county savings report explain how post-1970 federal regulations block remanufacturing of vehicles and equipment whose patents expired 20+ years ago \u2014 creating permanent monopolies the Constitution\u2019s Patent Clause phrase, \u2018limited Times\u2019, explicitly prohibits. The research quantifies this as a $22 trillion regulatory taking nationwide.</div>';
+  h+='<div style="margin-bottom:6pt">Every vehicle and piece of equipment your county purchases costs far more than it should. Federal regulations block the competition that would force manufacturers to lower prices \u2014 the same reason brand-name drugs cost more before generics enter the market. In countries that allow it, brand-new vehicles built on patents expired 20+ years ago sell for $6,000\u201318,000. Critically, your county saves even when buying only new equipment: remanufactured competition forces new-item prices down, exactly as generic drugs force brand-name prices down.</div>';
+  h+='<div class="svb" style="text-align:left"><div class="svt" style="text-align:center">'+jf+' Wins on Multiple Bases:</div>';
+  h+='<div class="svd">(1) <strong>Domestic remanufacturing opportunity</strong> \u2014 patent-expired remanufacturing could be done entirely in your state, creating manufacturing jobs. Congress and the President retain full authority to block foreign imports. (2) <strong>Reduced cost of living for citizens</strong> \u2014 an estimated '+f$(s.ci)+' per year across '+jf+'\u2019s '+s.hh.toLocaleString("en-US")+' households ($2,420 each) in vehicles, equipment, and appliances. (3) <strong>Reduced county procurement expenditures</strong> \u2014 an estimated '+fK(s.floor)+' per year even buying only new equipment (competitive pressure alone), rising to '+fK(s.ceiling)+' if purchasing remanufactured (see enclosed Savings Report).</div></div>';
+  h+='<div style="margin-bottom:6pt">Sheriffs have direct precedent for challenging federal overreach at the highest level. In <em>Printz v. United States</em> (1997), Sheriffs Jay Printz and Richard Mack \u2014 from small counties \u2014 won at the Supreme Court. Recent Supreme Court decisions have eliminated agency deference and expanded regulatory takings protections \u2014 the enclosed brochure details 38 supporting cases. Public interest law firms like Pacific Legal Foundation or others provide completely free representation \u2014 zero cost to the county. The sheriff who files this challenge will be the lawman who made America affordable again \u2014 and every media outlet in the country will cover it. Even if this challenge fails, it paves the way for another sheriff, another circuit, or the political will to finish what litigation started.</div>';
+  h+='<div style="margin-bottom:6pt">If this proposal interests you, contact me or contact the author of the article (Roleigh Martin at roleigh@pobox.com), \u201cShould a Sheriff Sue Over the $22T Taking? The Standing Gamble and Publicity Strategy\u201d viewable at <a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">https://x.com/RoleighMartin/articles</a> (look for the article dated 2/21/2026) or contact me and I will direct you to it.</div>';
+  h+='<div style="margin-bottom:6pt">The brochure and county savings estimate are enclosed. Email me for an electronic copy of this letter and attachments to share with your county attorney or commissioners. If my reply doesn\u2019t arrive within a day, please text me \u2014 email filters sometimes catch new contacts.</div>';
+  h+='<div style="margin-top:12pt">Respectfully,</div><div style="margin-top:20pt">'+my.n+'</div>';
+  h+='<div style="margin-top:8pt;font-size:10pt">Enclosures: Brochure \u2013 Constitutional Patent Clause Analysis; Your County Savings Report</div></div>';
+  return h;
+}
+
+function makeAC(st,cn,pop,s){
+  var jf=jfull(st,cn),jl=jlbl(st,cn);
+  var a='<div class="page apx">';
+  a+='<div style="text-align:center;margin-bottom:6pt"><div style="font-size:14pt;font-weight:bold;color:#1F4E79">COUNTY PROCUREMENT SAVINGS REPORT: '+jf.toUpperCase()+', '+st+'</div>';
+  a+='<div style="font-size:11.5pt;font-style:italic">ESTIMATED ANNUAL SAVINGS FROM RESTORING PATENT-EXPIRED COMPETITION</div></div>';
+  a+='<div style="background:#f0f4f8;border:1px solid #c5d4e6;padding:8pt 10pt;margin-bottom:8pt;font-size:10pt;line-height:1.4">';
+  a+='This report estimates how much '+jf+' could save annually on county procurement if federal regulations permitted competition from remanufactured equipment whose patents expired 20+ years ago. Two savings estimates are shown: a <strong>Floor</strong> (your county keeps buying only new equipment, but competitive pressure from remanufactured alternatives forces prices down) and a <strong>Ceiling</strong> (your county purchases remanufactured equipment directly). Most government agencies will continue buying new \u2014 the Floor is the number that matters for most procurement decisions.';
+  a+='<div style="margin-top:4pt"><strong>The generic drug parallel:</strong> When generics enter the market, brand-name drug prices fall 30\u201380% even for patients who never switch. The same competitive pressure would apply to vehicles and equipment. The Floor estimate uses a conservative 15% discount \u2014 well below what the generic drug market demonstrates.</div></div>';
+  a+='<table class="at"><tr><th style="text-align:left">Category</th><th>Est. Annual Procurement</th><th>FLOOR: Still Buying New</th><th>CEILING: Buying Remanufactured</th></tr>';
+  a+='<tr><td style="text-align:left">Sheriff\u2019s Fleet ('+s.sr+' vehicles/yr \u00d7 $55K)</td><td>'+f$(s.cat1)+'</td><td>'+f$(Math.round(s.cat1*0.15))+'</td><td>'+f$(Math.round(s.cat1*0.45))+'</td></tr>';
+  a+='<tr><td style="text-align:left">Other '+jl+' Vehicles ('+s.or2+' vehicles/yr \u00d7 $45K)</td><td>'+f$(s.cat2)+'</td><td>'+f$(Math.round(s.cat2*0.15))+'</td><td>'+f$(Math.round(s.cat2*0.45))+'</td></tr>';
+  a+='<tr><td style="text-align:left">Fire/EMS Apparatus</td><td>'+f$(Math.round(s.cat3))+'</td><td>'+f$(Math.round(s.cat3*0.15))+'</td><td>'+f$(Math.round(s.cat3*0.45))+'</td></tr>';
+  a+='<tr><td style="text-align:left">Road & Winter Equipment</td><td>'+f$(Math.round(s.cat4))+'</td><td>'+f$(Math.round(s.cat4*0.15))+'</td><td>'+f$(Math.round(s.cat4*0.45))+'</td></tr>';
+  a+='<tr><td style="text-align:left">Heavy Construction Equipment</td><td>'+f$(Math.round(s.cat5))+'</td><td>'+f$(Math.round(s.cat5*0.15))+'</td><td>'+f$(Math.round(s.cat5*0.45))+'</td></tr>';
+  a+='<tr><td style="text-align:left">General Procurement</td><td>'+f$(Math.round(s.cat6))+'</td><td>'+f$(Math.round(s.cat6*0.15))+'</td><td>'+f$(Math.round(s.cat6*0.45))+'</td></tr>';
+  a+='<tr class="tr"><td style="text-align:right;padding-right:8pt"><strong>TOTALS</strong></td><td><strong>'+f$(s.total)+'</strong></td><td><strong>'+fK(s.floor)+'</strong></td><td><strong>'+fK(s.ceiling)+'</strong></td></tr></table>';
+  a+='<div style="display:flex;gap:8pt;margin:8pt 0">';
+  a+='<div style="flex:1;background:#d4edda;border:2px solid #28a745;padding:8pt;text-align:center;border-radius:4pt"><div style="font-size:9pt;font-weight:bold;color:#155724;margin-bottom:2pt">FLOOR: SAVINGS BUYING ONLY NEW EQUIPMENT</div><div style="font-size:18pt;font-weight:bold;color:#155724">'+fK(s.floor)+'</div><div style="font-size:8.5pt;color:#155724">15% competitive-pressure discount \u2014 prices fall because remanufactured alternatives exist, same as brand-name drugs when generics enter</div></div>';
+  a+='<div style="flex:1;background:#1F4E79;color:white;padding:8pt;text-align:center;border-radius:4pt"><div style="font-size:9pt;font-weight:bold;margin-bottom:2pt">CEILING: SAVINGS BUYING REMANUFACTURED</div><div style="font-size:18pt;font-weight:bold">'+fK(s.ceiling)+'</div><div style="font-size:8.5pt">45% remanufacturing discount \u2014 based on international pricing in 90+ countries where patent-expired vehicles sell for $6K\u201318K</div></div></div>';
+  a+='<div style="background:#e9ecef;border:1px solid #adb5bd;padding:8pt;text-align:center;margin-bottom:8pt;border-radius:4pt"><div style="font-size:18pt;font-weight:bold;color:#1a3a5c">'+f$(s.ci)+'</div><div style="font-size:10pt;font-weight:bold;color:#1a3a5c">Citizen Impact</div><div style="font-size:9pt;color:#555">'+s.hh.toLocaleString("en-US")+' households \u00d7 $2,420 per year in overpayment on vehicles, equipment, and appliances. This is the standing figure: the harm to your county\u2019s citizens from blocked competition.</div></div>';
+  a+='<div style="display:flex;gap:8pt;font-size:8.5pt;line-height:1.3;color:#444;margin-bottom:6pt">';
+  a+='<div style="flex:1"><strong>Fleet estimates:</strong> Population-based model scaled from Boone County, KY (pop. 136,000) as reference county, validated against actual FY2024 budget data. Population adjustment factors: 1.30\u00d7 (under 20K) to 0.65\u00d7 (over 500K) for fleet categories only. <strong>Floor discount (15%):</strong> Competitive pressure on new-item prices when remanufactured alternatives exist. Generic drugs show 30\u201380% brand-name price drops; 15% is conservative for equipment.</div>';
+  a+='<div style="flex:1"><strong>Ceiling discount (45%):</strong> Based on international pricing: patent-expired vehicles sell for 50\u201370% less in 90+ countries; equipment shows 40\u201360% reductions. <strong>This is a conservative estimate.</strong> Procurement figures represent estimated annual new-purchase spending. Actual county spending may vary based on replacement cycles and budget timing.</div></div>';
+  a+='<div style="font-size:8pt;color:#666;border-top:1px solid #ddd;padding-top:4pt;margin-top:4pt">Population: U.S. Census Bureau, Vintage 2024 Estimates. Reference county: Boone County, KY (pop. 136,000). Verification: Jefferson County, KY (pop. 789,000). | <strong>Prepared for the Office of the Sheriff of '+jf+'</strong></div>';
+  a+='<div style="font-size:8pt;color:#999;text-align:right;margin-top:2pt">Report v22.0</div>';
+  a+='</div>';
+  return a;
+}
+
+function brochureHTML(){
+  return '<div class="page bp"><div class="nb">A CONSTITUTIONAL CHALLENGE FOR AMERICA\u2019S 3,081 COUNTY SHERIFFS</div><div class="rb" style="margin-bottom:8pt">YOUR COUNTY IS BEING OVERCHARGED BY A $22 TRILLION REGULATORY TAKING</div><div class="ib"><div class="bs"><strong>What you\u2019re holding:</strong> This brochure summarizes a full-length legal analysis arguing that post-1970 federal regulations violate the Constitution\u2019s Patent Clause by blocking remanufacturing of designs whose patents expired 20+ years ago. It covers the constitutional case, the cost to your county, the legal foundation, the evidence, and how to file.</div><div class="bs" style="margin-bottom:0"><strong>Why it matters:</strong> These regulations give automakers permanent monopolies the Founders explicitly prohibited. The expired patented vehicles and equipment never enter a public domain where they\u2019re allowed to be remanufactured, protecting the original patent holder from ever seeing competition from remanufactured items. It unconstitutionally removes the \u201climited Times\u201d period stated in the Constitution of inventor protection and replaces it with infinitely long protection. It is costing American households an estimated $2,420 per year and your county thousands per patrol vehicle. A sheriff can challenge this in federal court through public interest law firms at zero cost to the county.</div></div><div class="g3" style="margin-bottom:6pt"><div><div class="nh">THE PATENT CLAUSE</div><div class="bs">The Constitution (Art. I, Sec. 8, Cl. 8) grants patents for \u201climited Times\u201d \u2014 meaning they must expire and designs enter the public domain. The Supreme Court has held expired patents are \u201cfree for all to use.\u201d</div><div class="bs">Post-1970 regulations from EPA, NHTSA, and DOE make it impossible to newly remanufacture any vehicle using patent-expired designs.</div><div class="bs">The result: permanent monopolies the Founders explicitly prohibited, a $22 trillion wealth transfer, and the elimination of the affordable American family sedan.</div></div><div><div class="nh">COST TO YOUR COUNTY</div><div class="SB">$0</div><div class="bs">Public interest law firms like Pacific Legal Foundation and Institute for Justice provide completely free representation. They pay all legal fees, expert witnesses, research, and travel costs. Your only contribution is your name and your testimony.</div><div class="bs" style="font-style:italic">PLF won <em>Cedar Point v. Hassid</em> (2021) and <em>Tyler v. Hennepin</em> (2023) at the Supreme Court \u2014 for free.</div></div><div><div class="nh">LEGAL FOUNDATION</div><div class="SB">38</div><div class="bs">Supreme Court citations support this challenge across 6 legal grounds. Chevron deference is dead after <em>Loper Bright</em> (2024). <em>Sheetz v. El Dorado</em> (2024) expanded regulatory takings. The Major Questions Doctrine limits agency overreach.</div><div class="bs">This is the most favorable Supreme Court for challenging administrative power in decades.</div></div></div><div class="qb">\u201cCan federal agencies use regulations to nullify the Patent Clause\u2019s promise? That\u2019s not frivolous \u2014 it\u2019s a question of first impression that deserves judicial consideration.\u201d</div></div>'
+  +'<div class="page bp"><div class="nb" style="font-size:14pt;padding:8pt;margin-bottom:8pt">THE EVIDENCE & PRECEDENT</div><div class="g3" style="margin-bottom:8pt"><div><div class="nh">PROOF: BICYCLES</div><div class="SB" style="font-size:26pt">95.5%</div><div class="bs">more affordable since 1910. Zero federal product safety regulation. Child cyclist deaths fell 88% in 48 years \u2014 outperforming the heavily regulated automobile\u2019s 62% improvement. A $3,400 carbon racing bike from 2005 now has an expired-patent clone at $1,099.</div><div class="bs">Manufacturers still innovate \u2014 carbon fiber, disc brakes, electronic shifting \u2014 because competition forces it. The original component manufacturers still thrive alongside clone makers. Individual companies rose and fell through normal competitive cycles, but no federal agency was needed to ensure safety. The free market delivered affordability, innovation, and safety simultaneously \u2014 exactly what the Founders intended the Patent Clause to produce.</div><div class="nh" style="margin-top:6pt">PROOF: CALCULATORS</div><div class="SB" style="font-size:26pt">90.5%</div><div class="bs">When calculator patents expired and no agency blocked competition, the HP 12C dropped from $150 in 1981 ($530 today) to $49.99. HP still makes it. That is the Founders\u2019 promise, delivered.</div></div><div><div class="nh">PROOF: CLASSIC CARS</div><div class="bs">Federal law lets a 1965 Mustang with no airbags drive legally on public roads every day. If newly building a 2004 F-150 with airbags, ABS, and stability control is about \u201csafety,\u201d why is the Mustang legal? Because it is about monopoly pricing, not safety.</div><div class="nh" style="margin-top:6pt">THE PROVEN PLAYBOOK</div><div class="SB" style="font-size:26pt">99.6%</div><div class="bs">In the 1980s, Mercedes-Benz lobbied Congress to regulate away gray market imports that undercut dealer prices by $7,000\u2013$10,000 per car. Imports collapsed 99.6% after the law passed. The same industry now uses safety-framed regulations to block expired-patent competition.</div><div class="nh" style="margin-top:6pt">PRECEDENT: IT WORKS</div><div class="SB" style="font-size:26pt">1997</div><div class="bs">Sheriff Jay Printz of Ravalli County, Montana (pop. 45,000) and Sheriff Richard Mack of Graham County, Arizona (pop. 38,000) challenged the Brady Act and won Supreme Court decisions in <em>Printz v. United States</em>, together with <em>Mack v. United States</em>. Two rural county sheriffs established landmark constitutional principles that protect sheriffs nationwide. Your county can do the same.</div></div><div><div class="nh">WHAT YOUR COUNTY SAVES</div><div class="sh">BUYING NEW PATROL VEHICLES</div><div class="SM">$5,500 \u2013 $11,000</div><div style="font-size:10pt;font-weight:bold;color:#1a3a5c;text-align:center">SAVED PER UNIT</div><div class="bs">Expired-patent competition forces 10\u201320% price cuts on new vehicles \u2014 the same way generic drugs lower brand-name prices.</div><div class="bs" style="font-style:italic">50-vehicle fleet saves $66,000 \u2013 $143,000 per year.</div><div class="sh">TIGHT BUDGET? BUY REMANUFACTURED</div><div class="SM">$22,000 \u2013 $33,000</div><div style="font-size:10pt;color:#666;text-align:center">(40\u201360% savings)</div><div class="bs">Newly built vehicles using 2004-era proven designs with airbags, ABS, stability control, and modern crumple zones.</div><div class="sh">STOLEN FROM EVERY HOUSEHOLD</div><div class="SM">$121,000</div><div style="font-size:10pt;font-weight:bold;color:#1a3a5c;text-align:center">OVER 50 YEARS</div><div class="bs">Your constituents overpay an average of $2,420 per year on vehicles, appliances, and equipment because regulations block the competition the Constitution promises.</div><div class="sh">THE OBJECTION YOU\u2019LL HEAR</div><div class="bs">\u201cIf this argument were real, someone would have raised it already.\u201d The full article answers that \u2014 with documented reasons for the silence and historical parallels.</div></div></div><div class="afb">Before these post-1970 laws gave forever-long protection against remanufacturing competition to industry, relative to the median income, vehicle prices were becoming more affordable. In 1970, 34.4% of one\u2019s income bought a pickup truck; in 2025, it\u2019s 54.3% of one\u2019s income!</div></div>'
+  +'<div class="page bp"><div class="nb" style="font-size:14pt;padding:8pt;margin-bottom:8pt">HOW IT WORKS & THE CALL TO ACTION</div><div class="g3" style="margin-bottom:8pt"><div><div class="nh">FIVE STEPS TO RESTORATION</div><div style="margin-bottom:5pt"><div class="sn2">1. COUNTY AUTHORIZES</div><div class="bs">Commissioners pass a resolution documenting fleet overpayment and authorizing the sheriff to bring suit.</div></div><div style="margin-bottom:5pt"><div class="sn2">2. ENGAGE FREE COUNSEL</div><div class="bs">Contact Pacific Legal Foundation or Institute for Justice. They evaluate and take the case at no cost.</div></div><div style="margin-bottom:5pt"><div class="sn2">3. FILE DECLARATORY JUDGMENT</div><div class="bs">Under 28 U.S.C. \u00a72201, file in federal court seeking a declaration that post-1970 regulations violate the Patent Clause. No law broken. No vehicle manufactured.</div></div><div style="margin-bottom:5pt"><div class="sn2">4. SEEK PATENT-EXPIRED EXEMPTION</div><div class="bs">Request courts grandfather patent-expired designs (20+ years) from current-year regulatory requirements. Consumers get clear labeling of the vehicle\u2019s standards.</div></div><div style="margin-bottom:5pt"><div class="sn2">5. WIN FOR EVERY AMERICAN</div><div class="bs">Affordable vehicles return. Manufacturing jobs return. Constitutional rights are restored. And one sheriff gets national recognition.</div></div></div><div><div class="nh">THE ELECTORAL CASE</div><div class="bs">Who opposes this? Automakers protecting monopoly pricing, bureaucrats defending regulatory empires, and patent attorneys.</div><div class="bs">Who supports it? Every working family who cannot afford a $48,000 vehicle. Every taxpayer. Every voter.</div><div class="bs">This is not left vs. right \u2014 it is populist with overwhelming support.</div><div class="bb"><div class="bbt">THE SHERIFF WHO RESTORES THE CONSTITUTION\u2019S PROMISE</div><div class="bs">Sheriffs Printz and Mack defended constitutional limits on federal power. The sheriff who ends the $22 trillion regulatory taking will be remembered as the lawman who made America affordable again.</div><div class="bs">When this case is filed, every media outlet in America will cover the sheriff who challenged the $22 trillion regulatory taking.</div></div></div><div><div class="nh">ABOUT THE AUTHOR</div><div class="bs">Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose X Articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.2 million readers.</div><div class="bs" style="font-weight:bold">Contact: roleigh@pobox.com | <a href="https://x.com/RoleighMartin" target="_blank" style="color:#1a3a5c">x.com/RoleighMartin</a> | 952-905-0822</div><div class="nh" style="margin-top:8pt;font-size:11pt">METHODOLOGY USED IN COUNTY SAVINGS REPORT</div><div class="mss">The County Savings Report estimates total annual procurement across six categories, then applies two discount rates: <strong>Floor (15%)</strong> \u2014 county keeps buying new but competition forces prices down (same as generic drugs forcing brand-name prices down); <strong>Ceiling (45%)</strong> \u2014 county purchases remanufactured directly (based on international pricing in 90+ countries). Fleet sizes are population-based, scaled from Boone County, KY (pop. 136,000) and validated against actual budget data. Equipment categories use conservative per-capita procurement rates.</div><div class="mss" style="font-style:italic;color:#666">Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase and GPT-5.2 Thinking.</div></div></div><div class="rf"><div class="rft">READ THE FULL ANALYSIS</div><div style="font-size:11pt;line-height:1.35">The full article, \u201cShould a Sheriff Sue Over the $22T Taking? The Standing Gamble and Publicity Strategy,\u201d contains the complete constitutional argument, five DOJ objections and responses, the standing theory, a filing roadmap, and 38 Supreme Court citations. Access the full article at: <a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:white;text-decoration:underline">https://x.com/RoleighMartin/articles</a> (article dated 2/21/2026)</div></div><div class="br2">Brand-new vehicles built on 20-year-old expired patents sell for $6,000\u2013$18,000 in India, Kenya, Ghana & other countries today \u2014 proof that the only barrier is regulatory, not technological.</div></div>';
+}
+
+function printOne(){
+  if(!cst||!ccn||!cs){$('s2m').innerHTML='<p class="err">Select a state and county first.</p>';return}
+  var si=validateSheriff();if(!si)return;
+  $('s2m').innerHTML='';var my=getMyInfo();
+  $('printArea').innerHTML=makeCL(my,cst,ccn,cp,cs,si.sn,si.a1,si.a2)+makeAC(cst,ccn,cp,cs)+brochureHTML();
+  $('pgInfo').textContent='1 jurisdiction \u2014 5 pages';
+  $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
+}
+
+function doPrint(){
+  var content=$('printArea').innerHTML;
+  var styles=document.querySelectorAll('style');
+  var css='';for(var i=0;i<styles.length;i++) css+=styles[i].outerHTML;
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Sheriff Mailing Package</title>'+css+'<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style></head><body>'+content+'<scr'+'ipt>window.onload=function(){window.print()}<\/scr'+'ipt></body></html>';
+  var blob=new Blob([html],{type:'text/html'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='Sheriff_Mailing_Package.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url)},1000);
+}
+
+function printBatch(){
+  if(queue.length===0)return;var my=getMyInfo(),h='';
+  for(var i=0;i<queue.length;i++){var q=queue[i];h+=makeCL(my,q.st,q.cn,q.pop,q.s,q.sn,q.a1,q.a2)+makeAC(q.st,q.cn,q.pop,q.s)+brochureHTML()}
+  $('printArea').innerHTML=h;
+  $('pgInfo').textContent=queue.length+' jurisdiction'+(queue.length>1?'s':'')+' \u2014 '+queue.length*5+' pages';
+  $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
+}
+</script>
+</body>
+</html>
