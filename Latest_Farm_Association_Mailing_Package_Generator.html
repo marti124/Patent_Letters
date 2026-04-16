@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm Association Mailing Package Generator (v4)</title>
+<style>
+:root{
+  --navy:#0a2540;--green:#1a5d3a;--accent:#8b6914;
+  --bg:#f7f5f0;--paper:#ffffff;--ink:#1c1c1c;--muted:#666;
+  --border:#d4cfc4;--soft:#efebe1;
+  --confirm:#1a7f4a;--warn:#b06a00;--danger:#a32424;--info:#3263a8;
+  --gold:#d4a93a;--gold-soft:#fff4cc;--gold-border:#e6c98a;
+  --earth:#5c4a1e;--field:#3a6b35;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Georgia,'Times New Roman',serif;
+  background:var(--bg);color:var(--ink);line-height:1.55}
+.app-shell{max-width:880px;margin:0 auto;padding:28px 22px 60px}
+h1{font-size:1.85em;color:var(--navy);margin:0 0 .35em}
+h2{font-size:1.35em;color:var(--navy);margin:1.6em 0 .5em;
+  border-bottom:1px solid var(--border);padding-bottom:.25em}
+h3{font-size:1.1em;color:var(--navy);margin:1.2em 0 .4em}
+p{margin:.6em 0}
+.tagline{color:var(--muted);font-style:italic;margin-bottom:1.2em}
+.card{background:var(--paper);border:1px solid var(--border);
+  border-radius:8px;padding:22px 26px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+label{display:block;margin:14px 0 4px;font-weight:600;color:var(--navy)}
+label .req{color:var(--danger)}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--border);
+  border-radius:5px;font-size:1em;font-family:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(10,37,64,.12)}
+.btn{display:inline-block;padding:10px 22px;border:none;border-radius:6px;
+  font-size:1em;font-family:inherit;font-weight:600;cursor:pointer;
+  text-decoration:none;transition:opacity .15s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{background:var(--soft);color:var(--navy);border:1px solid var(--border)}
+.btn-secondary:hover{background:#e6e1d4}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{opacity:.9}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hint{font-size:.88em;color:var(--muted);margin-top:4px;font-style:italic}
+.address-display{background:var(--soft);border:1px solid var(--border);
+  border-radius:6px;padding:14px 16px;margin-top:10px;font-family:Georgia,serif}
+.address-display .line{margin:2px 0}
+.addr-input{width:100%;padding:7px 11px;border:1px solid var(--border);border-radius:5px;
+  font-size:1em;font-family:inherit;background:#fff;margin:3px 0}
+.addr-bold{font-weight:600}
+.link-btn{background:none;border:none;color:var(--navy);text-decoration:underline;
+  cursor:pointer;font-size:inherit;padding:0;font-family:inherit}
+.link-btn:hover{color:#000}
+.savings-table{width:100%;border-collapse:collapse;margin-top:12px;
+  font-size:.95em;background:#fff}
+.savings-table th,.savings-table td{padding:7px 10px;text-align:right;
+  border-bottom:1px solid var(--border)}
+.savings-table th:first-child,.savings-table td:first-child{text-align:left}
+.savings-table thead th{background:var(--soft);color:var(--navy);
+  font-weight:700;border-bottom:2px solid var(--navy)}
+.savings-table tfoot td{font-weight:700;border-top:2px solid var(--navy);
+  border-bottom:none;background:#fafaf7}
+.guide-toggle{position:fixed;top:14px;right:14px;background:var(--accent);
+  color:#fff;border:none;padding:8px 14px;border-radius:5px;
+  font-weight:600;cursor:pointer;font-family:inherit;z-index:10}
+.guide-modal{display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);
+  z-index:100;overflow-y:auto;padding:30px 14px}
+.guide-modal.open{display:block}
+.guide-modal-inner{max-width:760px;margin:0 auto;background:#fff;
+  border-radius:8px;padding:32px 36px;font-size:.96em}
+.guide-modal h2{margin-top:1.3em}
+.guide-modal h2:first-child{margin-top:0}
+.guide-close{float:right;background:#eee;border:none;padding:5px 12px;
+  border-radius:4px;cursor:pointer;font-weight:700;font-family:inherit}
+.scr{display:none}
+.scr.active{display:block}
+.org-card{background:#fafaf7;border:1px solid var(--border);border-radius:6px;
+  padding:12px 16px;margin-top:10px}
+.org-card .org-name{font-weight:700;color:var(--navy);font-size:1.05em}
+.org-card .org-detail{font-size:.92em;color:var(--muted);margin-top:4px}
+.address-actions{margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;
+  font-size:.88em;align-items:center}
+.address-actions a{color:var(--navy);text-decoration:underline;cursor:pointer}
+.address-actions a:hover{color:#000}
+.address-actions .sep{color:var(--muted)}
+
+/* ----- Report modal (copyable address report) ----- */
+.report-modal{display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);
+  z-index:100;overflow-y:auto;padding:30px 14px}
+.report-modal.open{display:flex;align-items:center;justify-content:center}
+.report-modal-inner{max-width:540px;width:100%;background:#fff;
+  border-radius:8px;padding:24px 28px;font-size:.96em}
+.report-modal h3{margin:0 0 10px;color:var(--navy)}
+.report-modal textarea{width:100%;height:220px;font-family:'Courier New',monospace;
+  font-size:.92em;padding:10px;border:1px solid var(--border);border-radius:5px;
+  background:#fafaf7;resize:vertical;line-height:1.4}
+.report-modal .btn-row{margin-top:14px;display:flex;gap:10px;justify-content:flex-end}
+.report-modal .copy-status{font-size:.88em;color:var(--confirm);margin-right:auto;align-self:center}
+
+/* ============= PRINT STYLES ============= */
+@media screen{
+  .print-pages{display:none}
+  .print-pages.preview{display:block}
+}
+@media print{
+  body{background:#fff}
+  .app-shell,.guide-toggle,.guide-modal,.report-modal,.print-controls,.preview-banner{display:none !important}
+  .print-pages{display:block !important;background:#fff;padding:0;margin:0;max-width:none}
+  .print-pages .page{padding:0 !important;border:none !important;
+    margin:0 !important;box-shadow:none !important;min-height:0 !important}
+  @page{size:letter;margin:.35in}
+}
+.print-pages{font-family:Georgia,'Times New Roman',serif;color:#000;
+  font-size:10pt;line-height:1.38;background:#fff;
+  max-width:8.5in;margin:0 auto;padding:0}
+.print-pages.preview{padding:20px 0 60px}
+.print-pages.preview .page{background:#fff;border:1px solid #ddd;
+  margin:0 auto 24px;padding:.35in;width:8.5in;max-width:100%;
+  min-height:10.3in;box-shadow:0 1px 4px rgba(0,0,0,.12);overflow:hidden}
+.print-pages .page{page-break-after:always;font-family:Georgia,serif;
+  color:#000;font-size:10pt;line-height:1.38}
+.print-pages .page:last-child{page-break-after:auto}
+.print-pages h1{color:#0a2540;border:none}
+.print-pages h2{color:#0a2540;border:none}
+.print-pages h3{color:#0a2540}
+
+/* ----- Cover letter (window-envelope friendly) ----- */
+.cl-sender{margin-bottom:10pt;line-height:1.3;text-align:right}
+.cl-sender .name{font-weight:700;font-size:11pt}
+.cl-sender .line{font-size:10pt;color:#222}
+.cl-date{margin:10pt 0 14pt;font-size:10.5pt;text-align:center}
+.cl-row{display:table;width:100%;margin-bottom:12pt;table-layout:fixed}
+.cl-recipient-cell{display:table-cell;width:60%;vertical-align:top;padding-right:12pt}
+.cl-recipient{line-height:1.3;font-size:10pt}
+.cl-recipient .line{margin:1pt 0}
+.cl-recipient .name{font-weight:700}
+.cl-re-cell{display:table-cell;width:40%;vertical-align:top}
+.cl-re{background:#efebe1;border-right:4pt solid #0a2540;padding:6pt 10pt;
+  font-weight:700;font-size:9.5pt;line-height:1.28;text-align:right;
+  border-radius:3pt 0 0 3pt}
+.cl-body p{margin:5pt 0;text-align:left;line-height:1.38;font-size:10pt}
+.cl-wins{margin:6pt 0;padding:6pt 10pt;background:#fff8e1;
+  border:1pt solid #d4a93a;border-radius:3pt;font-size:9.5pt;line-height:1.4}
+.cl-wins .heading{font-weight:700;color:#0a2540;margin-bottom:3pt;font-size:10pt}
+.cl-sign{margin-top:8pt}
+.cl-sign p{margin:3pt 0;font-size:10pt}
+.cl-encl{margin-top:6pt;font-size:9pt;font-style:italic;color:#444}
+
+/* ----- Savings report ----- */
+.sr-header{text-align:center;border-bottom:2pt solid #0a2540;
+  padding-bottom:6pt;margin-bottom:8pt}
+.sr-header h1{font-size:13pt;margin:0 0 2pt;letter-spacing:.5pt;text-transform:uppercase}
+.sr-header .sub{font-size:9.5pt;font-style:italic;color:#444;text-transform:uppercase;letter-spacing:.3pt}
+.sr-intro{font-size:9pt;line-height:1.35;color:#333;margin:4pt 0}
+.sr-intro .gen{background:#fff8e1;border-left:3pt solid #d4a93a;padding:4pt 8pt;margin:4pt 0;font-size:9pt}
+.sr-table{width:100%;border-collapse:collapse;margin:5pt 0;font-size:9.5pt}
+.sr-table th,.sr-table td{padding:4pt 7pt;border:1pt solid #aaa}
+.sr-table th{background:#0a2540;color:#fff;text-align:center;font-weight:700;font-size:9pt}
+.sr-table td{text-align:right}
+.sr-table td:first-child{text-align:left}
+.sr-table .total td{font-weight:700;background:#efebe1;font-size:10pt}
+.sr-bigboxes{display:table;width:100%;margin:6pt 0;border-spacing:5pt 0}
+.sr-bigboxes .box{display:table-cell;width:50%;padding:8pt 10pt;
+  border-radius:4pt;color:#fff;vertical-align:top}
+.sr-bigboxes .box-floor{background:#1a5d3a}
+.sr-bigboxes .box-ceiling{background:#0a2540}
+.sr-bigboxes .box .label{font-size:8.5pt;text-transform:uppercase;letter-spacing:.5pt;font-weight:700;margin-bottom:3pt}
+.sr-bigboxes .box .num{font-size:20pt;font-weight:700;line-height:1}
+.sr-bigboxes .box .desc{font-size:8pt;margin-top:4pt;line-height:1.3;font-style:italic}
+.sr-citizen{background:#fff4cc;border:1pt solid #d4a93a;border-radius:4pt;
+  padding:7pt 10pt;margin:5pt 0;display:table;width:100%}
+.sr-citizen .left{display:table-cell;vertical-align:middle;padding-right:10pt}
+.sr-citizen .right{display:table-cell;vertical-align:middle;text-align:right;width:36%}
+.sr-citizen .label{font-weight:700;color:#7a5400;font-size:9.5pt;text-transform:uppercase;letter-spacing:.3pt}
+.sr-citizen .body{font-size:8.5pt;line-height:1.35;margin-top:2pt}
+.sr-citizen .bignum{font-size:18pt;font-weight:700;color:#7a5400;line-height:1}
+.sr-citizen .breakdown{font-size:8pt;color:#7a5400;margin-top:2pt}
+.sr-method{margin-top:5pt;padding-top:5pt;border-top:1pt solid #ccc;
+  font-size:8pt;color:#444;line-height:1.3;column-count:2;column-gap:12pt}
+.sr-footer{margin-top:4pt;font-size:7.5pt;color:#666;text-align:center;font-style:italic}
+
+/* ----- Brochure pages ----- */
+.br-header{text-align:center;border-bottom:2pt solid #0a2540;padding-bottom:3pt;margin-bottom:5pt;page-break-inside:avoid;page-break-after:avoid}
+.br-header h1{font-size:12pt;margin:0;text-transform:uppercase;letter-spacing:.4pt;line-height:1.15}
+.br-header .sub{font-size:9pt;color:#7a5400;font-weight:700;text-transform:uppercase;letter-spacing:.3pt;margin-top:2pt}
+.br-intro{margin:5pt 0;font-size:9.5pt;line-height:1.35}
+.br-intro p{margin:4pt 0}
+.br-intro .label{font-weight:700;color:#0a2540}
+.br-cols-3{display:table;width:100%;border-spacing:5pt 0;margin:5pt 0;table-layout:fixed}
+.br-cols-3 .col{display:table-cell;width:33.33%;padding:7pt 9pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;border-radius:4pt;vertical-align:top}
+.br-cols-3 .col h3{margin:0 0 3pt;font-size:10pt;text-transform:uppercase;letter-spacing:.4pt;
+  color:#0a2540;text-align:center;border-bottom:1pt solid #d4cfc4;padding-bottom:2pt}
+.br-cols-3 .col .bignum{font-size:24pt;font-weight:700;color:#1a5d3a;text-align:center;line-height:1;margin:3pt 0}
+.br-cols-3 .col .body{font-size:9pt;line-height:1.3;margin:0}
+.br-cols-3 .col .body p{margin:0 0 4pt 0;line-height:1.3}
+.br-cols-3 .col .body p:last-child{margin-bottom:0}
+.br-pullquote{margin:6pt 0 4pt;padding:6pt 11pt;border-left:4pt solid #d4a93a;
+  background:#fff8e1;font-style:italic;font-size:10pt;line-height:1.35;color:#333}
+.br-cols-2{display:table;width:100%;border-spacing:6pt 0;margin:6pt 0;table-layout:fixed}
+.br-cols-2>.col{display:table-cell;width:50%;vertical-align:top}
+.br-sc-row{display:table;width:100%;border-spacing:5pt 0;margin:4pt 0;table-layout:fixed}
+.br-sc-row .sc-box{display:table-cell;width:50%;padding:6pt 9pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;border-radius:3pt;vertical-align:top;font-size:8pt;line-height:1.25;font-style:italic;color:#333}
+.br-sc-row .sc-box .sc-cite{display:block;margin-top:3pt;font-style:normal;font-weight:700;font-size:7.5pt;color:#0a2540;text-align:right}
+.br-zones{display:table;width:100%;border-spacing:4pt 0;margin:4pt 0;table-layout:fixed}
+.br-zones .zone{display:table-cell;width:33.33%;padding:4pt 6pt;border-radius:3pt;vertical-align:top;font-size:7.5pt;line-height:1.2;text-align:center}
+.br-zones .zone.blocked{background:#8b2020;color:#fff}
+.br-zones .zone.flowing{background:#1a5d3a;color:#fff}
+.br-zones .zone.hindered{background:#c97e2a;color:#fff}
+.br-zones .zone .zpct{font-size:14pt;font-weight:700;line-height:1}
+.br-zones .zone .zcat{font-size:7pt;margin-top:2pt;line-height:1.15}
+.br-evidence-grid{display:table;width:100%;border-spacing:4pt 4pt;margin:4pt 0;table-layout:fixed}
+.br-evidence-grid .row{display:table-row}
+.br-evidence-grid .ecell{display:table-cell;padding:5pt 7pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;border-radius:3pt;vertical-align:top;width:33.33%}
+.br-evidence-grid .ecell h3{margin:0 0 2pt;font-size:8pt;text-transform:uppercase;letter-spacing:.3pt;
+  color:#0a2540;text-align:center;border-bottom:1pt solid #d4cfc4;padding-bottom:2pt}
+.br-evidence-grid .ecell .bignum{font-size:16pt;font-weight:700;color:#1a5d3a;text-align:center;line-height:1;margin:2pt 0}
+.br-evidence-grid .ecell .bignum.alt{color:#0a2540}
+.br-evidence-grid .ecell .body{font-size:7.5pt;line-height:1.15}
+.br-action-cols{display:table;width:100%;border-spacing:5pt 0;margin:4pt 0;table-layout:fixed}
+.br-action-cols .col-left{display:table-cell;width:52%;vertical-align:top}
+.br-action-cols .col-right{display:table-cell;width:48%;vertical-align:top}
+.br-steps-compact ol{margin:2pt 0;padding-left:14pt}
+.br-steps-compact li{margin:2pt 0;font-size:8pt;line-height:1.25}
+.br-steps-compact li strong{color:#0a2540}
+.br-callout-sm{margin:4pt 0;padding:6pt 9pt;background:#0a2540;color:#fff;border-radius:3pt;font-size:8pt;line-height:1.25}
+.br-callout-sm h3{color:#fff;margin:0 0 3pt;font-size:9pt;text-transform:uppercase;letter-spacing:.3pt}
+.br-author-sm{margin:4pt 0;padding:5pt 8pt;background:#efebe1;border-radius:3pt;font-size:7.5pt;line-height:1.25}
+.br-author-sm .label{font-weight:700;color:#0a2540}
+.br-method-sm{margin:4pt 0;padding:5pt 8pt;border:1pt dashed #aaa;font-size:7pt;line-height:1.2;color:#444}
+.br-method-sm .label{font-weight:700;color:#0a2540}
+.br-foot-quote{margin-top:8pt;padding:7pt 11pt;background:#efebe1;border-radius:3pt;font-size:9pt;line-height:1.4;font-style:italic}
+.br-grid{display:table;width:100%;border-spacing:5pt 5pt;margin:6pt 0;table-layout:fixed}
+.br-grid .row{display:table-row}
+.br-grid .cell{display:table-cell;padding:8pt 10pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;vertical-align:top;border-radius:3pt;width:33.33%}
+.br-grid .cell h3{margin:0 0 4pt;font-size:9pt;text-transform:uppercase;letter-spacing:.3pt;color:#0a2540;text-align:center;border-bottom:1pt solid #d4cfc4;padding-bottom:3pt}
+.br-grid .cell .bignum{font-size:20pt;font-weight:700;color:#1a5d3a;text-align:center;line-height:1;margin:3pt 0}
+.br-grid .cell .bignum.alt{color:#0a2540}
+.br-grid .cell .body{font-size:8pt;line-height:1.38}
+
+/* ----- Page controls ----- */
+.print-controls{position:fixed;top:14px;left:14px;background:#fff;
+  border:1px solid var(--border);padding:8px 14px;border-radius:5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:50;display:none;
+  font-family:'Helvetica Neue',Arial,sans-serif}
+.print-controls.show{display:flex;gap:8px;align-items:center}
+.print-controls button{padding:6px 14px;font-family:inherit;cursor:pointer;
+  border-radius:4px;border:1px solid var(--border);background:#fff;font-size:.9em}
+.print-controls .editable-note{font-size:.82em;color:var(--muted);font-style:italic}
+.preview-banner{max-width:8.5in;margin:0 auto 14px;padding:8px 14px;
+  background:#fff8e1;border:1px solid #d4a93a;border-radius:5px;
+  font-size:.92em;color:#7a5400;font-family:'Helvetica Neue',Arial,sans-serif;
+  text-align:center;font-style:italic}
+.footer-meta{margin-top:30px;padding-top:14px;border-top:1px solid var(--border);
+  font-size:.85em;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+
+<button class="guide-toggle" onclick="toggleGuide()">&#128214; User Guide</button>
+<div class="guide-modal" id="guideModal">
+  <div class="guide-modal-inner">
+    <button class="guide-close" onclick="toggleGuide()">&times; Close</button>
+    <h2>User Guide</h2>
+    <h3>What this tool does</h3>
+    <p>From two inputs &mdash; your contact info and a farm association &mdash; it generates a
+    4-page mailing package you can print and mail to a U.S. farm association: a personalized cover
+    letter, a one-page Member Equipment Cost Impact Report, and a 2-page constitutional brochure
+    tailored to farm associations.</p>
+
+    <h3>How to use it</h3>
+    <p>1. Enter your name, email, mailing address, and phone. Click <em>Save My Info</em>
+    so you never re-type it.<br>
+    2. Click <em>Continue</em>. Pick a farm association from the dropdown. The organization&rsquo;s
+    address, leadership, and membership data auto-fill from the embedded database.<br>
+    3. (Optional) Edit the leadership name or address if you have more current information.<br>
+    4. Click <em>Preview &amp; Print</em>. The 4 pages display on screen so you can review
+    them. Use <kbd>Ctrl+P</kbd> (Windows) or <kbd>Cmd+P</kbd> (Mac) &mdash; or the toolbar
+    button &mdash; to print or save as PDF.</p>
+
+    <h3>Window-envelope layout</h3>
+    <p>The cover letter is laid out for #10 window envelopes: your return address is
+    right-justified at the top, the date is centered, and the target address
+    occupies the left 60% of its row (with the &ldquo;Re:&rdquo; subject line on the right 40%).
+    When the letter is folded into thirds and inserted into a #10 window envelope,
+    only the target address shows through the window.</p>
+
+    <h3>How the savings report works</h3>
+    <p>The Member Equipment Cost Impact Report uses the association&rsquo;s estimated membership count
+    to compute aggregate annual equipment overpayment and potential savings. Per-farm spending is
+    estimated conservatively for family-scale operations, well below the USDA-reported national
+    average. Floor savings (15%) reflect competitive pressure from remanufactured alternatives.
+    Ceiling savings (45%) reflect direct purchase at international price points.</p>
+
+    <h3>Editing the cover letter</h3>
+    <p>The cover letter is editable in the print preview &mdash; click anywhere in the
+    letter text to make changes before printing. The savings report and brochure pages
+    are not editable.</p>
+  </div>
+</div>
+
+<div class="report-modal" id="reportModal">
+  <div class="report-modal-inner">
+    <h3>&#128203; Wrong Address Report</h3>
+    <p style="margin:0 0 10px;font-size:.92em;color:var(--muted)">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
+    <textarea id="reportText"></textarea>
+    <div class="btn-row">
+      <span class="copy-status" id="copyStatus"></span>
+      <button type="button" class="btn btn-success" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
+      <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+
+  <div class="scr active" id="scr-welcome">
+    <h1>Farm Association Mailing Package Generator</h1>
+    <p class="tagline">Version 4. Generate a personalized 4-page Patent Clause mailing
+    package for U.S. farm associations. Works in any browser. No download.
+    No account. No cost.</p>
+
+    <div class="card">
+      <h2 style="margin-top:0">Your Information</h2>
+      <p class="hint" style="margin-top:0">This information appears on the cover letter
+      as the sender. It&rsquo;s stored only in your browser.</p>
+
+      <label>Your Name <span class="req">*</span></label>
+      <input type="text" id="userName" placeholder="Jane Q. Citizen">
+
+      <label>Your Email <span class="req">*</span></label>
+      <input type="email" id="userEmail" placeholder="jane@example.com">
+
+      <label>Your Full Mailing Address (one line) <span class="req">*</span></label>
+      <input type="text" id="userAddress" placeholder="123 Main St, Anytown, ST 12345">
+
+      <label>Your Phone Number <span class="req">*</span></label>
+      <input type="tel" id="userPhone" placeholder="(555) 555-5555">
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="saveInfo()">&#128190; Save My Info for Next Time</button>
+        <button class="btn btn-primary" onclick="goToApp()">Continue &rarr;</button>
+      </div>
+      <p class="hint" id="saveStatus"></p>
+    </div>
+
+    <div class="footer-meta">
+      Covers 9 farm associations across 7 states.<br>
+      Parallel campaigns target county sheriffs, governors, state attorneys general, tribal nations, and owner-operator trucking associations.
+    </div>
+  </div>
+
+  <div class="scr" id="scr-app">
+    <h1>Select a Farm Association</h1>
+    <p class="tagline">Pick an association from the dropdown. The organization&rsquo;s address
+    and membership data auto-populate. Optionally edit the leadership name or address fields.</p>
+
+    <div class="card">
+      <label>Farm Association <span class="req">*</span></label>
+      <select id="orgSelect" onchange="onOrgChange()">
+        <option value="">— Select association —</option>
+      </select>
+
+      <div id="addressArea" style="display:none">
+        <div class="org-card" id="orgSummary"></div>
+
+        <label style="margin-top:18px">Leadership Title</label>
+        <input type="text" id="leaderTitle" class="addr-input" placeholder="e.g., Executive Director">
+
+        <label>Leadership Name <span style="font-weight:400;color:var(--muted)">(optional &mdash; leave blank for generic salutation)</span></label>
+        <input type="text" id="leaderName" class="addr-input" placeholder="e.g., Tim Gibbons">
+        <p class="hint"><a href="#" id="verifyNameLink" target="_blank" rel="noopener">&#128269; Verify this name on Google &rarr;</a></p>
+
+        <label style="margin-top:18px">Organization &amp; Street Address (editable)</label>
+        <input type="text" id="addrOrg" class="addr-input addr-bold" placeholder="Organization name">
+        <input type="text" id="addrStreet" class="addr-input" placeholder="Street address or PO Box">
+        <input type="text" id="addrCityStZip" class="addr-input" placeholder="City, State ZIP">
+
+        <div class="address-actions">
+          <a href="#" id="verifyAddrLink" target="_blank" rel="noopener">&#128269; Verify this address on Google</a>
+          <span class="sep">|</span>
+          <button type="button" class="link-btn" onclick="copyAddressReport()">&#9993;&#65039; Report wrong address (copy to clipboard)</button>
+        </div>
+
+        <h3 style="margin-top:24px">Member Equipment Cost Impact (Auto-Calculated)</h3>
+        <table class="savings-table" id="savingsTable">
+          <thead>
+            <tr><th>Equipment Category</th><th>Est. Per-Farm Spend</th><th>Aggregate</th></tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr><td>Total Annual Equipment Spend</td><td>$19,000</td><td id="totalAgg">—</td></tr>
+            <tr><td>Floor savings (15% &mdash; competitive pressure)</td><td></td><td id="floorSav">—</td></tr>
+            <tr><td>Ceiling savings (45% &mdash; buying remanufactured)</td><td></td><td id="ceilingSav">—</td></tr>
+          </tfoot>
+        </table>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="goToWelcome()">&larr; Edit My Info</button>
+          <button class="btn btn-success" onclick="generatePreview()" id="previewBtn">
+            Preview &amp; Print This Association (4 pages) &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="print-controls" id="printControls">
+  <button onclick="goBackToApp()">&larr; Back to association selection</button>
+  <button onclick="window.print()">&#128424; Print / Save as PDF</button>
+  <span class="editable-note">Click cover letter text to edit before printing</span>
+</div>
+<div class="print-pages" id="printPages"></div>
+
+<script>
+"use strict";
+
+/* ===== EMBEDDED DATABASE: 9 Farm Associations ===== */
+/* Each entry: [orgName, street, cityStZip, leaderTitle, leaderName, email, phone, memberFarms, dateMailed, notes] */
+const ORGS = [
+  ["National Farmers Union", "20 F Street NW, Suite 300", "Washington, DC 20001",
+   "President", "Rob Larew", "press@nfudc.org", "(202) 554-1600", 200000,
+   "3/27/2026", "Mailed (old brochure v5)"],
+  ["Farm Action", "5 Terrace Circle", "Mexico, MO 65265",
+   "President & CEO", "Angela Huffman", null, null, 5000,
+   "3/27/2026", "Package built 3/28/2026"],
+  ["Farm and Ranch Freedom Alliance", "P.O. Box 809", "Cameron, TX 76520",
+   "Founder & Executive Director", "Judith McGeary", null, null, 3000,
+   "3/27/2026", "Package built 3/28/2026"],
+  ["National Sustainable Agriculture Coalition", "110 Maryland Avenue NE, Suite 209", "Washington, DC 20002",
+   "Policy Director", "Eric Deeble", "edeeble@sustainableagriculture.net", null, 50000,
+   "3/27/2026", "Package built 3/28/2026"],
+  ["National Family Farm Coalition", "110 Maryland Avenue NE, Suite 307", "Washington, DC 20002",
+   "Executive Director", "Tim Gibbons", null, "(202) 543-5675", 100000,
+   "3/27/2026", "Package built 3/28/2026; new ED Jan 2026"],
+  ["R-CALF USA", "P.O. Box 30715", "Billings, MT 59107",
+   "CEO", "Bill Bullard", "r-calfusa@r-calfusa.com", "(406) 252-2516", 5000,
+   "3/31/2026", "Already litigate; cattle/sheep"],
+  ["Missouri Rural Crisis Center", "1108 Rangeline St", "Columbia, MO 65201",
+   "Leadership", null, null, "(573) 449-1336", 5600,
+   "3/31/2026", "Est. 1985; MO connection"],
+  ["National Young Farmers Coalition", "P.O. Box 1074", "Hudson, NY 12534",
+   "Leadership", null, null, "(518) 643-3564", 6500,
+   "3/31/2026", "30 chapters/24 states"],
+  ["Organic Farmers Association", "c/o Rodale Institute, 611 Siegfriedale Road", "Kutztown, PA 19530",
+   "Leadership", null, null, null, 2000,
+   "3/31/2026", "Small/midsized organic; farmer-led"]
+];
+
+/* Equipment categories from the NFFC template (per-farm annual spend) */
+const EQUIP_CATS = [
+  {label:"Tractors & Self-Propelled Machinery", perFarm:5500},
+  {label:"Combine Harvesters & Specialty Equipment", perFarm:3200},
+  {label:"Farm Trucks & Utility Vehicles", perFarm:4800},
+  {label:"Implements & Attachments", perFarm:2500},
+  {label:"Infrastructure & Construction Equipment", perFarm:1800},
+  {label:"General Farm Procurement", perFarm:1200}
+];
+const PER_FARM_TOTAL = 19000;
+
+const $ = id => document.getElementById(id);
+
+function fmt$(n){
+  if(n === null || n === undefined || isNaN(n)) return '\u2014';
+  if(n >= 1e9) return '$' + (n/1e9).toFixed(2) + ' Billion';
+  if(n >= 1e6) return '$' + (n/1e6).toFixed(1) + ' Million';
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+function fmt$Table(n){
+  if(n === null || n === undefined || isNaN(n)) return '\u2014';
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+function fmtN(n){
+  if(n === null || n === undefined || isNaN(n)) return '\u2014';
+  return Math.round(n).toLocaleString('en-US');
+}
+function todayLong(){
+  const d = new Date();
+  return d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+}
+function escapeHTML(s){
+  if(!s) return '';
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function populateOrgs(){
+  const sel = $('orgSelect');
+  for(let i = 0; i < ORGS.length; i++){
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = ORGS[i][0];
+    sel.appendChild(opt);
+  }
+}
+
+function onOrgChange(){
+  const idx = $('orgSelect').value;
+  if(idx === ''){
+    $('addressArea').style.display = 'none';
+    return;
+  }
+  const rec = ORGS[parseInt(idx)];
+  const [orgName, street, cityStZip, title, name, email, phone, members, dated, notes] = rec;
+
+  // Summary card (notes intentionally excluded from display)
+  let summary = '<div class="org-name">' + escapeHTML(orgName) + '</div>';
+  summary += '<div class="org-detail">' + fmtN(members) + ' member farms</div>';
+  $('orgSummary').innerHTML = summary;
+
+  // Fill editable fields
+  $('leaderTitle').value = title || '';
+  $('leaderName').value = name || '';
+  $('addrOrg').value = orgName;
+  $('addrStreet').value = street || '';
+  $('addrCityStZip').value = cityStZip || '';
+
+  const verifyQ = encodeURIComponent(orgName + ' mailing address');
+  $('verifyAddrLink').href = 'https://www.google.com/search?q=' + verifyQ;
+
+  // Set up leadership name verify link
+  const nameQ = encodeURIComponent((title && title !== 'Leadership' ? title : 'leader') + ' ' + orgName + (name ? ' ' + name : ''));
+  $('verifyNameLink').href = 'https://www.google.com/search?q=' + nameQ;
+
+  // Store original DB address for the copy-report function
+  window._origAddr = {orgName, street, cityStZip, title, name};
+
+  computeSavings(members);
+  $('addressArea').style.display = 'block';
+}
+
+function computeSavings(members){
+  if(!members || members <= 0) members = 5000;
+  const tbody = $('savingsTable').querySelector('tbody');
+  tbody.innerHTML = EQUIP_CATS.map(c => {
+    const agg = c.perFarm * members;
+    return '<tr><td>' + escapeHTML(c.label) + '</td><td>' + fmt$Table(c.perFarm) +
+           '</td><td>' + fmt$(agg) + '</td></tr>';
+  }).join('');
+
+  const total = PER_FARM_TOTAL * members;
+  const floor = total * 0.15;
+  const ceiling = total * 0.45;
+
+  $('totalAgg').textContent = fmt$(total);
+  $('floorSav').textContent = fmt$(floor);
+  $('ceilingSav').textContent = fmt$(ceiling);
+
+  window._savingsData = {members, total, floor, ceiling};
+}
+
+function goToApp(){
+  const fields = ['userName','userEmail','userAddress','userPhone'];
+  for(const f of fields){
+    if(!$(f).value.trim()){
+      alert('Please fill in all four contact fields before continuing.');
+      $(f).focus(); return;
+    }
+  }
+  $('scr-welcome').classList.remove('active');
+  $('scr-app').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goToWelcome(){
+  $('scr-app').classList.remove('active');
+  $('scr-welcome').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goBackToApp(){
+  $('printControls').classList.remove('show');
+  $('printPages').classList.remove('preview');
+  $('printPages').innerHTML = '';
+  document.querySelector('.app-shell').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function saveInfo(){
+  try{
+    const info = {
+      name: $('userName').value.trim(),
+      email: $('userEmail').value.trim(),
+      address: $('userAddress').value.trim(),
+      phone: $('userPhone').value.trim(),
+    };
+    localStorage.setItem('farmAssocGenUserInfo', JSON.stringify(info));
+    $('saveStatus').textContent = '\u2713 Saved. (Note: some browsers block local storage and will not save.)';
+  } catch(e){
+    $('saveStatus').textContent = '\u26A0 Could not save \u2014 your browser may be blocking local storage.';
+  }
+}
+function loadInfo(){
+  try{
+    const raw = localStorage.getItem('farmAssocGenUserInfo');
+    if(!raw) return;
+    const info = JSON.parse(raw);
+    if(info.name) $('userName').value = info.name;
+    if(info.email) $('userEmail').value = info.email;
+    if(info.address) $('userAddress').value = info.address;
+    if(info.phone) $('userPhone').value = info.phone;
+  } catch(e){}
+}
+
+function toggleGuide(){ $('guideModal').classList.toggle('open'); }
+
+function copyAddressReport(){
+  const a = window._origAddr;
+  if(!a){alert('Please select an association first.');return;}
+  const text =
+    'WRONG FARM ASSOCIATION ADDRESS REPORT\n' +
+    '======================================\n' +
+    'Organization: ' + a.orgName + '\n' +
+    'Leadership: ' + (a.title || '') + (a.name ? ' ' + a.name : '') + '\n\n' +
+    'Currently shown in generator:\n' +
+    '  ' + (a.orgName || '') + '\n' +
+    '  ' + (a.street || '(none)') + '\n' +
+    '  ' + (a.cityStZip || '') + '\n\n' +
+    'Correct address:\n' +
+    '  (paste correct info here)\n\n' +
+    'Correct leadership name/title (if changed):\n' +
+    '  (paste here, or write "same")\n\n' +
+    'Source / proof (URL or notes):\n' +
+    '  (paste here)\n\n' +
+    'Email this to: roleigh@pobox.com';
+  $('reportText').value = text;
+  $('copyStatus').textContent = '';
+  $('reportModal').classList.add('open');
+  $('reportText').focus();
+  $('reportText').select();
+}
+function doCopyReport(){
+  const ta = $('reportText');
+  ta.select();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(function(){
+      $('copyStatus').textContent = '\u2713 Copied!';
+    },function(){
+      try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+      catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
+    });
+  } else {
+    try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+    catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
+  }
+}
+function closeReportModal(){ $('reportModal').classList.remove('open'); }
+
+function lastNameOf(full){
+  if(!full) return '';
+  const parts = full.trim().split(/\s+/);
+  return parts[parts.length - 1];
+}
+
+function generatePreview(){
+  const idx = parseInt($('orgSelect').value);
+  const rec = ORGS[idx];
+  const [_orgName, _street, _cityStZip, _title, _name, _email, _phone, members, _dated, _notes] = rec;
+
+  // Read current (possibly user-edited) values
+  const orgName = $('addrOrg').value.trim();
+  const addrLine1 = $('addrStreet').value.trim();
+  const addrLine2 = $('addrCityStZip').value.trim();
+  const leaderTitle = $('leaderTitle').value.trim();
+  const leaderName = $('leaderName').value.trim();
+
+  if(!addrLine1 || !addrLine2){
+    alert('Please fill in the street address and city/state/ZIP fields before previewing.');
+    return;
+  }
+
+  const sender = {
+    name: $('userName').value.trim(),
+    email: $('userEmail').value.trim(),
+    address: $('userAddress').value.trim(),
+    phone: $('userPhone').value.trim(),
+  };
+  const data = window._savingsData;
+
+  const perFarmFloor = Math.round(data.floor / members);
+  const perFarmCeiling = Math.round(data.ceiling / members);
+
+  // ===== PAGE 1: COVER LETTER =====
+  let recipientLine1, salutation;
+  if(leaderName){
+    recipientLine1 = escapeHTML(leaderTitle) + ' ' + escapeHTML(leaderName);
+    salutation = 'Dear ' + (leaderTitle === 'Leadership' ? 'Sir or Madam' : escapeHTML(leaderTitle) + ' ' + escapeHTML(lastNameOf(leaderName))) + ',';
+  } else {
+    recipientLine1 = escapeHTML(orgName);
+    salutation = 'Dear ' + (leaderTitle && leaderTitle !== 'Leadership' ? escapeHTML(leaderTitle) : 'Sir or Madam') + ',';
+  }
+  const recipientLines =
+    '<div class="line name">' + recipientLine1 + '</div>' +
+    (leaderName ? '<div class="line">' + escapeHTML(orgName) + '</div>' : '') +
+    '<div class="line">' + escapeHTML(addrLine1) + '</div>' +
+    '<div class="line">' + escapeHTML(addrLine2) + '</div>';
+
+  const reSubject = 'Re: ' + fmt$(data.floor) + ' to ' + fmt$(data.ceiling) +
+    ' in Annual Equipment Savings for ' + escapeHTML(orgName) + '\u2019s ' + fmtN(members) + ' Member Farms';
+
+  const coverLetter =
+    '<div class="page" contenteditable="true" spellcheck="false">' +
+    '<div class="cl-sender">' +
+      '<div class="name">' + escapeHTML(sender.name) + '</div>' +
+      '<div class="line">' + escapeHTML(sender.address) + '</div>' +
+      '<div class="line">' + escapeHTML(sender.phone) + ' &nbsp;|&nbsp; ' + escapeHTML(sender.email) + '</div>' +
+    '</div>' +
+    '<div class="cl-date">' + todayLong() + '</div>' +
+    '<div class="cl-row">' +
+      '<div class="cl-recipient-cell">' +
+        '<div class="cl-recipient">' + recipientLines + '</div>' +
+      '</div>' +
+      '<div class="cl-re-cell">' +
+        '<div class="cl-re">' + reSubject + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="cl-body">' +
+      '<p>' + salutation + '</p>' +
+      '<p>A 44-HP Mahindra tractor sells for approximately $7,300 in India and $27,992 in the United States. A combine harvester ' +
+      'costs $15,000\u2013$43,000 in India versus $400,000\u2013$1,330,000 here. Your members pay three to sixty-five times more for ' +
+      'equipment than farmers in over 90 countries\u2014not because of tariffs, not because of labor costs, but because federal ' +
+      'regulations make it impossible to remanufacture designs whose patents expired more than 20 years ago.</p>' +
+      '<p>The Constitution\u2019s Patent Clause (Art. I, \u00a78, Cl. 8) grants patents for \u201climited Times.\u201d The Supreme Court has held that ' +
+      'expired patents give the public \u201cunrestricted rights\u201d to manufacture (<em>Kimble v. Marvel</em>, 2015) and that extending patent ' +
+      'exclusivity post-expiration is \u201cper se unlawful\u201d (<em>Brulotte v. Thys Co.</em>, 1964). Yet post-1970 EPA, NHTSA, and DOE ' +
+      'regulations require any \u201cnew\u201d machine\u2014including an exact copy of a decades-old tractor\u2014to meet current-year ' +
+      'standards. The public domain use phase promised by the Constitution never begins. Two independent analyses estimate ' +
+      'the cumulative national harm at $15.7\u2013$28 trillion since 1970.</p>' +
+      '<div class="cl-wins">' +
+        '<div class="heading">' + escapeHTML(orgName) + ' Has Clear Standing:</div>' +
+        '<strong>Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977):</strong> ' +
+        '(a) your members suffer concrete equipment overpayment injury; ' +
+        '(b) the lawsuit is germane to ' + escapeHTML(orgName) + '\u2019s mission; and ' +
+        '(c) no individual member participation is required. The enclosed Member Equipment Cost Impact Report ' +
+        'estimates that ' + escapeHTML(orgName) + '\u2019s ' + fmtN(members) + ' member farms collectively overpay ' +
+        '<strong>' + fmt$(data.total) + '</strong> annually on equipment. Competitive pressure from remanufactured ' +
+        'alternatives would save your members <strong>' + fmt$(data.floor) + '</strong> per year at the Floor estimate, or ' +
+        '<strong>' + fmt$(data.ceiling) + '</strong> if members purchase remanufactured equipment directly.' +
+      '</div>' +
+      '<p>Public interest law firms provide completely free representation on constitutional property rights cases. Pacific Legal ' +
+      'Foundation, for example, won <em>Cedar Point v. Hassid</em> (2021) and <em>Sheetz v. County of El Dorado</em> (2024)\u2014for free. ' +
+      escapeHTML(orgName) + '\u2019s role would be to authorize the challenge and provide member affidavits documenting equipment costs. The law firm ' +
+      '(PLF, IJ or others) does the rest. County sheriffs, state attorneys general, and tribal nations are being solicited to pursue ' +
+      'parallel filings in other federal circuits. A farm association filing would add another front, maximizing the chances of a circuit split\u2014the most reliable path to Supreme Court review.</p>' +
+      '<p>I respectfully ask that you share the enclosed materials with ' + escapeHTML(orgName) + '\u2019s board and legal counsel. I am available at your convenience to discuss this further.</p>' +
+    '</div>' +
+    '<div class="cl-sign">' +
+      '<p>Respectfully,</p>' +
+      '<p style="margin-top:14pt"><strong>' + escapeHTML(sender.name) + '</strong></p>' +
+    '</div>' +
+    '<div class="cl-encl">Enclosures: Member Equipment Cost Impact Report; Constitutional Brochure (with a very brief resume)</div>' +
+    '</div>';
+
+  // ===== PAGE 2: MEMBER EQUIPMENT COST IMPACT REPORT =====
+  const srRows = EQUIP_CATS.map(c => {
+    const agg = c.perFarm * members;
+    const fl = agg * 0.15;
+    const ce = agg * 0.45;
+    return '<tr><td>' + escapeHTML(c.label) + '</td><td>' + fmt$Table(c.perFarm) +
+           '</td><td>' + fmt$(agg) + '</td><td>' + fmt$(fl) +
+           '</td><td>' + fmt$(ce) + '</td></tr>';
+  }).join('');
+
+  const savingsReport =
+    '<div class="page">' +
+    '<div class="sr-header">' +
+      '<h1>Member Equipment Cost Impact Report</h1>' +
+      '<div class="sub">' + escapeHTML(orgName) + '</div>' +
+    '</div>' +
+    '<div class="sr-intro">' +
+      '<p>This report estimates the aggregate annual equipment overpayment borne by ' + escapeHTML(orgName) + '\u2019s ' +
+      fmtN(members) + ' member farms because federal regulations block competition from remanufactured equipment whose patents expired 20+ years ago. Two ' +
+      'estimates are shown: a <strong>Floor</strong> (members keep buying only new equipment, but competitive pressure from remanufactured ' +
+      'alternatives forces prices down) and a <strong>Ceiling</strong> (members purchase remanufactured equipment directly). Most farmers will ' +
+      'continue buying new\u2014the Floor is the number that matters for most purchasing decisions.</p>' +
+      '<div class="gen"><strong>The generic drug parallel:</strong> When generics enter the market, brand-name drug prices fall 30\u201380% even for patients who ' +
+      'never switch. The same competitive pressure would apply to tractors, combines, trucks, and implements. The Floor ' +
+      'estimate uses a conservative 15% discount\u2014well below what the generic drug market demonstrates.</div>' +
+    '</div>' +
+    '<table class="sr-table">' +
+      '<thead><tr>' +
+        '<th style="text-align:left">Equipment Category</th>' +
+        '<th>Est. Per-Farm<br>Annual Spend</th>' +
+        '<th>Est. Aggregate<br>(' + fmtN(members) + ' Members)</th>' +
+        '<th>FLOOR: Still<br>Buying New (15%)</th>' +
+        '<th>CEILING: Buying<br>Remfg\u2019d (45%)</th>' +
+      '</tr></thead>' +
+      '<tbody>' + srRows + '</tbody>' +
+      '<tfoot><tr class="total"><td>TOTALS</td>' +
+        '<td>$19,000</td>' +
+        '<td>' + fmt$(data.total) + '</td>' +
+        '<td>' + fmt$(data.floor) + '</td>' +
+        '<td>' + fmt$(data.ceiling) + '</td></tr></tfoot>' +
+    '</table>' +
+    '<div class="sr-bigboxes">' +
+      '<div class="box box-floor">' +
+        '<div class="label">Floor: Savings Buying Only New</div>' +
+        '<div class="num">' + fmt$(data.floor) + ' / Year</div>' +
+        '<div class="desc">$' + fmtN(perFarmFloor) + ' per member farm. 15% competitive-pressure discount\u2014prices fall because ' +
+        'remanufactured alternatives exist, same as brand-name drugs when generics enter.</div>' +
+      '</div>' +
+      '<div class="box box-ceiling">' +
+        '<div class="label">Ceiling: Savings Buying Remanufactured</div>' +
+        '<div class="num">' + fmt$(data.ceiling) + ' / Year</div>' +
+        '<div class="desc">$' + fmtN(perFarmCeiling) + ' per member farm. 45% remanufacturing discount\u2014based on international pricing ' +
+        'in 90+ countries where patent-expired tractors sell for $7,300\u2013$10,500.</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sr-citizen">' +
+      '<div class="left">' +
+        '<div class="label">Impact Beyond ' + escapeHTML(orgName) + ' Members: Every American Grocery Bill</div>' +
+        '<div class="body">Equipment cost inflation flows through the entire food supply chain. Americans spent $2.58 trillion on food in 2024. If ' +
+        'remanufacturing competition existed across all sectors, grocery prices would drop 35\u201350% once markets fully adjust\u2014saving ' +
+        'American families $903 billion to $1.29 trillion per year.</div>' +
+      '</div>' +
+      '<div class="right">' +
+        '<div class="bignum">$500\u2013$650</div>' +
+        '<div class="breakdown">monthly grocery bill<br>(down from $1,000)</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sr-method">' +
+      '<p><strong>Methodology:</strong> Per-farm equipment expenditures are estimated conservatively for family-scale operations, well below the USDA-reported ' +
+      'national average of $227,000/farm (2022), which is dominated by large commercial operations. National farm machinery ' +
+      'expenditures: $19.1B for tractors/self-propelled machinery + $7.8B other farm machinery (2022, USDA Farm Production ' +
+      'Expenditures Annual Summary). Floor (15%) reflects competitive pressure from remanufactured alternatives (generic drug ' +
+      'parallel). Ceiling (45%) reflects direct purchase at international price points across 90+ countries.</p>' +
+      '<p><strong>International reference:</strong> 44-HP Mahindra tractor ~$7,300 in India vs. $27,992 in the U.S.; combine harvesters $15K\u2013$43K (India) vs. $400K\u2013$1.33M (U.S.). ' +
+      'Sources: USDA Farm Production Expenditures (2022\u20132023); USDA Food Dollar Series (2023); Mahindra India pricing ' +
+      '(TractorGyan); Mahindra US pricing (AllMachines); John Deere India/US combine pricing.</p>' +
+    '</div>' +
+    '<div class="sr-footer">Full analysis: \u201cThe Constitutional Violation No One Reports\u201d at x.com/RoleighMartin/articles | SSRN Abstract ID 6166206 &nbsp;|&nbsp; ' +
+    'Prepared for ' + escapeHTML(orgName) + ' &nbsp;|&nbsp; Generator v4.0</div>' +
+    '</div>';
+
+  // ===== PAGE 3: BROCHURE 1 — A CONSTITUTIONAL CHALLENGE FOR FARM ASSOCIATIONS =====
+  const brochure1 =
+    '<div class="page">' +
+    '<div class="br-header">' +
+      '<h1>A Constitutional Challenge for America\u2019s Farm Associations</h1>' +
+      '<div class="sub">Your Members Are Overcharged by a National $22 Trillion Regulatory Taking</div>' +
+    '</div>' +
+    '<div class="br-intro">' +
+      '<p><span class="label">What you\u2019re holding:</span> This brochure summarizes a legal analysis arguing that post-1970 federal regulations violate the ' +
+      'Constitution\u2019s Patent Clause by blocking remanufacturing of designs whose patents expired 20+ years ago.</p>' +
+      '<p><span class="label">Why it matters:</span> These regulations give manufacturers permanent monopolies ' +
+      'the Founders explicitly prohibited. Expired patented vehicles and equipment never enter a public domain where they are allowed to be remanufactured, protecting the ' +
+      'original patent holder from ever seeing competition from remanufactured items. This unconstitutionally removes the \u201climited ' +
+      'Times\u201d period stated in the Constitution and replaces it with infinitely long protection. It is costing American households an ' +
+      'estimated $2,420 per year. No court has addressed this question. It is a question of first impression with 38 supporting ' +
+      'Supreme Court citations, and the current court is the most favorable for challenging administrative power in decades. Your ' +
+      'members pay 3\u201365\u00d7 more than farmers in 90+ countries. Under <em>Hunt v. Washington State Apple</em> (1977), your association has ' +
+      'standing to challenge this\u2014and public interest law firms will represent you for free.</p>' +
+    '</div>' +
+    '<div class="br-cols-3">' +
+      '<div class="col">' +
+        '<h3>The Patent Clause</h3>' +
+        '<div class="body">' +
+        '<p>The Constitution (Art. I, \u00a78, Cl. 8) grants patents for \u201climited Times\u201d ' +
+        '\u2014 meaning they must expire and designs enter the public domain. In <em>Kimble v. Marvel</em> (2015), expired patents give the ' +
+        'public \u201cunrestricted rights\u201d to manufacture. In <em>Brulotte v. Thys Co.</em> (1964), extending patent rights post-expiration is \u201cper se unlawful.\u201d</p>' +
+        '<p>Post-1970 regulations require any \u201cnew\u201d machine \u2014 including an exact copy of a 20-year-old tractor design \u2014 to meet ' +
+        'current-year standards. This makes remanufacturing impossible.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>The Tractor: 3.8\u00d7 Markup</h3>' +
+        '<div class="body">' +
+        '<p><strong>Same manufacturer, same tractor.</strong> A Mahindra 44-HP tractor sells for <strong>$7,300 in India</strong> and <strong>$27,992 in the United States</strong>. Mahindra is a $19.4B conglomerate exporting to 100+ countries. Sonalika exports to 150+ nations. TAFE exports to 100+ countries.</p>' +
+        '<p>Your members cannot buy what farmers in 90+ countries freely purchase\u2014not because of quality, but because EPA regulations make it illegal to remanufacture the expired-patent design domestically.</p>' +
+        '<p>Mahindra\u2019s Thar ROXX earned a <strong>5-star</strong> Bharat NCAP safety rating (31.09/32). Safety is added voluntarily\u2014not by regulators.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>The Combine: 26\u201330\u00d7</h3>' +
+        '<div class="body">' +
+        '<p><strong>Same brand, starkest comparison.</strong> A John Deere W70 in India (100-HP, 14-ft header): <strong>$21,000\u2013$24,700</strong>. A John Deere S7 600 in the U.S. (382-HP): <strong>~$646,000</strong>.</p>' +
+        '<p>The U.S. machine costs 26\u201330\u00d7 more while delivering only 3\u20135\u00d7 the daily output. On a <strong>cost-per-unit-of-daily-harvesting-capacity</strong> basis, the Indian Deere is <strong>6\u201310\u00d7 cheaper</strong>.</p>' +
+        '<p style="font-weight:700;color:#8b2020;text-align:center;margin-top:4pt">$2,420 stolen per household per year</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    // Legal landscape + full scope in two columns
+    '<div class="br-cols-2">' +
+      '<div class="col" style="padding-right:8pt">' +
+        '<h3 style="margin:5pt 0 3pt;font-size:10pt;color:#0a2540">The Legal Landscape</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0"><strong>38 Supreme Court citations</strong> across 6 legal grounds. The most favorable Court for this challenge in decades:</p>' +
+        '<p style="margin:2pt 0"><strong>Chevron is dead.</strong> <em>Loper Bright</em> (2024) ended agency deference.</p>' +
+        '<p style="margin:2pt 0"><strong>Takings expanded.</strong> <em>Sheetz v. El Dorado</em> (2024).</p>' +
+        '<p style="margin:2pt 0"><strong>Major Questions.</strong> <em>West Virginia v. EPA</em> (2022): Congress never authorized EPA/NHTSA/DOE to nullify the Patent Clause.</p>' +
+        '<p style="margin:2pt 0"><strong>Associational standing.</strong> <em>Hunt</em> (1977), <em>NFIB v. Sebelius</em> (2012), <em>Citizens United</em> (2010)\u2014associations routinely litigate at SCOTUS.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col" style="padding-left:8pt">' +
+        '<h3 style="margin:5pt 0 3pt;font-size:10pt;color:#0a2540">The Full Scope: Beyond Tractors</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0">The same ratchet operates across the entire farm economy:</p>' +
+        '<p style="margin:2pt 0"><strong>Farm trucks:</strong> NHTSA/EPA block remanufactured pickups, flatbeds, grain trucks.</p>' +
+        '<p style="margin:2pt 0"><strong>Construction:</strong> EPA Tier 4 blocks remanufactured loaders, excavators. Every barn and road absorbs inflated costs.</p>' +
+        '<p style="margin:2pt 0"><strong>Appliances:</strong> DOE blocks expired-patent refrigerators, heaters, HVAC.</p>' +
+        '<p style="margin:2pt 0"><strong>Manufacturers &amp; Environmentalists:</strong> Deere/AGCO/CNH profit from blocking competition. Environmental groups provide cover. Your association represents the buyers who pay the bill.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="br-pullquote">A 2006 John Deere 8530 cannot be remanufactured by anyone \u2014 not even Deere. Current-year ' +
+    'standards require a fundamentally different product. The patent expired. The public domain use phase never starts. ' +
+    '<strong>Read how farm equipment followed cars into the regulatory ratchet:</strong> ' +
+    '<em>\u201cFarm Associations Open a Fifth Front in the Lawfare War Against Expired Patents\u201d</em> ' +
+    'at <strong>x.com/RoleighMartin/articles</strong> (dated 3/28/2026).</div>' +
+    '</div>';
+
+  // ===== PAGE 4: BROCHURE 2 — CALL TO ACTION, EVIDENCE & WHY FARM ASSOCIATIONS =====
+  const brochure2 =
+    '<div class="page">' +
+    '<div class="br-header"><h1>What Your Farm Association Can Do &amp; The Call to Action</h1>' +
+    '<div class="sub">Associational Standing \u2022 Filing Roadmap \u2022 Why Farm Associations Are the Answer</div></div>' +
+
+    // Three standing columns
+    '<div class="br-cols-3">' +
+      '<div class="col">' +
+        '<h3>Associational Standing</h3>' +
+        '<div class="body">' +
+        '<p><em>Hunt v. Washington State Apple</em> (1977): (a) members have standing\u2014they overpay for equipment; (b) suit is germane to reducing costs for family farms; (c) no individual participation needed. All three prongs met.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>Proprietary Standing</h3>' +
+        '<div class="body">' +
+        '<p>Each member farm directly purchases tractors, combines, trucks, and implements at inflated prices. Concrete, dollar-denominated Article III injury. The enclosed Member Equipment Cost Impact Report quantifies aggregate harm across your membership.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>Broader Economic Harm</h3>' +
+        '<div class="body">' +
+        '<p>Equipment cost inflation flows to every grocery bill. On $2.58T in annual food spending, a 35\u201350% reduction = $903B\u2013$1.29T/yr. A family spending $1,000/mo on groceries would spend $500\u2013$650 instead.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    // Four-step filing roadmap
+    '<h3 style="margin:5pt 0 3pt;font-size:10pt;color:#0a2540;text-align:center">FOUR-STEP FILING ROADMAP</h3>' +
+    '<div class="br-steps-compact"><ol>' +
+      '<li><strong>Board authorizes.</strong> Board or membership passes resolution documenting member equipment overpayment and authorizing a Patent Clause constitutional challenge.</li>' +
+      '<li><strong>Engage free counsel.</strong> Contact Pacific Legal Foundation, Institute for Justice, or another public interest firm. Free representation on constitutional property rights cases.</li>' +
+      '<li><strong>File declaratory judgment.</strong> Under 28 U.S.C. \u00a72201, file in federal court seeking a declaration that post-1970 regulations violate the Patent Clause as applied to patent-expired designs.</li>' +
+      '<li><strong>Consider multi-plaintiff coalition.</strong> County sheriffs, state Attorneys General, tribal nations, and other farm associations are being solicited. Multiple filings across circuits maximize chances of reaching SCOTUS.</li>' +
+    '</ol></div>' +
+
+    // Two-column: Remedy/Domestic + Why Farm Associations
+    '<div class="br-action-cols">' +
+      '<div class="col-left">' +
+        '<div class="br-callout-sm">' +
+          '<h3>The Remedy</h3>' +
+          '<strong>Grandfather exemptions.</strong> Any product remanufactured from a design whose patents expired 20+ years ago meets the ' +
+          'standards in effect when the original patent was filed \u2014 not current-year standards. This preserves every regulation\u2019s ' +
+          'purpose while honoring the constitutional promise.<br><br>' +
+          '<strong>Competitive pressure.</strong> Your members save even buying only new equipment. When remanufactured alternatives exist, ' +
+          'Deere/AGCO/CNH must lower prices \u2014 exactly as brand-name drug prices fall 30\u201380% when generics enter.' +
+        '</div>' +
+        '<div class="br-callout-sm" style="background:#1a5d3a">' +
+          '<h3>Domestic Manufacturing</h3>' +
+          'Patent-expired remanufacturing could be done entirely domestically \u2014 creating manufacturing jobs in rural America. ' +
+          'Congress retains full authority to impose tariffs or block imports. What the Constitution forbids is blocking <em>domestic</em> remanufacturing. ' +
+          'The result: American workers building affordable tractors for American farmers.' +
+        '</div>' +
+      '</div>' +
+      '<div class="col-right">' +
+        '<div style="padding:5pt 8pt;background:#fff8e1;border:1pt solid #d4a93a;border-radius:3pt;font-size:8pt;line-height:1.3;margin-bottom:4pt">' +
+          '<div style="font-weight:700;color:#0a2540;font-size:9pt;margin-bottom:3pt">Why Farm Associations Are the Answer</div>' +
+          'The Bootleggers &amp; Baptists framework (economist Bruce Yandle, 1983) explains the 55-year silence. Incumbent manufacturers are the \u201cBootleggers\u201d\u2014they ' +
+          'profit from regulations that block competition. Environmental and safety groups are the \u201cBaptists\u201d\u2014they provide political cover. Neither has any reason to point out the Patent Clause violation.<br><br>' +
+          'Farm associations represent the one group with both the <strong>injury</strong> and the <strong>motive</strong> to break through. Your members are <em>buyers</em> of overpriced equipment, not sellers. You have zero financial ' +
+          'entanglement with the manufacturers who benefit. Your policy mission \u2014 reducing costs for family farms \u2014 is exactly the germaneness that <em>Hunt</em> requires for associational standing.' +
+        '</div>' +
+        '<div class="br-author-sm">' +
+          '<div class="label">About the Author</div>' +
+          'Roleigh Martin \u2014 AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher. Articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.3 million readers. ' +
+          'Contact: roleigh@pobox.com &nbsp;|&nbsp; x.com/RoleighMartin &nbsp;|&nbsp; 952-905-0822<br>' +
+          'Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase and GPT-5.2 Thinking.' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="br-pullquote" style="margin-top:4pt">' +
+    '<strong>Farm bankruptcies were up 46% in 2025.</strong> Equipment costs are a central driver. The constitutional argument that could bring those costs down has never been raised in court. Your association\u2019s board can change that. ' +
+    '<strong>Read the full analysis:</strong> \u201cThe Constitutional Violation No One Reports\u201d at <strong>x.com/RoleighMartin/articles</strong> | SSRN Abstract ID 6166206. ' +
+    'The Bicycle Contrast: 95.5% cost reduction over 200 years, 88% decline in child cyclist deaths \u2014 zero federal regulation. That is the Founders\u2019 promise, delivered. ' +
+    'Public interest law firms provide completely free representation.' +
+    '</div>' +
+    '</div>';
+
+  const banner = '<div class="preview-banner">&#128196; Preview of 4 pages below. Scroll to review. ' +
+    'Click cover-letter text to edit. When ready, use the \u201cPrint / Save as PDF\u201d button at top-left.</div>';
+
+  $('printPages').innerHTML = banner + coverLetter + savingsReport + brochure1 + brochure2;
+  $('printPages').classList.add('preview');
+  $('printControls').classList.add('show');
+  document.querySelector('.app-shell').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  populateOrgs();
+  loadInfo();
+});
+</script>
+</body>
+</html>
