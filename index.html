@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patent Clause Letter Campaign Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #0B1A2E;
+    color: #E8E0D4;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(30, 64, 110, 0.5), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 70%, rgba(140, 60, 40, 0.25), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  header {
+    text-align: center;
+    padding: 4rem 2rem 2.5rem;
+    border-bottom: 1px solid rgba(232, 224, 212, 0.2);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #F4EDE4;
+    margin-bottom: 0.6rem;
+  }
+
+  header h1 span {
+    display: block;
+    font-size: 0.45em;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #C8A96E;
+    margin-bottom: 0.5rem;
+  }
+
+  header p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(232, 224, 212, 0.9);
+  }
+
+  .cards {
+    max-width: 880px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: rgba(232, 224, 212, 0.07);
+    border: 1px solid rgba(232, 224, 212, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+
+  .card:hover {
+    background: rgba(232, 224, 212, 0.08);
+    border-color: rgba(200, 169, 110, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .card-icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .card-icon.sheriff   { background: rgba(59, 130, 246, 0.15); color: #6BA3F7; }
+  .card-icon.governor   { background: rgba(220, 120, 50, 0.15); color: #E09860; }
+  .card-icon.trucking   { background: rgba(100, 180, 100, 0.15); color: #7CC87C; }
+  .card-icon.tribal     { background: rgba(180, 100, 160, 0.15); color: #C88ABF; }
+
+  .card-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #F4EDE4;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-body p {
+    font-size: 0.92rem;
+    color: rgba(232, 224, 212, 0.78);
+    line-height: 1.45;
+  }
+
+  .arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    color: rgba(232, 224, 212, 0.45);
+    transition: color 0.25s, transform 0.25s;
+  }
+
+  .card:hover .arrow {
+    color: #C8A96E;
+    transform: translateX(3px);
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 2rem 2.5rem;
+    font-size: 0.85rem;
+    color: rgba(232, 224, 212, 0.55);
+  }
+
+  footer a { color: #C8A96E; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .card { flex-wrap: wrap; padding: 1.25rem; }
+    .arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>
+      <span>Make American Living Affordable (MALA)</span>
+      Patent Clause Letter Campaign
+    </h1>
+    <p>Tools for writing and sending letters to elected officials and civic leaders advocating for expired-patent remanufacturing rights under Article&nbsp;I, &sect;8, Clause&nbsp;8.</p>
+    <p style="margin-top: 0.75rem;">The Articles on Restoring the Patent Clause are at <a href="https://x.com/RoleighMartin/articles" style="color: #C8A96E; text-decoration: underline;">https://x.com/RoleighMartin/articles</a></p>
+  </header>
+
+  <nav class="cards">
+
+    <a class="card" href="Latest_Sheriff_Letter_and_Packet_Generator.html">
+      <div class="card-icon sheriff">&#9733;</div>
+      <div class="card-body">
+        <h2>Sheriff Letter &amp; Packet Generator</h2>
+        <p>Generate customized letters and information packets addressed to county sheriffs nationwide.</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="card" href="Latest_Governor_AG_Generator.html">
+      <div class="card-icon governor">&#9878;</div>
+      <div class="card-body">
+        <h2>Governor &amp; Attorney General Generator</h2>
+        <p>Draft letters to state governors and attorneys general urging action on patent litigation reform.</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="card" href="Latest_Trucking_Assn_Letter_Writer.html">
+      <div class="card-icon trucking">&#9951;</div>
+      <div class="card-body">
+        <h2>Trucking Association Letter Writer</h2>
+        <p>Compose letters to owner-operator trucking associations highlighting aftermarket parts cost impacts.</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="card" href="Tribal_Nation_Letter_and_Brochure_Generator.html">
+      <div class="card-icon tribal">&#10022;</div>
+      <div class="card-body">
+        <h2>Tribal Nation Letter &amp; Brochure Generator</h2>
+        <p>Create letters and brochures for tribal nation leadership on sovereign purchasing and patent rights.</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+  </nav>
+
+  <footer>
+    <p>Campaign resources maintained by <a href="https://github.com/marti124/Patent_Letters">marti124</a> &middot; Expired patents belong to the public domain.</p>
+  </footer>
+
+</div>
+</body>
+</html>
