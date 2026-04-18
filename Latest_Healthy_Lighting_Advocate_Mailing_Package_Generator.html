@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthy Lighting Advocate Mailing Package Generator</title>
+<style>
+:root{
+  --navy:#0a2540;--amber:#b8860b;--accent:#c9760a;
+  --bg:#f7f5f0;--paper:#ffffff;--ink:#1c1c1c;--muted:#666;
+  --border:#d4cfc4;--soft:#efebe1;
+  --confirm:#1a7f4a;--warn:#b06a00;--danger:#a32424;--info:#3263a8;
+  --gold:#d4a93a;--gold-soft:#fff4cc;--gold-border:#e6c98a;
+  --warm:#8b4513;--glow:#e8a317;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Georgia,'Times New Roman',serif;
+  background:var(--bg);color:var(--ink);line-height:1.55}
+.app-shell{max-width:880px;margin:0 auto;padding:28px 22px 60px}
+h1{font-size:1.85em;color:var(--navy);margin:0 0 .35em}
+h2{font-size:1.35em;color:var(--navy);margin:1.6em 0 .5em;
+  border-bottom:1px solid var(--border);padding-bottom:.25em}
+h3{font-size:1.1em;color:var(--navy);margin:1.2em 0 .4em}
+p{margin:.6em 0}
+.tagline{color:var(--muted);font-style:italic;margin-bottom:1.2em}
+.card{background:var(--paper);border:1px solid var(--border);
+  border-radius:8px;padding:22px 26px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+label{display:block;margin:14px 0 4px;font-weight:600;color:var(--navy)}
+label .req{color:var(--danger)}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--border);
+  border-radius:5px;font-size:1em;font-family:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(10,37,64,.12)}
+.btn{display:inline-block;padding:10px 22px;border:none;border-radius:6px;
+  font-size:1em;font-family:inherit;font-weight:600;cursor:pointer;
+  text-decoration:none;transition:opacity .15s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{background:var(--soft);color:var(--navy);border:1px solid var(--border)}
+.btn-secondary:hover{background:#e6e1d4}
+.btn-success{background:var(--amber);color:#fff}
+.btn-success:hover{opacity:.9}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hint{font-size:.88em;color:var(--muted);margin-top:4px;font-style:italic}
+.address-display{background:var(--soft);border:1px solid var(--border);
+  border-radius:6px;padding:14px 16px;margin-top:10px;font-family:Georgia,serif}
+.address-display .line{margin:2px 0}
+.addr-input{width:100%;padding:7px 11px;border:1px solid var(--border);border-radius:5px;
+  font-size:1em;font-family:inherit;background:#fff;margin:3px 0}
+.addr-bold{font-weight:600}
+.link-btn{background:none;border:none;color:var(--navy);text-decoration:underline;
+  cursor:pointer;font-size:inherit;padding:0;font-family:inherit}
+.link-btn:hover{color:#000}
+.guide-toggle{position:fixed;top:14px;right:14px;background:var(--accent);
+  color:#fff;border:none;padding:8px 14px;border-radius:5px;
+  font-weight:600;cursor:pointer;font-family:inherit;z-index:10}
+.guide-modal{display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);
+  z-index:100;overflow-y:auto;padding:30px 14px}
+.guide-modal.open{display:block}
+.guide-modal-inner{max-width:760px;margin:0 auto;background:#fff;
+  border-radius:8px;padding:32px 36px;font-size:.96em}
+.guide-modal h2{margin-top:1.3em}
+.guide-modal h2:first-child{margin-top:0}
+.guide-close{float:right;background:#eee;border:none;padding:5px 12px;
+  border-radius:4px;cursor:pointer;font-weight:700;font-family:inherit}
+.scr{display:none}
+.scr.active{display:block}
+.org-card{background:#fafaf7;border:1px solid var(--border);border-radius:6px;
+  padding:12px 16px;margin-top:10px}
+.org-card .org-name{font-weight:700;color:var(--navy);font-size:1.05em}
+.org-card .org-detail{font-size:.92em;color:var(--muted);margin-top:4px}
+.address-actions{margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;
+  font-size:.88em;align-items:center}
+.address-actions a{color:var(--navy);text-decoration:underline;cursor:pointer}
+.address-actions a:hover{color:#000}
+.address-actions .sep{color:var(--muted)}
+
+/* ----- Report modal ----- */
+.report-modal{display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);
+  z-index:100;overflow-y:auto;padding:30px 14px}
+.report-modal.open{display:flex;align-items:center;justify-content:center}
+.report-modal-inner{max-width:540px;width:100%;background:#fff;
+  border-radius:8px;padding:24px 28px;font-size:.96em}
+.report-modal h3{margin:0 0 10px;color:var(--navy)}
+.report-modal textarea{width:100%;height:220px;font-family:'Courier New',monospace;
+  font-size:.92em;padding:10px;border:1px solid var(--border);border-radius:5px;
+  background:#fafaf7;resize:vertical;line-height:1.4}
+.report-modal .btn-row{margin-top:14px;display:flex;gap:10px;justify-content:flex-end}
+.report-modal .copy-status{font-size:.88em;color:var(--confirm);margin-right:auto;align-self:center}
+
+/* ============= PRINT STYLES ============= */
+@media screen{
+  .print-pages{display:none}
+  .print-pages.preview{display:block}
+}
+@media print{
+  body{background:#fff}
+  .app-shell,.guide-toggle,.guide-modal,.report-modal,.print-controls,.preview-banner{display:none !important}
+  .print-pages{display:block !important;background:#fff;padding:0;margin:0;max-width:none}
+  .print-pages .page{padding:0 !important;border:none !important;
+    margin:0 !important;box-shadow:none !important;min-height:0 !important}
+  @page{size:letter;margin:.35in}
+}
+.print-pages{font-family:Georgia,'Times New Roman',serif;color:#000;
+  font-size:10pt;line-height:1.38;background:#fff;
+  max-width:8.5in;margin:0 auto;padding:0}
+.print-pages.preview{padding:20px 0 60px}
+.print-pages.preview .page{background:#fff;border:1px solid #ddd;
+  margin:0 auto 24px;padding:.35in;width:8.5in;max-width:100%;
+  min-height:10.3in;box-shadow:0 1px 4px rgba(0,0,0,.12);overflow:hidden}
+.print-pages .page{page-break-after:always;font-family:Georgia,serif;
+  color:#000;font-size:10pt;line-height:1.38}
+.print-pages .page:last-child{page-break-after:auto}
+.print-pages h1{color:#0a2540;border:none}
+.print-pages h2{color:#0a2540;border:none}
+.print-pages h3{color:#0a2540}
+
+/* ----- Cover letter (window-envelope friendly) ----- */
+.cl-sender{margin-bottom:10pt;line-height:1.3;text-align:right}
+.cl-sender .name{font-weight:700;font-size:11pt}
+.cl-sender .line{font-size:10pt;color:#222}
+.cl-date{margin:10pt 0 14pt;font-size:10.5pt;text-align:center}
+.cl-row{display:table;width:100%;margin-bottom:12pt;table-layout:fixed}
+.cl-recipient-cell{display:table-cell;width:60%;vertical-align:top;padding-right:12pt}
+.cl-recipient{line-height:1.3;font-size:10pt}
+.cl-recipient .line{margin:1pt 0}
+.cl-recipient .name{font-weight:700}
+.cl-re-cell{display:table-cell;width:40%;vertical-align:top}
+.cl-re{background:#efebe1;border-right:4pt solid #0a2540;padding:6pt 10pt;
+  font-weight:700;font-size:9.5pt;line-height:1.28;text-align:right;
+  border-radius:3pt 0 0 3pt}
+.cl-body p{margin:5pt 0;text-align:left;line-height:1.38;font-size:10pt}
+.cl-wins{margin:6pt 0;padding:6pt 10pt;background:#fff8e1;
+  border:1pt solid #d4a93a;border-radius:3pt;font-size:9.5pt;line-height:1.4}
+.cl-wins .heading{font-weight:700;color:#0a2540;margin-bottom:3pt;font-size:10pt}
+.cl-sign{margin-top:8pt}
+.cl-sign p{margin:3pt 0;font-size:10pt}
+.cl-encl{margin-top:6pt;font-size:9pt;font-style:italic;color:#444}
+
+/* ----- Brochure pages ----- */
+.br-header{text-align:center;border-bottom:2pt solid #0a2540;padding-bottom:3pt;margin-bottom:5pt;page-break-inside:avoid;page-break-after:avoid}
+.br-header h1{font-size:12pt;margin:0;text-transform:uppercase;letter-spacing:.4pt;line-height:1.15}
+.br-header .sub{font-size:9pt;color:#7a5400;font-weight:700;text-transform:uppercase;letter-spacing:.3pt;margin-top:2pt}
+.br-intro{margin:5pt 0;font-size:9.5pt;line-height:1.35}
+.br-intro p{margin:4pt 0}
+.br-intro .label{font-weight:700;color:#0a2540}
+.br-cols-3{display:table;width:100%;border-spacing:5pt 0;margin:5pt 0;table-layout:fixed}
+.br-cols-3 .col{display:table-cell;width:33.33%;padding:7pt 9pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;border-radius:4pt;vertical-align:top}
+.br-cols-3 .col h3{margin:0 0 3pt;font-size:10pt;text-transform:uppercase;letter-spacing:.4pt;
+  color:#0a2540;text-align:center;border-bottom:1pt solid #d4cfc4;padding-bottom:2pt}
+.br-cols-3 .col .body{font-size:9pt;line-height:1.3;margin:0}
+.br-cols-3 .col .body p{margin:0 0 4pt 0;line-height:1.3}
+.br-cols-3 .col .body p:last-child{margin-bottom:0}
+.br-pullquote{margin:6pt 0 4pt;padding:6pt 11pt;border-left:4pt solid #d4a93a;
+  background:#fff8e1;font-style:italic;font-size:10pt;line-height:1.35;color:#333}
+.br-cols-2{display:table;width:100%;border-spacing:6pt 0;margin:6pt 0;table-layout:fixed}
+.br-cols-2>.col{display:table-cell;width:50%;vertical-align:top}
+.br-action-cols{display:table;width:100%;border-spacing:5pt 0;margin:4pt 0;table-layout:fixed}
+.br-action-cols .col-left{display:table-cell;width:52%;vertical-align:top}
+.br-action-cols .col-right{display:table-cell;width:48%;vertical-align:top}
+.br-callout-sm{margin:4pt 0;padding:6pt 9pt;background:#0a2540;color:#fff;border-radius:3pt;font-size:8pt;line-height:1.25}
+.br-callout-sm h3{color:#fff;margin:0 0 3pt;font-size:9pt;text-transform:uppercase;letter-spacing:.3pt}
+.br-author-sm{margin:4pt 0;padding:5pt 8pt;background:#efebe1;border-radius:3pt;font-size:7.5pt;line-height:1.25}
+.br-author-sm .label{font-weight:700;color:#0a2540}
+.br-foot-quote{margin-top:8pt;padding:7pt 11pt;background:#efebe1;border-radius:3pt;font-size:9pt;line-height:1.4;font-style:italic}
+.br-grid{display:table;width:100%;border-spacing:5pt 5pt;margin:6pt 0;table-layout:fixed}
+.br-grid .row{display:table-row}
+.br-grid .cell{display:table-cell;padding:8pt 10pt;border:1pt solid #d4cfc4;
+  background:#fafaf7;vertical-align:top;border-radius:3pt;width:33.33%}
+.br-grid .cell h3{margin:0 0 4pt;font-size:9pt;text-transform:uppercase;letter-spacing:.3pt;color:#0a2540;text-align:center;border-bottom:1pt solid #d4cfc4;padding-bottom:3pt}
+.br-grid .cell .body{font-size:8pt;line-height:1.38}
+.br-table{width:100%;border-collapse:collapse;margin:5pt 0;font-size:8pt}
+.br-table th,.br-table td{padding:4pt 6pt;border:1pt solid #aaa;text-align:center}
+.br-table th{background:#0a2540;color:#fff;font-weight:700;font-size:7.5pt}
+.br-table td:first-child{text-align:left;font-weight:600}
+.br-six-front{width:100%;border-collapse:collapse;margin:4pt 0;font-size:7.5pt}
+.br-six-front th,.br-six-front td{padding:3pt 5pt;border:1pt solid #bbb}
+.br-six-front th{background:#0a2540;color:#fff;font-size:7pt}
+.br-six-front td{font-size:7.5pt;line-height:1.2}
+.br-steps-compact ol{margin:2pt 0;padding-left:14pt}
+.br-steps-compact li{margin:2pt 0;font-size:8pt;line-height:1.25}
+.br-steps-compact li strong{color:#0a2540}
+
+/* ----- Page controls ----- */
+.print-controls{position:fixed;top:14px;left:14px;background:#fff;
+  border:1px solid var(--border);padding:8px 14px;border-radius:5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:50;display:none;
+  font-family:'Helvetica Neue',Arial,sans-serif}
+.print-controls.show{display:flex;gap:8px;align-items:center}
+.print-controls button{padding:6px 14px;font-family:inherit;cursor:pointer;
+  border-radius:4px;border:1px solid var(--border);background:#fff;font-size:.9em}
+.print-controls .editable-note{font-size:.82em;color:var(--muted);font-style:italic}
+.preview-banner{max-width:8.5in;margin:0 auto 14px;padding:8px 14px;
+  background:#fff8e1;border:1px solid #d4a93a;border-radius:5px;
+  font-size:.92em;color:#7a5400;font-family:'Helvetica Neue',Arial,sans-serif;
+  text-align:center;font-style:italic}
+.footer-meta{margin-top:30px;padding-top:14px;border-top:1px solid var(--border);
+  font-size:.85em;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+
+<button class="guide-toggle" onclick="toggleGuide()">&#128214; User Guide</button>
+<div class="guide-modal" id="guideModal">
+  <div class="guide-modal-inner">
+    <button class="guide-close" onclick="toggleGuide()">&times; Close</button>
+    <h2>User Guide</h2>
+    <h3>What this tool does</h3>
+    <p>From two inputs &mdash; your contact info and a health/lighting advocacy organization &mdash; it generates a
+    4-page mailing package you can print and mail: a personalized cover letter and a 3-page constitutional brochure
+    on the incandescent light bulb ban, the Patent Clause, and the peer-reviewed health science.</p>
+
+    <h3>How to use it</h3>
+    <p>1. Enter your name, email, mailing address, and phone. Click <em>Save My Info</em>
+    so you never re-type it.<br>
+    2. Click <em>Continue</em>. Pick an organization from the dropdown. The organization&rsquo;s
+    address and leadership data auto-fill from the embedded database.<br>
+    3. (Optional) Edit the leadership name or address if you have more current information.<br>
+    4. Click <em>Preview &amp; Print</em>. The 4 pages display on screen so you can review
+    them. Use <kbd>Ctrl+P</kbd> (Windows) or <kbd>Cmd+P</kbd> (Mac) &mdash; or the toolbar
+    button &mdash; to print or save as PDF.</p>
+
+    <h3>Window-envelope layout</h3>
+    <p>The cover letter is laid out for #10 window envelopes: your return address is
+    right-justified at the top, the date is centered, and the target address
+    occupies the left 60% of its row (with the &ldquo;Re:&rdquo; subject line on the right 40%).
+    When the letter is folded into thirds and inserted into a #10 window envelope,
+    only the target address shows through the window.</p>
+
+    <h3>Editing the cover letter</h3>
+    <p>The cover letter is editable in the print preview &mdash; click anywhere in the
+    letter text to make changes before printing. The brochure pages
+    are not editable.</p>
+  </div>
+</div>
+
+<div class="report-modal" id="reportModal">
+  <div class="report-modal-inner">
+    <h3>&#128203; Wrong Address Report</h3>
+    <p style="margin:0 0 10px;font-size:.92em;color:var(--muted)">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
+    <textarea id="reportText"></textarea>
+    <div class="btn-row">
+      <span class="copy-status" id="copyStatus"></span>
+      <button type="button" class="btn btn-success" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
+      <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell">
+
+  <div class="scr active" id="scr-welcome">
+    <h1>Healthy Lighting Advocate Mailing Package Generator</h1>
+    <p class="tagline">Generate a personalized 4-page Patent Clause mailing
+    package for U.S. health and lighting advocacy organizations. Works in any browser. No download.
+    No account. No cost.</p>
+
+    <div class="card">
+      <h2 style="margin-top:0">Your Information</h2>
+      <p class="hint" style="margin-top:0">This information appears on the cover letter
+      as the sender. It&rsquo;s stored only in your browser.</p>
+
+      <label>Your Name <span class="req">*</span></label>
+      <input type="text" id="userName" placeholder="Jane Q. Citizen">
+
+      <label>Your Email <span class="req">*</span></label>
+      <input type="email" id="userEmail" placeholder="jane@example.com">
+
+      <label>Your Full Mailing Address (one line) <span class="req">*</span></label>
+      <input type="text" id="userAddress" placeholder="123 Main St, Anytown, ST 12345">
+
+      <label>Your Phone Number <span class="req">*</span></label>
+      <input type="tel" id="userPhone" placeholder="(555) 555-5555">
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="saveInfo()">&#128190; Save My Info for Next Time</button>
+        <button class="btn btn-primary" onclick="goToApp()">Continue &rarr;</button>
+      </div>
+      <p class="hint" id="saveStatus"></p>
+    </div>
+
+    <div class="footer-meta">
+      Covers 31 health &amp; lighting advocacy organizations across 18 states + DC.<br>
+      Parallel campaigns target county sheriffs, governors, state attorneys general, tribal nations, farm associations, and owner-operator trucking associations.
+    </div>
+  </div>
+
+  <div class="scr" id="scr-app">
+    <h1>Select an Organization</h1>
+    <p class="tagline">Pick an organization from the dropdown. The address
+    and leadership data auto-populate. Optionally edit the leadership name or address fields.</p>
+
+    <div class="card">
+      <label>Organization <span class="req">*</span></label>
+      <select id="orgSelect" onchange="onOrgChange()">
+        <option value="">— Select organization —</option>
+      </select>
+
+      <div id="addressArea" style="display:none">
+        <div class="org-card" id="orgSummary"></div>
+
+        <label style="margin-top:18px">Leadership Title</label>
+        <input type="text" id="leaderTitle" class="addr-input" placeholder="e.g., President">
+
+        <label>Leadership Name <span style="font-weight:400;color:var(--muted)">(optional &mdash; leave blank for generic salutation)</span></label>
+        <input type="text" id="leaderName" class="addr-input" placeholder="e.g., Dr. Jacqueline M. Bowen, O.D.">
+        <p class="hint"><a href="#" id="verifyNameLink" target="_blank" rel="noopener">&#128269; Verify this name on Google &rarr;</a></p>
+
+        <label style="margin-top:18px">Organization &amp; Street Address (editable)</label>
+        <input type="text" id="addrOrg" class="addr-input addr-bold" placeholder="Organization name">
+        <input type="text" id="addrStreet" class="addr-input" placeholder="Street address or PO Box">
+        <input type="text" id="addrCityStZip" class="addr-input" placeholder="City, State ZIP">
+
+        <div class="address-actions">
+          <a href="#" id="verifyAddrLink" target="_blank" rel="noopener">&#128269; Verify this address on Google</a>
+          <span class="sep">|</span>
+          <button type="button" class="link-btn" onclick="copyAddressReport()">&#9993;&#65039; Report wrong address (copy to clipboard)</button>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="goToWelcome()">&larr; Edit My Info</button>
+          <button class="btn btn-success" onclick="generatePreview()" id="previewBtn">
+            Preview &amp; Print This Organization (4 pages) &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="print-controls" id="printControls">
+  <button onclick="goBackToApp()">&larr; Back to organization selection</button>
+  <button onclick="window.print()">&#128424; Print / Save as PDF</button>
+  <span class="editable-note">Click cover letter text to edit before printing</span>
+</div>
+<div class="print-pages" id="printPages"></div>
+
+<script>
+"use strict";
+
+/* ===== EMBEDDED DATABASE: 31 Healthy Lighting Advocate Organizations ===== */
+/* Each entry: [orgName, street, cityStZip, leaderTitle, leaderName, email, phone, notes, dateMailed] */
+const ORGS = [
+  ["American Optometric Association", "243 N. Lindbergh Blvd.", "St. Louis, MO 63141",
+   "President", "Dr. Jacqueline M. Bowen, O.D.", null, null,
+   "50K members; Advocacy Committee", "3/30/2026"],
+  ["Children\u2019s Health Defense", "852 Franklin Ave., Suite 511", "Franklin Lakes, NJ 07417",
+   "CEO", "Mary Holland", null, null,
+   "MAHA/RFK Jr. alignment", "3/30/2026"],
+  ["American Assn. of Naturopathic Physicians", "300 New Jersey Ave NW, Suite 900", "Washington, DC 20006",
+   "President", "Dr. Kasra Pournadeali, ND", null, null,
+   "2K+ members", "3/30/2026"],
+  ["Academy of Integrative Health & Medicine", "6919 La Jolla Blvd.", "La Jolla, CA 92037",
+   "Founder & President", "Dr. Mimi Guarneri, MD", null, null,
+   "Interprofessional community", "3/30/2026"],
+  ["Weston A. Price Foundation", "PMB 106-380, 4200 Wisconsin Ave. NW", "Washington, DC 20016",
+   "President", "Sally Fallon Morell, MA", null, null,
+   "Traditional technology / regulatory capture", "3/30/2026"],
+  ["American Academy of Anti-Aging Medicine", "1801 N. Military Trail, Suite 110", "Boca Raton, FL 33431",
+   "Co-Founder & President", "Dr. Ronald Klatz, DO", null, null,
+   "26K practitioners", "3/31/2026"],
+  ["National Health Federation", "P.O. Box 288", "Mossyrock, WA 98564",
+   "President", "Scott Tips, JD", null, null,
+   "Attorney; NHF est. 1955", "3/31/2026"],
+  ["Institute for Functional Medicine", "505 S. 336th Street, Suite 600", "Federal Way, WA 98003",
+   "CEO", "Amy Mack, MSES/MPA", null, null,
+   "16K practitioners", "3/31/2026"],
+  ["American Chiropractic Association", "1701 Clarendon Blvd., Suite 200", "Arlington, VA 22209",
+   "President", "Dr. Kris Anderson, DC, MS", null, null,
+   "Largest chiropractic org", "3/31/2026"],
+  ["American Migraine Foundation", "1177 6th Avenue, 5th Floor", "New York, NY 10036",
+   "Leadership", null, null, null,
+   "39M Americans affected", "3/31/2026"],
+  ["DarkSky International", "5049 East Broadway Blvd #105", "Tucson, AZ 85711",
+   "CEO", "Ruskin Hartley", null, "(520) 293-3198",
+   "Est. 1988; 100K+ advocates; LED light pollution; 200+ certified dark sky places", "3/31/2026"],
+  ["American Academy of Sleep Medicine", "2510 N. Frontage Road", "Darien, IL 60561",
+   "Leadership", null, "contact@aasm.org", "(630) 737-9700",
+   "11K members; blue-rich LED disrupts melatonin/circadian rhythm", "3/31/2026"],
+  ["American Society for Laser Medicine & Surgery", "100 N. 72nd Ave.", "Wausau, WI 54401",
+   "Leadership", null, "information@aslms.org", "(877) 258-6028",
+   "Est. 1981; photobiomodulation; 670nm red light practitioners", "3/31/2026"],
+  ["Illuminating Engineering Society", "120 Wall Street", "New York, NY 10005",
+   "Leadership", null, null, null,
+   "Est. 1906; global lighting authority; LED transition concerns; 8K+ members", "3/31/2026"],
+  ["American College of Lifestyle Medicine", "1100 Town and Country Commons Dr #6432", "Chesterfield, MO 63017",
+   "Leadership", null, null, null,
+   "10K+ members; sleep/circadian health is core pillar; fastest-growing med specialty", "3/31/2026"],
+  ["American Holistic Nurses Association", "2900 SW Plass Ct", "Topeka, KS 66611",
+   "Leadership", null, null, "(785) 234-1712",
+   "4,500+ holistic nurses; est. 1981; light therapy practitioners", "3/31/2026"],
+  ["American Holistic Health Association", "PO Box 17400", "Anaheim, CA 92817",
+   "Leadership", null, "mail@ahha.org", "(714) 779-6152",
+   "Holistic health umbrella org; public education on natural health", "3/31/2026"],
+  ["National Assn. for Holistic Aromatherapy", "6000 S. 5th Ave.", "Pocatello, ID 83204",
+   "Leadership", null, "info@naha.org", "(877) 232-5255",
+   "501(c)(3); holistic health practitioners network; light/environment", "3/31/2026"],
+  ["American Association for Health Freedom", "4620 Lee Highway, Suite 210", "Arlington, VA 22207",
+   "Leadership", null, null, "(800) 230-2762",
+   "Health freedom advocacy; fights regulatory overreach in health products", "3/31/2026"],
+  ["Consumers for Dental Choice", "316 F St, Suite 210", "Washington, DC 20004",
+   "Leadership", null, null, null,
+   "Mercury-free advocacy; regulatory capture parallel to lighting ban; Charlie Brown, Pres.", "3/31/2026"],
+  ["American Academy of Environmental Medicine", "6505 E. Central Ave #296", "Wichita, KS 67206",
+   "Leadership", null, null, "(316) 684-5500",
+   "Est. 1965; environmental health; light/EMF sensitivity; already oppose fluoride/GMOs", "3/31/2026"],
+  ["College of Optometrists in Vision Development", "215 W. Garfield Rd, Ste 260", "Aurora, OH 44202",
+   "Leadership", null, "info@covd.org", "(330) 995-0718",
+   "Est. 1971; vision therapy; light-dependent visual function; Jeffery research directly relevant", "3/31/2026"],
+  ["Epilepsy Foundation", "3540 Crain Hwy, Ste 675", "Bowie, MD 20716",
+   "Leadership", null, null, "(301) 459-3700",
+   "2M+ Americans with epilepsy; LED flicker triggers photosensitive seizures; 48 affiliates", "3/31/2026"],
+  ["Autism Research Institute", "4182 Adams Avenue", "San Diego, CA 92116",
+   "Leadership", null, "info@autism.org", "(833) 281-7165",
+   "Light sensitivity in autism; sensory environment research; LED flicker/spectral quality", "3/31/2026"],
+  ["Alliance for Natural Health USA", "1250 Connecticut Ave NW, Suite 200", "Washington, DC 20036",
+   "Leadership", null, null, null,
+   "Health freedom policy org; fights FDA/FTC overreach; regulatory capture advocacy", "3/31/2026"],
+  ["Optometric Extension Program Foundation", "2300 York Road, Suite 113", "Timonium, MD 21093",
+   "Leadership", null, null, "(410) 561-3791",
+   "Est. 1928; vision research foundation; light/visual process; oldest optometric CE org", "3/31/2026"],
+  ["American Society of Acupuncturists", "712 H Street NE, Suite 1189", "Washington, DC 20002",
+   "Leadership", null, null, null,
+   "Acupuncture/TCM; light as energy medicine; circadian/meridian health; regulatory advocacy", "3/31/2026"],
+  ["National Fibromyalgia Association", "3857 Birch Street, Suite 312", "Newport Beach, CA 92660",
+   "Leadership", null, null, null,
+   "LED light sensitivity documented trigger; photophobia in fibromyalgia patients", "3/31/2026"],
+  ["Holistic Dental Association", "P.O. Box 151444", "San Diego, CA 92175",
+   "Leadership", null, null, null,
+   "Est. 1978; mercury-free advocacy; regulatory capture parallel identical to lighting ban", "3/31/2026"],
+  ["BrightFocus Foundation", "22512 Gateway Center Drive", "Clarksburg, MD 20871",
+   "Leadership", null, "info@brightfocus.org", "(800) 437-2423",
+   "$290M+ research funded; macular degeneration; Jeffery 670nm research directly relevant", "3/31/2026"],
+  ["National Headache Foundation", "162 W. Hubbard Street, Suite 500", "Chicago, IL 60654",
+   "Leadership", null, "info@headaches.org", "(312) 274-2650",
+   "Est. 1970; LED flicker/blue-light documented migraine triggers; complements AMF entry", "3/31/2026"]
+];
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(s){
+  if(!s) return '';
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function todayLong(){
+  const d = new Date();
+  return d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+}
+
+function populateOrgs(){
+  const sel = $('orgSelect');
+  for(let i = 0; i < ORGS.length; i++){
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = ORGS[i][0];
+    sel.appendChild(opt);
+  }
+}
+
+function onOrgChange(){
+  const idx = $('orgSelect').value;
+  if(idx === ''){
+    $('addressArea').style.display = 'none';
+    return;
+  }
+  const rec = ORGS[parseInt(idx)];
+  const [orgName, street, cityStZip, title, name, email, phone, notes] = rec;
+
+  let summary = '<div class="org-name">' + escapeHTML(orgName) + '</div>';
+  if(notes) summary += '<div class="org-detail">' + escapeHTML(notes) + '</div>';
+  $('orgSummary').innerHTML = summary;
+
+  $('leaderTitle').value = title || '';
+  $('leaderName').value = name || '';
+  $('addrOrg').value = orgName;
+  $('addrStreet').value = street || '';
+  $('addrCityStZip').value = cityStZip || '';
+
+  const verifyQ = encodeURIComponent(orgName + ' mailing address');
+  $('verifyAddrLink').href = 'https://www.google.com/search?q=' + verifyQ;
+
+  const nameQ = encodeURIComponent((title && title !== 'Leadership' ? title : 'leader') + ' ' + orgName + (name ? ' ' + name : ''));
+  $('verifyNameLink').href = 'https://www.google.com/search?q=' + nameQ;
+
+  window._origAddr = {orgName, street, cityStZip, title, name};
+  $('addressArea').style.display = 'block';
+}
+
+function goToApp(){
+  const fields = ['userName','userEmail','userAddress','userPhone'];
+  for(const f of fields){
+    if(!$(f).value.trim()){
+      alert('Please fill in all four contact fields before continuing.');
+      $(f).focus(); return;
+    }
+  }
+  $('scr-welcome').classList.remove('active');
+  $('scr-app').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goToWelcome(){
+  $('scr-app').classList.remove('active');
+  $('scr-welcome').classList.add('active');
+  window.scrollTo(0,0);
+}
+function goBackToApp(){
+  $('printControls').classList.remove('show');
+  $('printPages').classList.remove('preview');
+  $('printPages').innerHTML = '';
+  document.querySelector('.app-shell').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function saveInfo(){
+  try{
+    const info = {
+      name: $('userName').value.trim(),
+      email: $('userEmail').value.trim(),
+      address: $('userAddress').value.trim(),
+      phone: $('userPhone').value.trim(),
+    };
+    localStorage.setItem('healthyLightingGenUserInfo', JSON.stringify(info));
+    $('saveStatus').textContent = '\u2713 Saved. (Note: some browsers block local storage and will not save.)';
+  } catch(e){
+    $('saveStatus').textContent = '\u26A0 Could not save \u2014 your browser may be blocking local storage.';
+  }
+}
+function loadInfo(){
+  try{
+    const raw = localStorage.getItem('healthyLightingGenUserInfo');
+    if(!raw) return;
+    const info = JSON.parse(raw);
+    if(info.name) $('userName').value = info.name;
+    if(info.email) $('userEmail').value = info.email;
+    if(info.address) $('userAddress').value = info.address;
+    if(info.phone) $('userPhone').value = info.phone;
+  } catch(e){}
+}
+
+function toggleGuide(){ $('guideModal').classList.toggle('open'); }
+
+function copyAddressReport(){
+  const a = window._origAddr;
+  if(!a){alert('Please select an organization first.');return;}
+  const text =
+    'WRONG ADDRESS REPORT \u2014 HEALTHY LIGHTING ADVOCATE\n' +
+    '======================================\n' +
+    'Organization: ' + a.orgName + '\n' +
+    'Leadership: ' + (a.title || '') + (a.name ? ' ' + a.name : '') + '\n\n' +
+    'Currently shown in generator:\n' +
+    '  ' + (a.orgName || '') + '\n' +
+    '  ' + (a.street || '(none)') + '\n' +
+    '  ' + (a.cityStZip || '') + '\n\n' +
+    'Correct address:\n' +
+    '  (paste correct info here)\n\n' +
+    'Correct leadership name/title (if changed):\n' +
+    '  (paste here, or write "same")\n\n' +
+    'Source / proof (URL or notes):\n' +
+    '  (paste here)\n\n' +
+    'Email this to: roleigh@pobox.com';
+  $('reportText').value = text;
+  $('copyStatus').textContent = '';
+  $('reportModal').classList.add('open');
+  $('reportText').focus();
+  $('reportText').select();
+}
+function doCopyReport(){
+  const ta = $('reportText');
+  ta.select();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(function(){
+      $('copyStatus').textContent = '\u2713 Copied!';
+    },function(){
+      try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+      catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
+    });
+  } else {
+    try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+    catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
+  }
+}
+function closeReportModal(){ $('reportModal').classList.remove('open'); }
+
+function lastNameOf(full){
+  if(!full) return '';
+  const parts = full.trim().split(/\s+/);
+  return parts[parts.length - 1];
+}
+
+/* Attempt to extract a salutation prefix from the leader name */
+function salutationPrefix(name){
+  if(!name) return '';
+  const n = name.trim();
+  if(n.startsWith('Dr.')) return 'Dr.';
+  if(n.startsWith('Dr ')) return 'Dr.';
+  return '';
+}
+
+function generatePreview(){
+  const idx = parseInt($('orgSelect').value);
+  if(isNaN(idx)){ alert('Please select an organization.'); return; }
+  const rec = ORGS[idx];
+
+  const orgName = $('addrOrg').value.trim();
+  const addrLine1 = $('addrStreet').value.trim();
+  const addrLine2 = $('addrCityStZip').value.trim();
+  const leaderTitle = $('leaderTitle').value.trim();
+  const leaderName = $('leaderName').value.trim();
+
+  if(!addrLine1 || !addrLine2){
+    alert('Please fill in the street address and city/state/ZIP fields before previewing.');
+    return;
+  }
+
+  const sender = {
+    name: $('userName').value.trim(),
+    email: $('userEmail').value.trim(),
+    address: $('userAddress').value.trim(),
+    phone: $('userPhone').value.trim(),
+  };
+
+  // ===== PAGE 1: COVER LETTER =====
+  let recipientLine1, salutation;
+  if(leaderName){
+    recipientLine1 = escapeHTML(leaderName) + ', ' + escapeHTML(leaderTitle);
+    const prefix = salutationPrefix(leaderName);
+    if(prefix){
+      salutation = 'Dear ' + prefix + ' ' + escapeHTML(lastNameOf(leaderName)) + ',';
+    } else if(leaderTitle === 'Leadership'){
+      salutation = 'Dear Sir or Madam,';
+    } else {
+      salutation = 'Dear ' + escapeHTML(leaderTitle) + ' ' + escapeHTML(lastNameOf(leaderName)) + ',';
+    }
+  } else {
+    recipientLine1 = escapeHTML(orgName);
+    salutation = 'Dear ' + (leaderTitle && leaderTitle !== 'Leadership' ? escapeHTML(leaderTitle) : 'Sir or Madam') + ',';
+  }
+  const recipientLines =
+    '<div class="line name">' + recipientLine1 + '</div>' +
+    (leaderName ? '<div class="line">' + escapeHTML(orgName) + '</div>' : '') +
+    '<div class="line">' + escapeHTML(addrLine1) + '</div>' +
+    '<div class="line">' + escapeHTML(addrLine2) + '</div>';
+
+  const reSubject = 'Re: The Incandescent Light Bulb Ban, the Patent Clause, and the Health Science \u2014 A Constitutional Case for ' + escapeHTML(orgName);
+
+  const coverLetter =
+    '<div class="page" contenteditable="true" spellcheck="false">' +
+    '<div class="cl-sender">' +
+      '<div class="name">' + escapeHTML(sender.name) + '</div>' +
+      '<div class="line">' + escapeHTML(sender.address) + '</div>' +
+      '<div class="line">' + escapeHTML(sender.phone) + ' &nbsp;|&nbsp; ' + escapeHTML(sender.email) + '</div>' +
+    '</div>' +
+    '<div class="cl-date">' + todayLong() + '</div>' +
+    '<div class="cl-row">' +
+      '<div class="cl-recipient-cell">' +
+        '<div class="cl-recipient">' + recipientLines + '</div>' +
+      '</div>' +
+      '<div class="cl-re-cell">' +
+        '<div class="cl-re">' + reSubject + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="cl-body">' +
+      '<p>' + salutation + '</p>' +
+      '<p>The federal government banned the incandescent light bulb\u2014a patent-expired, full-spectrum light source that delivered the deep-red ' +
+      'and near-infrared wavelengths the human body evolved to use. Dr. Glen Jeffery\u2019s peer-reviewed research at UCL, published in <em>Nature ' +
+      'Scientific Reports</em> (2021, 2025), demonstrates that 670 nm deep-red light improves mitochondrial function, boosts ATP production, and measurably ' +
+      'restores color contrast sensitivity in aging eyes. Incandescent bulbs deliver these wavelengths naturally. LEDs\u2014engineered for efficiency, not ' +
+      'biology\u2014do not. The Department of Energy\u2019s efficiency standards effectively outlawed a public-domain technology whose patents expired over a ' +
+      'century ago, replacing it with patented alternatives whose health consequences are documented in peer-reviewed literature.</p>' +
+      '<p>This ban is unconstitutionally permanent in a way no other regulation is. The Energy Policy and Conservation Act\u2019s anti-backsliding provision ' +
+      'prohibits any decrease in efficiency standards once adopted. In January 2025, President Trump signed an executive order referencing consumer choice ' +
+      'in light bulbs; NEMA and industry experts confirmed within days that it could not overturn the statutory backstop. A regulation that even the White ' +
+      'House cannot reverse is not a \u201cstandard\u201d\u2014it is a permanent grant of market exclusivity to patent holders. Article I, \u00a78, Cl. 8 of the Constitution ' +
+      'grants patents for \u201climited Times.\u201d The Supreme Court has repeatedly held that expired patents enter \u201cfree public use\u201d (<em>Bonito Boats</em>, 1989) and ' +
+      'that extending patent rights post-expiration is \u201cper se unlawful\u201d (<em>Brulotte</em>, 1964). A Patent Clause court ruling\u2014unlike an executive order or a ' +
+      'statute\u2014cannot be reversed by any future administration.</p>' +
+      '<div class="cl-wins">' +
+        '<div class="heading">' + escapeHTML(orgName) + ' Has Clear Standing:</div>' +
+        '<strong>Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977):</strong> ' +
+        '(a) your members would have standing individually\u2014they treat or experience the health consequences of the ban; ' +
+        '(b) the lawsuit is germane to ' + escapeHTML(orgName) + '\u2019s mission; and ' +
+        '(c) no individual member participation is required. I am asking ' + escapeHTML(orgName) + ' to evaluate whether the Patent ' +
+        'Clause\u2019s \u201climited Times\u201d provision provides a permanent remedy\u2014one that restores public access to the full-spectrum light ' +
+        'source the peer-reviewed science says human health requires.' +
+      '</div>' +
+      '<p>The enclosed three-page brochure makes the full constitutional case. Public interest law firms provide completely free representation on ' +
+      'constitutional property rights cases. Pacific Legal Foundation, for example, won <em>Cedar Point v. Hassid</em> (2021) and <em>Sheetz v. County of ' +
+      'El Dorado</em> (2024)\u2014for free. County sheriffs, state attorneys general, farm associations, and tribal nations are being solicited to pursue ' +
+      'parallel filings in other federal circuits. I would welcome the opportunity to present this analysis to your leadership team.</p>' +
+    '</div>' +
+    '<div class="cl-sign">' +
+      '<p>Respectfully,</p>' +
+      '<p style="margin-top:14pt"><strong>' + escapeHTML(sender.name) + '</strong></p>' +
+    '</div>' +
+    '<div class="cl-encl">Enclosure: <em>The Light That Worked \u2014 And the Law That Killed It</em> (3-page brochure)</div>' +
+    '</div>';
+
+  // ===== PAGE 2: BROCHURE PAGE 1 =====
+  const brochure1 =
+    '<div class="page">' +
+    '<div class="br-header">' +
+      '<h1>The Light That Worked \u2014 And the Law That Killed It</h1>' +
+      '<div class="sub">The incandescent bulb was freely manufactured for 70+ years after patent expiration. Then the government banned it. The Constitution says that is not allowed.</div>' +
+    '</div>' +
+
+    '<div class="br-intro">' +
+      '<p><span class="label">The core constitutional violation:</span> The incandescent light bulb\u2014a public-domain technology whose patents expired in the early ' +
+      '1900s\u2014was freely manufactured for over 70 years after patent expiration. Federal efficiency mandates then economically outlawed it, replacing it with ' +
+      'patented LED and CFL alternatives. This retroactively removed a product from the public domain that the Patent Clause\u2019s \u201climited Times\u201d provision had ' +
+      'already released\u2014the strongest possible violation of the constitutional promise. The Supreme Court has held that expired patents are \u201cfree for all to use\u201d ' +
+      'and that no government may \u201cwithdraw from the public domain\u201d what patent law has released (<em>Bonito Boats</em>, 1989).</p>' +
+      '<p><span class="label">The health dimension:</span> Dr. Glen Jeffery\u2019s peer-reviewed research at UCL, published in <em>Nature Scientific Reports</em> (2021, 2025), ' +
+      'demonstrates that 670 nm deep-red light\u2014naturally present in incandescent bulbs and sunlight\u2014improves mitochondrial function, boosts ATP production, ' +
+      'and measurably restores color contrast sensitivity in aging eyes. Incandescent bulbs deliver these wavelengths naturally. LEDs do not.</p>' +
+    '</div>' +
+
+    '<div class="br-cols-3">' +
+      '<div class="col">' +
+        '<h3>The Science</h3>' +
+        '<div class="body">' +
+        '<p>Dr. Andrew Huberman highlighted the mechanism: long-wavelength red and infrared light from incandescent bulbs penetrates tissue, boosts mitochondrial function, raises ATP production, and delivers systemic health benefits\u2014including improved color contrast sensitivity in aging eyes for days after just three minutes of exposure.</p>' +
+        '<p>Dr. Glen Jeffery\u2019s peer-reviewed work at UCL confirms: 670 nm deep-red light improves vision, metabolism, and cellular energy. LEDs emit blue-heavy spectra linked to mitochondrial damage, sleep disruption, and accelerated vision loss.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>How the Ban Happened</h3>' +
+        '<div class="body">' +
+        '<p><strong>2007:</strong> Energy Independence and Security Act sets minimum lumen-per-watt standards incandescents cannot meet.</p>' +
+        '<p><strong>2022:</strong> DOE revives 45 lm/W threshold.</p>' +
+        '<p><strong>2024:</strong> DOE final rule pushes standard above 120 lm/W (effective 2028). No general-service incandescent can comply.</p>' +
+        '<p><strong>Jan 2025:</strong> President Trump signs \u201cUnleashing American Energy\u201d executive order. Days later: NEMA confirms the EO cannot overturn the statutory backstop.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<h3>Who Killed It</h3>' +
+        '<div class="body">' +
+        '<p>Not environmentalists alone. NEMA\u2014representing GE, Philips, and Osram\u2014lobbied aggressively for the national standard. As the <em>Washington Examiner</em> documented: industry, not green activists, killed the incandescent.</p>' +
+        '<p>Philips poured billions into CFLs (1980s) and LEDs (2000s)\u2014technologies protected by active patents. Incandescents offered razor-thin margins. Patented alternatives offered windfall profits.</p>' +
+        '<p>The anti-backsliding provision (42 U.S.C. \u00a7 6295) makes this the <strong>only Patent Clause violation in America that is legislatively irreversible</strong>.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="br-pullquote">A sitting president already tried to reverse this ban and failed. The anti-backsliding provision makes this the only ' +
+    'Patent Clause violation in America that is legislatively irreversible. <strong>Only a court ruling can fix it.</strong></div>' +
+
+    '<div class="br-cols-2">' +
+      '<div class="col" style="padding-right:8pt">' +
+        '<h3 style="margin:5pt 0 3pt;font-size:10pt;color:#0a2540">The Patent Clause: The Constitutional Remedy</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0">Article I, \u00a78, Cl. 8 grants patents for \u201climited Times.\u201d After 20 years, the design enters the public domain\u2014\u201cfree for all to use\u201d (<em>Bonito Boats</em>, 1989).</p>' +
+        '<p style="margin:2pt 0">In <em>Kimble v. Marvel</em> (2015), expired patents give the public \u201cunrestricted rights\u201d to manufacture.</p>' +
+        '<p style="margin:2pt 0">In <em>Brulotte v. Thys Co.</em> (1964), extending patent rights post-expiration is \u201cper se unlawful.\u201d</p>' +
+        '<p style="margin:2pt 0;font-weight:700;color:#8b2020">The incandescent case is the strongest in the entire Patent Clause portfolio: the product was freely manufactured for over 70 years after patent expiration\u2014proving the public domain worked\u2014and then the government retroactively took that right away.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col" style="padding-left:8pt">' +
+        '<h3 style="margin:5pt 0 3pt;font-size:10pt;color:#0a2540">The Legal Landscape: Most Favorable Court in Decades</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0"><strong>Chevron is dead.</strong> <em>Loper Bright v. Raimondo</em> (2024) ended agency deference.</p>' +
+        '<p style="margin:2pt 0"><strong>Takings expanded.</strong> <em>Sheetz v. El Dorado</em> (2024).</p>' +
+        '<p style="margin:2pt 0"><strong>Major Questions.</strong> <em>West Virginia v. EPA</em> (2022): Congress never authorized agencies to make decisions of vast economic significance without clear authorization.</p>' +
+        '<p style="margin:2pt 0"><strong>Patent rights affirmed.</strong> <em>Bonito Boats</em> (1989), <em>Kimble</em> (2015), <em>Brulotte</em> (1964): expired patents enter free public use. Extension is per se unlawful.</p>' +
+        '<p style="margin:2pt 0"><strong>Associational standing.</strong> <em>Hunt v. Wash. State Apple</em> (1977): trade associations can sue on behalf of members.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '</div>';
+
+  // ===== PAGE 3: BROCHURE PAGE 2 =====
+  const brochure2 =
+    '<div class="page">' +
+    '<div class="br-header">' +
+      '<h1>Why a Court Ruling Succeeds Where Executive Action and Legislation Cannot</h1>' +
+      '<div class="sub">The Six-Front Campaign \u2022 The Broader Economic Case \u2022 Why Incandescent Is the Strongest Case</div>' +
+    '</div>' +
+
+    '<table class="br-table">' +
+      '<thead><tr><th style="text-align:left;width:28%">Approach</th><th style="width:24%">Executive Order</th><th style="width:24%">Legislation</th><th style="width:24%">Patent Clause Ruling</th></tr></thead>' +
+      '<tbody>' +
+        '<tr><td>Status</td><td>Already tried (Jan 2025). Failed.</td><td>Requires overcoming NEMA lobby + environmental coalition</td><td>Binds every future administration, Congress, and agency</td></tr>' +
+        '<tr><td>Durability</td><td>Cannot override statutory efficiency standards</td><td>Can be repealed by next Congress</td><td>Supreme law of the land \u2014 no repeal possible</td></tr>' +
+        '<tr><td>Scope</td><td>No constitutional authority</td><td>Statutory authority only</td><td>Covers every patent-expired product across all agencies</td></tr>' +
+        '<tr><td>Precedent</td><td>Failed in 2025</td><td>No bill introduced</td><td>Question of first impression \u2014 never raised</td></tr>' +
+      '</tbody>' +
+    '</table>' +
+
+    '<h3 style="margin:6pt 0 3pt;font-size:10pt;color:#0a2540;text-align:center">THE SIX-FRONT CAMPAIGN ALREADY UNDERWAY</h3>' +
+    '<table class="br-six-front">' +
+      '<thead><tr><th>Plaintiff Class</th><th>Standing Theory</th><th>Product / Regulation</th></tr></thead>' +
+      '<tbody>' +
+        '<tr><td><strong>County Sheriffs</strong></td><td><em>Printz v. United States</em> (1997)</td><td>Vehicles, equipment, appliances \u2014 all patent-expired products</td></tr>' +
+        '<tr><td><strong>Governors & AGs</strong></td><td>Sovereign standing</td><td>All patent-expired products ($2,420/household/year)</td></tr>' +
+        '<tr><td><strong>Tribal Nations</strong></td><td>345 independent sovereigns</td><td>Vehicles, farm equipment, appliances</td></tr>' +
+        '<tr><td><strong>Farm Associations</strong></td><td><em>Hunt v. Wash. State Apple</em> (1977)</td><td>Farm equipment ($90\u2013103B/yr cost)</td></tr>' +
+        '<tr><td><strong>Semi-Truck Owner-Operators</strong></td><td><em>Hunt</em> via OOIDA (150K members)</td><td>Diesel particulate filter ($5,000/truck)</td></tr>' +
+        '<tr><td style="background:#fff8e1"><strong>Optometry / Eye Health / Healthy Lighting</strong></td><td style="background:#fff8e1"><em>Hunt</em> via AOA (50K+) &amp; allied orgs</td><td style="background:#fff8e1">Incandescent bulb ban \u2014 health + Patent Clause</td></tr>' +
+      '</tbody>' +
+    '</table>' +
+
+    '<div class="br-cols-2" style="margin-top:5pt">' +
+      '<div class="col" style="padding-right:8pt">' +
+        '<h3 style="margin:3pt 0 3pt;font-size:10pt;color:#0a2540">The Broader Economic Case</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0">The incandescent ban is one front in a <strong>$22 trillion regulatory taking</strong>. Across all patent-expired products\u2014vehicles, farm equipment, HVAC, appliances, and now lighting\u2014post-1970 regulations block the public\u2019s right to manufacture designs whose patents expired 20+ years ago.</p>' +
+        '<p style="margin:2pt 0">The total cost is approximately <strong>$2,420 per American household per year</strong>.</p>' +
+        '<p style="margin:2pt 0">The incandescent case adds a dimension no other front carries: <strong>documented, peer-reviewed health harm</strong> to the American public from being forced onto patented alternatives that emit biologically inferior light.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col" style="padding-left:8pt">' +
+        '<h3 style="margin:3pt 0 3pt;font-size:10pt;color:#0a2540">Why Incandescent Is the Strongest Case</h3>' +
+        '<div style="font-size:8.5pt;line-height:1.3">' +
+        '<p style="margin:2pt 0">Every other Patent Clause front argues that a patent-expired design was <em>never allowed</em> to be remanufactured under post-1970 regulations.</p>' +
+        '<p style="margin:2pt 0">The incandescent argues something more powerful: a patent-expired product was <strong>freely manufactured for over 70 years</strong> after patent expiration\u2014proving the public domain worked\u2014and then the government <strong>retroactively took that right away</strong>.</p>' +
+        '<p style="margin:2pt 0;font-weight:700;color:#8b2020">No other product demonstrates a more clear-cut taking of a vested public-domain right.</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="br-pullquote" style="margin-top:5pt">' +
+    '<strong>Five AI legal research platforms</strong>\u2014including OpenCase (trained on Cornell Law Institute\u2019s case law database), Claude Opus 4.6 (Anthropic), GPT-5.2 Thinking (OpenAI), ' +
+    'SuperGrok (xAI), and Google Gemini 2.5 Pro\u2014have independently confirmed the argument has constitutional merit across 38 Supreme Court citations.</div>' +
+
+    '<div class="br-callout-sm" style="margin-top:5pt;background:#1a5d3a">' +
+      '<h3>What We Are Asking ' + escapeHTML(orgName) + '</h3>' +
+      '<div style="font-size:8.5pt;line-height:1.35">' +
+      'We are asking ' + escapeHTML(orgName) + ' to evaluate the Patent Clause argument and consider joining the constitutional challenge as an associational plaintiff. ' +
+      'Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), ' + escapeHTML(orgName) + ' has standing when: (1) members would have standing individually\u2014they ' +
+      'treat or experience the health consequences of the ban; (2) the interest is germane to ' + escapeHTML(orgName) + '\u2019s mission; ' +
+      'and (3) the relief requires no individual member participation. Public interest law firms provide completely free representation.' +
+      '</div>' +
+    '</div>' +
+    '</div>';
+
+  // ===== PAGE 4: BROCHURE PAGE 3 =====
+  const brochure3 =
+    '<div class="page">' +
+    '<div class="br-header">' +
+      '<h1>The Remedy, the Science, and the Path Forward</h1>' +
+      '<div class="sub">Grandfather Exemptions \u2022 Key Sources \u2022 The Bicycle Proof \u2022 About the Author</div>' +
+    '</div>' +
+
+    '<div class="br-cols-2">' +
+      '<div class="col" style="padding-right:8pt">' +
+        '<div class="br-callout-sm" style="background:#0a2540">' +
+          '<h3>The Remedy: Grandfather Exemptions, Not Deregulation</h3>' +
+          '<div style="font-size:8.5pt;line-height:1.35">' +
+          'A Patent Clause ruling restores the right to manufacture incandescent bulbs under pre-2007 standards\u2014the standards in effect when the original patents were filed. ' +
+          'Consumers receive clear labeling: \u201cThis bulb meets pre-2007 efficiency standards.\u201d Modern LED and CFL products continue under current regulations. ' +
+          'The ruling does not deregulate lighting\u2014it honors the constitutional promise that patent-expired designs belong to the public.' +
+          '</div>' +
+        '</div>' +
+        '<div class="br-callout-sm" style="background:#1a5d3a;margin-top:5pt">' +
+          '<h3>The Bicycle Proof</h3>' +
+          '<div style="font-size:8.5pt;line-height:1.35">' +
+          'Patent expiration without regulatory blockage produced a <strong>95.5% improvement in affordability</strong> since 1910. Child cyclist deaths fell 88% over 48 years\u2014under <strong>zero federal regulation</strong>. ' +
+          'When Washington stays out of expired-patent markets, prices collapse and safety improves through competition.' +
+          '</div>' +
+        '</div>' +
+        '<div style="margin-top:5pt;padding:5pt 8pt;background:#fff8e1;border:1pt solid #d4a93a;border-radius:3pt;font-size:8pt;line-height:1.3">' +
+          '<div style="font-weight:700;color:#0a2540;font-size:9pt;margin-bottom:3pt">Key Sources: The Health Science</div>' +
+          '<p style="margin:2pt 0"><strong>Jeffery (2021):</strong> \u201cOptically improved mitochondrial function redeems aged human visual decline.\u201d <em>Nature Scientific Reports.</em><br>' +
+          '<span style="font-size:7pt;color:#444">https://www.nature.com/articles/s41598-021-02311-1</span></p>' +
+          '<p style="margin:2pt 0"><strong>Jeffery (2025):</strong> \u201cLong wavelength light improves visual function.\u201d <em>Nature Scientific Reports.</em><br>' +
+          '<span style="font-size:7pt;color:#444">https://www.nature.com/articles/s41598-025-09785-3</span></p>' +
+          '<p style="margin:2pt 0"><strong>Huberman Lab podcast:</strong> Dr. Glen Jeffery on red light, metabolism, and harmful effects of LED lighting.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="col" style="padding-left:8pt">' +
+        '<div style="padding:5pt 8pt;border:1pt solid #d4cfc4;border-radius:3pt;font-size:8pt;line-height:1.3;margin-bottom:5pt">' +
+          '<div style="font-weight:700;color:#0a2540;font-size:9pt;margin-bottom:3pt">Additional Key Articles and Resources</div>' +
+          '<p style="margin:2pt 0">Available at <strong>x.com/RoleighMartin/articles</strong></p>' +
+          '<table style="width:100%;border-collapse:collapse;font-size:7.5pt;margin-top:3pt">' +
+            '<tr><td style="padding:2pt 4pt;border-bottom:1pt solid #eee;font-weight:600;width:35%">The Incandescent Ban</td>' +
+            '<td style="padding:2pt 4pt;border-bottom:1pt solid #eee">\u201cHealthy Sunlight to Blue-Light Tyranny: 1970 Reforms Killed Grandfather\u2019s Bulbs & Patent Clause\u201d</td></tr>' +
+            '<tr><td style="padding:2pt 4pt;border-bottom:1pt solid #eee;font-weight:600">Full Patent Clause Analysis</td>' +
+            '<td style="padding:2pt 4pt;border-bottom:1pt solid #eee">\u201cThe Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?\u201d</td></tr>' +
+            '<tr><td style="padding:2pt 4pt;border-bottom:1pt solid #eee;font-weight:600">The International Pattern</td>' +
+            '<td style="padding:2pt 4pt;border-bottom:1pt solid #eee">\u201cWhy Wealthy Nations Break the Patent Promise That Poor Nations Honor\u201d</td></tr>' +
+            '<tr><td style="padding:2pt 4pt;border-bottom:1pt solid #eee;font-weight:600">How It Should Work</td>' +
+            '<td style="padding:2pt 4pt;border-bottom:1pt solid #eee">\u201cHow Expired Bicycle Patents Made Two Wheels Affordable & Why Cars Became Less Affordable\u201d</td></tr>' +
+            '<tr><td style="padding:2pt 4pt;font-weight:600">The Economic Cost</td>' +
+            '<td style="padding:2pt 4pt">\u201cThe $22 Trillion Constitutional Theft\u2014How Energy & Safety Laws Created Perpetual Patents\u201d</td></tr>' +
+          '</table>' +
+        '</div>' +
+        '<div class="br-author-sm">' +
+          '<div class="label">About the Author</div>' +
+          'Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose articles on patent expiration, regulatory takings, ' +
+          'and legislative voting history have reached over 7.3 million readers. He writes on both Substack and X with principle focus on restoring the forgotten half of the Patent Clause (when the \u201climited Times\u201d expires).<br><br>' +
+          'Contact: roleigh@pobox.com &nbsp;|&nbsp; https://x.com/RoleighMartin/articles &nbsp;|&nbsp; 952-905-0822 &nbsp;|&nbsp; SSRN Abstract ID: 6166206<br>' +
+          'Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase, and SuperGrok (xAI).' +
+        '</div>' +
+        '<div style="margin-top:5pt;padding:5pt 8pt;background:#0a2540;color:#fff;border-radius:3pt;font-size:8pt;line-height:1.35;text-align:center">' +
+          '<strong style="font-size:9pt">This brochure was prepared for ' + escapeHTML(orgName) + '</strong><br>' +
+          'The constitutional argument has never been raised in court. It is a question of first impression. ' +
+          'The current Supreme Court is the most favorable for this challenge in decades.' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '</div>';
+
+  const banner = '<div class="preview-banner">&#128196; Preview of 4 pages below. Scroll to review. ' +
+    'Click cover-letter text to edit. When ready, use the \u201cPrint / Save as PDF\u201d button at top-left.</div>';
+
+  $('printPages').innerHTML = banner + coverLetter + brochure1 + brochure2 + brochure3;
+  $('printPages').classList.add('preview');
+  $('printControls').classList.add('show');
+  document.querySelector('.app-shell').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  populateOrgs();
+  loadInfo();
+});
+</script>
+</body>
+</html>
