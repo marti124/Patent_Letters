@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tribal Nation Letter and Brochure Generator</title>
+<title>Tribal Nation Letter and Brochure Generator (v2)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
@@ -96,7 +96,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 .cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
 @media print{
   body{background:white}
-  .toolbar,#step1,#step2{display:none!important}
+  .toolbar,#step1,#step2,#reportModal{display:none!important}
   #preview{display:block!important}
   .page{border:none;box-shadow:none;margin:0;page-break-after:always}
   .bp{height:11in;max-height:11in;overflow:hidden}
@@ -110,8 +110,8 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 1 -->
 <div id="step1" class="fw">
   <h1 class="ft">Tribal Nation Letter and Brochure Generator</h1>
-  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 1.0</p>
-  <p class="fs">Generate personalized cover letters, tribal procurement savings reports, and constitutional brochures for federally recognized tribal nations in the contiguous 48 states. Works for one tribe or hundreds.</p>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2.0</p>
+  <p class="fs">Generate personalized cover letters, tribal procurement savings reports, and constitutional brochures for federally recognized tribal nations in the contiguous 48 states. Print one tribe at a time. Works in any browser. No downloads.</p>
   <p class="note ctr" style="margin-bottom:12px">Covers 346 federally recognized tribes across 33 states. Alaska Native entities (227) are excluded due to different governance structures.</p>
   <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
 
@@ -124,7 +124,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
     <p>The U.S. Constitution&rsquo;s Patent Clause (Article I, Section 8, Clause 8) grants patent protection for &ldquo;limited Times&rdquo; &mdash; meaning that after a patent expires, the design enters the public domain for the public to use freely. But energy and safety regulations enacted after 1970 make it categorically impossible to remanufacture any vehicle or machine whose patents have expired. The designs never enter a functional public domain. This is costing American households an estimated $2,420 per year.</p>
 
     <h2>What This Tool Generates</h2>
-    <p>From a state and tribe selection, the tool generates a 4-page mailing package:</p>
+    <p>From a state and tribe selection, the tool generates a 4-page mailing package for a single tribe at a time:</p>
     <ol>
       <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info, the tribal leader&rsquo;s name and office address, and tribe-specific Floor and Ceiling savings figures.</li>
       <li><strong>Tribal Procurement Savings Report</strong> (1 page) &mdash; a detailed 6-category cost savings breakdown with Floor (15%) and Ceiling (45%) estimates.</li>
@@ -137,21 +137,16 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
       <li><strong>Enter your personal information</strong> and click &ldquo;Save My Info for Next Time.&rdquo;</li>
       <li><strong>Click the generate button</strong> to proceed to tribe selection.</li>
       <li><strong>Select a state and tribe</strong> from the dropdowns &mdash; the leader&rsquo;s name, title, and address auto-fill instantly from embedded data (updated March 2026). Fields remain editable.</li>
-      <li><strong>Verify if needed</strong> &mdash; click the &ldquo;Verify with Google Search&rdquo; link to confirm the name and address are current.</li>
+      <li><strong>Verify if needed</strong> &mdash; click the &ldquo;Verify with Google Search&rdquo; link to confirm the name and address are current. If an address is wrong, use &ldquo;Report wrong address&rdquo; to copy a pre-filled correction email to your clipboard.</li>
+      <li><strong>Preview &amp; Print</strong> &mdash; click &ldquo;Preview &amp; Print This Tribe.&rdquo; The 4 pages display on screen for review. Use the &ldquo;Print / Save as PDF&rdquo; button, or press <kbd>Ctrl+P</kbd> (Windows) / <kbd>Cmd+P</kbd> (Mac). Your browser&rsquo;s native print dialog handles everything &mdash; no files are downloaded.</li>
     </ol>
     <p><strong>Important:</strong> When editing the leader&rsquo;s name, enter just the name (e.g., &ldquo;Chuck Hoskin Jr.&rdquo; not &ldquo;Principal Chief Chuck Hoskin Jr.&rdquo;). The cover letter adds the title automatically from the Leader Title field.</p>
 
+    <h2>Editing the Cover Letter</h2>
+    <p>The cover letter is editable on the preview screen &mdash; click anywhere in the letter text to make changes before printing. The savings report and brochure pages are not editable.</p>
+
     <h2>Annual Data Update</h2>
     <p>The embedded leader names and addresses were last verified in <strong>March 2026</strong>. After a major tribal election cycle, open this file in a Claude session and ask Claude to look up the latest tribal leaders and produce an updated LEADERS object. Paste it into the HTML, replacing the old one. Total time: ~2 hours per year for all 346 tribes.</p>
-
-    <h2>Batch Mode</h2>
-    <p>Generate packages for multiple tribes in one session:</p>
-    <ol>
-      <li>Select a state and tribe, look up the leader&rsquo;s info.</li>
-      <li>Click <strong>&ldquo;Add to Batch&rdquo;</strong> to queue it.</li>
-      <li>Repeat for as many tribes as desired (you can mix states).</li>
-      <li>Click <strong>&ldquo;Preview &amp; Print Entire Batch&rdquo;</strong> &mdash; all tribes print in sequence, 4 pages each.</li>
-    </ol>
 
     <h2>How the Tribal Procurement Savings Report Works</h2>
     <p>Every number is calculated from a single input: the tribe&rsquo;s estimated on-reservation/service area population. All figures are modeled estimates using the same procurement-first methodology as the Sheriff v22 generator.</p>
@@ -199,7 +194,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 2 -->
 <div id="step2" class="fw" style="display:none">
   <h1 class="ft">Tribal Nation Letter Generator</h1>
-  <p class="fs">Select state &amp; tribe. Print one at a time, or build a batch and print them all at once.</p>
+  <p class="fs">Select a state and tribe, then preview and print.</p>
   <div class="ctr" style="margin-bottom:12px"><button class="btn bw" onclick="goStep1()" style="padding:6px 16px;font-size:13px">&larr; Edit My Info</button></div>
   <div class="st">Select a Tribe</div>
   <div class="row2">
@@ -216,6 +211,11 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
     </div>
     <div class="fld"><label>Office Address Line 1 <span class="req">*</span></label><input id="s2A1" placeholder="e.g. P.O. Box 278"></div>
     <div class="fld"><label>Office Address Line 2 (City, State ZIP) <span class="req">*</span></label><input id="s2A2" placeholder="e.g. Pablo, MT 59855"></div>
+    <div id="addrActions" style="margin-top:6px;font-size:12px;display:none">
+      <a class="vfylink" id="verifyAddrLink" href="#" target="_blank" rel="noopener">&#128269; Verify this address on Google</a>
+      <span style="color:#888;margin:0 6px">|</span>
+      <button type="button" class="vfylink" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit" onclick="copyAddressReport()">&#9993;&#65039; Report wrong address (copy to clipboard)</button>
+    </div>
   </div>
   <div id="spnl" class="sp" style="display:none">
     <h3>Auto-Calculated Procurement &amp; Savings</h3>
@@ -226,30 +226,34 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
   </div>
   <div class="ctr" style="margin-top:16px">
     <button class="btn bn" onclick="printOne()">Preview &amp; Print This Tribe (4 pages)</button>
-    <button class="btn bora" onclick="addToQueue()">Add to Batch &darr;</button>
   </div>
   <div id="s2m"></div>
-  <div id="queuePanel" class="qp" style="display:none">
-    <h3>Batch Queue <span id="qCount" style="font-weight:400;color:#6b7280"></span></h3>
-    <div id="qList"></div>
-    <div class="ctr" style="margin-top:12px">
-      <button class="btn bn" onclick="printBatch()">Preview &amp; Print Entire Batch</button>
-      <button class="btn bw" style="padding:8px 16px;font-size:13px" onclick="clearQueue()">Clear All</button>
-    </div>
-    <p class="note ctr">Each tribe generates 4 pages: cover letter + savings report + 2-page brochure.</p>
-  </div>
+  <p class="note ctr" style="margin-top:12px">Each tribe generates 4 pages: cover letter + savings report + 2-page brochure.</p>
 </div>
 
 <!-- PREVIEW -->
 <div id="preview" style="display:none">
   <div class="toolbar">
     <button class="btn bw" onclick="backToS2()">&larr; Back &mdash; Generate More</button>
-    <button class="btn bred" onclick="doPrint()">Save &amp; Print Pages</button>
-    <span class="th" style="opacity:0.9;font-size:11px">(Downloads an HTML file &mdash; open it in your browser to print)</span>
+    <button class="btn bred" onclick="doPrint()">&#128424; Print / Save as PDF</button>
     <span class="th" id="pgInfo"></span>
-    <span class="th" style="opacity:1;font-style:italic">Letter is editable</span>
+    <span class="th" style="opacity:1;font-style:italic">Cover letter is editable &mdash; click to edit</span>
   </div>
   <div id="printArea"></div>
+</div>
+
+<!-- REPORT WRONG ADDRESS MODAL -->
+<div id="reportModal" style="display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);z-index:9999;overflow-y:auto;padding:30px 14px">
+  <div style="max-width:540px;width:100%;margin:0 auto;background:#fff;border-radius:8px;padding:24px 28px;font-size:14px;font-family:'Segoe UI',system-ui,sans-serif">
+    <h3 style="margin:0 0 10px;color:#1a3a5c;font-family:Georgia,serif">&#128203; Wrong Address Report</h3>
+    <p style="margin:0 0 10px;font-size:13px;color:#666">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
+    <textarea id="reportText" style="width:100%;height:220px;font-family:'Courier New',monospace;font-size:13px;padding:10px;border:1px solid #d1d5db;border-radius:5px;background:#fafaf7;resize:vertical;line-height:1.4"></textarea>
+    <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end;align-items:center">
+      <span id="copyStatus" style="font-size:13px;color:#27ae60;margin-right:auto"></span>
+      <button type="button" class="btn bgrn" style="padding:8px 18px;font-size:14px" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
+      <button type="button" class="btn bw" style="padding:8px 18px;font-size:14px" onclick="closeReportModal()">Close</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -260,7 +264,7 @@ var P={"AL":{"Poarch Band of Creek Indians":3200},"AZ":{"Ak-Chin Indian Communit
 
 // === EMBEDDED LEADER DATA (Update annually — see User Guide) ===
 var LEADERS={"AL":{"Poarch Band of Creek Indians":{t:"Chairman",n:"Stephanie Bryan",a1:"5811 Jack Springs Road",a2:"Atmore, AL 36502"}},"AZ":{"Ak-Chin Indian Community":{t:"Chairman",n:"Robert Miguel",a1:"42507 W. Peters & Nall Road",a2:"Maricopa, AZ 85138"},"Cocopah Tribe of Arizona":{t:"Chairman",n:"J. Deal Begay Jr.",a1:"County 15th and Avenue G",a2:"Somerton, AZ 85350"},"Colorado River Indian Tribes":{t:"Chairman",n:"Amelia Flores",a1:"26600 Mohave Road",a2:"Parker, AZ 85344"},"Fort McDowell Yavapai Nation":{t:"President",n:"Bernadine Burnette",a1:"P.O. Box 17779",a2:"Fountain Hills, AZ 85269"},"Fort Mojave Indian Tribe":{t:"Chairwoman",n:"Nora McDowell-Antone",a1:"500 Merriman Avenue",a2:"Needles, CA 92363"},"Gila River Indian Community":{t:"Governor",n:"Stephen Roe Lewis",a1:"P.O. Box 97",a2:"Sacaton, AZ 85147"},"Havasupai Tribe":{t:"Chairman",n:"Thomas Siyuja Sr.",a1:"P.O. Box 10",a2:"Supai, AZ 86435"},"Hopi Tribe of Arizona":{t:"Chairman",n:"Timothy Nuvangyaoma",a1:"P.O. Box 123",a2:"Kykotsmovi, AZ 86039"},"Hualapai Indian Tribe":{t:"Chairman",n:"Damon Clarke",a1:"P.O. Box 179",a2:"Peach Springs, AZ 86434"},"Kaibab Band of Paiute Indians":{t:"Chairwoman",n:"Ona Segundo",a1:"HC 65, Box 2",a2:"Fredonia, AZ 86022"},"Navajo Nation":{t:"President",n:"Buu Nygren",a1:"P.O. Box 7440",a2:"Window Rock, AZ 86515"},"Pascua Yaqui Tribe of Arizona":{t:"Chairman",n:"Peter Yucupicio",a1:"7474 S. Camino de Oeste",a2:"Tucson, AZ 85757"},"Quechan Tribe of the Fort Yuma Indian Reservation":{t:"President",n:"Jordan Joaquin",a1:"P.O. Box 1899",a2:"Yuma, AZ 85366"},"Salt River Pima-Maricopa Indian Community":{t:"President",n:"Martin Harvier",a1:"10005 E. Osborn Road",a2:"Scottsdale, AZ 85256"},"San Carlos Apache Tribe":{t:"Chairman",n:"Terry Rambler",a1:"P.O. Box 0",a2:"San Carlos, AZ 85550"},"San Juan Southern Paiute Tribe":{t:"President",n:"Johnny Lehi Jr.",a1:"P.O. Box 1989",a2:"Tuba City, AZ 86045"},"Tohono O'odham Nation":{t:"Chairman",n:"Verlon Jose",a1:"P.O. Box 837",a2:"Sells, AZ 85634"},"Tonto Apache Tribe":{t:"Chairwoman",n:"Jeri DeClay",a1:"Tonto Apache Reservation #30",a2:"Payson, AZ 85541"},"White Mountain Apache Tribe":{t:"Chairman",n:"Kasey Velasquez",a1:"P.O. Box 700",a2:"Whiteriver, AZ 85941"},"Yavapai-Apache Nation":{t:"Chairman",n:"Tanya Lewis",a1:"2400 W. Datsi Street",a2:"Camp Verde, AZ 86322"},"Yavapai-Prescott Indian Tribe":{t:"President",n:"Robert Ogo",a1:"530 E. Merritt Street",a2:"Prescott, AZ 86301"}},"CA":{"Agua Caliente Band of Cahuilla Indians":{t:"Chairman",n:"Reid Milanovich",a1:"5401 Dinah Shore Drive",a2:"Palm Springs, CA 92264"},"Alturas Indian Rancheria":{t:"Chairperson",n:"Wendy McDarment",a1:"P.O. Box 340",a2:"Alturas, CA 96101"},"Augustine Band of Cahuilla Indians":{t:"Chairwoman",n:"Amanda Vance",a1:"P.O. Box 846",a2:"Coachella, CA 92236"},"Bear River Band of the Rohnerville Rancheria":{t:"Chairman",n:"Adrian Guevara",a1:"266 Klamath Avenue",a2:"Loleta, CA 95551"},"Berry Creek Rancheria of Maidu Indians":{t:"Chairman",n:"James Edwards",a1:"5 Tyme Way",a2:"Oroville, CA 95966"},"Big Lagoon Rancheria":{t:"Chairman",n:"Virgil Moorehead",a1:"P.O. Box 3060",a2:"Trinidad, CA 95570"},"Big Pine Paiute Tribe of the Owens Valley":{t:"Chairperson",n:"Brian Poncho",a1:"P.O. Box 700",a2:"Big Pine, CA 93513"},"Big Sandy Rancheria of Western Mono Indians":{t:"Chairperson",n:"Elizabeth Kipp",a1:"P.O. Box 337",a2:"Auberry, CA 93602"},"Big Valley Band of Pomo Indians":{t:"Chairman",n:"Brian Adams",a1:"2726 Mission Rancheria Road",a2:"Lakeport, CA 95453"},"Bishop Paiute Tribe":{t:"Chairman",n:"Dale Shipp",a1:"50 Tu Su Lane",a2:"Bishop, CA 93514"},"Blue Lake Rancheria":{t:"Chairperson",n:"Claudia Brundin",a1:"P.O. Box 428",a2:"Blue Lake, CA 95525"},"Bridgeport Indian Colony":{t:"Chairman",n:"Larry George",a1:"P.O. Box 37",a2:"Bridgeport, CA 93517"},"Buena Vista Rancheria of Me-Wuk Indians":{t:"Chairman",n:"Rhonda Morningstar Pope",a1:"1418 20th Street, Suite 200",a2:"Sacramento, CA 95811"},"Cabazon Band of Cahuilla Indians":{t:"Chairman",n:"Doug Welmas",a1:"84-245 Indio Springs Parkway",a2:"Indio, CA 92203"},"Cachil DeHe Band of Wintun Indians":{t:"Chairman",n:"James Kinter",a1:"P.O. Box 207",a2:"Colusa, CA 95932"},"Cahto Indian Tribe of the Laytonville Rancheria":{t:"Chairman",n:"Anthony Marak",a1:"P.O. Box 1239",a2:"Laytonville, CA 95454"},"Cahuilla Band of Mission Indians":{t:"Chairman",n:"Daniel Salgado",a1:"P.O. Box 391760",a2:"Anza, CA 92539"},"California Valley Miwok Tribe":{t:"Chairperson",n:"Silvia Burley",a1:"10601 Escondido Place",a2:"Stockton, CA 95212"},"Campo Band of Diegueno Mission Indians":{t:"Chairman",n:"Ralph Goff",a1:"36190 Church Road, Suite 1",a2:"Campo, CA 91906"},"Capitan Grande Band of Diegueno Mission Indians":{t:"Chairman",n:"Ralph Goff",a1:"1 Barona Road",a2:"Lakeside, CA 92040"},"Cedarville Rancheria":{t:"Chairman",n:"Gloria Garcia",a1:"P.O. Box 126",a2:"Cedarville, CA 96104"},"Chemehuevi Indian Tribe":{t:"Chairman",n:"Charles Wood",a1:"P.O. Box 1976",a2:"Havasu Lake, CA 92363"},"Cher-Ae Heights Indian Community of the Trinidad Rancheria":{t:"Chairman",n:"Garth Sundberg",a1:"P.O. Box 630",a2:"Trinidad, CA 95570"},"Chicken Ranch Rancheria of Me-Wuk Indians":{t:"Chairman",n:"Lloyd Mathiesen",a1:"P.O. Box 1159",a2:"Jamestown, CA 95327"},"Cloverdale Rancheria of Pomo Indians":{t:"Chairman",n:"Jose Juan Lira",a1:"555 S. Cloverdale Blvd., Suite A",a2:"Cloverdale, CA 95425"},"Cold Springs Rancheria of Mono Indians":{t:"Chairman",n:"Cathy Bishop",a1:"P.O. Box 209",a2:"Tollhouse, CA 93667"},"Colusa Indian Community":{t:"Chairman",n:"James Kinter",a1:"P.O. Box 8",a2:"Colusa, CA 95932"},"Cortina Rancheria (Kletsel Dehe Wintun Nation)":{t:"Chairman",n:"Charlie Wright",a1:"P.O. Box 1630",a2:"Williams, CA 95987"},"Coyote Valley Band of Pomo Indians":{t:"Chairman",n:"Michael Hunter",a1:"P.O. Box 39",a2:"Redwood Valley, CA 95470"},"Dry Creek Rancheria Band of Pomo Indians":{t:"Chairman",n:"Anthony Stidham",a1:"P.O. Box 607",a2:"Geyserville, CA 95441"},"Elem Indian Colony of Pomo Indians":{t:"Chairman",n:"Agustin Garcia",a1:"P.O. Box 757",a2:"Lower Lake, CA 95457"},"Elk Valley Rancheria":{t:"Chairman",n:"Dale Miller",a1:"2332 Howland Hill Road",a2:"Crescent City, CA 95531"},"Enterprise Rancheria of Maidu Indians":{t:"Chairman",n:"Glenda Nelson",a1:"2133 Monte Vista Avenue",a2:"Oroville, CA 95966"},"Ewiiaapaayp Band of Kumeyaay Indians":{t:"Chairman",n:"Will Micklin",a1:"4054 Willows Road",a2:"Alpine, CA 91901"},"Federated Indians of Graton Rancheria":{t:"Chairman",n:"Greg Sarris",a1:"6400 Redwood Drive, Suite 300",a2:"Rohnert Park, CA 94928"},"Fort Bidwell Indian Community":{t:"Chairman",n:"Dewey George",a1:"P.O. Box 129",a2:"Fort Bidwell, CA 96112"},"Fort Independence Indian Community":{t:"Chairperson",n:"Teresa Melton",a1:"P.O. Box 67",a2:"Independence, CA 93526"},"Greenville Rancheria of Maidu Indians":{t:"Chairman",n:"Kyle Self",a1:"P.O. Box 279",a2:"Greenville, CA 95947"},"Grindstone Indian Rancheria of Wintun-Wailaki Indians":{t:"Chairman",n:"Ronald Kirk",a1:"P.O. Box 63",a2:"Elk Creek, CA 95939"},"Guidiville Rancheria of California":{t:"Chairman",n:"Merlene Sanchez",a1:"P.O. Box 339",a2:"Talmage, CA 95481"},"Habematolel Pomo of Upper Lake":{t:"Chairman",n:"Sherry Treppa",a1:"P.O. Box 516",a2:"Upper Lake, CA 95485"},"Hoopa Valley Tribe":{t:"Chairman",n:"Joe Davis",a1:"P.O. Box 1348",a2:"Hoopa, CA 95546"},"Hopland Band of Pomo Indians":{t:"Chairman",n:"Duran Hendricks",a1:"3000 Shanel Road",a2:"Hopland, CA 95449"},"Ione Band of Miwok Indians":{t:"Chairperson",n:"Sara Dutschke",a1:"P.O. Box 699",a2:"Plymouth, CA 95669"},"Jamul Indian Village of California":{t:"Chairman",n:"Erica Pinto",a1:"P.O. Box 612",a2:"Jamul, CA 91935"},"Karuk Tribe":{t:"Chairman",n:"Russell Attebery",a1:"P.O. Box 1016",a2:"Happy Camp, CA 96039"},"Kashia Band of Pomo Indians of the Stewarts Point Rancheria":{t:"Chairman",n:"Reno Franklin",a1:"1420 Guerneville Road, Suite 1",a2:"Santa Rosa, CA 95403"},"La Jolla Band of Luiseno Indians":{t:"Chairman",n:"Fred Nelson Jr.",a1:"22000 Highway 76",a2:"Pauma Valley, CA 92061"},"La Posta Band of Diegueno Mission Indians":{t:"Spokesperson",n:"Javaughn Miller",a1:"8 Crestwood Road",a2:"Boulevard, CA 91905"},"Lone Pine Paiute-Shoshone Tribe":{t:"Chairperson",n:"Mary Wata",a1:"P.O. Box 747",a2:"Lone Pine, CA 93545"},"Los Coyotes Band of Cahuilla and Cupeno Indians":{t:"Chairman",n:"Shane Chapparosa",a1:"P.O. Box 189",a2:"Warner Springs, CA 92086"},"Lytton Rancheria of California":{t:"Chairman",n:"Margie Mejia",a1:"437 Aviation Blvd.",a2:"Santa Rosa, CA 95403"},"Manchester Band of Pomo Indians":{t:"Chairman",n:"Leona Manzoni-Williams",a1:"P.O. Box 623",a2:"Point Arena, CA 95468"},"Manzanita Band of Diegueno Mission Indians":{t:"Chairman",n:"Angela Elliott Santos",a1:"P.O. Box 1302",a2:"Boulevard, CA 91905"},"Mechoopda Indian Tribe of Chico Rancheria":{t:"Chairman",n:"Dennis Ramirez",a1:"125 Mission Ranch Blvd.",a2:"Chico, CA 95926"},"Mesa Grande Band of Diegueno Mission Indians":{t:"Chairman",n:"Virgil Oyos",a1:"P.O. Box 270",a2:"Santa Ysabel, CA 92070"},"Middletown Rancheria of Pomo Indians":{t:"Chairman",n:"Jose Simon III",a1:"P.O. Box 1035",a2:"Middletown, CA 95461"},"Mooretown Rancheria of Maidu Indians":{t:"Chairman",n:"Benjamin Clark",a1:"1 Alverda Drive",a2:"Oroville, CA 95966"},"Morongo Band of Mission Indians":{t:"Chairman",n:"Charles Martin",a1:"12700 Pumarra Road",a2:"Banning, CA 92220"},"North Fork Rancheria of Mono Indians":{t:"Chairman",n:"Ron Goode",a1:"P.O. Box 929",a2:"North Fork, CA 93643"},"Pala Band of Mission Indians":{t:"Chairman",n:"Robert Smith",a1:"P.O. Box 43",a2:"Pala, CA 92059"},"Paskenta Band of Nomlaki Indians":{t:"Chairman",n:"Andrew Freeman",a1:"P.O. Box 709",a2:"Corning, CA 96021"},"Pauma Band of Luiseno Mission Indians":{t:"Chairman",n:"Temet Aguilar",a1:"P.O. Box 369",a2:"Pauma Valley, CA 92061"},"Pechanga Band of Indians":{t:"Chairman",n:"Mark Macarro",a1:"P.O. Box 1477",a2:"Temecula, CA 92593"},"Picayune Rancheria of Chukchansi Indians":{t:"Chairperson",n:"Deann Kamalani",a1:"P.O. Box 269",a2:"Coarsegold, CA 93614"},"Pinoleville Pomo Nation":{t:"Chairman",n:"Leona Williams",a1:"500 B Pinoleville Drive",a2:"Ukiah, CA 95482"},"Pit River Tribe":{t:"Chairman",n:"Michael Duran",a1:"36970 Park Avenue",a2:"Burney, CA 96013"},"Quartz Valley Indian Community":{t:"Chairman",n:"Walter Lamar",a1:"P.O. Box 24",a2:"Fort Jones, CA 96032"},"Ramona Band of Cahuilla Indians":{t:"Chairman",n:"Joseph Hamilton",a1:"P.O. Box 391670",a2:"Anza, CA 92539"},"Redding Rancheria":{t:"Chairman",n:"Jack Potter Jr.",a1:"2000 Rancheria Road",a2:"Redding, CA 96001"},"Redwood Valley Band of Pomo Indians (Little River)":{t:"Chairman",n:"Diego Lewis",a1:"3250 Road I",a2:"Redwood Valley, CA 95470"},"Resighini Rancheria":{t:"Chairman",n:"Fawn Murphy",a1:"P.O. Box 529",a2:"Klamath, CA 95548"},"Rincon Band of Luiseno Mission Indians":{t:"Chairman",n:"Bo Mazzetti",a1:"One Government Center Lane",a2:"Valley Center, CA 92082"},"Robinson Rancheria":{t:"Chairman",n:"Eddie Crandell",a1:"P.O. Box 4015",a2:"Nice, CA 95464"},"Round Valley Indian Tribes":{t:"President",n:"James Russ",a1:"P.O. Box 448",a2:"Covelo, CA 95428"},"San Manuel Band of Mission Indians":{t:"Chairman",n:"Ken Ramirez",a1:"26569 Community Center Drive",a2:"Highland, CA 92346"},"San Pasqual Band of Diegueno Mission Indians":{t:"Chairman",n:"John Christman",a1:"P.O. Box 365",a2:"Valley Center, CA 92082"},"Santa Rosa Band of Cahuilla Indians":{t:"Chairman",n:"Lovina Redner",a1:"P.O. Box 391820",a2:"Anza, CA 92539"},"Santa Rosa Indian Community":{t:"Chairman",n:"Edward Gomez",a1:"5020 Moorpark Avenue",a2:"Santa Rosa, CA 95407"},"Santa Ynez Band of Chumash Mission Indians":{t:"Chairman",n:"Kenneth Kahn",a1:"P.O. Box 517",a2:"Santa Ynez, CA 93460"},"Scotts Valley Band of Pomo Indians":{t:"Chairman",n:"Debra Olvera",a1:"P.O. Box 370",a2:"Lakeport, CA 95453"},"Sherwood Valley Rancheria of Pomo Indians":{t:"Chairman",n:"Mike Knight",a1:"190 Sherwood Hill Drive",a2:"Willits, CA 95490"},"Shingle Springs Band of Miwok Indians":{t:"Chairman",n:"Nicholas Fonseca",a1:"P.O. Box 1340",a2:"Shingle Springs, CA 95682"},"Smith River Rancheria":{t:"Chairman",n:"Kara Brundin-Miller",a1:"P.O. Box 239",a2:"Smith River, CA 95567"},"Soboba Band of Luiseno Indians":{t:"Chairman",n:"Isaiah Vivanco",a1:"P.O. Box 487",a2:"San Jacinto, CA 92581"},"Susanville Indian Rancheria":{t:"Chairman",n:"Wayne Mitcham",a1:"745 Joaquin Street",a2:"Susanville, CA 96130"},"Sycuan Band of the Kumeyaay Nation":{t:"Chairman",n:"Cody Martinez",a1:"1 Kwaaypaay Court",a2:"El Cajon, CA 92019"},"Table Mountain Rancheria":{t:"Chairman",n:"Leanne Walker-Grant",a1:"P.O. Box 410",a2:"Friant, CA 93626"},"Tejon Indian Tribe":{t:"Chairman",n:"Kathryn Montes Morgan",a1:"1731 Hasti Acres Drive, Suite 108",a2:"Bakersfield, CA 93309"},"Torres Martinez Desert Cahuilla Indians":{t:"Chairman",n:"Thomas Tortez Jr.",a1:"P.O. Box 1160",a2:"Thermal, CA 92274"},"Tule River Indian Tribe":{t:"Chairman",n:"Neil Peyron",a1:"P.O. Box 589",a2:"Porterville, CA 93258"},"Tuolumne Band of Me-Wuk Indians":{t:"Chairman",n:"Kevin Day",a1:"P.O. Box 699",a2:"Tuolumne, CA 95379"},"Twenty-Nine Palms Band of Mission Indians":{t:"Chairman",n:"Darrell Mike",a1:"46-200 Harrison Place",a2:"Coachella, CA 92236"},"United Auburn Indian Community":{t:"Chairman",n:"Gene Whitehouse",a1:"10720 Indian Hill Road",a2:"Auburn, CA 95603"},"Viejas Group of Capitan Grande Band":{t:"Chairman",n:"John Christman",a1:"1 Viejas Grade Road",a2:"Alpine, CA 91901"},"Wiyot Tribe":{t:"Chairman",n:"Ted Hernandez",a1:"1000 Wiyot Drive",a2:"Loleta, CA 95551"},"Yocha Dehe Wintun Nation (Rumsey)":{t:"Chairman",n:"Anthony Roberts",a1:"P.O. Box 18",a2:"Brooks, CA 95606"},"Yurok Tribe":{t:"Chairman",n:"Joseph James",a1:"P.O. Box 1027",a2:"Klamath, CA 95548"}},"CO":{"Southern Ute Indian Tribe":{t:"Chairman",n:"Melvin Baker",a1:"P.O. Box 737",a2:"Ignacio, CO 81137"},"Ute Mountain Ute Tribe":{t:"Chairman",n:"Manuel Heart",a1:"P.O. Box JJ",a2:"Towaoc, CO 81334"}},"CT":{"Mashantucket Pequot Indian Tribe":{t:"Chairman",n:"Rodney Butler",a1:"P.O. Box 3060",a2:"Mashantucket, CT 06338"},"Mohegan Tribe of Indians of Connecticut":{t:"Chairman",n:"James Gessner Jr.",a1:"13 Crow Hill Road",a2:"Uncasville, CT 06382"}},"FL":{"Miccosukee Tribe of Indians of Florida":{t:"Chairman",n:"Talbert Cypress",a1:"P.O. Box 440021",a2:"Miami, FL 33144"},"Seminole Tribe of Florida":{t:"Chairman",n:"Marcellus Osceola Jr.",a1:"6300 Stirling Road",a2:"Hollywood, FL 33024"}},"IA":{"Sac and Fox Tribe of the Mississippi in Iowa":{t:"Chairman",n:"Tony Waseskuk",a1:"349 Meskwaki Road",a2:"Tama, IA 52339"}},"ID":{"Coeur d'Alene Tribe":{t:"Chairman",n:"James Allan",a1:"P.O. Box 408",a2:"Plummer, ID 83851"},"Kootenai Tribe of Idaho":{t:"Chairman",n:"Gary FX Aitken Jr.",a1:"P.O. Box 1269",a2:"Bonners Ferry, ID 83805"},"Nez Perce Tribe":{t:"Chairman",n:"Shannon Wheeler",a1:"P.O. Box 305",a2:"Lapwai, ID 83540"},"Shoshone-Bannock Tribes":{t:"Chairman",n:"Ladd Edmo",a1:"P.O. Box 306",a2:"Fort Hall, ID 83203"},"Shoshone-Paiute Tribes of the Duck Valley Reservation":{t:"Chairman",n:"Brian Mason",a1:"P.O. Box 219",a2:"Owyhee, NV 89832"}},"IN":{"Pokagon Band of Potawatomi Indians":{t:"Chairman",n:"Mark Topash",a1:"58620 Sink Road",a2:"Dowagiac, MI 49047"}},"KS":{"Iowa Tribe of Kansas and Nebraska":{t:"Chairman",n:"Timothy Rhodd",a1:"3345 B Thrasher Road",a2:"White Cloud, KS 66094"},"Kickapoo Tribe in Kansas":{t:"Chairman",n:"Lester Randall",a1:"P.O. Box 271",a2:"Horton, KS 66439"},"Prairie Band Potawatomi Nation":{t:"Chairman",n:"Joseph Rupnick",a1:"16281 Q Road",a2:"Mayetta, KS 66509"},"Sac and Fox Nation of Missouri in Kansas and Nebraska":{t:"Chairman",n:"Ralph Jessepe",a1:"305 N. Main Street",a2:"Reserve, KS 66434"}},"LA":{"Chitimacha Tribe of Louisiana":{t:"Chairman",n:"Melissa Darden",a1:"155 Chitimacha Loop",a2:"Charenton, LA 70523"},"Coushatta Tribe of Louisiana":{t:"Chairman",n:"David Sickey",a1:"P.O. Box 818",a2:"Elton, LA 70532"},"Jena Band of Choctaw Indians":{t:"Chairwoman",n:"Cheryl Smith",a1:"P.O. Box 14",a2:"Jena, LA 71342"},"Tunica-Biloxi Indian Tribe":{t:"Chairman",n:"Marshall Pierite",a1:"P.O. Box 1589",a2:"Marksville, LA 71351"}},"MA":{"Mashpee Wampanoag Tribe":{t:"Chairman",n:"Brian Weeden",a1:"483 Great Neck Road South",a2:"Mashpee, MA 02649"},"Wampanoag Tribe of Gay Head (Aquinnah)":{t:"Chairman",n:"Cheryl Andrews-Maltais",a1:"20 Black Brook Road",a2:"Aquinnah, MA 02535"}},"ME":{"Aroostook Band of Micmacs":{t:"Chief",n:"Clarissa Sabattis",a1:"7 Northern Road",a2:"Presque Isle, ME 04769"},"Houlton Band of Maliseet Indians":{t:"Chief",n:"Clarissa Sabattis",a1:"88 Bell Road",a2:"Littleton, ME 04730"},"Passamaquoddy Tribe - Indian Township":{t:"Chief",n:"William Nicholas",a1:"P.O. Box 301",a2:"Princeton, ME 04668"},"Passamaquoddy Tribe - Pleasant Point":{t:"Chief",n:"William Nicholas",a1:"P.O. Box 343",a2:"Perry, ME 04667"},"Penobscot Indian Nation":{t:"Chief",n:"Kirk Francis",a1:"12 Wabanaki Way",a2:"Indian Island, ME 04468"}},"MI":{"Bay Mills Indian Community":{t:"President",n:"Whitney Gravelle",a1:"12140 W. Lakeshore Drive",a2:"Brimley, MI 49715"},"Grand Traverse Band of Ottawa and Chippewa Indians":{t:"Chairman",n:"David Arroyo",a1:"2605 N. West Bay Shore Drive",a2:"Peshawbestown, MI 49682"},"Hannahville Indian Community":{t:"Chairman",n:"Kenneth Meshigaud",a1:"N14911 Hannahville B-1 Road",a2:"Wilson, MI 49896"},"Keweenaw Bay Indian Community":{t:"President",n:"Warren Swartz Jr.",a1:"16429 Beartown Road",a2:"Baraga, MI 49908"},"Lac Vieux Desert Band of Lake Superior Chippewa Indians":{t:"Chairman",n:"James Williams Jr.",a1:"P.O. Box 249",a2:"Watersmeet, MI 49969"},"Little River Band of Ottawa Indians":{t:"Ogema",n:"Larry Romanelli",a1:"2608 Government Center Drive",a2:"Manistee, MI 49660"},"Little Traverse Bay Bands of Odawa Indians":{t:"Chairman",n:"Regina Gasco-Bentley",a1:"7500 Odawa Circle",a2:"Harbor Springs, MI 49740"},"Match-e-be-nash-she-wish Band of Pottawatomi Indians (Gun Lake)":{t:"Chairman",n:"Bob Peters",a1:"2910 Maplewood Drive",a2:"Shelbyville, MI 49344"},"Nottawaseppi Huron Band of the Potawatomi":{t:"Chairman",n:"Jamie Stuck",a1:"1485 Mno-Bmadzen Way",a2:"Calhoun County, MI 49068"},"Saginaw Chippewa Indian Tribe":{t:"Chief",n:"Theresa Jackson",a1:"7070 E. Broadway Road",a2:"Mount Pleasant, MI 48858"},"Sault Ste. Marie Tribe of Chippewa Indians":{t:"Chairman",n:"Austin Lowes",a1:"523 Ashmun Street",a2:"Sault Ste. Marie, MI 49783"}},"MN":{"Bois Forte Band of Chippewa":{t:"Chairman",n:"Cathy Chavers",a1:"5344 Lakeshore Drive",a2:"Nett Lake, MN 55772"},"Fond du Lac Band of Lake Superior Chippewa":{t:"Chairman",n:"Kevin Dupuis Sr.",a1:"1720 Big Lake Road",a2:"Cloquet, MN 55720"},"Grand Portage Band of Lake Superior Chippewa":{t:"Chairman",n:"Robert Deschampe",a1:"P.O. Box 428",a2:"Grand Portage, MN 55605"},"Leech Lake Band of Ojibwe":{t:"Chairman",n:"Faron Jackson Sr.",a1:"115 Sixth Street NW, Suite E",a2:"Cass Lake, MN 56633"},"Lower Sioux Indian Community":{t:"President",n:"Robert Larsen",a1:"P.O. Box 308",a2:"Morton, MN 56270"},"Mille Lacs Band of Ojibwe":{t:"Chief Executive",n:"Melanie Benjamin",a1:"43408 Oodena Drive",a2:"Onamia, MN 56359"},"Prairie Island Indian Community":{t:"President",n:"Shelley Buck",a1:"5636 Sturgeon Lake Road",a2:"Welch, MN 55089"},"Red Lake Band of Chippewa Indians":{t:"Chairman",n:"Darrell Seki Sr.",a1:"P.O. Box 550",a2:"Red Lake, MN 56671"},"Shakopee Mdewakanton Sioux Community":{t:"Chairman",n:"Keith Anderson",a1:"2330 Sioux Trail NW",a2:"Prior Lake, MN 55372"},"Upper Sioux Community":{t:"Chairman",n:"Kevin Jensvold",a1:"P.O. Box 147",a2:"Granite Falls, MN 56241"},"White Earth Nation":{t:"Chairman",n:"Michael Fairbanks",a1:"P.O. Box 418",a2:"White Earth, MN 56591"}},"MS":{"Mississippi Band of Choctaw Indians":{t:"Tribal Chief",n:"Cyrus Ben",a1:"P.O. Box 6010",a2:"Philadelphia, MS 39350"}},"MT":{"Blackfeet Tribe of the Blackfeet Indian Reservation":{t:"Chairman",n:"Rodney Jarvis",a1:"P.O. Box 850",a2:"Browning, MT 59417"},"Chippewa Cree Indians of the Rocky Boy's Reservation":{t:"Chairman",n:"Ted Russette III",a1:"P.O. Box 544",a2:"Box Elder, MT 59521"},"Confederated Salish and Kootenai Tribes":{t:"Chairman",n:"Michael Dolson",a1:"P.O. Box 278",a2:"Pablo, MT 59855"},"Crow Tribe of Montana":{t:"Chairman",n:"Frank White Clay",a1:"P.O. Box 159",a2:"Crow Agency, MT 59022"},"Fort Belknap Indian Community":{t:"President",n:"Jeffrey Stiffarm",a1:"656 Agency Main Street",a2:"Harlem, MT 59526"},"Fort Peck Assiniboine and Sioux Tribes":{t:"Chairman",n:"Justin Gray Hawk Sr.",a1:"P.O. Box 1027",a2:"Poplar, MT 59255"},"Little Shell Tribe of Chippewa Indians":{t:"Chairman",n:"Gerald Gray",a1:"615 Central Avenue, Suite 100",a2:"Great Falls, MT 59401"},"Northern Cheyenne Tribe":{t:"President",n:"Gene Small",a1:"P.O. Box 128",a2:"Lame Deer, MT 59043"}},"NC":{"Catawba Indian Nation":{t:"Chief",n:"Bill Harris",a1:"996 Avenue of the Nations",a2:"Rock Hill, SC 29730"},"Eastern Band of Cherokee Indians":{t:"Principal Chief",n:"Michell Hicks",a1:"P.O. Box 455",a2:"Cherokee, NC 28719"},"Lumbee Tribe of North Carolina":{t:"Chairman",n:"John Lowery",a1:"P.O. Box 2709",a2:"Pembroke, NC 28372"}},"ND":{"Spirit Lake Tribe":{t:"Chairman",n:"Douglas Yankton Sr.",a1:"P.O. Box 359",a2:"Fort Totten, ND 58335"},"Standing Rock Sioux Tribe":{t:"Chairman",n:"Janet Alkire",a1:"P.O. Box D",a2:"Fort Yates, ND 58538"},"Three Affiliated Tribes (Mandan, Hidatsa, Arikara)":{t:"Chairman",n:"Mark N. Fox",a1:"404 Frontage Road",a2:"New Town, ND 58763"},"Turtle Mountain Band of Chippewa Indians":{t:"Chairman",n:"Jamie Azure",a1:"P.O. Box 900",a2:"Belcourt, ND 58316"}},"NE":{"Omaha Tribe of Nebraska":{t:"Chairman",n:"Jason Sheridan",a1:"P.O. Box 368",a2:"Macy, NE 68039"},"Ponca Tribe of Nebraska":{t:"Chairman",n:"Larry Wright Jr.",a1:"2523 Woodbine Street",a2:"Omaha, NE 68110"},"Santee Sioux Nation":{t:"Chairman",n:"Roger Trudell",a1:"108 Spirit Lake Ave. W",a2:"Niobrara, NE 68760"},"Winnebago Tribe of Nebraska":{t:"Chairwoman",n:"Victoria Kitcheyan",a1:"100 Bluff Street",a2:"Winnebago, NE 68071"}},"NM":{"Jicarilla Apache Nation":{t:"President",n:"Adrian Notsinneh",a1:"P.O. Box 507",a2:"Dulce, NM 87528"},"Mescalero Apache Tribe":{t:"President",n:"Thora Walsh Padilla",a1:"P.O. Box 227",a2:"Mescalero, NM 88340"},"Ohkay Owingeh (Pueblo of San Juan)":{t:"Governor",n:"Ben J. Lujan",a1:"P.O. Box 1099",a2:"Ohkay Owingeh, NM 87566"},"Pueblo of Acoma":{t:"Governor",n:"Charles P. Riley",a1:"P.O. Box 309",a2:"Acoma, NM 87034"},"Pueblo of Cochiti":{t:"Governor",n:"Phillip Quintana",a1:"P.O. Box 255",a2:"Cochiti Pueblo, NM 87072"},"Pueblo of Isleta":{t:"Governor",n:"Eugene Jiron",a1:"P.O. Box 1270",a2:"Isleta Pueblo, NM 87022"},"Pueblo of Jemez":{t:"Governor",n:"John Galvan",a1:"P.O. Box 100",a2:"Jemez Pueblo, NM 87024"},"Pueblo of Laguna":{t:"Governor",n:"Harry Antonio Jr.",a1:"P.O. Box 194",a2:"Laguna Pueblo, NM 87026"},"Pueblo of Nambe":{t:"Governor",n:"Nathaniel S. Porter",a1:"15A Bay Poe",a2:"Santa Fe, NM 87506"},"Pueblo of Picuris":{t:"Governor",n:"Craig Quanchello",a1:"P.O. Box 127",a2:"Penasco, NM 87553"},"Pueblo of Pojoaque":{t:"Governor",n:"Jennelle Roybal",a1:"78 Cities of Gold Road",a2:"Santa Fe, NM 87506"},"Pueblo of San Felipe":{t:"Governor",n:"Mark Calabaza",a1:"P.O. Box 4339",a2:"San Felipe Pueblo, NM 87001"},"Pueblo of San Ildefonso":{t:"Governor",n:"Christopher Moquino",a1:"02 Tunyo Po",a2:"Santa Fe, NM 87506"},"Pueblo of Sandia":{t:"Governor",n:"Stuart Paisano",a1:"481 Sandia Loop",a2:"Bernalillo, NM 87004"},"Pueblo of Santa Ana":{t:"Governor",n:"Myron Armijo",a1:"2 Dove Road",a2:"Santa Ana Pueblo, NM 87004"},"Pueblo of Santa Clara":{t:"Governor",n:"James Naranjo",a1:"P.O. Box 580",a2:"Espanola, NM 87532"},"Pueblo of Santo Domingo (Kewa)":{t:"Governor",n:"Raymond Aguilar Jr.",a1:"P.O. Box 99",a2:"Santo Domingo Pueblo, NM 87052"},"Pueblo of Taos":{t:"Governor",n:"Mike Martinez Sr.",a1:"P.O. Box 1846",a2:"Taos, NM 87571"},"Pueblo of Tesuque":{t:"Governor",n:"Mark Mitchell",a1:"Route 42, Box 360-T",a2:"Santa Fe, NM 87506"},"Pueblo of Zia":{t:"Governor",n:"Boyd Toribio",a1:"135 Capitol Square Dr.",a2:"Zia Pueblo, NM 87053"},"Pueblo of Zuni":{t:"Governor",n:"Arden Kucate",a1:"P.O. Box 339",a2:"Zuni, NM 87327"}},"NV":{"Confederated Tribes of the Goshute Reservation":{t:"Chairman",n:"Rupert Steele",a1:"P.O. Box 6104",a2:"Ibapah, UT 84034"},"Duckwater Shoshone Tribe":{t:"Chairman",n:"Wayne Padilla",a1:"P.O. Box 140068",a2:"Duckwater, NV 89314"},"Ely Shoshone Tribe":{t:"Chairman",n:"Anthony Lehman",a1:"16 Shoshone Circle",a2:"Ely, NV 89301"},"Fort McDermitt Paiute and Shoshone Tribes":{t:"Chairman",n:"Tilford Brady",a1:"P.O. Box 457",a2:"McDermitt, NV 89421"},"Las Vegas Tribe of Paiute Indians":{t:"Chairman",n:"Benny Tso",a1:"One Paiute Drive",a2:"Las Vegas, NV 89106"},"Lovelock Paiute Tribe":{t:"Chairman",n:"Tanya Trujillo",a1:"P.O. Box 878",a2:"Lovelock, NV 89419"},"Moapa Band of Paiute Indians":{t:"Chairwoman",n:"Jeanine Esquivel",a1:"P.O. Box 340",a2:"Moapa, NV 89025"},"Pyramid Lake Paiute Tribe":{t:"Chairman",n:"Wayne Burke",a1:"P.O. Box 256",a2:"Nixon, NV 89424"},"Reno-Sparks Indian Colony":{t:"Chairman",n:"Arlan Melendez",a1:"34 Reservation Road",a2:"Reno, NV 89502"},"Summit Lake Paiute Tribe":{t:"Chairman",n:"Mike Rojo",a1:"1001 Rock Blvd.",a2:"Sparks, NV 89431"},"Te-Moak Tribe of Western Shoshone Indians":{t:"Chairman",n:"Davis Gonzales",a1:"525 Sunset Street",a2:"Elko, NV 89801"},"Walker River Paiute Tribe":{t:"Chairman",n:"Amber Torres",a1:"P.O. Box 220",a2:"Schurz, NV 89427"},"Washoe Tribe of Nevada and California":{t:"Chairman",n:"Serrell Smokey",a1:"919 Highway 395 South",a2:"Gardnerville, NV 89410"},"Winnemucca Indian Colony":{t:"Chairman",n:"Richard Button",a1:"P.O. Box 1370",a2:"Winnemucca, NV 89446"},"Yerington Paiute Tribe":{t:"Chairman",n:"Laurie Thom",a1:"171 Campbell Lane",a2:"Yerington, NV 89447"},"Yomba Shoshone Tribe":{t:"Chairman",n:"Jerry Charles",a1:"HC 61, Box 6275",a2:"Austin, NV 89310"}},"NY":{"Cayuga Nation":{t:"Federal Representative",n:"Clint Halftown",a1:"P.O. Box 803",a2:"Seneca Falls, NY 13148"},"Oneida Indian Nation":{t:"Nation Representative",n:"Ray Halbritter",a1:"2037 Dream Catcher Plaza",a2:"Oneida, NY 13421"},"Onondaga Nation":{t:"Tadodaho",n:"Sidney Hill",a1:"104 West Conklin Avenue",a2:"Nedrow, NY 13120"},"Saint Regis Mohawk Tribe":{t:"Chief",n:"Beverly Cook",a1:"412 State Route 37",a2:"Akwesasne, NY 13655"},"Seneca Nation of Indians":{t:"President",n:"Rickey Armstrong Sr.",a1:"12837 Route 438",a2:"Irving, NY 14081"},"Shinnecock Indian Nation":{t:"Chairman",n:"Bryan Polite",a1:"P.O. Box 5006",a2:"Southampton, NY 11969"},"Tonawanda Band of Seneca":{t:"Chief",n:"Roger Hill",a1:"7027 Meadville Road",a2:"Basom, NY 14013"},"Tuscarora Nation":{t:"Chief",n:"Leo Henry",a1:"5616 Walmore Road",a2:"Lewiston, NY 14092"}},"OK":{"Absentee-Shawnee Tribe of Indians of Oklahoma":{t:"Governor",n:"John Johnson",a1:"2025 S. Gordon Cooper Dr.",a2:"Shawnee, OK 74801"},"Apache Tribe of Oklahoma":{t:"Chairman",n:"Bobby Komardley",a1:"P.O. Box 1330",a2:"Anadarko, OK 73005"},"Caddo Nation of Oklahoma":{t:"Chairperson",n:"Tamara Francis",a1:"P.O. Box 487",a2:"Binger, OK 73009"},"Cherokee Nation":{t:"Principal Chief",n:"Chuck Hoskin Jr.",a1:"P.O. Box 948",a2:"Tahlequah, OK 74465"},"Cheyenne and Arapaho Tribes":{t:"Governor",n:"Reggie Wassana",a1:"P.O. Box 38",a2:"Concho, OK 73022"},"Chickasaw Nation":{t:"Governor",n:"Bill Anoatubby",a1:"P.O. Box 1548",a2:"Ada, OK 74821"},"Choctaw Nation of Oklahoma":{t:"Chief",n:"Gary Batton",a1:"P.O. Box 1210",a2:"Durant, OK 74702"},"Citizen Potawatomi Nation":{t:"Chairman",n:"John Barrett",a1:"1601 S. Gordon Cooper Drive",a2:"Shawnee, OK 74801"},"Comanche Nation":{t:"Chairman",n:"Mark Woommavovah",a1:"P.O. Box 908",a2:"Lawton, OK 73502"},"Delaware Nation":{t:"President",n:"Deborah Dotson",a1:"P.O. Box 825",a2:"Anadarko, OK 73005"},"Delaware Tribe of Indians":{t:"Chief",n:"Brad KillsCrow",a1:"5100 Tuxedo Blvd.",a2:"Bartlesville, OK 74006"},"Eastern Shawnee Tribe of Oklahoma":{t:"Chief",n:"Glenna Wallace",a1:"12755 S. 705 Road",a2:"Wyandotte, OK 74370"},"Fort Sill Apache Tribe of Oklahoma":{t:"Chairman",n:"Bobby Komardley",a1:"P.O. Box 1330",a2:"Anadarko, OK 73005"},"Iowa Tribe of Oklahoma":{t:"Chairman",n:"Bobby Walkup",a1:"335588 E. 750 Road",a2:"Perkins, OK 74059"},"Kaw Nation":{t:"Chairman",n:"Lynn Williams",a1:"P.O. Box 50",a2:"Kaw City, OK 74641"},"Kialegee Tribal Town":{t:"Miko",n:"Tiger Tobia",a1:"P.O. Box 332",a2:"Wetumka, OK 74883"},"Kickapoo Tribe of Oklahoma":{t:"Chairman",n:"David Pacheco",a1:"P.O. Box 70",a2:"McLoud, OK 74851"},"Kiowa Indian Tribe of Oklahoma":{t:"Chairman",n:"Lawrence SpottedBird",a1:"P.O. Box 369",a2:"Carnegie, OK 73015"},"Miami Tribe of Oklahoma":{t:"Chief",n:"Douglas Lankford",a1:"P.O. Box 1326",a2:"Miami, OK 74355"},"Modoc Nation":{t:"Chief",n:"Robert Burkybile III",a1:"22 N. Eight Tribes Trail",a2:"Miami, OK 74354"},"Muscogee (Creek) Nation":{t:"Principal Chief",n:"David Hill",a1:"P.O. Box 580",a2:"Okmulgee, OK 74447"},"Osage Nation":{t:"Principal Chief",n:"Geoffrey Standing Bear",a1:"627 Grandview Avenue",a2:"Pawhuska, OK 74056"},"Otoe-Missouria Tribe of Indians":{t:"Chairman",n:"John Shotton",a1:"8151 Highway 177",a2:"Red Rock, OK 74651"},"Ottawa Tribe of Oklahoma":{t:"Chief",n:"Ethel Cook",a1:"P.O. Box 110",a2:"Miami, OK 74355"},"Pawnee Nation of Oklahoma":{t:"President",n:"Andrew Knife Chief",a1:"P.O. Box 470",a2:"Pawnee, OK 74058"},"Peoria Tribe of Indians of Oklahoma":{t:"Chief",n:"Craig Harper",a1:"P.O. Box 1527",a2:"Miami, OK 74355"},"Ponca Tribe of Indians of Oklahoma":{t:"Chairman",n:"Earl Howe III",a1:"20 White Eagle Drive",a2:"Ponca City, OK 74601"},"Quapaw Nation":{t:"Chairman",n:"Joseph Byrd",a1:"P.O. Box 765",a2:"Quapaw, OK 74363"},"Sac and Fox Nation of Oklahoma":{t:"Principal Chief",n:"Kay Rhoads",a1:"920963 S. Highway 99",a2:"Stroud, OK 74079"},"Seminole Nation of Oklahoma":{t:"Principal Chief",n:"Lewis Johnson",a1:"P.O. Box 1498",a2:"Wewoka, OK 74884"},"Seneca-Cayuga Nation":{t:"Chief",n:"William Tarrant",a1:"P.O. Box 453070",a2:"Grove, OK 74345"},"Shawnee Tribe":{t:"Chief",n:"Ben Barnes",a1:"29 South Highway 69A",a2:"Miami, OK 74354"},"Thlopthlocco Tribal Town":{t:"Town King",n:"Ryan Mackey",a1:"P.O. Box 188",a2:"Okemah, OK 74859"},"Tonkawa Tribe of Indians of Oklahoma":{t:"President",n:"Russell Martin",a1:"1 Rush Buffalo Road",a2:"Tonkawa, OK 74653"},"United Keetoowah Band of Cherokee Indians":{t:"Chief",n:"Joe Bunch",a1:"P.O. Box 746",a2:"Tahlequah, OK 74465"},"Wichita and Affiliated Tribes":{t:"President",n:"Terri Parton",a1:"P.O. Box 729",a2:"Anadarko, OK 73005"},"Wyandotte Nation":{t:"Chief",n:"Billy Friend",a1:"64700 E. Highway 60",a2:"Wyandotte, OK 74370"}},"OR":{"Burns Paiute Tribe":{t:"Chairwoman",n:"Brenda Wilson",a1:"100 Pasigo Street",a2:"Burns, OR 97720"},"Confederated Tribes of Coos, Lower Umpqua and Siuslaw Indians":{t:"Chairman",n:"Willard John",a1:"1245 Fulton Avenue",a2:"Coos Bay, OR 97420"},"Confederated Tribes of Grand Ronde Community":{t:"Tribal Council Chair",n:"Cheryle Kennedy",a1:"9615 Grand Ronde Road",a2:"Grand Ronde, OR 97347"},"Confederated Tribes of Siletz Indians":{t:"Chairman",n:"Delores Pigsley",a1:"P.O. Box 549",a2:"Siletz, OR 97380"},"Confederated Tribes of Warm Springs":{t:"Chairman",n:"Jonathan Smith",a1:"P.O. Box C",a2:"Warm Springs, OR 97761"},"Confederated Tribes of the Umatilla Indian Reservation":{t:"Chairman",n:"Kat Brigham",a1:"46411 Timine Way",a2:"Pendleton, OR 97801"},"Coquille Indian Tribe":{t:"Chairman",n:"Brenda Meade",a1:"P.O. Box 783",a2:"North Bend, OR 97459"},"Cow Creek Band of Umpqua Tribe of Indians":{t:"Chairman",n:"Michael Rondeau",a1:"2371 NE Stephens Street, Suite 100",a2:"Roseburg, OR 97470"},"Klamath Tribes":{t:"Chairman",n:"Clayton Dumont",a1:"P.O. Box 436",a2:"Chiloquin, OR 97624"}},"RI":{"Narragansett Indian Tribe":{t:"Chief Sachem",n:"Anthony Noka",a1:"P.O. Box 268",a2:"Charlestown, RI 02813"}},"SD":{"Cheyenne River Sioux Tribe":{t:"Chairman",n:"Ryman LeBeau",a1:"P.O. Box 590",a2:"Eagle Butte, SD 57625"},"Crow Creek Sioux Tribe":{t:"Chairman",n:"Peter Lengkeek",a1:"P.O. Box 50",a2:"Fort Thompson, SD 57339"},"Flandreau Santee Sioux Tribe":{t:"President",n:"Anthony Reider",a1:"P.O. Box 283",a2:"Flandreau, SD 57028"},"Lower Brule Sioux Tribe":{t:"Chairman",n:"Clyde Estes",a1:"P.O. Box 187",a2:"Lower Brule, SD 57548"},"Oglala Sioux Tribe (Pine Ridge)":{t:"President",n:"Frank Star Comes Out",a1:"P.O. Box 2070",a2:"Pine Ridge, SD 57770"},"Rosebud Sioux Tribe":{t:"President",n:"Scott Herman",a1:"P.O. Box 430",a2:"Rosebud, SD 57570"},"Sisseton Wahpeton Oyate":{t:"Chairman",n:"J. Garret Renville",a1:"P.O. Box 509",a2:"Agency Village, SD 57262"},"Yankton Sioux Tribe":{t:"Chairwoman",n:"Chelaine Knudsen",a1:"P.O. Box 1153",a2:"Wagner, SD 57380"}},"TX":{"Alabama-Coushatta Tribe of Texas":{t:"Chairman",n:"Colabe Mikko Ricky Sylestine",a1:"571 State Park Road 56",a2:"Livingston, TX 77351"},"Kickapoo Traditional Tribe of Texas":{t:"Chairman",n:"Juan Garza",a1:"P.O. Box 972",a2:"Eagle Pass, TX 78853"},"Ysleta del Sur Pueblo":{t:"Governor",n:"Michael Silvas",a1:"119 S. Old Pueblo Road",a2:"El Paso, TX 79907"}},"UT":{"Northwestern Band of the Shoshone Nation":{t:"Chairman",n:"Darren Parry",a1:"707 North Main Street",a2:"Brigham City, UT 84302"},"Paiute Indian Tribe of Utah":{t:"Chairwoman",n:"Tamra Borchardt-Slayton",a1:"440 North Paiute Drive",a2:"Cedar City, UT 84721"},"Skull Valley Band of Goshute Indians":{t:"Chairman",n:"Candace Bear",a1:"P.O. Box 448",a2:"Grantsville, UT 84029"},"Ute Indian Tribe of the Uintah and Ouray Reservation":{t:"Chairman",n:"Luke Duncan",a1:"P.O. Box 190",a2:"Fort Duchesne, UT 84026"}},"VA":{"Chickahominy Indian Tribe":{t:"Chief",n:"Stephen Adkins",a1:"8200 Lott Cary Road",a2:"Providence Forge, VA 23140"},"Chickahominy Tribe-Eastern Division":{t:"Chief",n:"Gene Adkins",a1:"P.O. Box 226",a2:"Providence Forge, VA 23140"},"Monacan Indian Nation":{t:"Chief",n:"Kenneth Branham",a1:"P.O. Box 1136",a2:"Madison Heights, VA 24572"},"Nansemond Indian Tribe":{t:"Chief",n:"Keith Anderson",a1:"P.O. Box 1916",a2:"Suffolk, VA 23439"},"Pamunkey Indian Tribe":{t:"Chief",n:"Robert Gray",a1:"1054 Pocahontas Trail",a2:"King William, VA 23086"},"Rappahannock Tribe":{t:"Chief",n:"G. Anne Richardson",a1:"5036 Indian Neck Road",a2:"Indian Neck, VA 23148"},"Upper Mattaponi Indian Tribe":{t:"Chief",n:"Frank Adams",a1:"13476 King William Road",a2:"King William, VA 23086"}},"WA":{"Chehalis Confederated Tribes":{t:"Chairman",n:"Harry Pickernell Sr.",a1:"420 Howanut Road",a2:"Oakville, WA 98568"},"Colville Confederated Tribes":{t:"Chairman",n:"Jarred-Michael Erickson",a1:"P.O. Box 150",a2:"Nespelem, WA 99155"},"Cowlitz Indian Tribe":{t:"Chairman",n:"Philip Harju",a1:"P.O. Box 2547",a2:"Longview, WA 98632"},"Hoh Indian Tribe":{t:"Chairwoman",n:"Maria Lopez",a1:"P.O. Box 2196",a2:"Forks, WA 98331"},"Jamestown S'Klallam Tribe":{t:"Chairman",n:"W. Ron Allen",a1:"1033 Old Blyn Highway",a2:"Sequim, WA 98382"},"Kalispel Indian Community":{t:"Chairman",n:"Glen Nenema",a1:"P.O. Box 39",a2:"Usk, WA 99180"},"Lower Elwha Klallam Tribe":{t:"Chairwoman",n:"Frances Charles",a1:"2851 Lower Elwha Road",a2:"Port Angeles, WA 98363"},"Lummi Nation":{t:"Chairman",n:"Lawrence Solomon",a1:"2665 Kwina Road",a2:"Bellingham, WA 98226"},"Makah Indian Tribe":{t:"Chairman",n:"Timothy Greene Sr.",a1:"P.O. Box 115",a2:"Neah Bay, WA 98357"},"Muckleshoot Indian Tribe":{t:"Chairman",n:"Jaison Elkins",a1:"39015 172nd Avenue SE",a2:"Auburn, WA 98092"},"Nisqually Indian Tribe":{t:"Chairman",n:"Willie Frank III",a1:"4820 She-Nah-Num Drive SE",a2:"Olympia, WA 98513"},"Nooksack Indian Tribe":{t:"Chairman",n:"Ross Cline Sr.",a1:"P.O. Box 157",a2:"Deming, WA 98244"},"Port Gamble S'Klallam Tribe":{t:"Chairman",n:"Jeremiah Sullivan",a1:"31912 Little Boston Road NE",a2:"Kingston, WA 98346"},"Puyallup Tribe of Indians":{t:"Chairman",n:"Bill Sterud",a1:"3009 E. Portland Avenue",a2:"Tacoma, WA 98404"},"Quileute Tribe":{t:"Chairman",n:"Doug Woodruff",a1:"P.O. Box 279",a2:"La Push, WA 98350"},"Quinault Indian Nation":{t:"President",n:"Guy Capoeman",a1:"P.O. Box 189",a2:"Taholah, WA 98587"},"Samish Indian Nation":{t:"Chairman",n:"Tom Wooten",a1:"P.O. Box 217",a2:"Anacortes, WA 98221"},"Sauk-Suiattle Indian Tribe":{t:"Chairman",n:"Noel Bowhay",a1:"5318 Chief Brown Lane",a2:"Darrington, WA 98241"},"Shoalwater Bay Indian Tribe":{t:"Chairman",n:"Charlene Nelson",a1:"P.O. Box 130",a2:"Tokeland, WA 98590"},"Skokomish Indian Tribe":{t:"Chairman",n:"Guy Miller",a1:"N. 80 Tribal Center Road",a2:"Skokomish Nation, WA 98584"},"Snoqualmie Indian Tribe":{t:"Chairman",n:"Robert de los Angeles",a1:"P.O. Box 969",a2:"Snoqualmie, WA 98065"},"Spokane Tribe of Indians":{t:"Chairman",n:"Carol Evans",a1:"P.O. Box 100",a2:"Wellpinit, WA 99040"},"Squaxin Island Tribe":{t:"Chairman",n:"Kris Peters",a1:"10 SE Squaxin Lane",a2:"Shelton, WA 98584"},"Stillaguamish Tribe of Indians":{t:"Chairman",n:"Shawn Yanity",a1:"P.O. Box 277",a2:"Arlington, WA 98223"},"Suquamish Indian Tribe":{t:"Chairman",n:"Leonard Forsman",a1:"P.O. Box 498",a2:"Suquamish, WA 98392"},"Swinomish Indian Tribal Community":{t:"Chairman",n:"Steve Edwards",a1:"11404 Moorage Way",a2:"La Conner, WA 98257"},"Tulalip Tribes of Washington":{t:"Chairman",n:"Teri Gobin",a1:"6406 Marine Drive",a2:"Tulalip, WA 98271"},"Yakama Nation":{t:"Chairman",n:"Gerald Lewis",a1:"P.O. Box 151",a2:"Toppenish, WA 98948"}},"WI":{"Bad River Band of the Lake Superior Tribe of Chippewa Indians":{t:"Chairman",n:"Dylan Jennings",a1:"P.O. Box 39",a2:"Odanah, WI 54861"},"Forest County Potawatomi Community":{t:"Chairman",n:"Ned Daniels Jr.",a1:"P.O. Box 340",a2:"Crandon, WI 54520"},"Ho-Chunk Nation":{t:"President",n:"Marlon WhiteEagle",a1:"P.O. Box 667",a2:"Black River Falls, WI 54615"},"Lac Courte Oreilles Band of Lake Superior Chippewa Indians":{t:"Chairman",n:"Louis Taylor",a1:"13394 W. Trepania Road",a2:"Hayward, WI 54843"},"Lac du Flambeau Band of Lake Superior Chippewa Indians":{t:"President",n:"John Johnson Sr.",a1:"P.O. Box 67",a2:"Lac du Flambeau, WI 54538"},"Menominee Indian Tribe of Wisconsin":{t:"Chairman",n:"Joey Awonohopay",a1:"P.O. Box 910",a2:"Keshena, WI 54135"},"Oneida Nation":{t:"Chairman",n:"Tehassi Hill",a1:"P.O. Box 365",a2:"Oneida, WI 54155"},"Red Cliff Band of Lake Superior Chippewa Indians":{t:"Chairman",n:"Christopher Boyd",a1:"88385 Pike Road",a2:"Bayfield, WI 54814"},"Sokaogon Chippewa Community (Mole Lake)":{t:"Chairman",n:"Louis Taylor Vanzile Sr.",a1:"3051 Sand Lake Road",a2:"Crandon, WI 54520"},"St. Croix Chippewa Indians of Wisconsin":{t:"Chairman",n:"Conrad St. John",a1:"24663 Angeline Avenue",a2:"Webster, WI 54893"},"Stockbridge-Munsee Community":{t:"President",n:"Shannon Holsey",a1:"N8476 Moh He Con Nuck Road",a2:"Bowler, WI 54416"}},"WY":{"Eastern Shoshone Tribe":{t:"Chairman",n:"John St. Clair",a1:"P.O. Box 538",a2:"Fort Washakie, WY 82514"},"Northern Arapaho Tribe":{t:"Chairman",n:"Jordan Shakespeare",a1:"P.O. Box 396",a2:"Fort Washakie, WY 82514"}}};
-var cs=null,cp=0,cst='',ctn='',queue=[],previewTribes=[];
+var cs=null,cp=0,cst='',ctn='',origAddr=null;
 
 window.onload=function(){
   try{var s=localStorage.getItem('tnlg1');if(s){var d=JSON.parse(s);if(d.n)$('s1N').value=d.n;if(d.e)$('s1E').value=d.e;if(d.a)$('s1A').value=d.a;if(d.p)$('s1P').value=d.p}}catch(e){}
@@ -282,7 +286,7 @@ function backToS2(){$('preview').style.display='none';$('step2').style.display='
 
 function onSt(){
   cst=$('s2S').value;var sel=$('s2T');sel.innerHTML='<option value="">\u2014 Select tribe \u2014</option>';
-  $('popD').textContent='';$('spnl').style.display='none';$('leaderPanel').style.display='none';cs=null;
+  $('popD').textContent='';$('spnl').style.display='none';$('leaderPanel').style.display='none';$('addrActions').style.display='none';cs=null;origAddr=null;
   $('s2LT').value='';$('s2LN').value='';$('s2A1').value='';$('s2A2').value='';$('autoFillMsg').innerHTML='';
   if(!cst||!P[cst])return;
   var ns=Object.keys(P[cst]).sort();
@@ -290,27 +294,35 @@ function onSt(){
 }
 function onTribe(){
   ctn=$('s2T').value;
-  if(!cst||!ctn||!P[cst]||P[cst][ctn]===undefined){$('popD').textContent='';$('spnl').style.display='none';$('leaderPanel').style.display='none';cs=null;return}
+  if(!cst||!ctn||!P[cst]||P[cst][ctn]===undefined){$('popD').textContent='';$('spnl').style.display='none';$('leaderPanel').style.display='none';$('addrActions').style.display='none';cs=null;origAddr=null;return}
   cp=P[cst][ctn]; cs=calc(cp);
   var circ=CIRCUITS[cst]||'';
   $('popD').textContent=ctn+' \u2014 '+SN[cst]+' ('+circ+' Circuit) \u2014 Service Area Pop. '+cp.toLocaleString('en-US');
   // Auto-fill from embedded data
   $('s2LT').value='';$('s2LN').value='';$('s2A1').value='';$('s2A2').value='';
   $('autoFillMsg').innerHTML='';
+  origAddr={st:cst,tn:ctn,t:'',n:'',a1:'',a2:''};
   if(LEADERS[cst]&&LEADERS[cst][ctn]){
     var ld=LEADERS[cst][ctn];
-    if(ld.t)$('s2LT').value=ld.t;
-    if(ld.n)$('s2LN').value=ld.n;
-    if(ld.a1)$('s2A1').value=ld.a1;
-    if(ld.a2)$('s2A2').value=ld.a2;
+    if(ld.t){$('s2LT').value=ld.t;origAddr.t=ld.t;}
+    if(ld.n){$('s2LN').value=ld.n;origAddr.n=ld.n;}
+    if(ld.a1){$('s2A1').value=ld.a1;origAddr.a1=ld.a1;}
+    if(ld.a2){$('s2A2').value=ld.a2;origAddr.a2=ld.a2;}
     if(ld.n){
       var q=encodeURIComponent(ctn+' '+SN[cst]+' tribal leader chairman president office address');
-      $('autoFillMsg').innerHTML='<div class="datacur">Data current as of March 2026. Fields are editable. <a class="vfylink" href="https://www.google.com/search?q='+q+'" target="_blank" onclick="event.stopPropagation();">\uD83D\uDD0D Verify with Google Search</a></div>';
+      $('autoFillMsg').innerHTML='<div class="datacur">Data current as of March 2026. Fields are editable. <a class="vfylink" href="https://www.google.com/search?q='+q+'" target="_blank" onclick="event.stopPropagation();">\uD83D\uDD0D Verify leader with Google Search</a></div>';
     }else{
       var q2=encodeURIComponent(ctn+' '+SN[cst]+' tribal leader chairman president chief office mailing address');
       $('autoFillMsg').innerHTML='<div class="datacur" style="color:#e67e22">Leader data not yet embedded for this tribe. Please look up manually. <a class="vfylink" href="https://www.google.com/search?q='+q2+'" target="_blank" onclick="event.stopPropagation();">\uD83D\uDD0D Search Google for '+ctn+' Leader</a></div>';
     }
+  }else{
+    var q3=encodeURIComponent(ctn+' '+SN[cst]+' tribal leader chairman president chief office mailing address');
+    $('autoFillMsg').innerHTML='<div class="datacur" style="color:#e67e22">Leader data not yet embedded for this tribe. Please look up manually. <a class="vfylink" href="https://www.google.com/search?q='+q3+'" target="_blank" onclick="event.stopPropagation();">\uD83D\uDD0D Search Google for '+ctn+' Leader</a></div>';
   }
+  // Set up address verify link
+  var addrQ=encodeURIComponent(ctn+' '+SN[cst]+' tribal office mailing address');
+  $('verifyAddrLink').href='https://www.google.com/search?q='+addrQ;
+  $('addrActions').style.display='block';
   $('leaderPanel').style.display='block';
   $('sTP').textContent=f$(cs.total);
   $('sR').textContent=fK(cs.floor)+' \u2013 '+fK(cs.ceiling);
@@ -343,74 +355,62 @@ function validateLeader(){
   return li;
 }
 
-function addToQueue(){
-  if(!cst||!ctn||!cs){$('s2m').innerHTML='<p class="err">Select a state and tribe first.</p>';return}
-  var li=validateLeader();if(!li)return;
-  for(var i=0;i<queue.length;i++){if(queue[i].tn===ctn&&queue[i].st===cst){$('s2m').innerHTML='<p class="err">'+ctn+' is already in the batch.</p>';return}}
-  queue.push({st:cst,tn:ctn,pop:cp,s:cs,lt:li.lt,ln:li.ln,a1:li.a1,a2:li.a2});renderQueue();
-  $('s2m').innerHTML='<p class="ok">\u2713 '+ctn+' added ('+li.lt+' '+li.ln+').</p>';
-}
-function removeFromQueue(i){queue.splice(i,1);renderQueue()}
-function clearQueue(){queue=[];renderQueue()}
-function renderQueue(){
-  if(queue.length===0){$('queuePanel').style.display='none';return}
-  $('queuePanel').style.display='block';
-  $('qCount').textContent='('+queue.length+' tribe'+(queue.length>1?'s':'')+' \u2014 '+queue.length*4+' pages)';
-  var h='';
-  for(var i=0;i<queue.length;i++){var q=queue[i];h+='<div class="qi"><span>'+(i+1)+'. '+q.tn+', '+q.st+' ('+q.lt+' '+q.ln+') \u2014 '+fK(q.s.floor)+'\u2013'+fK(q.s.ceiling)+'</span><button class="qr" onclick="removeFromQueue('+i+')">Remove</button></div>'}
-  $('qList').innerHTML=h;
-}
-
 function getMyInfo(){return{n:$('s1N').value.trim(),e:$('s1E').value.trim(),a:$('s1A').value.trim(),p:$('s1P').value.trim()}}
 
 function printOne(){
   if(!cst||!ctn||!cs){$('s2m').innerHTML='<p class="err">Select a state and tribe first.</p>';return}
   var li=validateLeader();if(!li)return;
   $('s2m').innerHTML='';var my=getMyInfo();
-  previewTribes=[{st:cst,tn:ctn}];
   $('printArea').innerHTML=makeCL(my,cst,ctn,cp,cs,li.lt,li.ln,li.a1,li.a2)+makeAC(cst,ctn,cp,cs)+brochureHTML();
   $('pgInfo').textContent='1 tribe \u2014 4 pages';
   $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
 }
 
-function printBatch(){
-  if(queue.length===0)return;var my=getMyInfo(),h='';
-  previewTribes=queue.map(function(q){return{st:q.st,tn:q.tn}});
-  for(var i=0;i<queue.length;i++){var q=queue[i];h+=makeCL(my,q.st,q.tn,q.pop,q.s,q.lt,q.ln,q.a1,q.a2)+makeAC(q.st,q.tn,q.pop,q.s)+brochureHTML()}
-  $('printArea').innerHTML=h;
-  $('pgInfo').textContent=queue.length+' tribe'+(queue.length>1?'s':'')+' \u2014 '+queue.length*4+' pages';
-  $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
-}
+function doPrint(){ window.print(); }
 
-function doPrint(){
-  var content=$('printArea').innerHTML;
-  var styles=document.querySelectorAll('style');
-  var css='';for(var i=0;i<styles.length;i++) css+=styles[i].outerHTML;
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Tribal Nation Mailing Package</title>'+css+'<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}.bp{height:11in;max-height:11in;overflow:hidden}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style></head><body>'+content+'</body></html>';
-  var fname;
-  if(previewTribes.length===1){
-    fname=previewTribes[0].st+'-'+previewTribes[0].tn.replace(/[^a-zA-Z0-9]/g,'_')+'_Package.html';
+// ==================== REPORT WRONG ADDRESS ====================
+function copyAddressReport(){
+  if(!origAddr){$('s2m').innerHTML='<p class="err">Please select a tribe first.</p>';return}
+  var a=origAddr;
+  var text=
+    'WRONG TRIBAL NATION ADDRESS REPORT\n'+
+    '===================================\n'+
+    'Tribe: '+a.tn+'\n'+
+    'State: '+a.st+'\n'+
+    'Leader: '+(a.t||'')+(a.n?' '+a.n:'')+'\n\n'+
+    'Currently shown in generator:\n'+
+    '  '+(a.t||'')+(a.n?' '+a.n:'')+'\n'+
+    '  '+(a.a1||'(none)')+'\n'+
+    '  '+(a.a2||'')+'\n\n'+
+    'Correct address:\n'+
+    '  (paste correct info here)\n\n'+
+    'Correct leader name/title (if changed):\n'+
+    '  (paste here, or write "same")\n\n'+
+    'Source / proof (URL or notes):\n'+
+    '  (paste here)\n\n'+
+    'Email this to: roleigh@pobox.com';
+  $('reportText').value=text;
+  $('copyStatus').textContent='';
+  $('reportModal').style.display='block';
+  $('reportText').focus();
+  $('reportText').select();
+}
+function doCopyReport(){
+  var ta=$('reportText');
+  ta.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(function(){
+      $('copyStatus').textContent='\u2713 Copied!';
+    },function(){
+      try{document.execCommand('copy');$('copyStatus').textContent='\u2713 Copied!';}
+      catch(e){$('copyStatus').textContent='Select the text and press Ctrl+C';}
+    });
   }else{
-    fname='Tribal_Nation_Batch_Package.html';
-  }
-  var inSandbox=false;
-  try{inSandbox=window.self!==window.top}catch(e){inSandbox=true}
-  if(!inSandbox){
-    // Standalone browser: just download, no modal
-    var blob=new Blob([html],{type:'text/html'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download=fname;
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(function(){URL.revokeObjectURL(url)},2000);
-  }else{
-    // Claude sandbox: show instructions since downloads are blocked
-    var dlDiv=document.createElement('div');
-    dlDiv.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #1a3a5c;border-radius:12px;padding:24px 32px;z-index:9999;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:440px';
-    dlDiv.innerHTML='<div style="font-size:16px;font-weight:bold;color:#1a3a5c;margin-bottom:12px">Save &amp; Print</div><div style="font-size:13px;color:#333;margin-bottom:12px;line-height:1.5">Downloads are not available inside Claude\u2019s interface. To save and print:</div><div style="text-align:left;font-size:13px;color:#333;line-height:1.7;margin-bottom:16px"><strong>1.</strong> Click the <strong>Copy</strong> button at the top-right of this panel to copy the app\u2019s HTML.<br><strong>2.</strong> Paste into a text editor and save as an <strong>.html</strong> file.<br><strong>3.</strong> Open that file in your browser (double-click it).<br><strong>4.</strong> Generate your package there \u2014 Save &amp; Print will work normally.</div><div style="font-size:12px;color:#888;margin-bottom:12px">Alternatively, download the HTML file from the Substack article or Google Drive link and open it directly in your browser.</div><button onclick="this.parentElement.remove()" style="padding:8px 20px;font-size:14px;border:1px solid #ccc;border-radius:6px;cursor:pointer;background:white">Got It</button>';
-    document.body.appendChild(dlDiv);
+    try{document.execCommand('copy');$('copyStatus').textContent='\u2713 Copied!';}
+    catch(e){$('copyStatus').textContent='Select the text and press Ctrl+C';}
   }
 }
+function closeReportModal(){$('reportModal').style.display='none';}
 
 function extractLastName(fullName){
   var suffixes=['jr','jr.','sr','sr.','ii','iii','iv','v'];
