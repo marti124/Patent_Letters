@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tribal Nation Letter and Brochure Generator (v2)</title>
+<title>Tribal Nation Letter and Brochure Generator (v2.1)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
@@ -110,7 +110,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 1 -->
 <div id="step1" class="fw">
   <h1 class="ft">Tribal Nation Letter and Brochure Generator</h1>
-  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2.0</p>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2.1</p>
   <p class="fs">Generate personalized cover letters, tribal procurement savings reports, and constitutional brochures for federally recognized tribal nations in the contiguous 48 states. Print one tribe at a time. Works in any browser. No downloads.</p>
   <p class="note ctr" style="margin-bottom:12px">Covers 346 federally recognized tribes across 33 states. Alaska Native entities (227) are excluded due to different governance structures.</p>
   <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
@@ -366,7 +366,16 @@ function printOne(){
   $('step2').style.display='none';$('preview').style.display='block';scrollTo(0,0);
 }
 
-function doPrint(){ window.print(); }
+function doPrint(){
+  // Build filename: ST-TRIBE_NAME_v2.1
+  // Browsers use document.title as the default "Save as PDF" filename.
+  var origTitle=document.title;
+  var safeName=(ctn||'Tribe').replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+  var safeState=(cst||'XX');
+  document.title=safeState+'-'+safeName+'_v2.1';
+  window.print();
+  setTimeout(function(){document.title=origTitle;},1500);
+}
 
 // ==================== REPORT WRONG ADDRESS ====================
 function copyAddressReport(){
