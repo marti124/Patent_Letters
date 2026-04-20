@@ -632,8 +632,9 @@ body.preview-mode .guide-toggle{display:none}
   </div>
 
   <div class="scr" id="scr-app">
-    <div style="margin-bottom:10px">
+    <div style="margin-bottom:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <button class="btn btn-secondary" onclick="goToWelcome()">&larr; Back to My Info</button>
+      <button class="btn btn-secondary" id="backToListBtn" onclick="openPicker()" style="display:none">&larr; Back to Advocate List</button>
     </div>
     <h1>Selected Public Domain Advocate</h1>
     <p class="tagline">Click the button at the bottom to create the full mailing package. Each entry in the popup
@@ -676,7 +677,7 @@ body.preview-mode .guide-toggle{display:none}
         </div>
 
         <div class="btn-row">
-          <button class="btn btn-secondary" onclick="goToWelcome()">&larr; Edit My Info</button>
+          <button class="btn btn-secondary" onclick="openPicker()">&larr; Back to Advocate List</button>
           <button class="btn btn-success" onclick="generatePreview()" id="previewBtn">
             Preview &amp; Print 5-Page Package &rarr;
           </button>
@@ -694,7 +695,7 @@ body.preview-mode .guide-toggle{display:none}
         <h2>Choose a Public Domain Advocate</h2>
         <div class="count" id="pickerCount"></div>
       </div>
-      <button class="picker-close" onclick="closePicker()">&times; Close</button>
+      <button class="picker-close" id="pickerCloseBtn" onclick="closePicker()">&larr; Back to Selected Advocate</button>
     </div>
     <div class="picker-search">
       <input type="text" id="pickerSearch" placeholder="&#128269; Filter by name, institution, or keyword &hellip;" oninput="filterPicker()">
@@ -1304,6 +1305,8 @@ function buildPicker(){
   $('pickerCount').textContent = ROWS.length + ' advocates';
 }
 function openPicker(){
+  const hasSelection = (typeof selectedIdx !== 'undefined' && selectedIdx !== null && selectedIdx >= 0);
+  $('pickerCloseBtn').textContent = hasSelection ? '\u2190 Back to Selected Advocate' : '\u00d7 Close';
   $('pickerModal').classList.add('open');
   $('pickerSearch').value = '';
   filterPicker();
@@ -1347,6 +1350,7 @@ function pickRow(idx){
     name:    r.name || ''
   };
   $('addressArea').style.display = 'block';
+  $('backToListBtn').style.display = 'inline-block';
   closePicker();
   setTimeout(() => $('addressArea').scrollIntoView({behavior:'smooth',block:'start'}), 120);
 }
@@ -1367,6 +1371,7 @@ function goToApp(){
 function goToWelcome(){
   $('scr-app').classList.remove('active');
   $('scr-welcome').classList.add('active');
+  $('backToListBtn').style.display = 'none';
   window.scrollTo(0,0);
 }
 function goBackToApp(){
