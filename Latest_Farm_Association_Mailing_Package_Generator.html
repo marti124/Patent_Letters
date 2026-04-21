@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farm Association Mailing Package Generator (v4)</title>
+<title>Farm Association Mailing Package Generator (v1)</title>
 <style>
 :root{
   --navy:#0a2540;--green:#1a5d3a;--accent:#8b6914;
@@ -84,20 +84,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
   font-size:.88em;align-items:center}
 .address-actions a{color:var(--navy);text-decoration:underline;cursor:pointer}
 .address-actions a:hover{color:#000}
-.address-actions .sep{color:var(--muted)}
-
-/* ----- Report modal (copyable address report) ----- */
-.report-modal{display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);
-  z-index:100;overflow-y:auto;padding:30px 14px}
-.report-modal.open{display:flex;align-items:center;justify-content:center}
-.report-modal-inner{max-width:540px;width:100%;background:#fff;
-  border-radius:8px;padding:24px 28px;font-size:.96em}
-.report-modal h3{margin:0 0 10px;color:var(--navy)}
-.report-modal textarea{width:100%;height:220px;font-family:'Courier New',monospace;
-  font-size:.92em;padding:10px;border:1px solid var(--border);border-radius:5px;
-  background:#fafaf7;resize:vertical;line-height:1.4}
-.report-modal .btn-row{margin-top:14px;display:flex;gap:10px;justify-content:flex-end}
-.report-modal .copy-status{font-size:.88em;color:var(--confirm);margin-right:auto;align-self:center}
 
 /* ============= PRINT STYLES ============= */
 @media screen{
@@ -106,7 +92,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
 }
 @media print{
   body{background:#fff}
-  .app-shell,.guide-toggle,.guide-modal,.report-modal,.print-controls,.preview-banner{display:none !important}
+  .app-shell,.guide-toggle,.guide-modal,.print-controls,.preview-banner{display:none !important}
   .print-pages{display:block !important;background:#fff;padding:0;margin:0;max-width:none}
   .print-pages .page{padding:0 !important;border:none !important;
     margin:0 !important;box-shadow:none !important;min-height:0 !important}
@@ -115,7 +101,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
 .print-pages{font-family:Georgia,'Times New Roman',serif;color:#000;
   font-size:10pt;line-height:1.38;background:#fff;
   max-width:8.5in;margin:0 auto;padding:0}
-.print-pages.preview{padding:20px 0 60px}
+.print-pages.preview{padding:70px 0 60px}
 .print-pages.preview .page{background:#fff;border:1px solid #ddd;
   margin:0 auto 24px;padding:.35in;width:8.5in;max-width:100%;
   min-height:10.3in;box-shadow:0 1px 4px rgba(0,0,0,.12);overflow:hidden}
@@ -304,24 +290,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
   </div>
 </div>
 
-<div class="report-modal" id="reportModal">
-  <div class="report-modal-inner">
-    <h3>&#128203; Wrong Address Report</h3>
-    <p style="margin:0 0 10px;font-size:.92em;color:var(--muted)">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
-    <textarea id="reportText"></textarea>
-    <div class="btn-row">
-      <span class="copy-status" id="copyStatus"></span>
-      <button type="button" class="btn btn-success" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
-      <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Close</button>
-    </div>
-  </div>
-</div>
-
 <div class="app-shell">
 
   <div class="scr active" id="scr-welcome">
     <h1>Farm Association Mailing Package Generator</h1>
-    <p class="tagline">Version 4. Generate a personalized 4-page Patent Clause mailing
+    <p class="tagline">Version 1. Generate a personalized 4-page Patent Clause mailing
     package for U.S. farm associations. Works in any browser. No download.
     No account. No cost.</p>
 
@@ -374,7 +347,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
 
         <label>Leadership Name <span style="font-weight:400;color:var(--muted)">(optional &mdash; leave blank for generic salutation)</span></label>
         <input type="text" id="leaderName" class="addr-input" placeholder="e.g., Tim Gibbons">
-        <p class="hint"><a href="#" id="verifyNameLink" target="_blank" rel="noopener">&#128269; Verify this name on Google &rarr;</a></p>
 
         <label style="margin-top:18px">Organization &amp; Street Address (editable)</label>
         <input type="text" id="addrOrg" class="addr-input addr-bold" placeholder="Organization name">
@@ -383,8 +355,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
 
         <div class="address-actions">
           <a href="#" id="verifyAddrLink" target="_blank" rel="noopener">&#128269; Verify this address on Google</a>
-          <span class="sep">|</span>
-          <button type="button" class="link-btn" onclick="copyAddressReport()">&#9993;&#65039; Report wrong address (copy to clipboard)</button>
+          <span style="color:var(--muted)">|</span>
+          <button type="button" class="link-btn" onclick="openReportModal()">&#9993;&#65039; Report data error (copy to clipboard)</button>
         </div>
 
         <h3 style="margin-top:24px">Member Equipment Cost Impact (Auto-Calculated)</h3>
@@ -407,6 +379,20 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);
           </button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT DATA ERROR MODAL -->
+<div id="reportModal" style="display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);z-index:9999;overflow-y:auto;padding:30px 14px">
+  <div style="max-width:560px;width:100%;margin:0 auto;background:#fff;border-radius:8px;padding:24px 28px;font-size:14px;font-family:Georgia,'Times New Roman',serif">
+    <h3 style="margin:0 0 10px;color:var(--navy);font-family:Georgia,serif">&#128203; Farm Association Data Error Report</h3>
+    <p style="margin:0 0 10px;font-size:13px;color:var(--muted)">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
+    <textarea id="reportText" style="width:100%;height:240px;font-family:'Courier New',monospace;font-size:13px;padding:10px;border:1px solid var(--border);border-radius:5px;background:#fafaf7;resize:vertical;line-height:1.4"></textarea>
+    <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end;align-items:center">
+      <span id="copyStatus" style="font-size:13px;color:var(--confirm);margin-right:auto"></span>
+      <button type="button" class="btn btn-success" style="padding:8px 18px;font-size:14px" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
+      <button type="button" class="btn btn-secondary" style="padding:8px 18px;font-size:14px" onclick="closeReportModal()">Close</button>
     </div>
   </div>
 </div>
@@ -510,9 +496,11 @@ function onOrgChange(){
   const rec = ORGS[parseInt(idx)];
   const [orgName, street, cityStZip, title, name, email, phone, members, dated, notes] = rec;
 
-  // Summary card (notes intentionally excluded from display)
+  // Summary card
   let summary = '<div class="org-name">' + escapeHTML(orgName) + '</div>';
-  summary += '<div class="org-detail">' + fmtN(members) + ' member farms</div>';
+  summary += '<div class="org-detail">' + fmtN(members) + ' member farms';
+  if(notes) summary += ' &mdash; <em>' + escapeHTML(notes) + '</em>';
+  summary += '</div>';
   $('orgSummary').innerHTML = summary;
 
   // Fill editable fields
@@ -525,12 +513,8 @@ function onOrgChange(){
   const verifyQ = encodeURIComponent(orgName + ' mailing address');
   $('verifyAddrLink').href = 'https://www.google.com/search?q=' + verifyQ;
 
-  // Set up leadership name verify link
-  const nameQ = encodeURIComponent((title && title !== 'Leadership' ? title : 'leader') + ' ' + orgName + (name ? ' ' + name : ''));
-  $('verifyNameLink').href = 'https://www.google.com/search?q=' + nameQ;
-
-  // Store original DB address for the copy-report function
-  window._origAddr = {orgName, street, cityStZip, title, name};
+  // Store for error report
+  window._currentReportOrg = {orgName, street, cityStZip, title, name, phone, members, notes};
 
   computeSavings(members);
   $('addressArea').style.display = 'block';
@@ -608,48 +592,6 @@ function loadInfo(){
 }
 
 function toggleGuide(){ $('guideModal').classList.toggle('open'); }
-
-function copyAddressReport(){
-  const a = window._origAddr;
-  if(!a){alert('Please select an association first.');return;}
-  const text =
-    'WRONG FARM ASSOCIATION ADDRESS REPORT\n' +
-    '======================================\n' +
-    'Organization: ' + a.orgName + '\n' +
-    'Leadership: ' + (a.title || '') + (a.name ? ' ' + a.name : '') + '\n\n' +
-    'Currently shown in generator:\n' +
-    '  ' + (a.orgName || '') + '\n' +
-    '  ' + (a.street || '(none)') + '\n' +
-    '  ' + (a.cityStZip || '') + '\n\n' +
-    'Correct address:\n' +
-    '  (paste correct info here)\n\n' +
-    'Correct leadership name/title (if changed):\n' +
-    '  (paste here, or write "same")\n\n' +
-    'Source / proof (URL or notes):\n' +
-    '  (paste here)\n\n' +
-    'Email this to: roleigh@pobox.com';
-  $('reportText').value = text;
-  $('copyStatus').textContent = '';
-  $('reportModal').classList.add('open');
-  $('reportText').focus();
-  $('reportText').select();
-}
-function doCopyReport(){
-  const ta = $('reportText');
-  ta.select();
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(ta.value).then(function(){
-      $('copyStatus').textContent = '\u2713 Copied!';
-    },function(){
-      try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
-      catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
-    });
-  } else {
-    try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
-    catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
-  }
-}
-function closeReportModal(){ $('reportModal').classList.remove('open'); }
 
 function lastNameOf(full){
   if(!full) return '';
@@ -834,7 +776,7 @@ function generatePreview(){
       '(TractorGyan); Mahindra US pricing (AllMachines); John Deere India/US combine pricing.</p>' +
     '</div>' +
     '<div class="sr-footer">Full analysis: \u201cThe Constitutional Violation No One Reports\u201d at x.com/RoleighMartin/articles | SSRN Abstract ID 6166206 &nbsp;|&nbsp; ' +
-    'Prepared for ' + escapeHTML(orgName) + ' &nbsp;|&nbsp; Generator v4.0</div>' +
+    'Prepared for ' + escapeHTML(orgName) + ' &nbsp;|&nbsp; Generator v1.0</div>' +
     '</div>';
 
   // ===== PAGE 3: BROCHURE 1 — A CONSTITUTIONAL CHALLENGE FOR FARM ASSOCIATIONS =====
@@ -868,19 +810,21 @@ function generatePreview(){
         '</div>' +
       '</div>' +
       '<div class="col">' +
-        '<h3>The Tractor: 3.8\u00d7 Markup</h3>' +
+        '<h3>The International Proof</h3>' +
         '<div class="body">' +
-        '<p><strong>Same manufacturer, same tractor.</strong> A Mahindra 44-HP tractor sells for <strong>$7,300 in India</strong> and <strong>$27,992 in the United States</strong>. Mahindra is a $19.4B conglomerate exporting to 100+ countries. Sonalika exports to 150+ nations. TAFE exports to 100+ countries.</p>' +
-        '<p>Your members cannot buy what farmers in 90+ countries freely purchase\u2014not because of quality, but because EPA regulations make it illegal to remanufacture the expired-patent design domestically.</p>' +
-        '<p>Mahindra\u2019s Thar ROXX earned a <strong>5-star</strong> Bharat NCAP safety rating (31.09/32). Safety is added voluntarily\u2014not by regulators.</p>' +
+        '<p>90+ countries sell patent-expired equipment Americans cannot buy. Mahindra (a $19.4B conglomerate) exports ' +
+        'tractors to 100+ countries. Sonalika exports to 150+ nations. TAFE exports to 100+ countries.</p>' +
+        '<p>Mahindra\u2019s Thar ROXX earned a 5-star Bharat NCAP safety rating (31.09/32 adult protection). Safety added voluntarily, ' +
+        'not by regulators.</p>' +
+        '<p style="font-weight:700;color:#8b2020;text-align:center">$2,420 stolen per household per year</p>' +
         '</div>' +
       '</div>' +
       '<div class="col">' +
-        '<h3>The Combine: 26\u201330\u00d7</h3>' +
+        '<h3>The Combine Harvester</h3>' +
         '<div class="body">' +
-        '<p><strong>Same brand, starkest comparison.</strong> A John Deere W70 in India (100-HP, 14-ft header): <strong>$21,000\u2013$24,700</strong>. A John Deere S7 600 in the U.S. (382-HP): <strong>~$646,000</strong>.</p>' +
-        '<p>The U.S. machine costs 26\u201330\u00d7 more while delivering only 3\u20135\u00d7 the daily output. On a <strong>cost-per-unit-of-daily-harvesting-capacity</strong> basis, the Indian Deere is <strong>6\u201310\u00d7 cheaper</strong>.</p>' +
-        '<p style="font-weight:700;color:#8b2020;text-align:center;margin-top:4pt">$2,420 stolen per household per year</p>' +
+        '<p>Same brand: A John Deere W70 in India (100-HP, 14-ft) is $21,000\u2013$24,700. A John Deere S7 600 in the U.S. (382 HP) lists at ' +
+        '~$646,000. The U.S. machine costs 26\u201330\u00d7 more while delivering only 3\u20135\u00d7 the daily output.</p>' +
+        '<p>On a cost-per-unit-of-daily-harvesting-capacity basis, the Indian Deere is 6\u201310\u00d7 cheaper.</p>' +
         '</div>' +
       '</div>' +
     '</div>' +
@@ -910,10 +854,7 @@ function generatePreview(){
     '</div>' +
 
     '<div class="br-pullquote">A 2006 John Deere 8530 cannot be remanufactured by anyone \u2014 not even Deere. Current-year ' +
-    'standards require a fundamentally different product. The patent expired. The public domain use phase never starts. ' +
-    '<strong>Read how farm equipment followed cars into the regulatory ratchet:</strong> ' +
-    '<em>\u201cFarm Associations Open a Fifth Front in the Lawfare War Against Expired Patents\u201d</em> ' +
-    'at <strong>x.com/RoleighMartin/articles</strong> (dated 3/28/2026).</div>' +
+    'standards require a fundamentally different product. The patent expired. The public domain use phase never starts.</div>' +
     '</div>';
 
   // ===== PAGE 4: BROCHURE 2 — CALL TO ACTION, EVIDENCE & WHY FARM ASSOCIATIONS =====
@@ -988,9 +929,9 @@ function generatePreview(){
       '</div>' +
     '</div>' +
 
-    '<div class="br-pullquote" style="margin-top:4pt">' +
+    '<div class="br-foot-quote" style="margin-top:4pt;font-size:8pt;line-height:1.25">' +
     '<strong>Farm bankruptcies were up 46% in 2025.</strong> Equipment costs are a central driver. The constitutional argument that could bring those costs down has never been raised in court. Your association\u2019s board can change that. ' +
-    '<strong>Read the full analysis:</strong> \u201cThe Constitutional Violation No One Reports\u201d at <strong>x.com/RoleighMartin/articles</strong> | SSRN Abstract ID 6166206. ' +
+    '<strong>Read the full analysis:</strong> \u201cThe Constitutional Violation No One Reports\u201d at x.com/RoleighMartin/articles | SSRN Abstract ID 6166206. ' +
     'The Bicycle Contrast: 95.5% cost reduction over 200 years, 88% decline in child cyclist deaths \u2014 zero federal regulation. That is the Founders\u2019 promise, delivered. ' +
     'Public interest law firms provide completely free representation.' +
     '</div>' +
@@ -1010,6 +951,56 @@ document.addEventListener('DOMContentLoaded', () => {
   populateOrgs();
   loadInfo();
 });
+
+// ==================== REPORT DATA ERROR ====================
+function openReportModal(){
+  const o = window._currentReportOrg;
+  if(!o){ alert('Please select an association first.'); return; }
+  const title  = $('leaderTitle').value.trim();
+  const name   = $('leaderName').value.trim();
+  const org    = $('addrOrg').value.trim();
+  const street = $('addrStreet').value.trim();
+  const csz    = $('addrCityStZip').value.trim();
+  const text =
+    'FARM ASSOCIATION DATA ERROR REPORT\n' +
+    '====================================\n' +
+    'Association: ' + org + '\n' +
+    'Leader: ' + (title || '') + (name ? ' ' + name : '') + '\n\n' +
+    'Currently shown in generator:\n' +
+    '  ' + (title || '(none)') + (name ? ' ' + name : '') + '\n' +
+    '  ' + (street || '(none)') + '\n' +
+    '  ' + (csz || '') + '\n' +
+    '  Phone: ' + (o.phone || '(none)') + '\n\n' +
+    'Correct name/title (if changed):\n' +
+    '  (paste here, or write "same")\n\n' +
+    'Correct address (if changed):\n' +
+    '  (paste correct info here)\n\n' +
+    'Source / proof (URL or notes):\n' +
+    '  (paste here)\n\n' +
+    'Email this to: roleigh@pobox.com';
+  $('reportText').value = text;
+  $('copyStatus').textContent = '';
+  $('reportModal').style.display = 'block';
+  $('reportText').focus();
+  $('reportText').select();
+}
+
+function doCopyReport(){
+  const ta = $('reportText');
+  ta.select();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(
+      () => { $('copyStatus').textContent = '\u2713 Copied!'; },
+      () => { try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+              catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; } }
+    );
+  } else {
+    try{ document.execCommand('copy'); $('copyStatus').textContent = '\u2713 Copied!'; }
+    catch(e){ $('copyStatus').textContent = 'Select the text and press Ctrl+C'; }
+  }
+}
+
+function closeReportModal(){ $('reportModal').style.display = 'none'; }
 </script>
 </body>
 </html>

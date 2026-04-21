@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trucking Assn — Letter &amp; Brochure Generator</title>
+<title>Trucking Assn — Letter &amp; Brochure Generator (v2)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
@@ -21,21 +21,47 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 .btn{padding:12px 28px;font-size:15px;font-weight:600;border:none;border-radius:8px;cursor:pointer;display:inline-block;margin:4px}
 .bn{background:#1a3a5c;color:white}.bn:hover{background:#15304a}
 .bw{background:white;color:#1a3a5c;border:2px solid #1a3a5c}.bw:hover{background:#eef3f8}
-.bred{background:#c0392b;color:white}.bred:hover{background:#a93226}
 .bgrn{background:#27ae60;color:white}.bgrn:hover{background:#1e8449}
-.bora{background:#e67e22;color:white}.bora:hover{background:#d35400}
 .err{text-align:center;color:#dc2626;font-size:13px;margin-top:8px}
 .ok{text-align:center;color:#27ae60;font-size:13px;margin-top:8px}
 .note{font-size:12px;color:#888;margin-top:6px;font-style:italic}
-.qp{background:white;border:2px solid #1a3a5c;border-radius:8px;padding:14px;margin-top:16px}
-.qp h3{color:#1a3a5c;font-size:15px;margin-bottom:8px}
-.qi{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid #eee;font-size:14px}
-.qi:last-child{border-bottom:none}
-.qi .qr{color:#c0392b;cursor:pointer;font-size:12px;font-weight:600;padding:2px 8px;border:1px solid #c0392b;border-radius:4px;background:white}
-.qi .qr:hover{background:#fdecea}
-.toolbar{position:sticky;top:0;z-index:100;background:#1a3a5c;padding:10px 20px;display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap}
-.toolbar .btn{padding:8px 20px;font-size:14px}
-.th{color:white;font-size:13px;opacity:0.8}
+.guide-panel{display:none;max-width:720px;margin:0 auto;padding:24px;background:white;border:2px solid #1a3a5c;border-radius:10px;margin-top:16px;max-height:70vh;overflow-y:auto;text-align:left;font-size:14px;line-height:1.6;color:#333}
+.guide-panel h2{color:#1a3a5c;font-family:Georgia,serif;font-size:18px;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 10px}
+.guide-panel h2:first-child{margin-top:0}
+.guide-panel h3{color:#1a3a5c;font-size:15px;margin:14px 0 6px}
+.guide-panel p{margin-bottom:10px}
+.guide-panel ul,.guide-panel ol{margin-left:20px;margin-bottom:10px}
+.guide-panel li{margin-bottom:6px}
+.guide-panel .close-guide{position:sticky;top:0;background:white;padding:8px 0;text-align:right;border-bottom:1px solid #eee;margin-bottom:10px}
+.bguide{background:#4a6fa5;color:white;font-size:14px;padding:8px 20px;border-radius:6px}
+.vfylink{display:inline-block;margin-top:6px;font-size:12px;color:#1a73e8;cursor:pointer;text-decoration:underline}
+.vfylink:hover{color:#1558b0}
+.otsel{display:flex;gap:12px;justify-content:center;margin:16px 0}
+.otsel label{display:flex;align-items:center;gap:6px;padding:14px 24px;border:2px solid #d1d5db;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;color:#374151;transition:all 0.15s}
+.otsel input[type=radio]{width:18px;height:18px;accent-color:#1a3a5c}
+.otsel label:has(input:checked){border-color:#1a3a5c;background:#eef3f8;color:#1a3a5c}
+.addrwarn{background:#fff3cd;border:1px solid #e0c36a;border-radius:6px;padding:10px 14px;margin-top:8px;font-size:13px;line-height:1.5;color:#856404}
+.addrwarn strong{color:#7a5900}
+.cl[contenteditable]:focus{outline:2px dashed #2980b9;outline-offset:4px}
+.cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
+.chktog{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;font-size:14px;font-weight:600;color:#374151}
+.chktog input{width:18px;height:18px;accent-color:#1a3a5c}
+/* Print controls bar */
+.print-controls{position:fixed;top:14px;left:14px;background:#fff;
+  border:1px solid #d1d5db;padding:8px 14px;border-radius:5px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:50;display:none;
+  font-family:'Segoe UI',system-ui,sans-serif}
+.print-controls.show{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.print-controls button{padding:6px 14px;font-family:inherit;cursor:pointer;
+  border-radius:4px;border:1px solid #d1d5db;background:#fff;font-size:.9em}
+.print-controls button:hover{background:#f9fafb}
+.print-controls .pc-primary{background:#1a3a5c;color:white;border-color:#1a3a5c}
+.print-controls .pc-primary:hover{background:#15304a}
+.editable-note{font-size:.82em;color:#888;font-style:italic}
+/* Print area */
+.print-area{display:none}
+.print-area.show{display:block;background:#e5e7eb;padding:70px 0 60px}
+/* Page styles */
 .page{width:8.5in;background:white;margin:12px auto;border:1px solid #ccc;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
 .cl{font-family:Calibri,Carlito,sans-serif;font-size:10.5pt;line-height:1.15;padding:0.5in;min-height:11in}
 .bp{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:9pt;padding:0.4in;min-height:11in}
@@ -63,35 +89,19 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 .bt th{background:#1a3a5c;color:white;padding:4pt;text-align:center;font-size:8pt;border:1pt solid #999}
 .bt td{padding:3pt 4pt;border:1pt solid #999;font-size:8pt}
 .bt tr:nth-child(even) td{background:#EDF2F9}
-.guide-panel{display:none;max-width:720px;margin:0 auto;padding:24px;background:white;border:2px solid #1a3a5c;border-radius:10px;margin-top:16px;max-height:70vh;overflow-y:auto;text-align:left;font-size:14px;line-height:1.6;color:#333}
-.guide-panel h2{color:#1a3a5c;font-family:Georgia,serif;font-size:18px;border-bottom:2px solid #1a3a5c;padding-bottom:4px;margin:20px 0 10px}
-.guide-panel h3{color:#1a3a5c;font-size:15px;margin:14px 0 6px}
-.guide-panel p{margin-bottom:10px}
-.guide-panel ul,.guide-panel ol{margin-left:20px;margin-bottom:10px}
-.guide-panel li{margin-bottom:6px}
-.guide-panel .close-guide{position:sticky;top:0;background:white;padding:8px 0;text-align:right;border-bottom:1px solid #eee;margin-bottom:10px}
-.bguide{background:#4a6fa5;color:white;font-size:14px;padding:8px 20px;border-radius:6px}
-.vfylink{display:inline-block;margin-top:6px;font-size:12px;color:#1a73e8;cursor:pointer;text-decoration:underline}
-.vfylink:hover{color:#1558b0}
-.otsel{display:flex;gap:12px;justify-content:center;margin:16px 0}
-.otsel label{display:flex;align-items:center;gap:6px;padding:14px 24px;border:2px solid #d1d5db;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600;color:#374151;transition:all 0.15s}
-.otsel input[type=radio]{width:18px;height:18px;accent-color:#1a3a5c}
-.otsel label:has(input:checked){border-color:#1a3a5c;background:#eef3f8;color:#1a3a5c}
-.addrwarn{background:#fff3cd;border:1px solid #e0c36a;border-radius:6px;padding:10px 14px;margin-top:8px;font-size:13px;line-height:1.5;color:#856404}
-.addrwarn strong{color:#7a5900}
-.cl[contenteditable]:focus{outline:2px dashed #2980b9;outline-offset:4px}
-.cl[contenteditable]:hover{outline:1px dashed #aaa;outline-offset:4px}
-.chktog{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;font-size:14px;font-weight:600;color:#374151}
-.chktog input{width:18px;height:18px;accent-color:#1a3a5c}
 @media print{
   body{background:white}
-  .toolbar,#step1,#step2{display:none!important}
-  #preview{display:block!important}
+  .print-controls,.print-area .preview-banner,#step1,#step2{display:none!important}
+  .print-area{display:block!important;background:white!important;padding:0!important}
   .page{border:none;box-shadow:none;margin:0;page-break-after:always}
   .bp{height:11in;max-height:11in;overflow:hidden}
   @page{size:letter;margin:0}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
+.preview-banner{max-width:8.5in;margin:0 auto 14px;padding:8px 14px;
+  background:#fff8e1;border:1px solid #d4a93a;border-radius:5px;
+  font-size:.92em;color:#7a5400;font-family:'Segoe UI',system-ui,sans-serif;
+  text-align:center;font-style:italic}
 </style>
 </head>
 <body>
@@ -99,9 +109,9 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 1 -->
 <div id="step1" class="fw">
   <h1 class="ft">Semi-Truck Owner-Operator Letter &amp; Brochure Generator</h1>
-  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2.0 &mdash; 50 State + 12 National Associations</p>
-  <p class="fs">Generate personalized cover letters and constitutional brochures for trucking associations advocating for owner-operators. Choose State or National level, pick one association or batch all &mdash; works in any browser, no account required.</p>
-  <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">User Guide</button></div>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2 &mdash; 50 State + 12 National Associations</p>
+  <p class="fs">Generate personalized cover letters and constitutional brochures for trucking associations. Works in any browser. No download required. No account needed.</p>
+  <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">&#128214; User Guide</button></div>
 
   <!-- USER GUIDE PANEL -->
   <div id="guidePanel" class="guide-panel">
@@ -112,27 +122,34 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
     <p>The Trump administration&rsquo;s 2025&ndash;2026 actions (DEF sensor removal, Right to Repair guidance, GHG Endangerment Finding rescission) addressed part of the aftertreatment burden &mdash; but every action is guidance that a future EPA administrator can reverse. A Patent Clause court ruling is permanent.</p>
 
     <h2>What This Tool Generates</h2>
-    <p>From an association selection, the tool generates:</p>
+    <p>For each association you select, the tool builds a mailing package:</p>
     <ol>
       <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info and the association&rsquo;s leadership name and address. Editable in preview.</li>
-      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; &ldquo;The Patent Clause Finishes What the EPA Started&rdquo; &mdash; the full argument, legal landscape, international evidence, and call to action. Toggle this on or off if you print brochures separately.</li>
+      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; &ldquo;The Patent Clause Finishes What the EPA Started.&rdquo; Toggle this on or off if you print brochures separately.</li>
     </ol>
 
     <h2>How to Use</h2>
     <ol>
-      <li><strong>Open the HTML file</strong> by double-clicking it. Works in any browser. No internet required.</li>
+      <li><strong>Open this HTML file</strong> by double-clicking it. Works in any browser. No internet required.</li>
       <li><strong>Enter your information</strong> and click &ldquo;Save My Info.&rdquo;</li>
-      <li><strong>Click Generate</strong> to proceed to association selection.</li>
-      <li><strong>Select an association</strong> from the dropdown &mdash; name and address auto-fill.</li>
-      <li><strong>Preview &amp; Print</strong>, or add to a batch and print multiple at once.</li>
+      <li><strong>Click Continue</strong> to proceed to association selection.</li>
+      <li><strong>Choose State or National</strong> level using the radio buttons, then pick an association from the dropdown. Name, address, and leadership auto-fill.</li>
+      <li><strong>Optionally edit</strong> the leadership name, title, or address fields if you have more current information.</li>
+      <li><strong>Use the Google Search link</strong> to verify the address before printing.</li>
+      <li><strong>Click Preview &amp; Print</strong>. Pages display on screen for review. Use the Print / Save as PDF button or Ctrl+P / Cmd+P to print.</li>
     </ol>
-    <p><strong>Brochure toggle:</strong> If you print brochures professionally on color paper, uncheck &ldquo;Include brochure pages&rdquo; to generate cover letters only (1 page each instead of 4).</p>
 
-    <h2>Editing</h2>
-    <p>The cover letter is <strong>fully editable</strong> in preview. Click anywhere on the letter text to customize it before printing. The brochure pages are not editable in preview.</p>
+    <h2>Editing the Cover Letter</h2>
+    <p>The cover letter is <strong>fully editable</strong> in preview. Click anywhere on the letter text to customize it before printing.</p>
 
-    <h2>Printing</h2>
-    <p>Click &ldquo;Save &amp; Print Pages&rdquo; to download an HTML file. Open it in your browser and press Ctrl+P. Set Margins to &ldquo;None,&rdquo; enable &ldquo;Background graphics,&rdquo; and use US Letter paper.</p>
+    <h2>Brochure Toggle</h2>
+    <p>If you print brochures professionally on color paper, uncheck &ldquo;Include brochure pages&rdquo; to generate cover letters only (1 page instead of 4).</p>
+
+    <h2>Reporting Errors</h2>
+    <p>If you find a data error (wrong address, incorrect leader name, etc.), use the &ldquo;Report an Error&rdquo; section that appears when you select an association. The buttons there copy the association&rsquo;s details to your clipboard or open a pre-filled email to Roleigh Martin at roleigh@pobox.com.</p>
+
+    <h2>Printing Tips</h2>
+    <p>Set Margins to &ldquo;None,&rdquo; enable &ldquo;Background graphics,&rdquo; and use US Letter paper. The cover letter layout is window-envelope friendly &mdash; fold in thirds and the recipient address shows through a #10 window envelope.</p>
   </div>
 
   <div class="st">Your Information</div>
@@ -142,11 +159,11 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
   </div>
   <div class="fld"><label>Your Full Address (one line) <span class="req">*</span></label><input id="s1A" placeholder="123 Main St, City, ST 00000"></div>
   <div class="fld"><label>Your Phone Number <span class="req">*</span></label><input id="s1P"></div>
-  <div class="ctr" style="margin-top:12px"><button class="btn bgrn" onclick="saveInfo()">Save My Info for Next Time</button></div>
+  <div class="ctr" style="margin-top:12px"><button class="btn bgrn" onclick="saveInfo()">&#128190; Save My Info for Next Time</button></div>
   <div id="s1m"></div>
   <p class="note ctr" style="margin-top:4px">Stores your details in this browser so you never retype them.</p>
   <div style="border-top:2px solid #1a3a5c;margin-top:24px;padding-top:20px" class="ctr">
-    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="goStep2()">Generate Cover Letters &amp; Brochures &rarr;</button>
+    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="goStep2()">Continue &rarr;</button>
   </div>
   <div id="s1e"></div>
 </div>
@@ -154,7 +171,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 2 -->
 <div id="step2" class="fw" style="display:none">
   <h1 class="ft">Select a Trucking Association</h1>
-  <p class="fs">Choose State or National level, then pick an association. Name and address auto-fill. Print one at a time, or build a batch.</p>
+  <p class="fs">Choose State or National level, then pick an association. Name, address, and leadership auto-fill. Review and edit before generating.</p>
   <div class="ctr" style="margin-bottom:12px"><button class="btn bw" onclick="goStep1()" style="padding:6px 16px;font-size:13px">&larr; Edit My Info</button></div>
   <div class="otsel">
     <label><input type="radio" name="orgLevel" value="state" checked> State Trucking Associations (50)</label>
@@ -169,40 +186,50 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
       <div class="fld"><label>Title <span class="req">*</span></label><input id="s2LT" placeholder="e.g. Executive Vice President"></div>
       <div class="fld"><label>Full Name <span class="req">*</span></label><input id="s2LN" placeholder="e.g. Todd Spencer"></div>
     </div>
+    <div id="vfyNameBox" style="margin-top:2px;margin-bottom:8px"></div>
     <div class="fld"><label>Address Line 1 <span class="req">*</span></label><input id="s2A1"></div>
     <div class="fld"><label>Address Line 2 (City, State ZIP) <span class="req">*</span></label><input id="s2A2"></div>
     <div id="vfyBox" style="margin-top:4px"></div>
+    <div id="errTrigger" style="margin-top:4px;font-size:12px;display:none">
+      <span style="color:#888;margin-right:4px">|</span>
+      <button type="button" class="vfylink" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit" onclick="openReportModal()">&#9993;&#65039; Report data error (copy to clipboard)</button>
+    </div>
   </div>
-  <div class="chktog">
+
+  <div class="chktog" style="margin-top:18px">
     <label><input type="checkbox" id="inclBroch" checked> Include brochure pages (3 pages per association)</label>
   </div>
   <div class="ctr" style="margin-top:16px">
-    <button class="btn bn" onclick="printOne()">Preview &amp; Print This Association</button>
-    <button class="btn bora" onclick="addToQueue()">Add to Batch &darr;</button>
-    <button class="btn bgrn" onclick="printAll()">Preview &amp; Print All <span id="allCountLabel">50 State</span> Associations</button>
+    <button class="btn bn" style="font-size:17px;padding:14px 36px" onclick="printOne()">&#128196; Preview &amp; Print This Association &rarr;</button>
   </div>
   <div id="s2m"></div>
-  <div id="queuePanel" class="qp" style="display:none">
-    <h3>Batch Queue <span id="qCount" style="font-weight:400;color:#6b7280"></span></h3>
-    <div id="qList"></div>
-    <div class="ctr" style="margin-top:12px">
-      <button class="btn bn" onclick="printBatch()">Preview &amp; Print Entire Batch</button>
-      <button class="btn bw" style="padding:8px 16px;font-size:13px" onclick="clearQueue()">Clear All</button>
-    </div>
-    <p class="note ctr">Each association generates 1 page (letter only) or 4 pages (letter + brochure).</p>
-  </div>
 </div>
 
-<!-- PREVIEW -->
-<div id="preview" style="display:none">
-  <div class="toolbar">
-    <button class="btn bw" onclick="backToS2()">&larr; Back &mdash; Generate More</button>
-    <button class="btn bred" onclick="doPrint()">Save &amp; Print Pages</button>
-    <span class="th" style="opacity:0.9;font-size:11px">(Downloads an HTML file &mdash; open in your browser to print)</span>
-    <span class="th" id="pgInfo"></span>
-    <span class="th" style="opacity:1;font-style:italic">Letter is editable</span>
+<!-- PRINT CONTROLS (fixed top-left, shown during preview) -->
+<div class="print-controls" id="printControls">
+  <button onclick="backToS2()">&larr; Back to association selection</button>
+  <button class="pc-primary" onclick="window.print()">&#128424; Print / Save as PDF</button>
+  <span class="editable-note">Click cover letter text to edit before printing</span>
+</div>
+
+<!-- PRINT AREA -->
+<div class="print-area" id="printArea">
+  <div class="preview-banner" id="previewBanner"></div>
+  <div id="printPages"></div>
+</div>
+
+<!-- REPORT DATA ERROR MODAL -->
+<div id="reportModal" style="display:none;position:fixed;inset:0;background:rgba(10,37,64,.7);z-index:9999;overflow-y:auto;padding:30px 14px">
+  <div style="max-width:560px;width:100%;margin:0 auto;background:#fff;border-radius:8px;padding:24px 28px;font-size:14px;font-family:'Segoe UI',system-ui,sans-serif">
+    <h3 style="margin:0 0 10px;color:#1a3a5c;font-family:Georgia,serif">&#128203; Trucking Association Data Error Report</h3>
+    <p style="margin:0 0 10px;font-size:13px;color:#666">Review or edit the text below, then copy and paste into an email to <strong>roleigh@pobox.com</strong>.</p>
+    <textarea id="reportText" style="width:100%;height:240px;font-family:'Courier New',monospace;font-size:13px;padding:10px;border:1px solid #d1d5db;border-radius:5px;background:#fafaf7;resize:vertical;line-height:1.4"></textarea>
+    <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end;align-items:center">
+      <span id="copyStatus" style="font-size:13px;color:#27ae60;margin-right:auto"></span>
+      <button type="button" class="btn bgrn" style="padding:8px 18px;font-size:14px" onclick="doCopyReport()">&#128203; Copy to Clipboard</button>
+      <button type="button" class="btn bw" style="padding:8px 18px;font-size:14px" onclick="closeReportModal()">Close</button>
+    </div>
   </div>
-  <div id="printArea"></div>
 </div>
 
 <script>
@@ -234,7 +261,7 @@ var STATE_ORGS=[
 {st:'MS',name:'Mississippi Trucking Association',title:'President',leader:'Hal Miller',addr1:'808 N President St',addr2:'Jackson, MS 39202-2560',phone:'(601) 354-0616',web:'mstrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Miller'},
 {st:'MO',name:'Missouri Trucking Association',title:'President & CEO',leader:'Tom Crawford',addr1:'102 E High St',addr2:'Jefferson City, MO 65101-2960',phone:'(573) 634-3388',web:'motrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Crawford'},
 {st:'MT',name:'Motor Carriers of Montana',title:'CEO',leader:'Duane Williams',addr1:'501 N Sanders St Ste 200',addr2:'Helena, MT 59601-4553',phone:'(406) 442-6600',web:'mttrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Williams'},
-{st:'NE',name:'Nebraska Trucking Association',title:'President & CEO',leader:'Kent Grisham',addr1:'1701 K St',addr2:'Lincoln, NE 68508-2662',phone:'(402) 476-8504',web:'nebtrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Grisham'},
+{st:'NE',name:'Nebraska Trucking Association',title:'President',leader:'Bob Digestine',addr1:'4820 Van Dorn St Ste 1',addr2:'Lincoln, NE 68506-4733',phone:'(402) 476-8504',web:'nebraskatrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Digestine'},
 {st:'NV',name:'Nevada Trucking Association',title:'CEO',leader:'Paul Enos',addr1:'8745 Technology Way Ste E',addr2:'Reno, NV 89521-3852',phone:'(775) 673-6111',web:'nevadatrucking.com',green:true,verified:'USPS-valid',salute:'Mr. Enos'},
 {st:'NH',name:'New Hampshire Motor Transport Association',title:'President',leader:'Joe Sculley',addr1:'19 Henniker St',addr2:'Concord, NH 03301-8528',phone:'(603) 224-0051',web:'nhmta.org',green:false,verified:'Web-corrected',salute:'Mr. Sculley'},
 {st:'NJ',name:'New Jersey Motor Truck Association',title:'President (Board)',leader:'Mike Ravallo',addr1:'160 Tices Ln',addr2:'East Brunswick, NJ 08816-2016',phone:'(732) 254-5000',web:'njtrucks.wildapricot.org',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Ravallo'},
@@ -275,9 +302,7 @@ var NATL_ORGS=[
 {st:'USA',name:'United Truckers Association',title:'Leadership',leader:'',addr1:'1575 Heritage Dr Ste 103',addr2:'McKinney, TX 75069-3386',phone:'(704) 234-6005',web:'',green:true,verified:'USPS-valid',salute:'United Truckers Association Leadership'}
 ];
 
-var queue=[];
-var lastPrintInfo={type:'single',name:'',incBr:true};
-var orgLevel='state'; // 'state' or 'national'
+var orgLevel='state';
 
 function getActiveOrgs(){return orgLevel==='state'?STATE_ORGS:NATL_ORGS;}
 
@@ -290,7 +315,12 @@ window.onload=function(){
   var p=localStorage.getItem('dpf_s1P');if(p)document.getElementById('s1P').value=p;
   populateDropdown();
   document.querySelectorAll('input[name=orgLevel]').forEach(function(r){
-    r.addEventListener('change',function(){orgLevel=this.value;populateDropdown();queue=[];renderQueue();document.getElementById('orgPanel').style.display='none';});
+    r.addEventListener('change',function(){
+      orgLevel=this.value;
+      populateDropdown();
+      document.getElementById('orgPanel').style.display='none';
+      document.getElementById('s2m').innerHTML='';
+    });
   });
 };
 
@@ -305,33 +335,55 @@ function populateDropdown(){
     if(!orgs[i].green)label+=' \u26A0';
     o.textContent=label;sel.appendChild(o);
   }
-  var cnt=orgLevel==='state'?'50 State':'12 National';
-  document.getElementById('allCountLabel').textContent=cnt;
 }
 
-function toggleGuide(){var g=document.getElementById('guidePanel');g.style.display=g.style.display==='none'?'block':'none';}
+function toggleGuide(){
+  var g=document.getElementById('guidePanel');
+  g.style.display=g.style.display==='none'||g.style.display===''?'block':'none';
+}
 
 // ==================== STEP NAVIGATION ====================
 
 function saveInfo(){
-  var n=document.getElementById('s1N').value.trim(),e=document.getElementById('s1E').value.trim(),a=document.getElementById('s1A').value.trim(),p=document.getElementById('s1P').value.trim();
-  localStorage.setItem('dpf_s1N',n);localStorage.setItem('dpf_s1E',e);localStorage.setItem('dpf_s1A',a);localStorage.setItem('dpf_s1P',p);
-  document.getElementById('s1m').innerHTML='<div class="ok">Saved!</div>';
+  var n=document.getElementById('s1N').value.trim(),e=document.getElementById('s1E').value.trim(),
+      a=document.getElementById('s1A').value.trim(),p=document.getElementById('s1P').value.trim();
+  localStorage.setItem('dpf_s1N',n);localStorage.setItem('dpf_s1E',e);
+  localStorage.setItem('dpf_s1A',a);localStorage.setItem('dpf_s1P',p);
+  document.getElementById('s1m').innerHTML='<div class="ok">&#10003; Saved!</div>';
 }
 
-function getMyInfo(){return{n:document.getElementById('s1N').value.trim(),e:document.getElementById('s1E').value.trim(),a:document.getElementById('s1A').value.trim(),p:document.getElementById('s1P').value.trim()};}
+function getMyInfo(){
+  return{
+    n:document.getElementById('s1N').value.trim(),
+    e:document.getElementById('s1E').value.trim(),
+    a:document.getElementById('s1A').value.trim(),
+    p:document.getElementById('s1P').value.trim()
+  };
+}
 
 function goStep2(){
   var my=getMyInfo();
-  if(!my.n||!my.e||!my.a||!my.p){document.getElementById('s1e').innerHTML='<div class="err">Please fill in all fields.</div>';return;}
+  if(!my.n||!my.e||!my.a||!my.p){
+    document.getElementById('s1e').innerHTML='<div class="err">Please fill in all fields.</div>';return;
+  }
   document.getElementById('s1e').innerHTML='';
-  document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block';
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
   window.scrollTo(0,0);
 }
 
-function goStep1(){document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block';window.scrollTo(0,0);}
+function goStep1(){
+  document.getElementById('step2').style.display='none';
+  document.getElementById('step1').style.display='block';
+  window.scrollTo(0,0);
+}
 
-function backToS2(){document.getElementById('preview').style.display='none';document.getElementById('step2').style.display='block';window.scrollTo(0,0);}
+function backToS2(){
+  document.getElementById('printArea').classList.remove('show');
+  document.getElementById('printControls').classList.remove('show');
+  document.getElementById('step2').style.display='block';
+  window.scrollTo(0,0);
+}
 
 // ==================== ORG SELECTION ====================
 
@@ -345,55 +397,91 @@ function onOrg(){
   document.getElementById('s2A1').value=o.addr1;
   document.getElementById('s2A2').value=o.addr2;
   document.getElementById('orgPanel').style.display='block';
+  document.getElementById('s2m').innerHTML='';
+
   var hasLeader=o.leader&&o.leader!=='';
-  document.getElementById('autoFillMsg').innerHTML=hasLeader?'<div class="ok">Auto-filled: '+o.leader+', '+o.title+'</div>':'<div style="color:#e67e22;font-size:13px;margin-bottom:6px">No specific leader on file. Enter the current leader\u2019s name, or leave as \u201cLeadership.\u201d</div>';
+  document.getElementById('autoFillMsg').innerHTML=hasLeader
+    ?'<div class="ok">&#10003; Auto-filled: '+o.leader+', '+o.title+'</div>'
+    :'<div style="color:#e67e22;font-size:13px;margin-bottom:6px">\u26A0 No specific leader on file. Enter the current leader\u2019s name, or leave as \u201cLeadership.\u201d</div>';
+
+  // Name verify link
+  var nameSearchURL='https://www.google.com/search?q='+encodeURIComponent((o.leader||o.title)+' '+o.name);
+  document.getElementById('vfyNameBox').innerHTML=
+    '<a class="vfylink" href="'+nameSearchURL+'" target="_blank" rel="noopener">\uD83D\uDD0D Verify this name on Google</a>';
+
+  // Verify / address warning box
   var vfy=document.getElementById('vfyBox');
-  var vhtml='<span class="vfylink" onclick="window.open(\'https://www.google.com/search?q='+encodeURIComponent(o.name+' address leadership')+'\',\'_blank\')">Verify with Google Search</span>';
+  var gSearchURL='https://www.google.com/search?q='+encodeURIComponent(o.name+' address leadership');
+  var vhtml='';
   if(!o.green){
     vhtml='<div class="addrwarn">\u26A0 <strong>Address not fully verified.</strong> '+o.verified+'.';
     if(o.phone)vhtml+='<br>Phone: <strong>'+o.phone+'</strong> \u2014 call to confirm the mailing address before sending.';
-    vhtml+='<br><span class="vfylink" onclick="window.open(\'https://www.google.com/search?q='+encodeURIComponent(o.name+' address')+'\',\'_blank\')">\uD83D\uDD0D Verify with Google Search</span></div>';
+    vhtml+='<br><a class="vfylink" href="'+gSearchURL+'" target="_blank" rel="noopener">\uD83D\uDD0D Verify with Google Search</a></div>';
+  }else{
+    vhtml='<a class="vfylink" href="'+gSearchURL+'" target="_blank" rel="noopener">\uD83D\uDD0D Verify this address on Google</a>';
   }
   vfy.innerHTML=vhtml;
-  document.getElementById('s2m').innerHTML='';
+
+  // Show error trigger link
+  document.getElementById('errTrigger').style.display='block';
 }
 
-// ==================== QUEUE ====================
+var _currentReportOrg=null;
 
-function addToQueue(){
+function openReportModal(){
   var idx=document.getElementById('s2O').value;
-  if(idx===''){document.getElementById('s2m').innerHTML='<div class="err">Select an association first.</div>';return;}
-  var orgs=getActiveOrgs();
-  var o=orgs[parseInt(idx)];
+  if(idx==='')return;
+  var o=getActiveOrgs()[parseInt(idx)];
+  _currentReportOrg=o;
   var lt=document.getElementById('s2LT').value.trim();
   var ln=document.getElementById('s2LN').value.trim();
   var a1=document.getElementById('s2A1').value.trim();
   var a2=document.getElementById('s2A2').value.trim();
-  if(!a1||!a2){document.getElementById('s2m').innerHTML='<div class="err">Please fill in address fields.</div>';return;}
-  var uid=o.st+'_'+o.name;
-  for(var i=0;i<queue.length;i++){if(queue[i].uid===uid){document.getElementById('s2m').innerHTML='<div class="err">'+o.name+' is already in the batch.</div>';return;}}
-  var sal=o.salute;if(ln&&ln!==o.leader)sal=guessSalute(ln,o.name);
-  queue.push({uid:uid,name:o.name,title:lt,leader:ln,addr1:a1,addr2:a2,salute:sal});
-  renderQueue();
-  document.getElementById('s2m').innerHTML='<div class="ok">Added '+o.name+' to batch.</div>';
+  var text=
+    'TRUCKING ASSOCIATION DATA ERROR REPORT\n'+
+    '=======================================\n'+
+    'Association: '+o.name+'\n'+
+    'State: '+o.st+'\n'+
+    'Leader: '+lt+(ln?' '+ln:'')+'\n\n'+
+    'Currently shown in generator:\n'+
+    '  '+(lt||'(none)')+(ln?' '+ln:'')+'\n'+
+    '  '+(a1||'(none)')+'\n'+
+    '  '+(a2||'')+'\n'+
+    '  Phone: '+(o.phone||'(none)')+'\n'+
+    '  Verified status: '+o.verified+'\n\n'+
+    'Correct name/title (if changed):\n'+
+    '  (paste here, or write "same")\n\n'+
+    'Correct address (if changed):\n'+
+    '  (paste correct info here)\n\n'+
+    'Source / proof (URL or notes):\n'+
+    '  (paste here)\n\n'+
+    'Email this to: roleigh@pobox.com';
+  document.getElementById('reportText').value=text;
+  document.getElementById('copyStatus').textContent='';
+  document.getElementById('reportModal').style.display='block';
+  document.getElementById('reportText').focus();
+  document.getElementById('reportText').select();
 }
 
-function renderQueue(){
-  var qp=document.getElementById('queuePanel');
-  if(queue.length===0){qp.style.display='none';return;}
-  qp.style.display='block';
-  document.getElementById('qCount').textContent='('+queue.length+' association'+(queue.length>1?'s':'')+')';
-  var h='';
-  for(var i=0;i<queue.length;i++){
-    h+='<div class="qi"><span>'+queue[i].name+(queue[i].leader?' \u2014 '+queue[i].leader:'')+'</span><span class="qr" onclick="removeQ('+i+')">Remove</span></div>';
+function doCopyReport(){
+  var ta=document.getElementById('reportText');
+  ta.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(function(){
+      document.getElementById('copyStatus').textContent='\u2713 Copied!';
+    },function(){
+      try{document.execCommand('copy');document.getElementById('copyStatus').textContent='\u2713 Copied!';}
+      catch(e){document.getElementById('copyStatus').textContent='Select the text and press Ctrl+C';}
+    });
+  }else{
+    try{document.execCommand('copy');document.getElementById('copyStatus').textContent='\u2713 Copied!';}
+    catch(e){document.getElementById('copyStatus').textContent='Select the text and press Ctrl+C';}
   }
-  document.getElementById('qList').innerHTML=h;
 }
 
-function removeQ(i){queue.splice(i,1);renderQueue();}
-function clearQueue(){queue=[];renderQueue();}
+function closeReportModal(){document.getElementById('reportModal').style.display='none';}
 
-// ==================== PRINT ====================
+// ==================== GENERATE PREVIEW ====================
 
 function printOne(){
   var idx=document.getElementById('s2O').value;
@@ -410,82 +498,15 @@ function printOne(){
   var incBr=document.getElementById('inclBroch').checked;
   var html=makeCL(my,o.name,o.name,lt,ln,a1,a2,sal);
   if(incBr)html+=brochureHTML();
-  document.getElementById('printArea').innerHTML=html;
   var pp=incBr?4:1;
-  document.getElementById('pgInfo').textContent=pp+' page'+(pp>1?'s':'')+' \u2014 '+o.name;
-  lastPrintInfo={type:'single',name:o.name,incBr:incBr};
-  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
+  document.getElementById('previewBanner').innerHTML=
+    '\uD83D\uDCC4 Preview \u2014 '+pp+' page'+(pp>1?'s':'')+' for '+o.name
+    +'. Scroll to review. Click cover letter text to edit. Use \u201cPrint / Save as PDF\u201d when ready.';
+  document.getElementById('printPages').innerHTML=html;
+  document.getElementById('step2').style.display='none';
+  document.getElementById('printArea').classList.add('show');
+  document.getElementById('printControls').classList.add('show');
   window.scrollTo(0,0);
-}
-
-function printBatch(){
-  if(queue.length===0)return;
-  var my=getMyInfo();var incBr=document.getElementById('inclBroch').checked;
-  var html='';
-  for(var i=0;i<queue.length;i++){
-    var q=queue[i];
-    html+=makeCL(my,q.name,q.name,q.title,q.leader,q.addr1,q.addr2,q.salute);
-    if(incBr)html+=brochureHTML();
-  }
-  document.getElementById('printArea').innerHTML=html;
-  var pp=incBr?queue.length*4:queue.length;
-  document.getElementById('pgInfo').textContent=pp+' pages \u2014 '+queue.length+' associations';
-  lastPrintInfo={type:'batch',name:'',count:queue.length,incBr:incBr};
-  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
-  window.scrollTo(0,0);
-}
-
-function printAll(){
-  var orgs=getActiveOrgs();
-  var levelLabel=orgLevel==='state'?'50 state':'12 national';
-  var idx=document.getElementById('s2O').value;
-  if(idx!==''){
-    var choice=confirm('You have an association selected. Click OK to print ALL '+levelLabel+' associations, or Cancel to print only the selected one.');
-    if(!choice){printOne();return;}
-  }
-  var my=getMyInfo();
-  if(!my.n||!my.e||!my.a||!my.p){document.getElementById('s2m').innerHTML='<div class="err">Please fill in your info in Step 1.</div>';return;}
-  var incBr=document.getElementById('inclBroch').checked;
-  var html='';
-  for(var i=0;i<orgs.length;i++){
-    var o=orgs[i];
-    html+=makeCL(my,o.name,o.name,o.title,o.leader,o.addr1,o.addr2,o.salute);
-    if(incBr)html+=brochureHTML();
-  }
-  document.getElementById('printArea').innerHTML=html;
-  var pp=incBr?orgs.length*4:orgs.length;
-  document.getElementById('pgInfo').textContent=pp+' pages \u2014 all '+orgs.length+' '+orgLevel+' associations';
-  lastPrintInfo={type:'all',name:'',incBr:incBr,level:orgLevel};
-  document.getElementById('step2').style.display='none';document.getElementById('preview').style.display='block';
-  window.scrollTo(0,0);
-}
-
-function doPrint(){
-  var content=document.getElementById('printArea').innerHTML;
-  if(!content)return;
-  // Build dynamic filename
-  var suffix=lastPrintInfo.incBr?' - Letter & Brochure':' - Letter Only';
-  var fileName;
-  if(lastPrintInfo.type==='single'){
-    fileName='DPF '+lastPrintInfo.name+suffix+'.html';
-  }else if(lastPrintInfo.type==='batch'){
-    fileName='DPF Batch ('+lastPrintInfo.count+' Associations)'+suffix+'.html';
-  }else{
-    fileName='DPF All '+getActiveOrgs().length+' '+(lastPrintInfo.level==='state'?'State':'National')+' Associations'+suffix+'.html';
-  }
-  if(window.location.protocol==='file:'){
-    var styles=document.querySelectorAll('style');var css='';for(var i=0;i<styles.length;i++)css+=styles[i].outerHTML;
-    var printCSS='<style>body{background:white}@media print{.page{border:none;box-shadow:none;margin:0;page-break-after:always}.bp{height:11in;max-height:11in;overflow:hidden}@page{size:letter;margin:0}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}</style>';
-    var blob=new Blob(['<!DOCTYPE html><html><head><meta charset="UTF-8"><title>DPF Letter Package</title>'+css+printCSS+'</head><body>'+content+'</body></html>'],{type:'text/html'});
-    var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=fileName;
-    document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},3000);
-    alert('Downloaded: '+fileName+'\n\nOpen it in your browser and press Ctrl+P.\nSet Margins to "None" and enable "Background graphics."');
-  }else{
-    var dlDiv=document.createElement('div');
-    dlDiv.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #1a3a5c;border-radius:12px;padding:24px 32px;z-index:9999;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:440px';
-    dlDiv.innerHTML='<div style="font-size:16px;font-weight:bold;color:#1a3a5c;margin-bottom:12px">Save &amp; Print</div><div style="font-size:13px;color:#333;margin-bottom:12px;line-height:1.5">Downloads are not available inside Claude\u2019s interface. To save and print:</div><div style="text-align:left;font-size:13px;color:#333;line-height:1.7;margin-bottom:16px"><strong>1.</strong> Click the <strong>Copy</strong> button at the top-right of this panel to copy the app\u2019s HTML.<br><strong>2.</strong> Paste into a text editor and save as an <strong>.html</strong> file.<br><strong>3.</strong> Open that file in your browser (double-click it).<br><strong>4.</strong> Generate your package there \u2014 Save &amp; Print will work normally.</div><button onclick="this.parentElement.remove()" style="padding:8px 20px;font-size:14px;border:1px solid #ccc;border-radius:6px;cursor:pointer;background:white">Got It</button>';
-    document.body.appendChild(dlDiv);
-  }
 }
 
 // ==================== UTILITIES ====================
@@ -600,7 +621,7 @@ function brochureHTML(){
   h+='<div class="nb" style="font-size:10pt;padding:5pt 8pt;margin-bottom:5pt">THE $13.79 BILLION VALIDATION &amp; THE SIX-FRONT CAMPAIGN</div>';
   // $13.79B section
   h+='<div class="bs">The SBA\u2019s own $13.79 billion/year figure validates the premise of this constitutional challenge. That number represents the economic damage from <em>one sensor</em> in the aftertreatment stack. The DPF, SCR catalyst, diesel oxidation catalyst, and remaining sensor arrays collectively add $15,000\u2013$25,000 to every new truck and consume 13% of lifetime maintenance costs. Across all patent-expired products \u2014 vehicles, farm equipment, HVAC, appliances \u2014 the total regulatory taking is approximately $2,420 per American household per year, or $22 trillion cumulative since 1970.</div>';
-  // Five-front table
+  // Six-front table
   h+='<div class="nh" style="margin-top:4pt">THE SIX-FRONT CAMPAIGN ALREADY UNDERWAY</div>';
   h+='<table class="bt"><tr><th style="text-align:left;width:18%">Plaintiff Class</th><th style="text-align:left;width:28%">Standing Theory</th><th style="text-align:left;width:54%">Read title at https://x.com/RoleighMartin/articles</th></tr>';
   h+='<tr><td>County Sheriffs</td><td><em>Printz v. United States</em> (1997)</td><td>\u201cRestore Patent Rights & Cut Living Costs: Free App, Your Sheriff, One Letter\u201d</td></tr>';
@@ -668,5 +689,7 @@ function brochureHTML(){
 }
 
 </script>
+<!-- DATA ERROR REPORT MODAL -->
+
 </body>
 </html>
