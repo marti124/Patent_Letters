@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Public Domain Advocate Letter Writer (v14)</title>
+<title>Public Domain Advocate Letter Writer (v16)</title>
 <style>
 :root{
   --navy:#0a2540;--green:#1a5d3a;--accent:#8b6914;
@@ -162,6 +162,16 @@ body.preview-mode .guide-toggle{display:none}
   .print-pages .pda-poster-page{padding:0 !important;}
   .pda-br{background:#fff !important}
   @page{size:letter;margin:.5in}
+  /* v16 fix: comprehensive blank-page-6 elimination for Chrome PDF */
+  /* 1. Modern break-after on all page elements */
+  .pda-br .pda-page { break-after: page !important; page-break-after: always !important; }
+  .pda-br .pda-page:last-child { break-after: auto !important; page-break-after: auto !important; }
+  /* 2. Remove bottom padding on last brochure page to prevent overflow */
+  .pda-br .pda-page:last-child { padding-bottom: 0 !important; }
+  /* 3. Ensure pda-br wrapper never triggers a trailing page */
+  .pda-br { break-after: auto !important; page-break-after: auto !important; }
+  /* 4. Prevent orphan/widow-induced extra pages */
+  .pda-br .pda-page { orphans: 1; widows: 1; }
 }
 .print-pages{font-family:Georgia,'Times New Roman',serif;color:#000;
   font-size:10.5pt;line-height:1.25;background:#fff;
@@ -588,6 +598,7 @@ body.preview-mode .guide-toggle{display:none}
 
   <div class="scr active" id="scr-welcome">
     <h1>Write to a Public Domain Advocate to Restore the Public's Right to Remanufacture Expired Patented Products</h1>
+    <p style="font-size:.78em;color:var(--muted);margin:0 0 .5em;font-family:'Helvetica Neue',Arial,sans-serif">Version 16</p>
     <p class="tagline">The Constitution's Patent Clause promises that when patents expire,
     inventions pass into the public domain &mdash; free to remanufacture. The Supreme Court
     affirms this.</p>
