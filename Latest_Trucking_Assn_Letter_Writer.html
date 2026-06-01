@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trucking Assn — Letter &amp; Brochure Generator (v2)</title>
+<title>Trucking Assn — Letter &amp; Brochure Generator (v5)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f3f4f6}
@@ -89,6 +89,67 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 .bt th{background:#1a3a5c;color:white;padding:4pt;text-align:center;font-size:8pt;border:1pt solid #999}
 .bt td{padding:3pt 4pt;border:1pt solid #999;font-size:8pt}
 .bt tr:nth-child(even) td{background:#EDF2F9}
+
+/* ============ V3 BROCHURE STYLES (canonical palette) ============ */
+/* Palette: navy #0F2A4A, crimson #8B2332, gold #C79B4C, cream #F4EEDC */
+.b3p{font-family:Arial,'Liberation Sans',sans-serif;font-size:9.5pt;line-height:1.28;color:#2A2A2A;padding:0.25in 0.4in 0.3in 0.4in}
+.b3p p{margin:0 0 4pt 0}
+.b3p strong{color:#0F2A4A}
+.b3p em{color:#2A2A2A}
+.b3-hero1{background:#0F2A4A;color:white;padding:13pt 18pt;margin-bottom:8pt;border-bottom:5pt solid #C79B4C}
+.b3-hero1 .b3-h1{font-family:Georgia,serif;font-size:22pt;margin:0 0 4pt 0;line-height:1.08;font-weight:bold;color:white}
+.b3-hero1 .b3-h2{font-family:Georgia,serif;font-size:14pt;color:#C79B4C;margin:0 0 8pt 0;font-style:italic;line-height:1.15}
+.b3-hero1 .b3-deck{font-size:9pt;color:#F4EEDC;font-style:italic;line-height:1.35;margin:0}
+.b3-hero2{background:#8B2332;color:white;padding:9pt 16pt;margin-bottom:6pt;border-bottom:4pt solid #C79B4C}
+.b3-hero2 .b3-h1{font-family:Georgia,serif;font-size:18pt;margin:0 0 2pt 0;line-height:1.05;color:white}
+.b3-hero2 .b3-h2{font-family:Georgia,serif;font-size:12pt;margin:0 0 6pt 0;font-style:italic;color:#F4EEDC}
+.b3-hero2 p{font-size:8pt;color:white;margin:0;line-height:1.3}
+.b3-hero2 p strong{color:white}
+.b3-hero3{background:#C79B4C;color:#0F2A4A;padding:7pt 16pt;margin-bottom:5pt;border-bottom:3pt solid #0F2A4A}
+.b3-hero3 .b3-h1{font-family:Georgia,serif;font-size:16pt;margin:0 0 1pt 0;line-height:1.05;color:#0F2A4A}
+.b3-hero3 .b3-h2{font-family:Georgia,serif;font-size:12pt;margin:0;font-style:italic;color:#0F2A4A}
+.b3-sect{background:#0F2A4A;color:white;font-family:Georgia,serif;font-size:10pt;padding:3pt 10pt;margin:5pt 0 2pt 0;letter-spacing:0.02em;border-left:4pt solid #C79B4C;font-weight:bold}
+.b3-stat{display:table;width:100%;border-collapse:separate;border-spacing:5pt 0;margin:4pt 0}
+.b3-stat-cell{display:table-cell;background:#F4EEDC;border-top:3pt solid #C79B4C;padding:6pt 6pt;text-align:center;vertical-align:top}
+.b3-stat-cell.c1{width:23%}.b3-stat-cell.c2{width:23%}.b3-stat-cell.c3{width:17%}.b3-stat-cell.c4{width:37%}
+.b3-statnum{font-family:Georgia,serif;font-size:17pt;font-weight:bold;color:#0F2A4A;margin:0 0 3pt 0;line-height:1.0}
+.b3-statnum.long{font-size:14pt}
+.b3-statlabel{font-size:8.5pt;color:#2A2A2A;line-height:1.32;margin:0}
+.b3-penalty{font-size:9pt;color:#6B6356;margin:3pt 0 6pt 0;line-height:1.35}
+.b3-penalty strong{color:#8B2332}
+.b3-twocol{display:table;width:100%;border-collapse:separate;border-spacing:10pt 0;margin:3pt 0 5pt 0}
+.b3-twocol-cell{display:table-cell;width:50%;vertical-align:top;font-size:9.5pt;line-height:1.32}
+.b3-twocol-cell h5{font-family:Georgia,serif;font-size:11pt;color:#8B2332;margin:0 0 2pt 0;font-weight:bold}
+.b3-cmp{width:100%;border-collapse:collapse;margin:4pt 0;font-size:9pt}
+.b3-cmp th{background:#0F2A4A;color:white;padding:4pt 6pt;text-align:left;font-family:Georgia,serif;font-weight:bold;font-size:9.5pt;border-right:1pt solid white}
+.b3-cmp th:last-child{background:#8B2332;border-right:none}
+.b3-cmp th:first-child{width:60pt}
+.b3-cmp td{padding:3pt 6pt;border-bottom:0.5pt solid #d8d4ca;vertical-align:top;line-height:1.3}
+.b3-cmp td:first-child{font-weight:bold;color:#0F2A4A;background:#F4EEDC}
+.b3-cmp td:last-child{background:#faf6ec;color:#0F2A4A;font-weight:600}
+.b3-cmp-note{font-style:italic;color:#6B6356;font-size:9pt;margin:3pt 0 0 0}
+.b3-forces{display:table;width:100%;border-collapse:separate;border-spacing:3pt 2pt;margin:2pt 0 3pt 0}
+.b3-force{display:table-cell;width:50%;background:#F4EEDC;padding:4pt 6pt;vertical-align:top;border-left:3pt solid #C79B4C;font-size:8.5pt;line-height:1.25}
+.b3-force strong{color:#8B2332}
+.b3-fnd-grid{display:table;width:100%;border-collapse:separate;border-spacing:4pt 0;margin:1pt 0}
+.b3-fnd{display:table-cell;width:33.33%;background:#F4EEDC;padding:4pt 7pt;font-size:8pt;vertical-align:top;border-top:2pt solid #C79B4C;line-height:1.3}
+.b3-fnd-h{font-family:Georgia,serif;color:#0F2A4A;font-weight:bold;font-size:9pt;margin-right:4pt}
+.b3-bet{background:#F4EEDC;padding:4pt 8pt;margin:2pt 0 2pt 0;border-left:4pt solid #0F2A4A}
+.b3-bet p{font-size:8.5pt;margin-bottom:1pt;line-height:1.27}
+.b3-bet p strong{color:#8B2332}
+.b3-bet .b3-closer{font-family:Georgia,serif;font-style:italic;color:#0F2A4A;font-size:9pt;font-weight:bold}
+.b3-coalition{background:white;border-top:2pt solid #8B2332;border-bottom:2pt solid #8B2332;padding:3pt 9pt;margin:2pt 0 3pt 0;font-size:8.5pt;font-style:italic;line-height:1.27}
+.b3-coalition strong{color:#8B2332;font-style:normal}
+.b3-actions{margin:1pt 0 2pt 18pt;padding:0;font-size:8.5pt}
+.b3-actions li{margin-bottom:1pt;line-height:1.27}
+.b3-actions li strong{color:#8B2332}
+.b3-articles{width:100%;border-collapse:collapse;font-size:8pt;margin:1pt 0}
+.b3-articles td{padding:1.5pt 6pt;border-bottom:0.5pt solid #d8d4ca;vertical-align:top;line-height:1.25}
+.b3-articles td:first-child{font-weight:bold;color:#0F2A4A;width:32%;background:#F4EEDC}
+.b3-byline{margin-top:3pt;padding-top:3pt;border-top:1pt solid #C79B4C;font-size:8pt;line-height:1.3;color:#2A2A2A}
+.b3-byline strong{color:#0F2A4A}
+.b3-byline .b3-ai{font-style:italic;color:#6B6356;font-size:7.5pt}
+
 @media print{
   body{background:white}
   .print-controls,.print-area .preview-banner,#step1,#step2{display:none!important}
@@ -109,7 +170,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
 <!-- STEP 1 -->
 <div id="step1" class="fw">
   <h1 class="ft">Semi-Truck Owner-Operator Letter &amp; Brochure Generator</h1>
-  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 2 &mdash; 50 State + 12 National Associations</p>
+  <p style="text-align:center;font-size:12px;color:#6b7280;margin:2px 0 0">Version 4 &mdash; 50 State + 12 National Associations</p>
   <p class="fs">Generate personalized cover letters and constitutional brochures for trucking associations. Works in any browser. No download required. No account needed.</p>
   <div class="ctr" style="margin-bottom:12px"><button class="btn bguide" onclick="toggleGuide()">&#128214; User Guide</button></div>
 
@@ -125,7 +186,7 @@ h1.ft{font-size:22px;color:#1a3a5c;font-family:Georgia,serif;text-align:center;m
     <p>For each association you select, the tool builds a mailing package:</p>
     <ol>
       <li><strong>Cover Letter</strong> (1 page) &mdash; personalized with your contact info and the association&rsquo;s leadership name and address. Editable in preview.</li>
-      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; &ldquo;The Patent Clause Finishes What the EPA Started.&rdquo; Toggle this on or off if you print brochures separately.</li>
+      <li><strong>Constitutional Brochure</strong> (3 pages) &mdash; &ldquo;The Forgotten Half of the Patent Clause: A Trade Association Briefing.&rdquo; Toggle this on or off if you print brochures separately.</li>
     </ol>
 
     <h2>How to Use</h2>
@@ -266,7 +327,7 @@ var STATE_ORGS=[
 {st:'NH',name:'New Hampshire Motor Transport Association',title:'President',leader:'Joe Sculley',addr1:'19 Henniker St',addr2:'Concord, NH 03301-8528',phone:'(603) 224-0051',web:'nhmta.org',green:false,verified:'Web-corrected',salute:'Mr. Sculley'},
 {st:'NJ',name:'New Jersey Motor Truck Association',title:'President (Board)',leader:'Mike Ravallo',addr1:'160 Tices Ln',addr2:'East Brunswick, NJ 08816-2016',phone:'(732) 254-5000',web:'njtrucks.wildapricot.org',green:false,verified:'USPS-valid (missing suite)',salute:'Mr. Ravallo'},
 {st:'NM',name:'New Mexico Trucking Association',title:'Managing Director',leader:'Johnny Johnson',addr1:'P.O. Box 35609',addr2:'Albuquerque, NM 87176',phone:'(505) 884-5575',web:'nmtrucking.org',green:false,verified:'Smarty invalid - verify by phone',salute:'Mr. Johnson'},
-{st:'NY',name:'New York State Motor Truck Association',title:'President',leader:'Kendra Hems',addr1:'828 Washington Ave',addr2:'Albany, NY 12203-1622',phone:'(518) 458-9696',web:'nytrucks.org',green:false,verified:'USPS-valid (missing suite)',salute:'Ms. Hems'},
+{st:'NY',name:'Trucking Association of New York',title:'President',leader:'Kendra Hems',addr1:'3 Corporate Drive, Suite 101',addr2:'Clifton Park, NY 12065',phone:'(518) 458-9696',web:'nytrucks.org',green:true,verified:'USPS-valid',salute:'Ms. Hems'},
 {st:'NC',name:'North Carolina Trucking Association',title:'President & CEO',leader:'Ben Greenberg',addr1:'P.O. Box 2486',addr2:'Raleigh, NC 27602',phone:'(919) 834-0387',web:'nctrucking.com',green:false,verified:'Smarty invalid - verify by phone',salute:'Mr. Greenberg'},
 {st:'ND',name:'North Dakota Motor Carriers Association',title:'Administrator',leader:'Kacey Heidrich',addr1:'1937 E Capitol Ave',addr2:'Bismarck, ND 58501-2373',phone:'(701) 223-2700',web:'ndmca.org',green:false,verified:'USPS-valid (missing suite)',salute:'Ms. Heidrich'},
 {st:'OH',name:'Ohio Trucking Association',title:'President & CEO',leader:'Thomas Balzer',addr1:'50 W Broad St Ste 1133',addr2:'Columbus, OH 43215-5945',phone:'(614) 221-5375',web:'ohiotrucking.org',green:true,verified:'USPS-valid',salute:'Mr. Balzer'},
@@ -289,8 +350,8 @@ var STATE_ORGS=[
 
 var NATL_ORGS=[
 {st:'USA',name:'OOIDA',title:'Executive VP',leader:'Todd Spencer',addr1:'1 NW Ooida Dr',addr2:'Grain Valley, MO 64029-7903',phone:'(816) 229-5791',web:'',green:true,verified:'USPS-valid',salute:'Mr. Spencer'},
-{st:'USA',name:'NASTC',title:'Leadership',leader:'',addr1:'PO Box 121644',addr2:'Nashville, TN 37212-1644',phone:'(800) 264-8580',web:'',green:true,verified:'USPS-valid',salute:'NASTC Leadership'},
-{st:'USA',name:'NAIT',title:'Leadership',leader:'',addr1:'11020 N Ambassador Dr Ste 500',addr2:'Kansas City, MO 64153-1149',phone:'(800) 624-8104',web:'',green:false,verified:'USPS-valid (suite ignored)',salute:'NAIT Leadership'},
+{st:'USA',name:'NASTC',title:'Leadership',leader:'',addr1:'2054 Nashville Pike',addr2:'Gallatin, TN 37066',phone:'(800) 264-8580',web:'',green:true,verified:'USPS-valid',salute:'NASTC Leadership'},
+{st:'USA',name:'NAIT',title:'Leadership',leader:'',addr1:'PO Box 901606',addr2:'Kansas City, MO 64190',phone:'(800) 624-8104',web:'',green:false,verified:'USPS-valid (suite ignored)',salute:'NAIT Leadership'},
 {st:'USA',name:'AITA',title:'Leadership',leader:'',addr1:'PO Box 1250',addr2:'Clinton, MS 39060-1250',phone:'',web:'',green:true,verified:'USPS-valid',salute:'AITA Leadership'},
 {st:'USA',name:'Truckers Service Association',title:'Executive Director',leader:'Bill Webb',addr1:'PO Box 92777',addr2:'Southlake, TX 76092-0777',phone:'(214) 205-7495',web:'',green:true,verified:'USPS-valid',salute:'Mr. Webb'},
 {st:'USA',name:'WSTA',title:'Leadership',leader:'',addr1:'334 N Euclid Ave',addr2:'Upland, CA 91786-6031',phone:'(909) 982-9898',web:'',green:true,verified:'USPS-valid',salute:'WSTA Leadership'},
@@ -552,7 +613,7 @@ function makeCL(my,orgName,orgAbbrev,lt,ln,a1,a2,salute){
   // P1 — Credit + gap + brochure handoff
   h+='<div style="margin-bottom:8pt">'+orgName+' advocates for owner-operators and independent truckers who bear the daily burden of diesel aftertreatment compliance. The administration\u2019s 2025\u20132026 regulatory actions \u2014 the DEF sensor removal, the Right to Repair guidance, the GHG Endangerment Finding rescission \u2014 addressed part of that burden. But every one of those actions is guidance that a future EPA administrator can reverse with a stroke of a pen. Everything gained can be lost in 2029. The enclosed three-page brochure presents a constitutional argument that provides a permanent remedy \u2014 one no future administration can undo.</div>';
   // P2 — CARB + constitutional permanence
-  h+='<div style="margin-bottom:8pt">Right now, no one can manufacture a truck using a patent-expired pre-2007 engine design \u2014 the Caterpillar C15, the Cummins N14, the Detroit Diesel Series 60 \u2014 without adding a diesel particulate filter and the full aftertreatment stack those engines were never designed to carry. DPF deletion remains a Clean Air Act violation at $45,268 per incident. In the 18 states that adopted CARB standards, CARB-certified parts cost 15\u201325% more than federal equivalents. The Patent Clause challenge addresses the entire aftertreatment stack \u2014 DPF, SCR, DEF, sensors, when the truck involved was designed and sold without one \u2014 at both federal and state level simultaneously. A court ruling under the Supremacy Clause binds CARB and every state that follows it. Unlike guidance or legislation, a constitutional ruling cannot be reversed by the next EPA administrator or repealed by the next Congress.</div>';
+  h+='<div style="margin-bottom:8pt">Right now, no one can manufacture a truck using a patent-expired pre-2000 engine design \u2014 the Caterpillar 3406E or first-year C-15, the Cummins N14, the Detroit Series 60 \u2014 without adding a diesel particulate filter and the full aftertreatment stack those engines were never designed to carry. Tampering to escape the stack is itself illegal: the Clean Air Act assesses $5,911 per violation for an individual ($59,114 for a manufacturer or dealer). In the 18 states that adopted CARB standards, CARB-certified parts cost 15\u201325% more than federal equivalents. The Patent Clause challenge addresses the entire aftertreatment stack \u2014 DPF, SCR, DEF, sensors, when the truck involved was designed and sold without one \u2014 at both federal and state level simultaneously. A court ruling under the Supremacy Clause binds CARB and every state that follows it. Unlike guidance or legislation, a constitutional ruling cannot be reversed by the next EPA administrator or repealed by the next Congress.</div>';
   // P3 — Bold ask
   h+='<div style="margin-bottom:8pt"><strong>What I am asking:</strong> I am asking '+orgName+' to review the enclosed brochure and evaluate the Patent Clause argument as a potential litigation strategy on behalf of your members. Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), your association has standing to bring this challenge when the interests at stake are germane to your organization\u2019s purpose. The aftertreatment burden your members face daily is precisely that. Public interest law firms \u2014 Pacific Legal Foundation, Institute for Justice \u2014 provide free representation. The cost to your association: zero.</div>';
   // P4 — Close
@@ -565,124 +626,133 @@ function makeCL(my,orgName,orgAbbrev,lt,ln,a1,a2,salute){
   // Signature
   h+='<div style="margin-top:16pt">Respectfully,</div>';
   h+='<div style="margin-top:14pt">'+my.n+'</div>';
-  h+='<div style="font-size:10pt;margin-top:10pt">Enclosure: <em>The Patent Clause Finishes What the EPA Started</em> (3-page brochure)</div>';
+  h+='<div style="font-size:10pt;margin-top:10pt">Enclosure: <em>The Forgotten Half of the Patent Clause</em> &mdash; A Trade Association Briefing (3-page brochure)</div>';
   h+='</div>';
   return h;
 }
 
-// ==================== BROCHURE (3 pages, recreated from PDF) ====================
+// ==================== BROCHURE (3 pages, v3 — canonical palette) ====================
 
 function brochureHTML(){
   var h='';
 
-  // ===== PAGE 1 (larger print to fill the page, matching the printed brochure PDF) =====
-  h+='<div class="page bp" style="font-size:10pt">';
-  h+='<div class="nb" style="font-size:13pt;padding:7pt 8pt">THE PATENT CLAUSE FINISHES WHAT THE EPA STARTED</div>';
-  h+='<div class="rb" style="font-size:9pt;line-height:1.35;margin-bottom:6pt;padding:5pt 8pt">THE TRUMP ADMINISTRATION FIXED 10% OF DIESEL AFTERTREATMENT. THE CONSTITUTION ELIMINATES THE $5,000 DPF ON PATENT-EXPIRED TRUCKS \u2014 PERMANENTLY.</div>';
-  // Core violation box
-  h+='<div class="ib" style="padding:7pt 9pt">';
-  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt"><strong>The core constitutional violation:</strong> Expired patented vehicles and equipment never enter a public domain where they are allowed to be remanufactured, protecting the original patent holder from ever seeing competition from remanufactured items. This unconstitutionally removes the \u201climited Times\u201d period stated in the Constitution and replaces it with infinitely long protection.</div>';
-  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt"><strong>What you\u2019re holding:</strong> This brochure shows how the Patent Clause provides a permanent remedy for the diesel aftertreatment crisis \u2014 one that no future administration can reverse \u2014 and why your association\u2019s members have constitutional standing to bring the case.</div>';
-  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:0"><strong>Why it matters now:</strong> On March 27, 2026, the EPA removed the DEF urea quality sensor requirement, saving Americans $13.79 billion/year. But the DPF \u2014 the $5,000 filter that actually strands drivers \u2014 remains required. DPF deletion is a Clean Air Act violation at $45,268/incident. The Patent Clause challenge addresses every aftertreatment component, permanently.</div>';
+  // ===== PAGE 1 =====
+  h+='<div class="page bp b3p">';
+  h+='<div class="b3-hero1">';
+  h+='<div class="b3-h1">$80,000 American Remanufactured Truck</div>';
+  h+='<div class="b3-h2">vs. ~$300,000 for a New Patent-Protected American Truck</div>';
+  h+='<div class="b3-deck">A 1999 Peterbilt 379 with a Caterpillar C-15 is legal to drive on every American highway today. The Constitution says it should also be legal to build new. It is not. This briefing explains why &mdash; and what your association can do.</div>';
   h+='</div>';
-  // Two columns: Done vs Undone
-  h+='<div class="g2" style="margin-bottom:5pt">';
-  h+='<div><div class="nh" style="font-size:10pt;padding:5pt 6pt">WHAT THE ADMINISTRATION HAS DONE \u2714</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Aug 2025:</strong> EPA guidance reversing DEF deratements \u2014 changed derate trigger from \u201c5 mph within hours\u201d to \u201cwarning light for 650 miles.\u201d</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Jan 21, 2026:</strong> DOJ stopped criminal charges for delete kit tampering. Civil enforcement continues.</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Feb 2026:</strong> Right to Repair guidance \u2014 farmers/truckers can self-repair DEF systems. EPA demanded warranty data from 14 manufacturers; 11 responded.</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Feb 12, 2026:</strong> Rescission of 2009 GHG Endangerment Finding \u2014 largest deregulatory action in U.S. history ($1.3T savings). EPA confirmed: \u201cDoes not affect regulations on traditional air pollutants.\u201d</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Mar 27, 2026:</strong> DEF urea quality sensor removed. SBA: $4.4B/yr farmers, $13.79B/yr total. John Deere applauded.</div>';
+
+  h+='<div class="b3-sect">WHAT WE ARE ACTUALLY ARGUING</div>';
+  h+='<p>When this argument was first put to a regional trucking association\u2019s counsel, he summarized it back as: <em>\u201cGovernment regulation of a product must stop after twenty years.\u201d</em> <strong>That is not the argument.</strong> Federal law already grandfathers old designs &mdash; a 1968 Ford F-100 was not required to add a catalytic converter when the Clean Air Act passed in 1970; a 1999 Detroit Series 60 drives legally today because the Clean Air Act vests EPA with authority over \u201cnew motor vehicles or new motor vehicle engines,\u201d measured at the time of manufacture. <strong>The constitutional question is what happens when someone wants to build a new copy of an old design</strong> &mdash; one whose patents have expired and which under Article I, \u00a78, Clause 8 now belongs to the public.</p>';
+  h+='<p>Our argument: an authentically remanufactured 1999 Peterbilt 379 with a Caterpillar 3406E or first-year C-15 &mdash; same engine, same chassis, certified by independent engineering authority &mdash; should receive the same grandfathering every existing 1999 Peterbilt on the road already receives: <strong>the 1998 EPA emission standards in force when that platform was first built, not 2026 standards that would transform it into a different engine.</strong> This is a grandfathering argument, not anti-regulation; modern designs continue under modern rules. <strong>What it delivers is equal treatment under the law</strong> &mdash; the original manufacturer was held to the standards in force when his platform was first built; the remanufacturer asks for the same. The forgotten half of the Patent Clause is the promise that the <strong>expired-patent lifetime receives the same legal treatment the active-patent lifetime received</strong>. Restoring that equality is what this case asks the court to do.</p>';
+
+  h+='<div class="b3-sect">WHAT THE AFTERTREATMENT MANDATE COSTS YOUR MEMBERS</div>';
+  h+='<div class="b3-stat">';
+  h+='<div class="b3-stat-cell c1"><div class="b3-statnum">$3K&ndash;$5K</div><div class="b3-statlabel">MECA-member emission-controls components in every new Class 8 truck</div></div>';
+  h+='<div class="b3-stat-cell c2"><div class="b3-statnum">$2K&ndash;$8K</div><div class="b3-statlabel">Per DPF replacement, recurring every 200K&ndash;400K miles</div></div>';
+  h+='<div class="b3-stat-cell c3"><div class="b3-statnum">13%</div><div class="b3-statlabel">Of lifetime operating maintenance costs (ATA)</div></div>';
+  h+='<div class="b3-stat-cell c4"><div class="b3-statnum long">Tens of thousands</div><div class="b3-statlabel">Cumulative aftertreatment burden over the working life of a Class 8</div></div>';
   h+='</div>';
-  h+='<div><div class="nh" style="background:#c0392b;font-size:10pt;padding:5pt 6pt">WHAT REMAINS UNTOUCHED \u2718</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>DPF ($5,000\u2013$10,000):</strong> Still required on every new diesel truck. Causes 1 AM strandings, 2.5-hour forced regenerations, highway-speed derates. 13% of total maintenance costs (ATA).</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>SCR/DEF system:</strong> Still required. Only the quality sensor was removed \u2014 the fluid injection system remains.</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Clean Air Act:</strong> Still in force. DPF deletion = up to $45,268/violation. Civil enforcement fully operational.</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Criteria pollutant regulations:</strong> Explicitly excluded from Feb 12 GHG rollback. Particulate matter standards (basis for DPF) untouched.</div>';
-  h+='<div style="font-size:9pt;line-height:1.35;margin-bottom:3pt"><strong>Result:</strong> $15,000\u2013$25,000 in aftertreatment on every new truck. Pre-2007 engines (Cat C15, Cummins N14, Detroit Series 60) \u2014 patents expired \u2014 still cannot be remanufactured.</div>';
-  h+='</div></div>';
-  h+='<div style="background:#fff3cd;border:1px solid #e0c36a;padding:6pt 8pt;font-size:9.5pt;font-weight:bold;text-align:center;margin-bottom:6pt">Every action taken in 2025\u20132026 is guidance. A future EPA administrator can reverse it all with a stroke of a pen. Everything gained can be lost in 2029.</div>';
-  // Patent Clause section
-  h+='<div class="nh" style="font-size:10pt;padding:5pt 6pt">THE PATENT CLAUSE: THE CONSTITUTIONAL REMEDY</div>';
-  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:4pt">Article I, \u00a78, Cl. 8 grants patents for \u201climited Times.\u201d After 20 years, the design enters the public domain \u2014 \u201cfree for all to use\u201d (<em>Bonito Boats</em>, 1989). In <em>Kimble v. Marvel</em> (2015), expired patents give the public \u201cunrestricted rights\u201d to manufacture. In <em>Brulotte v. Thys Co.</em> (1964), extending patent rights post-expiration is \u201cper se unlawful.\u201d</div>';
-  h+='<div style="font-size:10pt;line-height:1.35;margin-bottom:5pt">Post-1970 regulations require any \u201cnew\u201d truck to meet current-year standards \u2014 standards requiring patented aftertreatment (DPF, SCR, DEF, sensors) the original design never included. A 2004-era Cummins ISX cannot be newly manufactured because the regulations demand equipment the patent-expired engine was never designed to carry. The patent expired. The monopoly continues. The Constitution says that is not allowed.</div>';
-  // Comparison table
-  h+='<div class="nh" style="font-size:10pt;padding:5pt 6pt">WHY A COURT RULING SUCCEEDS WHERE GUIDANCE AND LEGISLATION CANNOT</div>';
-  h+='<table class="bt" style="font-size:9.5pt"><tr><th style="font-size:9pt">EPA GUIDANCE</th><th style="font-size:9pt">LEGISLATION (S.3007)</th><th style="font-size:9pt">PATENT CLAUSE RULING</th></tr>';
-  h+='<tr><td>Reversed by next EPA administrator</td><td>Repealed by next Congress</td><td>Binds every future administration, Congress, and agency</td></tr>';
-  h+='<tr><td>Covers only what EPA can reach administratively</td><td>Covers only what the bill specifies</td><td>Covers every patent-expired design across all agencies</td></tr>';
-  h+='<tr><td>No constitutional authority</td><td>Statutory authority only</td><td>Supreme law of the land</td></tr>';
-  h+='<tr><td>Already done \u2014 fixed ~10%</td><td>Stalled in committee since Oct 2025</td><td>Question of first impression \u2014 never raised</td></tr>';
-  h+='</table>';
+  h+='<p class="b3-penalty">Tampering with the aftertreatment system to escape these costs is itself illegal: the Clean Air Act assesses <strong>$5,911 per violation</strong> for an individual ($59,114 for a manufacturer or dealer), with every vehicle and every defeat-device part counted separately. The legal route out of the markup is constitutional, not mechanical.</p>';
+
+  h+='<div class="b3-sect">WHAT YOUR MEMBERS CANNOT BUY AT ANY PRICE</div>';
+  h+='<p>A new 1999 Peterbilt 379 with a Caterpillar 3406E or first-year C-15 &mdash; built on American remanufacturing lines, certified to 1998 emission standards &mdash; at roughly <strong>$80,000</strong>; a new Kenworth W900 with a Cummins N14, in the same range; a new platform with a Detroit Series 60. Today\u2019s new Class 8: roughly $140,000 for the cheapest Cascadia day cab, $161,850 for a Kenworth T680 day cab, $284,900 for a heavy-spec T800 &mdash; the aftertreatment stack baked into every one, on engine technology whose patents have already expired.</p>';
+
+  h+='<div class="b3-sect">TWO INDEPENDENT CONSTITUTIONAL PRONGS</div>';
+  h+='<p>The case rests on two suspenders, either sufficient on its own.</p>';
+  h+='<div class="b3-twocol">';
+  h+='<div class="b3-twocol-cell"><h5>The Patent Clause Prong</h5><p>Article I, \u00a78, Clause 8 authorizes Congress to grant exclusive rights only \u201cfor limited Times.\u201d When those times end, the design enters the public domain. <em>Bonito Boats v. Thunder Craft</em> (1989) and <em>Kimble v. Marvel Entertainment</em> (2015) recognize the public\u2019s resulting right as <em>unrestricted</em>. A regulatory architecture that prevents the public from exercising that right preserves the original manufacturer\u2019s commercial benefit indefinitely past the patent\u2019s expiration &mdash; precisely what \u201climited Times\u201d was written to forbid.</p></div>';
+  h+='<div class="b3-twocol-cell"><h5>The Takings Clause Prong</h5><p>The public\u2019s right to make, copy, improve, and remanufacture an expired patent is a vested right. <em>Ruckelshaus v. Monsanto</em> (1984) held intangible intellectual property is protected property under the Fifth Amendment. <em>Lucas v. South Carolina Coastal Council</em> (1992) held regulations eliminating all economically viable use are <em>per se</em> takings &mdash; no balancing required. Permanent regulatory cancellation of the public\u2019s remanufacturing right destroys every economically viable use of the expired patent.</p></div>';
+  h+='</div>';
   h+='</div>';
 
   // ===== PAGE 2 =====
-  h+='<div class="page bp">';
-  h+='<div class="nb" style="font-size:10pt;padding:5pt 8pt;margin-bottom:5pt">THE $13.79 BILLION VALIDATION &amp; THE SIX-FRONT CAMPAIGN</div>';
-  // $13.79B section
-  h+='<div class="bs">The SBA\u2019s own $13.79 billion/year figure validates the premise of this constitutional challenge. That number represents the economic damage from <em>one sensor</em> in the aftertreatment stack. The DPF, SCR catalyst, diesel oxidation catalyst, and remaining sensor arrays collectively add $15,000\u2013$25,000 to every new truck and consume 13% of lifetime maintenance costs. Across all patent-expired products \u2014 vehicles, farm equipment, HVAC, appliances \u2014 the total regulatory taking is approximately $2,420 per American household per year, or $22 trillion cumulative since 1970.</div>';
-  // Six-front table
-  h+='<div class="nh" style="margin-top:4pt">THE SIX-FRONT CAMPAIGN ALREADY UNDERWAY</div>';
-  h+='<table class="bt"><tr><th style="text-align:left;width:18%">Plaintiff Class</th><th style="text-align:left;width:28%">Standing Theory</th><th style="text-align:left;width:54%">Read title at https://x.com/RoleighMartin/articles</th></tr>';
-  h+='<tr><td>County Sheriffs</td><td><em>Printz v. United States</em> (1997)</td><td>\u201cRestore Patent Rights & Cut Living Costs: Free App, Your Sheriff, One Letter\u201d</td></tr>';
-  h+='<tr><td>Governors & AGs</td><td>Sovereign standing</td><td>\u201cRestore Patent Rights & Cut Living Costs: Free App, Your Governor or State AG, One Letter\u201d</td></tr>';
-  h+='<tr><td>Tribal Nations</td><td>345 independent sovereigns</td><td>\u201cTribal Nations Open a Fourth Front in the Lawfare War Against Expired Patents\u201d</td></tr>';
-  h+='<tr><td>Farm Associations</td><td><em>Hunt v. Wash. State Apple Adv. Comm\u2019n</em> (1977)</td><td>\u201cFarm Associations Open a Fifth Front Against the Lawfare War Against Expired Patents\u201d</td></tr>';
-  h+='<tr><td>Semi-Truck Owner-Operators</td><td><em>Hunt</em> via OOIDA (150K members)</td><td>\u201cSemi-Truck Owner-Operators Pay $5,000 for a Filter the Constitution Says Should Not Be Required\u201d</td></tr>';
-  h+='<tr><td>Healthy Lighting Advocates</td><td>Associational standing</td><td>\u201cHealthy Sunlight to Blue-Light Tyranny: 1970 Reforms Killed Grandfather\u2019s Bulbs & Patent Clause\u201d</td></tr>';
-  h+='</table>';
-  // Mid-term case
-  h+='<div class="nh" style="margin-top:4pt">THE MID-TERM CASE</div>';
-  h+='<div class="bs">No executive order, tariff reduction, or tax cut can deliver $2,420/year to every American household. The administration that restores patent-expired manufacturing owns the most powerful affordability message in modern political history. Patent-expired remanufacturing creates domestic manufacturing jobs \u2014 Congress retains full authority over tariffs and imports. What the Constitution forbids is blocking domestic remanufacturing of designs the public already owns.</div>';
-  h+='<div class="bs">The Diesel Truck Liberation Act (S.3007) faces the Profiteers and Environmentalists coalition head-on: incumbent manufacturers (Paccar, Daimler, Volvo/Mack, Navistar) profit from blocking competition, while environmental groups provide political cover. A Patent Clause court ruling bypasses that coalition entirely \u2014 no congressional vote required, no filibuster to overcome.</div>';
-  // International proof
-  h+='<div class="nh" style="margin-top:4pt">THE INTERNATIONAL PROOF</div>';
-  h+='<div class="bs">Right now, in 2026, you can buy a brand-new vehicle built on a patent-expired design for $6,000\u2013$18,000 in over 90 countries. ZX Auto exports Toyota-derived pickups to 90+ nations. Mahindra ($15.9B) sells Jeep derivatives in 100+ countries with 5-star safety ratings. These vehicles cannot be purchased in the United States at any price. The wealthiest nation on Earth blocks what developing nations freely permit.</div>';
-  // CARB
-  h+='<div class="nh" style="margin-top:4pt">THE CARB PROBLEM YOUR MEMBERS ALREADY KNOW</div>';
-  h+='<div class="bs">Trump signed 3 CRA resolutions on June 12, 2025, revoking CARB\u2019s Advanced Clean Cars II, Advanced Clean Trucks, and Omnibus Low NOx waivers. California and 10 states sued immediately. But those revocations only touched EV mandates and GHG waivers. CARB\u2019s criteria pollutant authority \u2014 the regulatory basis for the DPF \u2014 was never touched. CARB-certified DPF parts still cost 15\u201325% more in 18 states. A Patent Clause ruling binds state governments through the Supremacy Clause, eliminating the DPF mandate at both federal AND state level simultaneously.</div>';
-  // What we are asking
-  h+='<div class="nh" style="margin-top:4pt">WHAT WE ARE ASKING YOUR ASSOCIATION</div>';
-  h+='<div class="bs">We are asking your association to evaluate the Patent Clause argument on behalf of your members and consider joining the constitutional challenge as an associational plaintiff. Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), a trade association has standing to sue on behalf of its members when: (1) members would have standing to sue individually; (2) the interests at stake are germane to the organization\u2019s purpose; and (3) neither the claim nor the relief requires individual member participation. Your association meets all three prongs.</div>';
-  h+='<div class="bs">Five AI legal research platforms \u2014 including OpenCase (trained on Cornell Law Institute\u2019s case law database), Claude Opus 4.6 (Anthropic), GPT-5.2 Thinking (OpenAI), SuperGrok (xAI), and Google Gemini 2.5 Pro \u2014 have independently confirmed the argument has constitutional merit across 38 Supreme Court citations.</div>';
+  h+='<div class="page bp b3p">';
+  h+='<div class="b3-hero2">';
+  h+='<div class="b3-h1">Patent Clause Restoration</div>';
+  h+='<div class="b3-h2">Finishes What Trump\u2019s EPA Has Started</div>';
+  h+='<p>The 2025\u20132026 EPA actions are real and welcome &mdash; but each is statutory discretion, rescindable by the next administrator. <strong>Only the Constitution finishes the work.</strong></p>';
+  h+='</div>';
+
+  h+='<div class="b3-sect">THE ENVIRONMENTAL OBJECTION &mdash; ALREADY ANSWERED</div>';
+  h+='<p>A reader might assume pre-2000 trucks were belching black soot. They were not. By 1999, new heavy-duty diesel engines were <strong>eighty-three percent cleaner on particulate matter than the 1988 federal baseline</strong> &mdash; all achieved through engine design alone: no aftertreatment, no filters, no EGR, no DEF. The 2007 DPF mandate demanded a further ninety-percent reduction <em>on top of</em> that &mdash; from 0.10 to 0.01 grams per brake horsepower-hour. <strong>That last step is what bolted a five-thousand-dollar filter onto every new American truck. The Constitution does not authorize the federal government to demand that step &mdash; at the cost it imposes &mdash; on engine technology whose patents have already expired.</strong></p>';
+
+  h+='<div class="b3-sect">WHY THE CASE IS FILABLE IN 2026 AND WAS NOT BEFORE</div>';
+  h+='<p>Chevron deference closed the courthouse door for forty years; the current Court has reopened it. These doctrinal shifts are not the substantive grounds &mdash; they are the procedural scaffolding that makes the two prongs newly reachable. <em>Loper Bright v. Raimondo</em> (2024) ended Chevron, so courts no longer defer to agency interpretation of statutes. <em>West Virginia v. EPA</em> (2022) brought the Major Questions Doctrine, removing the deference burden from constitutional challenges to rules the size of the post-2007 aftertreatment architecture. <em>Cedar Point Nursery v. Hassid</em> (2021), <em>Tyler v. Hennepin County</em> (2023), and <em>Sheetz v. El Dorado</em> (2024) broadened the takings doctrine on three independent axes in five years. <strong>Nobody has connected the dots before. That is not the weakness of the case. It is the opportunity.</strong></p>';
+
+  h+='<div class="b3-sect">EPA FIXED 10%. THE CONSTITUTION FIXES 90%.</div>';
+  h+='<table class="b3-cmp"><thead><tr><th></th><th>EPA Guidance</th><th>Legislation (S.3007)</th><th>Patent Clause Ruling</th></tr></thead><tbody>';
+  h+='<tr><td>Permanence</td><td>Reversed by next administrator</td><td>Repealed by next Congress</td><td>Binds every future administration, Congress, and agency</td></tr>';
+  h+='<tr><td>Scope</td><td>Only what EPA can reach</td><td>Only what the bill specifies</td><td>Every patent-expired design, every agency, every state</td></tr>';
+  h+='<tr><td>Authority</td><td>Statutory discretion</td><td>Statutory authority</td><td>Supreme law of the land</td></tr>';
+  h+='<tr><td>CARB</td><td>Does not bind states</td><td>Federal only</td><td>Supremacy Clause binds all states</td></tr>';
+  h+='</tbody></table>';
+  h+='<p class="b3-cmp-note">Every guidance action of 2025\u20132026 can be reversed by the next administration. A Patent Clause ruling cannot.</p>';
+
+  h+='<div class="b3-sect">WHY NO ONE HAS RAISED IT IN FIFTY-FIVE YEARS</div>';
+  h+='<div class="b3-forces">';
+  h+='<div style="display:table-row">';
+  h+='<div class="b3-force"><strong>Force 1 &mdash; The corrupt ecosystem.</strong> Regulatory capture: lobbyists, legislators, revolving-door agency staff, and &mdash; until <em>Loper Bright</em> (2024) &mdash; forty years of <em>Chevron</em> deference. Every node has reason to leave the constitutional question on the floor.</div>';
+  h+='<div class="b3-force"><strong>Force 2 &mdash; Profiteers and Environmentalists cooperate.</strong> Bruce Yandle\u2019s 1983 framework. Once truck manufacturers accepted the regulations, they became the highest barrier to competitive entry in the industry\u2019s history. Environmental and public health organizations lobbied for the rules never asking whether the Constitution permits \u201cnew motor vehicle\u201d standards to apply to engine technology whose patents have expired.</div>';
+  h+='</div>';
+  h+='<div style="display:table-row">';
+  h+='<div class="b3-force"><strong>Force 3 &mdash; The institutional blind spot.</strong> The expired-patent commons is categorically absent from the operating thinking of EPA, NHTSA, DOE, Congress, every administration of the last fifty-five years, and the academic disciplines that might have noticed.</div>';
+  h+='<div class="b3-force"><strong>Force 4 &mdash; The doctrinal floor.</strong> Until <em>Loper Bright</em> (2024), the doctrines making this case filable today did not exist. A scholar who privately recognized the violation could not have brought it to court.</div>';
+  h+='</div>';
+  h+='<div style="display:table-row">';
+  h+='<div class="b3-force"><strong>Force 5 &mdash; Moral acquiescence.</strong> A few thousand participants across fifty-five years who saw the constitutional question and chose silence &mdash; patent attorneys, agency lawyers, scholars who continued to defend positions they knew the Constitution disfavored.</div>';
+  h+='<div class="b3-force"><strong>Force 6 &mdash; Rule-induced behavior.</strong> The other ~95% &mdash; consumers, manufacturers, journalists, judges, ordinary citizens &mdash; for whom the question never came into view. Ordinary compliance produces the silence.</div>';
+  h+='</div>';
+  h+='</div>';
+  h+='<p style="margin-top:3pt"><em>Loper Bright</em> already collapsed Force 4 and Force 1\u2019s deference leg. <strong>The remaining forces will not hold once the first court is asked the constitutional question directly.</strong></p>';
   h+='</div>';
 
   // ===== PAGE 3 =====
-  h+='<div class="page bp">';
-  h+='<div class="nb" style="font-size:10pt;padding:5pt 8pt;margin-bottom:5pt">THE LEGAL LANDSCAPE, REMEDY &amp; RESOURCES</div>';
-  h+='<div class="g2" style="margin-bottom:5pt">';
-  // Left column: Legal landscape
-  h+='<div><div class="nh">THE LEGAL LANDSCAPE: MOST FAVORABLE COURT IN DECADES</div>';
-  h+='<div class="bs"><strong>Chevron is dead.</strong> <em>Loper Bright v. Raimondo</em> (2024) ended agency deference. Courts now apply statutory text, not agency interpretation.</div>';
-  h+='<div class="bs"><strong>Takings expanded.</strong> <em>Sheetz v. County of El Dorado</em> (2024) expanded regulatory takings doctrine.</div>';
-  h+='<div class="bs"><strong>Major Questions.</strong> <em>West Virginia v. EPA</em> (2022): Congress never authorized agencies to make decisions of vast economic significance without clear statutory authorization.</div>';
-  h+='<div class="bs"><strong>Patent rights affirmed.</strong> <em>Bonito Boats</em> (1989), <em>Kimble</em> (2015), <em>Brulotte</em> (1964): expired patents enter free public use. Extension is per se unlawful.</div>';
-  h+='<div class="bs"><strong>Sheriff standing.</strong> <em>Printz v. United States</em> (1997): individual county sheriffs have standing to challenge federal overreach.</div>';
-  h+='<div class="bs"><strong>Associational standing.</strong> <em>Hunt v. Wash. State Apple</em> (1977): trade associations can sue on behalf of members. OOIDA (150K truckers), farm associations, tribal nations all qualify.</div>';
+  h+='<div class="page bp b3p">';
+  h+='<div class="b3-hero3">';
+  h+='<div class="b3-h1">Fifty-Five Years of Expired Patents.</div>';
+  h+='<div class="b3-h2">Not One New Truck Built From Them.</div>';
   h+='</div>';
-  // Right column: Remedy
-  h+='<div><div class="nh">THE REMEDY: GRANDFATHER EXEMPTIONS, NOT DEREGULATION</div>';
-  h+='<div class="bs">Any product remanufactured from a design whose patents expired 20+ years ago meets the standards in effect when the original patent was filed \u2014 not current-year standards. This preserves every regulation\u2019s purpose for new designs while honoring the constitutional promise for expired ones. Independent engineering certification verifies authenticity. Consumers receive clear labeling: \u201cThis vehicle meets 2004 emission standards.\u201d Modern designs continue under current regulations.</div>';
-  h+='<div class="bs" style="margin-top:4pt"><strong>The Bicycle Proof:</strong> Patent expiration without regulatory blockage produced a 95.5% improvement in affordability since 1910. Child cyclist deaths fell 88% over 48 years \u2014 under zero federal regulation. When Washington stays out of expired-patent markets, prices collapse and safety improves through competition.</div>';
-  h+='</div></div>';
-  // Articles table
-  h+='<div class="nh">ADDITIONAL KEY ARTICLES AND RESOURCES</div>';
-  h+='<div class="bs" style="margin-bottom:2pt">Available at <strong><a href="https://x.com/RoleighMartin/articles" target="_blank" style="color:#1a3a5c">https://x.com/RoleighMartin/articles</a></strong></div>';
-  h+='<table class="bt"><tr><th style="text-align:left;width:42%">Topic</th><th style="text-align:left">Article Title</th></tr>';
-  h+='<tr><td>Full Patent Clause Analysis</td><td>\u201cThe Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?\u201d</td></tr>';
-  h+='<tr><td>The International Pattern</td><td>\u201cWhy Wealthy Nations Break the Patent Promise That Poor Nations Honor\u201d</td></tr>';
-  h+='<tr><td>How the Patent Clause Should Work</td><td>\u201cHow Expired Bicycle Patents Made Two Wheels Affordable & Why Cars Became Less Affordable\u201d</td></tr>';
-  h+='<tr><td>The Economic Cost</td><td>\u201cThe $22 Trillion Constitutional Theft\u2014How Energy & Safety Laws Created Perpetual Patents\u201d</td></tr>';
-  h+='<tr><td>Amplifying MAGA to the Maximum</td><td>\u201cMAGA needs to be amplified enough to Make American Living Affordable (MALA)\u201d</td></tr>';
-  h+='<tr><td>An Executive Order for a Filibuster-Proof Senate</td><td>\u201cThe 2026 mid-terms where Trump wins a filibuster-proof Senate \u2014 the EO behind it \u2014 a lookback\u201d</td></tr>';
-  h+='</table>';
-  // About the author
-  h+='<div class="bb"><div class="bbt">ABOUT THE AUTHOR</div>';
-  h+='<div class="bsm">Roleigh Martin is an AI patent holder (U.S. Patent No. 5,359,509) and constitutional law researcher whose articles on patent expiration, regulatory takings, and legislative voting history have reached over 7.3 million readers. He leads the 114,000+ member DOGE/MAGA/MAHA Amplified! community on X and has mailed over 500 personalized letters to sheriffs, governors, attorneys general, tribal leaders, and farm associations across 37+ states.</div>';
-  h+='<div class="bsm">B.S., Northeast Missouri State College | M.A. Sociology, University of Northern Iowa</div>';
-  h+='<div class="bsm">Contact: roleigh@pobox.com | x.com/RoleighMartin | 952-905-0822 | SSRN Abstract ID: 6166206</div>';
-  h+='<div class="bsm">Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase, and SuperGrok (xAI).</div>';
+
+  h+='<div class="b3-sect">YOUR ASSOCIATION HAS STANDING</div>';
+  h+='<p>Under <em>Hunt v. Washington State Apple Advertising Commission</em> (1977), a trade association sues on behalf of its members when three conditions are met. Your association meets all three: <strong>members have standing individually</strong> &mdash; every member who has bought a Class 8 truck since 2007 has paid the aftertreatment markup on engine technology whose patents have expired (concrete, documented, traceable fiscal injury); <strong>the interests are germane to the organization\u2019s purpose</strong> &mdash; challenging regulations that inflate equipment costs is core to a trucking association\u2019s mission; and <strong>no individual member participation is required</strong> &mdash; declaratory judgment on the Patent Clause is a pure question of law.</p>';
+
+  h+='<div class="b3-sect">THE REMEDY: A THREE-LEGGED STOOL</div>';
+  h+='<p>Two legs flow from the court ruling itself; the third comes after, from Congress or the President. <strong>Leg 1 &mdash; Grandfather exemption:</strong> a product remanufactured on a public-domain platform is held to the federal safety and emissions standards in effect during the platform year being mimicked &mdash; a 1999 platform meets 1998 standards, with clear consumer labeling <em>\u201cBuilt to 1998 EPA emission standards.\u201d</em> <strong>Leg 2 &mdash; Independent engineering certification:</strong> platform-year compliance verified by independent engineering certification modeled on Underwriters Laboratories &mdash; not by any federal agency. <strong>Leg 3 &mdash; Trade-policy protection:</strong> roughly ninety countries already permit remanufacturing of patent-expired designs, so after the ruling, Congress or the President protects the emergent American remanufacturing industry from established foreign remanufacturers while domestic supply scales. Without Leg 3, the price relief is real but the manufacturing jobs flow overseas alongside it.</p>';
+
+  h+='<div class="b3-sect">YOU DO NOT HAVE TO PAY FOR THIS FIGHT</div>';
+  h+='<p>Public-interest legal foundations take constitutional cases pro bono and litigate them all the way to the Supreme Court.</p>';
+  h+='<div class="b3-fnd-grid">';
+  h+='<div class="b3-fnd"><span class="b3-fnd-h">Pacific Legal Foundation</span>18 of 20 wins at SCOTUS. Represented <em>Sheetz v. El Dorado</em>, one of the rulings cited above.</div>';
+  h+='<div class="b3-fnd"><span class="b3-fnd-h">Institute for Justice</span>11 of 13 SCOTUS wins. 100+ active cases on property rights and economic liberty.</div>';
+  h+='<div class="b3-fnd"><span class="b3-fnd-h">New Civil Liberties Alliance</span>Pro bono against administrative overreach. Their case (<em>Relentless, Inc.</em>) was consolidated with <em>Loper Bright v. Raimondo</em>.</div>';
   h+='</div>';
+  h+='<p style="font-size:8pt;font-style:italic;color:#6B6356;margin:2pt 0">Your association may not need to fund anything.</p>';
+
+  h+='<div class="b3-sect">THE ASYMMETRIC BET</div>';
+  h+='<div class="b3-bet"><p><strong>Win:</strong> the court rules the post-1970 regulatory architecture unconstitutional as applied to expired-patent designs &mdash; the DPF mandate ends on pre-2000 platforms, domestic remanufacturing opens, and Class 8 prices come down across the board (the same dynamic by which brand-name drug prices fall thirty to eighty percent when generics enter the market). <strong>Partial win:</strong> the court reaches some regulations but not others &mdash; blockage shrinks, other circuits follow. <strong>Loss:</strong> the court upholds the regulations in this circuit, but nine others remain open; your members are already 100% blocked, so nothing has worsened &mdash; the loss becomes the petition that creates Supreme Court review. <span class="b3-closer">There is no fourth outcome where your members are worse off than today. That asymmetry is the entire point.</span></p></div>';
+
+  h+='<div class="b3-coalition">Nineteen plaintiff categories are being organized around this argument. Of those, <strong>semi-truck owner-operators are the most injured group on a per-member basis &mdash; and the most promising group to take this constitutional question to a federal court</strong>. Your association may not be filing alone. Your members are the case the rest of the coalition is waiting for.</div>';
+
+  h+='<div class="b3-sect">FOUR STEPS TO ACTION</div>';
+  h+='<ol class="b3-actions">';
+  h+='<li><strong>Share this briefing with your general counsel and your board.</strong> Ask them to evaluate the grandfathering argument &mdash; not the straw man.</li>';
+  h+='<li><strong>Read the underlying materials</strong> at <strong>x.com/RoleighMartin/articles</strong> (see resources below).</li>';
+  h+='<li><strong>Schedule a thirty-minute call.</strong> If the argument doesn\u2019t hold up under your counsel\u2019s questioning, you\u2019ve lost half an hour.</li>';
+  h+='<li><strong>Evaluate joining as an associational plaintiff.</strong> Pro bono representation is available.</li>';
+  h+='</ol>';
+
+  h+='<div class="b3-sect">ADDITIONAL KEY ARTICLES AND RESOURCES &nbsp;&middot;&nbsp; <span style="font-weight:normal;font-style:italic;font-size:9pt">at x.com/RoleighMartin/articles</span></div>';
+  h+='<table class="b3-articles"><tbody>';
+  h+='<tr><td>Trucking-specific</td><td><em>\u201cSemi-Truck Owner-Operators Pay $5,000 for a Filter the Constitution Says Should Not Be Required\u201d</em></td></tr>';
+  h+='<tr><td>Full Patent Clause analysis</td><td><em>\u201cThe Constitutional Violation No One Reports: Who Profits from Blocking Expired-Patent Competition?\u201d</em></td></tr>';
+  h+='<tr><td>The international pattern</td><td><em>\u201cWhy Wealthy Nations Break the Patent Promise That Poor Nations Honor\u201d</em></td></tr>';
+  h+='</tbody></table>';
+
+  h+='<div class="b3-byline"><strong>Roleigh Martin</strong> (U.S. Patent No. 5,359,509) &middot; roleigh@pobox.com &middot; x.com/RoleighMartin &middot; 952-905-0822 &middot; SSRN: 6166206. Manuscript <em>The Forgotten Half of the Patent Clause: What Was Promised When Patents Expired</em>, with foreword by <strong>Gord Magill</strong> (<em>End of the Road: Inside the War on Truckers</em>, Creed &amp; Culture, March 2026), under review at Publisher. <span class="b3-ai">Developed with principal assistance from Claude Opus 4.6 (Anthropic), OpenCase, and SuperGrok (xAI).</span></div>';
+
   h+='</div>';
 
   return h;
