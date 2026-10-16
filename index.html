@@ -1,241 +1,1062 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patent Clause Letter Campaign Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Second Monopoly &mdash; tell the publisher you want the book</title>
+<meta name="description" content="A finished book on the Patent Clause needs a printing. Publishers count readers. Add your name and email, and say which group you think should carry this into federal court.">
+<meta property="og:title" content="The Second Monopoly">
+<meta property="og:description" content="The Patent Expired. The Exclusion Didn&rsquo;t &mdash; and It Doubled the Cost of American Living. Tell the publisher you want this book. Name, email, thirty seconds.">
+<meta property="og:image" content="https://marti124.github.io/Patent_BkSignup/social_preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Front cover of The Second Monopoly by Roleigh Martin">
+<meta property="og:url" content="https://marti124.github.io/Patent_BkSignup/">
+<meta property="og:site_name" content="The Second Monopoly">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Second Monopoly">
+<meta name="twitter:description" content="The Patent Expired. The Exclusion Didn&rsquo;t &mdash; and It Doubled the Cost of American Living. Tell the publisher you want this book.">
+<meta name="twitter:image" content="https://marti124.github.io/Patent_BkSignup/social_preview.jpg">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --parchment: #f7e6cc;
+  --parchment-deep: #efd9b4;
+  --navy: #21384f;
+  --oxblood: #7c2b2b;
+  --gold: #a8813f;
+  --ink: #221f1a;
+  --ink-soft: #5a5044;
+  --rule: #c9ab78;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+}
+.wrap { max-width: 45rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+.banner { display: block; width: 100%; max-width: 30rem; margin: 0 auto; height: auto; }
 
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: #0B1A2E;
-    color: #E8E0D4;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+h1 {
+  font-size: clamp(1.75rem, 5.5vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 2.25rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 1.35rem;
+  color: var(--navy);
+  margin: 2.75rem 0 0.75rem;
+  font-weight: 700;
+}
+p { margin: 0 0 1.1rem; }
+.lede { font-size: 1.15rem; }
+cite { font-style: italic; }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(30, 64, 110, 0.5), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 70%, rgba(140, 60, 40, 0.25), transparent);
-    pointer-events: none;
-    z-index: 0;
-  }
+a { color: var(--oxblood); text-underline-offset: 0.18em; }
+a:hover { color: var(--navy); }
+:focus-visible { outline: 3px solid var(--oxblood); outline-offset: 2px; }
 
-  .page { position: relative; z-index: 1; }
+/* ---- the form, framed like the cover's double rule ---- */
+.panel {
+  margin: 2.5rem 0;
+  border: 2px solid var(--navy);
+  padding: 4px;
+  background: var(--parchment-deep);
+}
+.panel-inner { border: 1px solid var(--rule); padding: 1.5rem 1.35rem 1.75rem; }
+.panel h2 { margin-top: 0; }
 
-  header {
-    text-align: center;
-    padding: 4rem 2rem 2.5rem;
-    border-bottom: 1px solid rgba(232, 224, 212, 0.2);
-  }
+.field { margin: 0 0 1.15rem; }
+label { display: block; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+.hint { font-size: 0.9rem; color: var(--ink-soft); margin: 0.3rem 0 0; }
+input[type=text], input[type=email], select, textarea {
+  width: 100%;
+  padding: 0.6rem 0.65rem;
+  font: inherit;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 1px solid #9d8a6a;
+  border-radius: 2px;
+}
+select { appearance: none; background-image: none; }
+.statebox {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--navy);
+  min-height: 1.4rem;
+}
+fieldset { border: 0; margin: 0 0 1.15rem; padding: 0; }
+legend { font-weight: 700; color: var(--navy); margin-bottom: 0.35rem; padding: 0; }
+.checks { display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem; }
+.checks label { font-weight: 400; color: var(--ink); display: flex; align-items: center; gap: 0.45rem; margin: 0; }
+input[type=checkbox] { width: 1.05rem; height: 1.05rem; accent-color: var(--oxblood); }
 
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #F4EDE4;
-    margin-bottom: 0.6rem;
-  }
+button {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--parchment);
+  background: var(--navy);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+button:hover { background: #172a3c; }
+button[disabled] { opacity: 0.55; cursor: default; }
+.privacy { font-size: 0.92rem; color: var(--ink-soft); margin: 1rem 0 0; }
+.err { color: var(--oxblood); font-weight: 700; margin: 0.75rem 0 0; }
 
-  header h1 span {
-    display: block;
-    font-size: 0.45em;
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #C8A96E;
-    margin-bottom: 0.5rem;
-  }
+.subpanel { margin: 0.25rem 0 1.15rem; padding: 1rem 1rem 0.2rem; border-left: 3px solid var(--gold); background: #f6e3c3; }
+.subpanel .checks label, .toptick label { align-items: flex-start; }
+.subpanel .checks input, .toptick input { margin-top: 0.3rem; flex: none; }
+.optional { font-weight: 400; color: var(--ink-soft); }
 
-  header p {
-    max-width: 600px;
-    margin: 0 auto;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: rgba(232, 224, 212, 0.9);
-  }
+.thanks { text-align: left; }
 
-  .cards {
-    max-width: 880px;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
-    display: grid;
-    gap: 1.25rem;
-  }
+/* ---- arrival from a Kit confirmation link ---- */
+.confirmed { margin: 1.5rem 0 0; padding: 1.1rem 1.35rem; border: 2px solid var(--navy); background: #fffaf0; }
+.confirmed h2 { margin: 0 0 0.4rem; }
+.confirmed p { margin: 0; }
 
-  .card {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    background: rgba(232, 224, 212, 0.07);
-    border: 1px solid rgba(232, 224, 212, 0.15);
-    border-radius: 12px;
-    padding: 1.5rem 1.75rem;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.25s, border-color 0.25s, transform 0.2s;
-  }
+/* ---- testimonial ---- */
+.saybox { margin: 2.5rem 0 0; padding: 1.25rem 1.35rem; border: 1px solid var(--rule); background: var(--parchment-deep); }
+.saybox h2 { margin-top: 0; }
+.saybox button { width: auto; padding: 0.7rem 1.4rem; }
+textarea { resize: vertical; min-height: 9rem; line-height: 1.45; }
+dialog#tdlg { width: min(40rem, calc(100vw - 1.5rem)); max-height: calc(100vh - 1.5rem); padding: 0; border: 2px solid var(--navy); background: var(--parchment); color: var(--ink); }
+dialog#tdlg::backdrop { background: rgba(20, 28, 38, 0.55); }
+.tdlg-inner { padding: 1.35rem 1.35rem 1.5rem; }
+.tdlg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.tdlg-head h2 { margin: 0 0 0.75rem; }
+button.xbtn { width: auto; margin: 0; padding: 0.15rem 0.6rem; font-size: 1.4rem; line-height: 1; color: var(--navy); background: transparent; }
+button.xbtn:hover { background: var(--parchment-deep); }
+.radios label { font-weight: 400; color: var(--ink); display: flex; align-items: flex-start; gap: 0.5rem; margin: 0 0 0.45rem; }
+.radios input { margin-top: 0.35rem; accent-color: var(--oxblood); flex: none; }
+.preview { margin: 0 0 1.15rem; font-style: italic; color: var(--navy); }
+.preview:empty { display: none; }
+.counter { float: right; font-size: 0.85rem; color: var(--ink-soft); }
+.twocol { display: grid; grid-template-columns: 1fr; gap: 0 1rem; }
+@media (min-width: 560px) { .twocol { grid-template-columns: 1fr 1fr; } }
+.thanks h2 { margin-top: 0; }
 
-  .card:hover {
-    background: rgba(232, 224, 212, 0.08);
-    border-color: rgba(200, 169, 110, 0.35);
-    transform: translateY(-2px);
-  }
+/* ---- reading list ---- */
+ul.reads { list-style: none; margin: 0; padding: 0; }
+ul.reads li { padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
+ul.reads li:first-child { border-top: 1px solid var(--rule); }
+ul.reads a { font-weight: 700; font-size: 1.08rem; }
+ul.reads p { margin: 0.2rem 0 0; font-size: 0.96rem; color: var(--ink-soft); }
 
-  .card-icon {
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-  }
+footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 2px solid var(--navy); font-size: 0.94rem; color: var(--ink-soft); }
+footer em { display: block; margin-bottom: 0.5rem; }
 
-  .card-icon.sheriff   { background: rgba(59, 130, 246, 0.15); color: #6BA3F7; }
-  .card-icon.governor   { background: rgba(220, 120, 50, 0.15); color: #E09860; }
-  .card-icon.trucking   { background: rgba(100, 180, 100, 0.15); color: #7CC87C; }
-  .card-icon.tribal     { background: rgba(180, 100, 160, 0.15); color: #C88ABF; }
-  .card-icon.farm       { background: rgba(180, 160, 60, 0.15); color: #C8B44E; }
-  .card-icon.lighting   { background: rgba(230, 180, 60, 0.15); color: #E8A832; }
-  .card-icon.pda        { background: rgba(80, 160, 140, 0.15); color: #60C4B0; }
-
-  .card-body h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #F4EDE4;
-    margin-bottom: 0.3rem;
-  }
-
-  .card-body p {
-    font-size: 0.92rem;
-    color: rgba(232, 224, 212, 0.78);
-    line-height: 1.45;
-  }
-
-  .arrow {
-    margin-left: auto;
-    flex-shrink: 0;
-    font-size: 1.3rem;
-    color: rgba(232, 224, 212, 0.45);
-    transition: color 0.25s, transform 0.25s;
-  }
-
-  .card:hover .arrow {
-    color: #C8A96E;
-    transform: translateX(3px);
-  }
-
-  footer {
-    text-align: center;
-    padding: 3rem 2rem 2.5rem;
-    font-size: 0.85rem;
-    color: rgba(232, 224, 212, 0.55);
-  }
-
-  footer a { color: #C8A96E; text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 600px) {
-    .card { flex-wrap: wrap; padding: 1.25rem; }
-    .arrow { display: none; }
-  }
+@media (max-width: 30rem) {
+  .panel-inner { padding: 1.1rem 0.9rem 1.35rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <header>
-    <h1>
-      <span>Make American Living Affordable (MALA)</span>
-      Patent Clause Letter Campaign
-    </h1>
-    <p>Tools for writing and sending letters to elected officials and civic leaders advocating for expired-patent remanufacturing rights under Article&nbsp;I, &sect;8, Clause&nbsp;8.</p>
-    <p style="margin-top: 0.75rem;">The Articles on Restoring the Patent Clause are at <a href="https://x.com/RoleighMartin/articles" style="color: #C8A96E; text-decoration: underline;">https://x.com/RoleighMartin/articles</a></p>
-  </header>
+<img class="banner" src="banner.jpg" alt="The Second Monopoly &mdash; The Patent Expired. The Exclusion Didn&rsquo;t &mdash; and It Doubled the Cost of American Living.">
 
-  <nav class="cards">
+<div class="wrap">
 
-    <a class="card" href="Latest_Sheriff_Letter_and_Packet_Generator.html">
-      <div class="card-icon sheriff">&#9733;</div>
-      <div class="card-body">
-        <h2>Sheriff Letter &amp; Packet Generator</h2>
-        <p>Generate customized letters and information packets addressed to county sheriffs nationwide.</p>
+  <div class="confirmed" id="confirmed" hidden>
+    <h2 id="cfhead"></h2>
+    <p id="cftext"></p>
+  </div>
+
+  <h1>Tell the publisher you want the book, <i>The Second Monopoly</i></h1>
+
+  <p style="font-style:italic;color:var(--ink-soft);margin-top:-.4rem;">(formerly titled <i style="font-style:normal">The Forgotten Half of the Patent Clause</i>; the content is unchanged)</p>
+
+  <p class="lede">It is finished. Five hundred and eighty-six pages, eighty-nine Supreme Court cases surveyed, a foreword by Gord Magill. What it does not yet have is a printing.</p>
+
+  <p>A publisher decides that by counting readers, so this page counts them. Your name and email are the whole ask, and the count is the only thing it is used for.</p>
+
+  <p>One question does more work than the rest. The book identifies nineteen groups with standing to carry this into federal court, and the last box lets you name the one you want filing suit. Choosing a group says you have been kept from buying remanufactured goods you had a right to buy. If none of them is you, say that instead &mdash; the count still matters.</p>
+
+  <div class="panel">
+   <div class="panel-inner">
+    <h2 id="signup">Add your name</h2>
+
+    <form id="f" method="post" target="sink"
+          action="https://app.kit.com/forms/9909033/subscriptions">
+
+      <div class="field">
+        <label for="nm">Name <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+        <input type="text" id="nm" name="first_name" autocomplete="name">
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Latest_Governor_AG_Generator.html">
-      <div class="card-icon governor">&#9878;</div>
-      <div class="card-body">
-        <h2>Governor &amp; Attorney General Generator</h2>
-        <p>Draft letters to state governors and attorneys general urging action on patent litigation reform.</p>
+      <div class="field">
+        <label for="em">Email address</label>
+        <input type="email" id="em" name="email_address" required autocomplete="email" inputmode="email">
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Latest_Trucking_Assn_Letter_Writer.html">
-      <div class="card-icon trucking">&#9951;</div>
-      <div class="card-body">
-        <h2>Trucking Association Letter Writer</h2>
-        <p>Compose letters to owner-operator trucking associations highlighting aftermarket parts cost impacts.</p>
+      <div class="field">
+        <label for="cy">Country</label>
+        <select id="cy" name="fields[country]" required>
+        <option value="United States" selected>United States</option>
+        <option disabled>──────────</option>
+        <option value="Afghanistan">Afghanistan</option>
+        <option value="Albania">Albania</option>
+        <option value="Algeria">Algeria</option>
+        <option value="American Samoa">American Samoa</option>
+        <option value="Andorra">Andorra</option>
+        <option value="Angola">Angola</option>
+        <option value="Anguilla">Anguilla</option>
+        <option value="Antarctica">Antarctica</option>
+        <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+        <option value="Argentina">Argentina</option>
+        <option value="Armenia">Armenia</option>
+        <option value="Aruba">Aruba</option>
+        <option value="Australia">Australia</option>
+        <option value="Austria">Austria</option>
+        <option value="Azerbaijan">Azerbaijan</option>
+        <option value="Bahamas">Bahamas</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Bangladesh">Bangladesh</option>
+        <option value="Barbados">Barbados</option>
+        <option value="Belarus">Belarus</option>
+        <option value="Belgium">Belgium</option>
+        <option value="Belize">Belize</option>
+        <option value="Benin">Benin</option>
+        <option value="Bermuda">Bermuda</option>
+        <option value="Bhutan">Bhutan</option>
+        <option value="Bolivia, Plurinational State of">Bolivia, Plurinational State of</option>
+        <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba</option>
+        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+        <option value="Botswana">Botswana</option>
+        <option value="Bouvet Island">Bouvet Island</option>
+        <option value="Brazil">Brazil</option>
+        <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+        <option value="Brunei Darussalam">Brunei Darussalam</option>
+        <option value="Bulgaria">Bulgaria</option>
+        <option value="Burkina Faso">Burkina Faso</option>
+        <option value="Burundi">Burundi</option>
+        <option value="Cabo Verde">Cabo Verde</option>
+        <option value="Cambodia">Cambodia</option>
+        <option value="Cameroon">Cameroon</option>
+        <option value="Canada">Canada</option>
+        <option value="Cayman Islands">Cayman Islands</option>
+        <option value="Central African Republic">Central African Republic</option>
+        <option value="Chad">Chad</option>
+        <option value="Chile">Chile</option>
+        <option value="China">China</option>
+        <option value="Christmas Island">Christmas Island</option>
+        <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+        <option value="Colombia">Colombia</option>
+        <option value="Comoros">Comoros</option>
+        <option value="Congo">Congo</option>
+        <option value="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the</option>
+        <option value="Cook Islands">Cook Islands</option>
+        <option value="Costa Rica">Costa Rica</option>
+        <option value="Croatia">Croatia</option>
+        <option value="Cuba">Cuba</option>
+        <option value="Curaçao">Curaçao</option>
+        <option value="Cyprus">Cyprus</option>
+        <option value="Czechia">Czechia</option>
+        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+        <option value="Denmark">Denmark</option>
+        <option value="Djibouti">Djibouti</option>
+        <option value="Dominica">Dominica</option>
+        <option value="Dominican Republic">Dominican Republic</option>
+        <option value="Ecuador">Ecuador</option>
+        <option value="Egypt">Egypt</option>
+        <option value="El Salvador">El Salvador</option>
+        <option value="Equatorial Guinea">Equatorial Guinea</option>
+        <option value="Eritrea">Eritrea</option>
+        <option value="Estonia">Estonia</option>
+        <option value="Eswatini">Eswatini</option>
+        <option value="Ethiopia">Ethiopia</option>
+        <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+        <option value="Faroe Islands">Faroe Islands</option>
+        <option value="Fiji">Fiji</option>
+        <option value="Finland">Finland</option>
+        <option value="France">France</option>
+        <option value="French Guiana">French Guiana</option>
+        <option value="French Polynesia">French Polynesia</option>
+        <option value="French Southern Territories">French Southern Territories</option>
+        <option value="Gabon">Gabon</option>
+        <option value="Gambia">Gambia</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Germany">Germany</option>
+        <option value="Ghana">Ghana</option>
+        <option value="Gibraltar">Gibraltar</option>
+        <option value="Greece">Greece</option>
+        <option value="Greenland">Greenland</option>
+        <option value="Grenada">Grenada</option>
+        <option value="Guadeloupe">Guadeloupe</option>
+        <option value="Guam">Guam</option>
+        <option value="Guatemala">Guatemala</option>
+        <option value="Guernsey">Guernsey</option>
+        <option value="Guinea">Guinea</option>
+        <option value="Guinea-Bissau">Guinea-Bissau</option>
+        <option value="Guyana">Guyana</option>
+        <option value="Haiti">Haiti</option>
+        <option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option>
+        <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+        <option value="Honduras">Honduras</option>
+        <option value="Hong Kong">Hong Kong</option>
+        <option value="Hungary">Hungary</option>
+        <option value="Iceland">Iceland</option>
+        <option value="India">India</option>
+        <option value="Indonesia">Indonesia</option>
+        <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+        <option value="Iraq">Iraq</option>
+        <option value="Ireland">Ireland</option>
+        <option value="Isle of Man">Isle of Man</option>
+        <option value="Israel">Israel</option>
+        <option value="Italy">Italy</option>
+        <option value="Jamaica">Jamaica</option>
+        <option value="Japan">Japan</option>
+        <option value="Jersey">Jersey</option>
+        <option value="Jordan">Jordan</option>
+        <option value="Kazakhstan">Kazakhstan</option>
+        <option value="Kenya">Kenya</option>
+        <option value="Kiribati">Kiribati</option>
+        <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+        <option value="Korea, Republic of">Korea, Republic of</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Kyrgyzstan">Kyrgyzstan</option>
+        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+        <option value="Latvia">Latvia</option>
+        <option value="Lebanon">Lebanon</option>
+        <option value="Lesotho">Lesotho</option>
+        <option value="Liberia">Liberia</option>
+        <option value="Libya">Libya</option>
+        <option value="Liechtenstein">Liechtenstein</option>
+        <option value="Lithuania">Lithuania</option>
+        <option value="Luxembourg">Luxembourg</option>
+        <option value="Macao">Macao</option>
+        <option value="Madagascar">Madagascar</option>
+        <option value="Malawi">Malawi</option>
+        <option value="Malaysia">Malaysia</option>
+        <option value="Maldives">Maldives</option>
+        <option value="Mali">Mali</option>
+        <option value="Malta">Malta</option>
+        <option value="Marshall Islands">Marshall Islands</option>
+        <option value="Martinique">Martinique</option>
+        <option value="Mauritania">Mauritania</option>
+        <option value="Mauritius">Mauritius</option>
+        <option value="Mayotte">Mayotte</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+        <option value="Moldova, Republic of">Moldova, Republic of</option>
+        <option value="Monaco">Monaco</option>
+        <option value="Mongolia">Mongolia</option>
+        <option value="Montenegro">Montenegro</option>
+        <option value="Montserrat">Montserrat</option>
+        <option value="Morocco">Morocco</option>
+        <option value="Mozambique">Mozambique</option>
+        <option value="Myanmar">Myanmar</option>
+        <option value="Namibia">Namibia</option>
+        <option value="Nauru">Nauru</option>
+        <option value="Nepal">Nepal</option>
+        <option value="Netherlands">Netherlands</option>
+        <option value="New Caledonia">New Caledonia</option>
+        <option value="New Zealand">New Zealand</option>
+        <option value="Nicaragua">Nicaragua</option>
+        <option value="Niger">Niger</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="Niue">Niue</option>
+        <option value="Norfolk Island">Norfolk Island</option>
+        <option value="North Macedonia">North Macedonia</option>
+        <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+        <option value="Norway">Norway</option>
+        <option value="Oman">Oman</option>
+        <option value="Pakistan">Pakistan</option>
+        <option value="Palau">Palau</option>
+        <option value="Palestine, State of">Palestine, State of</option>
+        <option value="Panama">Panama</option>
+        <option value="Papua New Guinea">Papua New Guinea</option>
+        <option value="Paraguay">Paraguay</option>
+        <option value="Peru">Peru</option>
+        <option value="Philippines">Philippines</option>
+        <option value="Pitcairn">Pitcairn</option>
+        <option value="Poland">Poland</option>
+        <option value="Portugal">Portugal</option>
+        <option value="Puerto Rico">Puerto Rico</option>
+        <option value="Qatar">Qatar</option>
+        <option value="Romania">Romania</option>
+        <option value="Russian Federation">Russian Federation</option>
+        <option value="Rwanda">Rwanda</option>
+        <option value="Réunion">Réunion</option>
+        <option value="Saint Barthélemy">Saint Barthélemy</option>
+        <option value="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha</option>
+        <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+        <option value="Saint Lucia">Saint Lucia</option>
+        <option value="Saint Martin (French part)">Saint Martin (French part)</option>
+        <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+        <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+        <option value="Samoa">Samoa</option>
+        <option value="San Marino">San Marino</option>
+        <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Senegal">Senegal</option>
+        <option value="Serbia">Serbia</option>
+        <option value="Seychelles">Seychelles</option>
+        <option value="Sierra Leone">Sierra Leone</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Sint Maarten (Dutch part)">Sint Maarten (Dutch part)</option>
+        <option value="Slovakia">Slovakia</option>
+        <option value="Slovenia">Slovenia</option>
+        <option value="Solomon Islands">Solomon Islands</option>
+        <option value="Somalia">Somalia</option>
+        <option value="South Africa">South Africa</option>
+        <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+        <option value="South Sudan">South Sudan</option>
+        <option value="Spain">Spain</option>
+        <option value="Sri Lanka">Sri Lanka</option>
+        <option value="Sudan">Sudan</option>
+        <option value="Suriname">Suriname</option>
+        <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+        <option value="Sweden">Sweden</option>
+        <option value="Switzerland">Switzerland</option>
+        <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+        <option value="Taiwan, Province of China">Taiwan, Province of China</option>
+        <option value="Tajikistan">Tajikistan</option>
+        <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+        <option value="Thailand">Thailand</option>
+        <option value="Timor-Leste">Timor-Leste</option>
+        <option value="Togo">Togo</option>
+        <option value="Tokelau">Tokelau</option>
+        <option value="Tonga">Tonga</option>
+        <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+        <option value="Tunisia">Tunisia</option>
+        <option value="Turkmenistan">Turkmenistan</option>
+        <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+        <option value="Tuvalu">Tuvalu</option>
+        <option value="Türkiye">Türkiye</option>
+        <option value="Uganda">Uganda</option>
+        <option value="Ukraine">Ukraine</option>
+        <option value="United Arab Emirates">United Arab Emirates</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+        <option value="Uruguay">Uruguay</option>
+        <option value="Uzbekistan">Uzbekistan</option>
+        <option value="Vanuatu">Vanuatu</option>
+        <option value="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of</option>
+        <option value="Viet Nam">Viet Nam</option>
+        <option value="Virgin Islands, British">Virgin Islands, British</option>
+        <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+        <option value="Wallis and Futuna">Wallis and Futuna</option>
+        <option value="Western Sahara">Western Sahara</option>
+        <option value="Yemen">Yemen</option>
+        <option value="Zambia">Zambia</option>
+        <option value="Zimbabwe">Zimbabwe</option>
+        <option value="Åland Islands">Åland Islands</option>
+        </select>
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Latest_Farm_Association_Mailing_Package_Generator.html">
-      <div class="card-icon farm">&#9752;</div>
-      <div class="card-body">
-        <h2>Farm Association Mailing Package Generator</h2>
-        <p>Create mailing packages for farm associations on expired-patent remanufacturing and equipment cost impacts under the Patent Clause.</p>
+      <div class="field" id="zipfield">
+        <label for="zp">ZIP code</label>
+        <input type="text" id="zp" name="fields[home_zipcode]" inputmode="numeric" autocomplete="postal-code" maxlength="10" pattern="[0-9]{5}(-[0-9]{4})?">
+        <span class="statebox" id="sb"></span>
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Latest_Healthy_Lighting_Advocate_Mailing_Package_Generator.html">
-      <div class="card-icon lighting">&#9728;</div>
-      <div class="card-body">
-        <h2>Healthy Lighting Advocate Mailing Package Generator</h2>
-        <p>Create mailing packages for health and lighting advocacy organizations on the incandescent bulb ban, the Patent Clause, and the peer-reviewed health science.</p>
+      <div class="field">
+        <label for="yr">Year you were born</label>
+        <input type="text" id="yr" name="fields[year_of_birth]" required inputmode="numeric" maxlength="4" pattern="(19|20)[0-9]{2}" placeholder="1968">
+        <p class="hint">You must be 18 or older to sign up.</p>
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Tribal_Nation_Letter_and_Brochure_Generator.html">
-      <div class="card-icon tribal">&#10022;</div>
-      <div class="card-body">
-        <h2>Tribal Nation Letter &amp; Brochure Generator</h2>
-        <p>Create letters and brochures for tribal nation leadership on sovereign purchasing and patent rights.</p>
+      <div class="field">
+        <label for="rc1">Which readership brings you here?</label>
+        <select id="rc1">
+          <option value="" selected disabled>Choose one</option>
+          <option value="20 — Every Household (general reader)" data-n="20">Every Household (general reader)</option>
+          <option value="21 — The Hindered Sector (patients)" data-n="21">The Hindered Sector (patients)</option>
+          <option value="22 — Legal interest (neutral interest, or legal issues interest me)" data-n="22">Legal interest (neutral interest, or legal issues interest me)</option>
+          <option value="23 — Media interest (journalist, influencer, podcaster, blogger, book author)" data-n="23">Media interest (journalist, influencer, podcaster, blogger, book author)</option>
+          <option value="24 — Opposition interest (I am against legalizing remanufacturing)" data-n="24">Opposition interest (I am against legalizing remanufacturing)</option>
+          <option value="25 — Dependent Industry" data-n="25" id="depopt">My business depends on one of the plaintiff classes</option>
+          <option value="__more" id="moreopt">Show me the plaintiff class categories &mdash; I am here to support one of them</option>
+        </select>
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-    <a class="card" href="Public_Domain_Advocate_Letter_Writer.html">
-      <div class="card-icon pda">&#9965;</div>
-      <div class="card-body">
-        <h2>Public Domain Advocate Letter &amp; Brochure Generator</h2>
-        <p>Generate personalized cover letters and the 4-page Patent Clause brochure addressed to public-domain scholars, litigators, and public intellectuals.</p>
+      <div class="field" id="rc2field" hidden>
+        <label for="rc2" id="rc2label">Which plaintiff class?</label>
+        <select id="rc2">
+          <option value="" selected disabled>Choose one</option>
+          <option value="01 — State Attorneys General" data-n="1">State Attorneys General</option>
+          <option value="02 — Indian Tribes" data-n="2">Indian Tribes</option>
+          <option value="03 — Governors" data-n="3">Governors</option>
+          <option value="04 — Sheriffs" data-n="4">Sheriffs</option>
+          <option value="05 — School Districts" data-n="5">School Districts</option>
+          <option value="06 — Public Transit Authorities" data-n="6">Public Transit Authorities</option>
+          <option value="07 — Volunteer Fire Departments" data-n="7">Volunteer Fire Departments</option>
+          <option value="08 — Truckers (owner-operators)" data-n="8">Truckers (owner-operators)</option>
+          <option value="09 — Earth-Moving Equipment Owners" data-n="9">Earth-Moving Equipment Owners</option>
+          <option value="10 — Healthy-Lighting Medical Groups" data-n="10">Healthy-Lighting Medical Groups</option>
+          <option value="11 — Hospitals" data-n="11">Hospitals</option>
+          <option value="12 — Farming Associations" data-n="12">Farming Associations</option>
+          <option value="13 — Coin-Laundry Operators" data-n="13">Coin-Laundry Operators</option>
+          <option value="14 — Restaurant Owner Associations" data-n="14">Restaurant Owner Associations</option>
+          <option value="15 — Construction Contractor Associations" data-n="15">Construction Contractor Associations</option>
+          <option value="16 — Hotel and Lodging Operators" data-n="16">Hotel and Lodging Operators</option>
+          <option value="17 — Apartment and Multi-Family Owners" data-n="17">Apartment and Multi-Family Owners</option>
+          <option value="18 — Rideshare and Taxicab Drivers" data-n="18">Rideshare and Taxicab Drivers</option>
+          <option value="19 — Landscaping Operators" data-n="19">Landscaping Operators</option>
+        </select>
+        <p class="hint" id="rc2hint">These are the nineteen groups the book identifies as having standing to sue.</p>
       </div>
-      <span class="arrow">&rarr;</span>
-    </a>
 
-  </nav>
+      <input type="hidden" name="fields[readership_category]" id="rcfinal">
+
+      <fieldset>
+        <legend>If it is published, I intend to buy it in</legend>
+        <div class="checks">
+          <label><input type="checkbox" class="fmt" value="Hardcover"> Hardcover</label>
+          <label><input type="checkbox" class="fmt" value="Paperback"> Paperback</label>
+          <label><input type="checkbox" class="fmt" value="Audiobook"> Audiobook</label>
+          <label><input type="checkbox" class="fmt" value="Kindle"> Kindle</label>
+        </div>
+        <p class="hint">Check as many as you would consider. This is the number a publisher reads first.</p>
+      </fieldset>
+
+      <div class="field checks toptick">
+        <label><input type="checkbox" id="bulkchk"> I may buy more than one copy &mdash; as gifts, or for my organization, members, employees or customers</label>
+      </div>
+
+      <div class="subpanel" id="bulkpanel" hidden>
+        <div class="field">
+          <label for="cp">About how many copies?</label>
+          <input type="text" id="cp" name="fields[copies_estimate]" inputmode="numeric" maxlength="7" pattern="[0-9,]{1,7}" placeholder="For example, 25" disabled>
+          <p class="hint">An estimate of interest, not an order. No payment is collected, and a publisher or bookseller would handle any sale.</p>
+        </div>
+        <div class="field">
+          <label for="org">Organization name <span class="optional">(leave blank if these are personal gifts)</span></label>
+          <input type="text" id="org" name="fields[org_name]" autocomplete="organization" maxlength="120" disabled>
+        </div>
+        <div class="field checks">
+          <label><input type="checkbox" id="okchk"> The author may share my name and organization with the publisher about bulk orders.</label>
+        </div>
+        <input type="hidden" name="fields[bulk_contact_ok]" id="okval" disabled>
+      </div>
+
+      <input type="hidden" name="fields[state]" id="st">
+      <input type="hidden" name="fields[formats_wanted]" id="fw">
+      <input type="hidden" name="fields[date_entered]" id="de">
+      <input type="hidden" name="fields[time_entered]" id="te">
+
+      <button type="submit" id="btn">Add me to the list</button>
+      <p class="err" id="msg" hidden></p>
+      <p class="privacy">We will email you when the book is orderable, and for nothing else. Your address is never sold or published, and is shared with the publisher only if you check the bulk-order box above. Unsubscribe with one click in any message.</p>
+    </form>
+
+    <div class="thanks" id="thanks" hidden>
+      <h2>You are on the list.</h2>
+      <p id="confirmline">Check your email now &mdash; a one-click confirmation is on its way, and your name is not counted until you click it.</p>
+      <p>While you wait, everything in the reading list below is free to read now, and you can come back to this page any time for it without signing up again. If the book&rsquo;s constitutional claim matters to you, you can also <a href="#say">leave a testimonial</a>.</p>
+      <p><strong>If it is not in your inbox, look in your spam or junk folder.</strong> First messages from a new sender often land there. Marking it &ldquo;not spam&rdquo; takes a second and makes sure you hear about the book when it is orderable.</p>
+      <p>The fastest way to help from here is to send this page to any person who might want remanufacturing to be legalized for 20+ year old cars, trucks, machinery &mdash; anything regulated and blocked now, including even incandescent light bulbs over 25 watts. Send them the link: <a href="https://marti124.github.io/Patent_BkSignup/">https://marti124.github.io/Patent_BkSignup/</a> &mdash; this will cut our cost of living down from a third to a half if one favors buying newly remade patent-expired items vs newly designed ones.</p>
+    </div>
+   </div>
+  </div>
+
+  <h2 id="reads">Read it before you decide</h2>
+  <p>Everything below is free and online. The argument does not ask to be taken on trust.</p>
+  <ul class="reads">
+      <li>
+        <a href="https://marti124.github.io/Patent_Exam/Forgotten_Half_Chapter_1.html">Chapter 1 &mdash; Four Problems, One Remedy</a>
+        <p>The opening chapter in full. Start here if you want the argument in the author&rsquo;s own words.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_Exam/Forgotten_Half_Brief.html">The Book Brief</a>
+        <p>What the book argues, compressed to a few pages.</p>
+      </li>
+      <li>
+        <a href="Forgotten_Half_Claim_and_Posters.pdf">The Book Posters &amp; Core Thesis</a>
+        <p>The whole argument on one page, then in three pictures: who is blocked &mdash; nineteen groups of Americans;
+        what is blocked; and the remedy, which has historical roots. The posters are free to print
+        &mdash; one displayed beside the book on a shelf sells more of it than the spine can.</p>
+      </li>
+      <li>
+        <a href="Foreword.html">Foreword by Gord Magill</a>
+        <p>Author of <cite>End of the Road: Inside the War on Truckers</cite>.</p>
+      </li>
+      <li>
+        <a href="extended_farm_chapter.html">The Book&rsquo;s Farming and Grocery Chapter</a>
+        <p>&ldquo;CHAPTER 14: How Prohibited Expired Patents Double Your Grocery Bill&rdquo; is reprinted in full with extra bonus material.</p>
+      </li>
+      <li>
+        <a href="BookCover.html">What the book will look like</a>
+        <p>Front cover, spine and back cover of the printed edition.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_Exam/">Reason the constitutional argument yourself</a>
+        <p>An open-book examination: the clause, the cases, and the question put to you directly.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_Exam/Forgotten_Half_Chapter_35.html">Chapter 35 &mdash; When Outsiders Advance Constitutional Law</a>
+        <p>Why the people who move a field are so often standing outside it.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_Letters/">Write to a plaintiff category leader</a>
+        <p>Tools that draft and address the letter for you.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_EndNotes/">The complete back-matter apparatus</a>
+        <p>Every endnote and source, online, each with a live link.</p>
+      </li>
+      <li>
+        <a href="Handout_The_Forgotten_Half_of_the_Patent_Clause.pdf">The one-page handout</a>
+        <p>One page, if you want to hand the argument to someone else. Two versions:
+        <a href="Handout_Truckers_One_Sheet.pdf">for truckers</a> &nbsp;&middot;&nbsp;
+        <a href="Handout_The_Forgotten_Half_of_the_Patent_Clause.pdf">for everyone else</a>.</p>
+      </li>
+      <li>
+        <a href="https://marti124.github.io/Patent_Exam/Smart_Exceptions_AI_Policies.html">The Case for Smart Exceptions to Editorial Policies on AI</a>
+        <p>How the author uses AI, why publishers&rsquo; AI policies, sound in general, should allow smart exceptions,
+        and how a reader can tell AI slop from something exceptional.</p>
+      </li>
+  </ul>
+
+  <div class="saybox" id="say">
+    <h2>Does the book&rsquo;s constitutional claim matter to you?</h2>
+    <p>If something here changed how you see a machine you own, a bill you pay or a law you live under, say so in a few sentences. Your words may be shown to publishers and agents, and published on this page and elsewhere.</p>
+    <button type="button" id="topen">Leave a testimonial</button>
+  </div>
 
   <footer>
-    <p>Campaign resources maintained by <a href="https://github.com/marti124/Patent_Letters">marti124</a> &middot; Expired patents belong to the public domain.</p>
+    <em>The Second Monopoly &nbsp;&middot;&nbsp; by Roleigh Martin &nbsp;&middot;&nbsp; Copyright &copy; 2026. All rights reserved.</em>
+    To reach the author, or to send a paragraph:
+    <a href="https://x.com/RoleighMartin">x.com/RoleighMartin</a> &nbsp;&middot;&nbsp;
+    <a href="mailto:Roleigh@ExpiredPatentCommons.com">Roleigh@ExpiredPatentCommons.com</a>
   </footer>
 
 </div>
+
+<iframe name="sink" id="sink" style="display:none" title="form target"></iframe>
+
+<dialog id="tdlg" aria-labelledby="tdlgtitle">
+ <div class="tdlg-inner">
+  <div class="tdlg-head">
+    <h2 id="tdlgtitle">Leave a testimonial</h2>
+    <button type="button" class="xbtn" id="tclose" aria-label="Close">&times;</button>
+  </div>
+
+  <form id="tf" method="post" target="tsink" action="https://app.kit.com/forms/9944628/subscriptions" novalidate>
+
+    <p><strong>Please read this first.</strong> Your testimonial and the byline you choose will be shown to publishers and literary agents, and will be visible to the public on this site and in other materials about the book.</p>
+
+    <div class="field">
+      <label for="tt">Your testimonial <span class="counter" id="tcount">0 / 1,000</span></label>
+      <textarea id="tt" name="fields[testimonial]" maxlength="1000" required></textarea>
+      <p class="hint">A few sentences is plenty: what the claim means for you, who it would help, or why it matters. Write in your own voice.</p>
+      <p class="hint"><strong>Already sent one?</strong> Sending again replaces it, so include anything from your earlier testimonial you want to keep.</p>
+    </div>
+
+    <fieldset>
+      <legend>Your byline</legend>
+      <div class="radios">
+        <label><input type="radio" name="tby" value="name" id="tbyname" checked> My name, as I want it printed</label>
+        <label><input type="radio" name="tby" value="handle" id="tbyhandle"> My unique username or handle on a public social-media account</label>
+      </div>
+    </fieldset>
+
+    <div class="field" id="tnamef">
+      <label for="tn">Name as it should be printed</label>
+      <input type="text" id="tn" maxlength="80" autocomplete="name" placeholder="For example, Jane Smith, Ohio">
+    </div>
+
+    <div id="thandlef" hidden>
+      <p class="hint" style="margin:0 0 0.8rem">This is for anyone who prefers not to use a legal or everyday name. Give the account&rsquo;s unique identifier &mdash; the @name or u/name &mdash; not a display name that other people can share. It will be printed with the platform, so readers can see it is a real, distinct account.</p>
+      <div class="twocol">
+        <div class="field">
+          <label for="tp">Platform</label>
+          <select id="tp">
+            <option value="" selected disabled>Choose one</option>
+            <option>X</option><option>Facebook</option><option>Instagram</option>
+            <option>Gab</option><option>MeWe</option><option>Threads</option>
+            <option>Reddit</option><option>Truth Social</option><option value="__other">Another platform</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="th">Username or handle</label>
+          <input type="text" id="th" maxlength="60" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="@yourhandle">
+        </div>
+      </div>
+      <div class="field" id="tpof" hidden>
+        <label for="tpo">Which platform?</label>
+        <input type="text" id="tpo" maxlength="40">
+      </div>
+    </div>
+    <p class="preview" id="tprev"></p>
+
+    <div class="field">
+      <label for="temail">Your email address</label>
+      <input type="email" id="temail" name="email_address" autocomplete="email" required>
+      <p class="hint">Never printed. It is used to confirm you are a real person &mdash; a one-click confirmation email follows &mdash; and to reach you if a publisher asks about your words. You will also get the one notice when the book is orderable, and can unsubscribe with one click.</p>
+    </div>
+
+    <div class="field checks toptick">
+      <label><input type="checkbox" id="tok"> I understand my testimonial and byline may be shown to publishers and agents and published publicly, and may be shortened without changing its meaning.</label>
+    </div>
+
+    <input type="hidden" name="first_name" id="tfirst" disabled>
+    <input type="hidden" name="fields[testimonial_byline]" id="tbyline">
+    <input type="hidden" name="fields[testimonial_date]" id="tdate">
+
+    <button type="submit" id="tbtn">Send my testimonial</button>
+    <p class="err" id="tmsg" hidden></p>
+  </form>
+
+  <div id="tthanks" hidden>
+    <p><strong>Thank you.</strong> If this is your first testimonial, check your email for a one-click confirmation; your testimonial is used only after you click it. If it is not in your inbox, look in your spam or junk folder.</p>
+    <p>If you have confirmed an earlier testimonial, nothing more is needed: this one has replaced it.</p>
+    <button type="button" id="tdone">Close</button>
+  </div>
+ </div>
+</dialog>
+<iframe name="tsink" id="tsink" style="display:none" title="testimonial target"></iframe>
+
+
+<script>
+(function () {
+  "use strict";
+
+  var ZIP3 = {"005":"NY","006":"PR","007":"PR","008":"VI","009":"PR","010":"MA","011":"MA","012":"MA","013":"MA","014":"MA","015":"MA","016":"MA","017":"MA","018":"MA","019":"MA","020":"MA","021":"MA","022":"MA","023":"MA","024":"MA","025":"MA","026":"MA","027":"MA","028":"RI","029":"RI","030":"NH","031":"NH","032":"NH","033":"NH","034":"NH","035":"NH","036":"NH","037":"NH","038":"NH","039":"ME","040":"ME","041":"ME","042":"ME","043":"ME","044":"ME","045":"ME","046":"ME","047":"ME","048":"ME","049":"ME","050":"VT","051":"VT","052":"VT","053":"VT","054":"VT","055":"MA","056":"VT","057":"VT","058":"VT","059":"VT","060":"CT","061":"CT","062":"CT","063":"CT","064":"CT","065":"CT","066":"CT","067":"CT","068":"CT","069":"CT","070":"NJ","071":"NJ","072":"NJ","073":"NJ","074":"NJ","075":"NJ","076":"NJ","077":"NJ","078":"NJ","079":"NJ","080":"NJ","081":"NJ","082":"NJ","083":"NJ","084":"NJ","085":"NJ","086":"NJ","087":"NJ","088":"NJ","089":"NJ","090":"AE","091":"AE","092":"AE","093":"AE","094":"AE","095":"AE","096":"AE","097":"AE","098":"AE","099":"AE","100":"NY","101":"NY","102":"NY","103":"NY","104":"NY","105":"NY","106":"NY","107":"NY","108":"NY","109":"NY","110":"NY","111":"NY","112":"NY","113":"NY","114":"NY","115":"NY","116":"NY","117":"NY","118":"NY","119":"NY","120":"NY","121":"NY","122":"NY","123":"NY","124":"NY","125":"NY","126":"NY","127":"NY","128":"NY","129":"NY","130":"NY","131":"NY","132":"NY","133":"NY","134":"NY","135":"NY","136":"NY","137":"NY","138":"NY","139":"NY","140":"NY","141":"NY","142":"NY","143":"NY","144":"NY","145":"NY","146":"NY","147":"NY","148":"NY","149":"NY","150":"PA","151":"PA","152":"PA","153":"PA","154":"PA","155":"PA","156":"PA","157":"PA","158":"PA","159":"PA","160":"PA","161":"PA","162":"PA","163":"PA","164":"PA","165":"PA","166":"PA","167":"PA","168":"PA","169":"PA","170":"PA","171":"PA","172":"PA","173":"PA","174":"PA","175":"PA","176":"PA","177":"PA","178":"PA","179":"PA","180":"PA","181":"PA","182":"PA","183":"PA","184":"PA","185":"PA","186":"PA","187":"PA","188":"PA","189":"PA","190":"PA","191":"PA","192":"PA","193":"PA","194":"PA","195":"PA","196":"PA","197":"DE","198":"DE","199":"DE","200":"DC","201":"VA","202":"DC","203":"DC","204":"DC","205":"DC","206":"MD","207":"MD","208":"MD","209":"MD","210":"MD","211":"MD","212":"MD","214":"MD","215":"MD","216":"MD","217":"MD","218":"MD","219":"MD","220":"VA","221":"VA","222":"VA","223":"VA","224":"VA","225":"VA","226":"VA","227":"VA","228":"VA","229":"VA","230":"VA","231":"VA","232":"VA","233":"VA","234":"VA","235":"VA","236":"VA","237":"VA","238":"VA","239":"VA","240":"VA","241":"VA","242":"VA","243":"VA","244":"VA","245":"VA","246":"VA","247":"WV","248":"WV","249":"WV","250":"WV","251":"WV","252":"WV","253":"WV","254":"WV","255":"WV","256":"WV","257":"WV","258":"WV","259":"WV","260":"WV","261":"WV","262":"WV","263":"WV","264":"WV","265":"WV","266":"WV","267":"WV","268":"WV","270":"NC","271":"NC","272":"NC","273":"NC","274":"NC","275":"NC","276":"NC","277":"NC","278":"NC","279":"NC","280":"NC","281":"NC","282":"NC","283":"NC","284":"NC","285":"NC","286":"NC","287":"NC","288":"NC","289":"NC","290":"SC","291":"SC","292":"SC","293":"SC","294":"SC","295":"SC","296":"SC","297":"SC","298":"SC","299":"SC","300":"GA","301":"GA","302":"GA","303":"GA","304":"GA","305":"GA","306":"GA","307":"GA","308":"GA","309":"GA","310":"GA","311":"GA","312":"GA","313":"GA","314":"GA","315":"GA","316":"GA","317":"GA","318":"GA","319":"GA","320":"FL","321":"FL","322":"FL","323":"FL","324":"FL","325":"FL","326":"FL","327":"FL","328":"FL","329":"FL","330":"FL","331":"FL","332":"FL","333":"FL","334":"FL","335":"FL","336":"FL","337":"FL","338":"FL","339":"FL","340":"AA","341":"FL","342":"FL","344":"FL","346":"FL","347":"FL","349":"FL","350":"AL","351":"AL","352":"AL","354":"AL","355":"AL","356":"AL","357":"AL","358":"AL","359":"AL","360":"AL","361":"AL","362":"AL","363":"AL","364":"AL","365":"AL","366":"AL","367":"AL","368":"AL","369":"AL","370":"TN","371":"TN","372":"TN","373":"TN","374":"TN","375":"TN","376":"TN","377":"TN","378":"TN","379":"TN","380":"TN","381":"TN","382":"TN","383":"TN","384":"TN","385":"TN","386":"MS","387":"MS","388":"MS","389":"MS","390":"MS","391":"MS","392":"MS","393":"MS","394":"MS","395":"MS","396":"MS","397":"MS","398":"GA","399":"GA","400":"KY","401":"KY","402":"KY","403":"KY","404":"KY","405":"KY","406":"KY","407":"KY","408":"KY","409":"KY","410":"KY","411":"KY","412":"KY","413":"KY","414":"KY","415":"KY","416":"KY","417":"KY","418":"KY","420":"KY","421":"KY","422":"KY","423":"KY","424":"KY","425":"KY","426":"KY","427":"KY","430":"OH","431":"OH","432":"OH","433":"OH","434":"OH","435":"OH","436":"OH","437":"OH","438":"OH","439":"OH","440":"OH","441":"OH","442":"OH","443":"OH","444":"OH","445":"OH","446":"OH","447":"OH","448":"OH","449":"OH","450":"OH","451":"OH","452":"OH","453":"OH","454":"OH","455":"OH","456":"OH","457":"OH","458":"OH","459":"OH","460":"IN","461":"IN","462":"IN","463":"IN","464":"IN","465":"IN","466":"IN","467":"IN","468":"IN","469":"IN","470":"IN","471":"IN","472":"IN","473":"IN","474":"IN","475":"IN","476":"IN","477":"IN","478":"IN","479":"IN","480":"MI","481":"MI","482":"MI","483":"MI","484":"MI","485":"MI","486":"MI","487":"MI","488":"MI","489":"MI","490":"MI","491":"MI","492":"MI","493":"MI","494":"MI","495":"MI","496":"MI","497":"MI","498":"MI","499":"MI","500":"IA","501":"IA","502":"IA","503":"IA","504":"IA","505":"IA","506":"IA","507":"IA","508":"IA","509":"IA","510":"IA","511":"IA","512":"IA","513":"IA","514":"IA","515":"IA","516":"IA","520":"IA","521":"IA","522":"IA","523":"IA","524":"IA","525":"IA","526":"IA","527":"IA","528":"IA","530":"WI","531":"WI","532":"WI","534":"WI","535":"WI","537":"WI","538":"WI","539":"WI","540":"WI","541":"WI","542":"WI","543":"WI","544":"WI","545":"WI","546":"WI","547":"WI","548":"WI","549":"WI","550":"MN","551":"MN","553":"MN","554":"MN","555":"MN","556":"MN","557":"MN","558":"MN","559":"MN","560":"MN","561":"MN","562":"MN","563":"MN","564":"MN","565":"MN","566":"MN","567":"MN","569":"DC","570":"SD","571":"SD","572":"SD","573":"SD","574":"SD","575":"SD","576":"SD","577":"SD","580":"ND","581":"ND","582":"ND","583":"ND","584":"ND","585":"ND","586":"ND","587":"ND","588":"ND","590":"MT","591":"MT","592":"MT","593":"MT","594":"MT","595":"MT","596":"MT","597":"MT","598":"MT","599":"MT","600":"IL","601":"IL","602":"IL","603":"IL","604":"IL","605":"IL","606":"IL","607":"IL","608":"IL","609":"IL","610":"IL","611":"IL","612":"IL","613":"IL","614":"IL","615":"IL","616":"IL","617":"IL","618":"IL","619":"IL","620":"IL","622":"IL","623":"IL","624":"IL","625":"IL","626":"IL","627":"IL","628":"IL","629":"IL","630":"MO","631":"MO","633":"MO","634":"MO","635":"MO","636":"MO","637":"MO","638":"MO","639":"MO","640":"MO","641":"MO","644":"MO","645":"MO","646":"MO","647":"MO","648":"MO","649":"MO","650":"MO","651":"MO","652":"MO","653":"MO","654":"MO","655":"MO","656":"MO","657":"MO","658":"MO","660":"KS","661":"KS","662":"KS","664":"KS","665":"KS","666":"KS","667":"KS","668":"KS","669":"KS","670":"KS","671":"KS","672":"KS","673":"KS","674":"KS","675":"KS","676":"KS","677":"KS","678":"KS","679":"KS","680":"NE","681":"NE","683":"NE","684":"NE","685":"NE","686":"NE","687":"NE","688":"NE","689":"NE","690":"NE","691":"NE","692":"NE","693":"NE","700":"LA","701":"LA","703":"LA","704":"LA","705":"LA","706":"LA","707":"LA","708":"LA","710":"LA","711":"LA","712":"LA","713":"LA","714":"LA","716":"AR","717":"AR","718":"AR","719":"AR","720":"AR","721":"AR","722":"AR","723":"AR","724":"AR","725":"AR","726":"AR","727":"AR","728":"AR","729":"AR","730":"OK","731":"OK","733":"TX","734":"OK","735":"OK","736":"OK","737":"OK","738":"OK","739":"OK","740":"OK","741":"OK","743":"OK","744":"OK","745":"OK","746":"OK","747":"OK","748":"OK","749":"OK","750":"TX","751":"TX","752":"TX","753":"TX","754":"TX","755":"TX","756":"TX","757":"TX","758":"TX","759":"TX","760":"TX","761":"TX","762":"TX","763":"TX","764":"TX","765":"TX","766":"TX","767":"TX","768":"TX","769":"TX","770":"TX","772":"TX","773":"TX","774":"TX","775":"TX","776":"TX","777":"TX","778":"TX","779":"TX","780":"TX","781":"TX","782":"TX","783":"TX","784":"TX","785":"TX","786":"TX","787":"TX","788":"TX","789":"TX","790":"TX","791":"TX","792":"TX","793":"TX","794":"TX","795":"TX","796":"TX","797":"TX","798":"TX","799":"TX","800":"CO","801":"CO","802":"CO","803":"CO","804":"CO","805":"CO","806":"CO","807":"CO","808":"CO","809":"CO","810":"CO","811":"CO","812":"CO","813":"CO","814":"CO","815":"CO","816":"CO","820":"WY","821":"WY","822":"WY","823":"WY","824":"WY","825":"WY","826":"WY","827":"WY","828":"WY","829":"WY","830":"WY","831":"WY","832":"ID","833":"ID","834":"ID","835":"ID","836":"ID","837":"ID","838":"ID","840":"UT","841":"UT","842":"UT","843":"UT","844":"UT","845":"UT","846":"UT","847":"UT","850":"AZ","851":"AZ","852":"AZ","853":"AZ","855":"AZ","856":"AZ","857":"AZ","859":"AZ","860":"AZ","863":"AZ","864":"AZ","865":"AZ","870":"NM","871":"NM","873":"NM","874":"NM","875":"NM","876":"NM","877":"NM","878":"NM","879":"NM","880":"NM","881":"NM","882":"NM","883":"NM","884":"NM","885":"TX","888":"DC","889":"NV","890":"NV","891":"NV","893":"NV","894":"NV","895":"NV","897":"NV","898":"NV","900":"CA","901":"CA","902":"CA","903":"CA","904":"CA","905":"CA","906":"CA","907":"CA","908":"CA","910":"CA","911":"CA","912":"CA","913":"CA","914":"CA","915":"CA","916":"CA","917":"CA","918":"CA","919":"CA","920":"CA","921":"CA","922":"CA","923":"CA","924":"CA","925":"CA","926":"CA","927":"CA","928":"CA","930":"CA","931":"CA","932":"CA","933":"CA","934":"CA","935":"CA","936":"CA","937":"CA","938":"CA","939":"CA","940":"CA","941":"CA","942":"CA","943":"CA","944":"CA","945":"CA","946":"CA","947":"CA","948":"CA","949":"CA","950":"CA","951":"CA","952":"CA","953":"CA","954":"CA","955":"CA","956":"CA","957":"CA","958":"CA","959":"CA","960":"CA","961":"CA","962":"AP","963":"AP","964":"AP","965":"AP","966":"AP","967":"HI","968":"HI","969":"GU","970":"OR","971":"OR","972":"OR","973":"OR","974":"OR","975":"OR","976":"OR","977":"OR","978":"OR","979":"OR","980":"WA","981":"WA","982":"WA","983":"WA","984":"WA","985":"WA","986":"WA","988":"WA","989":"WA","990":"WA","991":"WA","992":"WA","993":"WA","994":"WA","995":"AK","996":"AK","997":"AK","998":"AK","999":"AK"};
+  var ZIPEXC = {"06390":"NY","09905":"NJ","09980":"NJ","09981":"NJ","09982":"NJ","09983":"NJ","09984":"NJ","20588":"MD","20598":"VA","72643":"MO","73960":"TX","83414":"WY","96799":"AS","96939":"PW","96940":"PW","96941":"FM","96942":"FM","96943":"FM","96944":"FM","96950":"MP","96951":"MP","96952":"MP","96960":"MH","96970":"MH"};
+  var SNAME = {"AA":"Armed Forces Americas","AE":"Armed Forces Europe","AK":"Alaska","AL":"Alabama","AP":"Armed Forces Pacific","AR":"Arkansas","AS":"American Samoa","AZ":"Arizona","CA":"California","CO":"Colorado","CT":"Connecticut","DC":"District of Columbia","DE":"Delaware","FL":"Florida","FM":"Micronesia","GA":"Georgia","GU":"Guam","HI":"Hawaii","IA":"Iowa","ID":"Idaho","IL":"Illinois","IN":"Indiana","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","MA":"Massachusetts","MD":"Maryland","ME":"Maine","MH":"Marshall Islands","MI":"Michigan","MN":"Minnesota","MO":"Missouri","MP":"Northern Mariana Islands","MS":"Mississippi","MT":"Montana","NC":"North Carolina","ND":"North Dakota","NE":"Nebraska","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NV":"Nevada","NY":"New York","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","PR":"Puerto Rico","PW":"Palau","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VA":"Virginia","VI":"U.S. Virgin Islands","VT":"Vermont","WA":"Washington","WI":"Wisconsin","WV":"West Virginia","WY":"Wyoming"};
+
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('f'), cy = $('cy'), zp = $('zp'), st = $('st'), sb = $('sb'),
+      rc1 = $('rc1'), rc2 = $('rc2'), rc2f = $('rc2field'),
+      rcfinal = $('rcfinal'), zf = $('zipfield'), msg = $('msg'), btn = $('btn');
+
+  /* ---- ZIP -> state, entirely offline ---- */
+  function stateFor(zip) {
+    zip = (zip || '').replace(/[^0-9]/g, '').slice(0, 5);
+    if (zip.length < 5) return '';
+    if (ZIPEXC[zip]) return ZIPEXC[zip];
+    return ZIP3[zip.slice(0, 3)] || '';
+  }
+
+  function refreshState() {
+    var code = isUS() ? stateFor(zp.value) : '';
+    st.value = code;
+    sb.textContent = code ? (SNAME[code] || code) : '';
+  }
+
+  function isUS() { return cy.value === 'United States'; }
+
+  function refreshCountry() {
+    var us = isUS();
+    zf.hidden = !us;
+    zp.required = us;
+    if (!us) { zp.value = ''; }
+    refreshState();
+  }
+
+  cy.addEventListener('change', refreshCountry);
+  zp.addEventListener('input', refreshState);
+
+  /* ---- two-stage readership picker ----
+     The first box stays short: the category the visitor arrived under (if any),
+     the five general readerships, and a door through to the nineteen plaintiff
+     classes. Numbers are stored, never shown. */
+
+  var PLAINTIFF = ["State Attorneys General","Indian Tribes","Governors","Sheriffs","School Districts","Public Transit Authorities","Volunteer Fire Departments","Truckers (owner-operators)","Earth-Moving Equipment Owners","Healthy-Lighting Medical Groups","Hospitals","Farming Associations","Coin-Laundry Operators","Restaurant Owner Associations","Construction Contractor Associations","Hotel and Lodging Operators","Apartment and Multi-Family Owners","Rideshare and Taxicab Drivers","Landscaping Operators"];
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function setFinal(v) { rcfinal.value = v || ''; }
+
+  var DEP = '25 — Dependent Industry';
+  function isDep() { return rc1.value === DEP; }
+
+  /* box two serves two purposes: choosing a plaintiff class to support,
+     or naming the plaintiff class a dependent business relies on */
+  function composeFinal() {
+    if (rc1.value === '__more') { setFinal(rc2.value); }
+    else if (isDep()) {
+      setFinal(rc2.value ? DEP + ': ' + rc2.value.replace(/^\d+ \u2014 /, '') : '');
+    } else { setFinal(rc1.value); }
+  }
+
+  function openStageTwo(focus) {
+    var dep = isDep();
+    $('rc2label').textContent = dep
+      ? 'Which plaintiff class does your business depend on?'
+      : 'Which plaintiff class?';
+    $('rc2hint').textContent = dep
+      ? 'For example, a truck stop, parts supplier or repair shop that depends on truckers.'
+      : 'These are the nineteen groups the book identifies as having standing to sue.';
+    rc2f.hidden = false;
+    composeFinal();
+    if (focus) { rc2.focus(); }
+  }
+
+  function closeStageTwo() {
+    rc2f.hidden = true;
+    rc2.selectedIndex = 0;
+  }
+
+  var m = /[?&]cat=(\d{1,2})/.exec(location.search);
+  var want = m ? parseInt(m[1], 10) : 0;
+
+  if (want >= 1 && want <= PLAINTIFF.length) {
+    /* arrived under a plaintiff class: put it at the top of box one, chosen */
+    var name = PLAINTIFF[want - 1];
+    var o = document.createElement('option');
+    o.value = pad(want) + ' — ' + name;
+    o.textContent = name;
+    o.setAttribute('data-n', String(want));
+    rc1.insertBefore(o, rc1.options[1]);
+    o.selected = true;
+    setFinal(o.value);
+    $('moreopt').textContent =
+      'Show me the other plaintiff class categories — I am here to support one of them';
+  } else if (want >= 20) {
+    Array.prototype.forEach.call(rc1.options, function (op) {
+      if (parseInt(op.getAttribute('data-n'), 10) === want) {
+        op.selected = true;
+        setFinal(op.value);
+      }
+    });
+    if (isDep()) { openStageTwo(false); }
+  }
+
+  rc1.addEventListener('change', function () {
+    if (rc1.value === '__more' || isDep()) { rc2.selectedIndex = 0; openStageTwo(true); }
+    else { closeStageTwo(); setFinal(rc1.value); }
+  });
+
+  rc2.addEventListener('change', composeFinal);
+
+  /* ---- multiple-copy section: hidden fields are disabled so they are not sent ---- */
+  var bulkchk = $('bulkchk'), bulkpanel = $('bulkpanel'),
+      cp = $('cp'), org = $('org'), okchk = $('okchk'), okval = $('okval');
+
+  function refreshBulk() {
+    var on = bulkchk.checked;
+    bulkpanel.hidden = !on;
+    cp.disabled = org.disabled = okval.disabled = !on;
+    cp.required = on;
+    okval.value = okchk.checked ? 'Yes' : 'No';
+  }
+  bulkchk.addEventListener('change', refreshBulk);
+  okchk.addEventListener('change', refreshBulk);
+
+  /* ---- format checkboxes collapse into one field ---- */
+  function refreshFormats() {
+    var picked = [];
+    Array.prototype.forEach.call(document.querySelectorAll('.fmt'), function (c) {
+      if (c.checked) { picked.push(c.value); }
+    });
+    $('fw').value = picked.join(', ');
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.fmt'), function (c) {
+    c.addEventListener('change', refreshFormats);
+  });
+
+  /* ---- EST stamps ---- */
+  function stamp() {
+    var now = new Date();
+    var d = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
+    }).format(now);
+    var t = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit',
+      second: '2-digit', hour12: true
+    }).format(now);
+    $('de').value = d;
+    $('te').value = t + ' EST';
+  }
+
+  /* ---- submit ---- */
+  var sent = false;
+
+  f.addEventListener('submit', function (e) {
+    msg.hidden = true;
+
+    var yr = parseInt($('yr').value, 10);
+    var thisYear = new Date().getFullYear();
+    if (!yr || yr < 1900 || yr > thisYear) {
+      e.preventDefault(); fail('Please enter the four-digit year you were born.'); return;
+    }
+    if (thisYear - yr < 18) {
+      e.preventDefault(); fail('You must be 18 or older to sign up.'); return;
+    }
+    if (!rcfinal.value) {
+      e.preventDefault();
+      fail(rc1.value === '__more'
+        ? 'Please choose which plaintiff class brings you here.'
+        : isDep()
+          ? 'Please choose which plaintiff class your business depends on.'
+          : 'Please choose the readership that brings you here.');
+      return;
+    }
+    if (isUS() && !st.value) {
+      e.preventDefault(); fail('That does not look like a United States ZIP code. Please check it.'); return;
+    }
+
+    if (bulkchk.checked) {
+      var n = parseInt((cp.value || '').replace(/,/g, ''), 10);
+      if (!n || n < 2) {
+        e.preventDefault(); fail('Please enter about how many copies (2 or more), or uncheck the multiple-copy box.'); return;
+      }
+      cp.value = String(n);
+    }
+
+    refreshBulk();
+    refreshFormats();
+    stamp();
+    sent = true;
+    btn.disabled = true;
+    btn.textContent = 'Sending\u2026';
+  });
+
+  function fail(text) {
+    msg.textContent = text;
+    msg.hidden = false;
+    if (msg.scrollIntoView) { msg.scrollIntoView({ block: 'center' }); }
+  }
+
+  /* the hidden iframe loads once the POST has been accepted */
+  $('sink').addEventListener('load', function () {
+    if (!sent) return;
+    var choice = rcfinal.value ? rcfinal.value.replace(/^\d+ \u2014 /, '') : '';
+    if (choice) {
+      $('confirmline').textContent =
+        'Thank you. You are counted under ' + choice +
+        '. Check your email now — a one-click confirmation is on its way, and your name is not counted until you click it.';
+    }
+    f.hidden = true;
+    $('signup').hidden = true;
+    $('thanks').hidden = false;
+    if ($('thanks').scrollIntoView) { $('thanks').scrollIntoView({ block: 'center' }); }
+  });
+
+  refreshCountry();
+  refreshBulk();
+
+  /* ---- testimonial dialog ---- */
+  var tdlg = $('tdlg'), tf = $('tf'), tt = $('tt'), tn = $('tn'), th = $('th'),
+      tp = $('tp'), tpo = $('tpo'), te = $('temail'), tok = $('tok'), tmsg = $('tmsg'),
+      tbtn = $('tbtn'), tprev = $('tprev'), tbyline = $('tbyline'), tfirst = $('tfirst');
+  var tsent = false;
+
+  function openT() {
+    if (tdlg.showModal) { tdlg.showModal(); } else { tdlg.setAttribute('open', ''); }
+    tt.focus();
+  }
+  function closeT() { if (tdlg.close) { tdlg.close(); } else { tdlg.removeAttribute('open'); } }
+  $('topen').addEventListener('click', openT);
+  $('tclose').addEventListener('click', closeT);
+  $('tdone').addEventListener('click', closeT);
+  if (/[?&]testimonial\b/.test(location.search) || location.hash === '#testimonial') { openT(); }
+
+  function useHandle() { return $('tbyhandle').checked; }
+  function platform() { return tp.value === '__other' ? tpo.value.trim() : tp.value; }
+
+  /* the handle as it will print: @name, u/name on Reddit, facebook.com/name on Facebook */
+  function cleanHandle() {
+    var h = th.value.trim().replace(/^https?:\/\/(www\.)?[^\/]+\//i, '').replace(/^(@|u\/)/i, '').replace(/\/+$/, '');
+    return h;
+  }
+  function printedHandle() {
+    var h = cleanHandle(), p = platform();
+    if (!h) return '';
+    if (p === 'Reddit') return 'u/' + h;
+    if (p === 'Facebook') return 'facebook.com/' + h;
+    return '@' + h;
+  }
+  function composeByline() {
+    if (useHandle()) {
+      var h = printedHandle(), p = platform();
+      return h && p ? h + ' on ' + p : '';
+    }
+    return tn.value.trim();
+  }
+  function refreshT() {
+    var hnd = useHandle();
+    $('tnamef').hidden = hnd;
+    $('thandlef').hidden = !hnd;
+    $('tpof').hidden = tp.value !== '__other';
+    var b = composeByline();
+    tprev.textContent = b ? 'It will be printed as: \u2014 ' + b : '';
+    var n = tt.value.length;
+    $('tcount').textContent = n.toLocaleString() + ' / 1,000';
+  }
+  ['input', 'change'].forEach(function (ev) { tf.addEventListener(ev, refreshT); });
+
+  function tfail(text) {
+    tmsg.textContent = text; tmsg.hidden = false;
+    if (tmsg.scrollIntoView) { tmsg.scrollIntoView({ block: 'center' }); }
+  }
+
+  tf.addEventListener('submit', function (e) {
+    tmsg.hidden = true;
+    var text = tt.value.trim();
+    if (text.length < 20) { e.preventDefault(); tfail('Please write at least a sentence or two.'); return; }
+    if (useHandle()) {
+      if (!platform()) { e.preventDefault(); tfail('Please choose the platform for your handle.'); return; }
+      var h = cleanHandle();
+      if (!h) { e.preventDefault(); tfail('Please enter your username or handle.'); return; }
+      if (/\s/.test(h)) {
+        e.preventDefault();
+        tfail('A handle has no spaces. Please give the unique account name (the @name or u/name), not a display name.');
+        return;
+      }
+    } else if (!tn.value.trim()) {
+      e.preventDefault(); tfail('Please enter your name as you want it printed.'); return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(te.value.trim())) {
+      e.preventDefault(); tfail('Please enter a valid email address.'); return;
+    }
+    if (!tok.checked) {
+      e.preventDefault(); tfail('Please check the box to confirm your words may be published.'); return;
+    }
+    tt.value = text;
+    tbyline.value = composeByline();
+    tfirst.disabled = useHandle();
+    tfirst.value = useHandle() ? '' : tn.value.trim();
+    var d = new Date();
+    $('tdate').value = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    tsent = true;
+    tbtn.disabled = true;
+    tbtn.textContent = 'Sending\u2026';
+  });
+
+  $('tsink').addEventListener('load', function () {
+    if (!tsent) return;
+    tf.hidden = true;
+    $('tthanks').hidden = false;
+  });
+
+  refreshT();
+
+  /* ---- arriving from Kit after clicking a confirmation button ---- */
+  var cm = /[?&]confirmed=(signup|testimonial)\b/.exec(location.search);
+  if (cm) {
+    var isT = cm[1] === 'testimonial';
+    $('cfhead').textContent = isT ? 'Your testimonial is confirmed.' : 'You are confirmed and counted.';
+    $('cftext').textContent = isT
+      ? 'Thank you. It may now be shown to publishers and agents. Everything in the reading list below is free to read while the book finds its publisher.'
+      : 'Thank you. You will hear from me when the book is orderable, and not before. Everything in the reading list below is free to read now.';
+    $('confirmed').hidden = false;
+    /* they are already on the list, so the signup form is not needed here */
+    var panel = document.querySelector('.panel');
+    if (panel) { panel.hidden = true; }
+  }
+})();
+</script>
+
 </body>
 </html>
